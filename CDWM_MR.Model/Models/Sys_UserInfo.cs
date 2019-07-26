@@ -100,10 +100,6 @@ namespace CDWM_MR.Model.Models
         [SugarColumn(Length = int.MaxValue, IsNullable = true)]
         public DateTime LastLoginTime { get; set; } = DateTime.Now;
 
-        /// <summary>
-        /// 分配的角色名字
-        /// </summary>
-        [SugarColumn(IsNullable = true,IsIgnore =true)]
-        public List<string> RoleNames { get; set; }
+
     }
 }
