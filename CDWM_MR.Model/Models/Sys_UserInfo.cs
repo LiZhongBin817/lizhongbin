@@ -83,23 +83,15 @@ namespace CDWM_MR.Model.Models
         public short UserType { get; set; } = 2;
 
         /// <summary>
-        /// 用户对应的角色ID,以,隔开
-        /// </summary>
-        [SugarColumn(IsNullable = false,Length = 200)]
-        public string RoleIDs { get; set; }
-
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        [SugarColumn(Length = int.MaxValue, IsNullable = true)]
-        public System.DateTime UpdateTime { get; set; } = DateTime.Now;
-
-        /// <summary>
         ///最后登录时间 
         /// </summary>
         [SugarColumn(Length = int.MaxValue, IsNullable = true)]
         public DateTime LastLoginTime { get; set; } = DateTime.Now;
 
-        
+        /// <summary>
+        /// 分配的角色
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public List<string> RoleNames { get; set; }
     }
 }
