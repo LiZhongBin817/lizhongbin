@@ -8,8 +8,15 @@ using Microsoft.Extensions.Logging;
 
 namespace CDWM_MR
 {
+    /// <summary>
+    /// 初始化
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// 主入口
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             // 生成承载 web 应用程序的 Microsoft.AspNetCore.Hosting.IWebHost。Build是WebHostBuilder最终的目的，将返回一个构造的WebHost，最终生成宿主。
@@ -29,8 +36,8 @@ namespace CDWM_MR
                     var configuration = services.GetRequiredService<IConfiguration>();
                     if (configuration.GetSection("AppSettings")["SeedDBEnabled"].ObjToBool())
                     {
-                        var myContext = services.GetRequiredService<MyContext>();
-                        DBSeed.SeedAsync(myContext);
+                        //var myContext = services.GetRequiredService<MyContext>();
+                        //DBSeed.SeedAsync(myContext);
                     }
                 }
                 catch (Exception e)
@@ -48,6 +55,12 @@ namespace CDWM_MR
             host.Run();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             //使用预配置的默认值初始化 Microsoft.AspNetCore.Hosting.WebHostBuilder 类的新实例。
             WebHost.CreateDefaultBuilder(args)

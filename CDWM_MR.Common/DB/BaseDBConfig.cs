@@ -18,7 +18,7 @@ namespace CDWM_MR.Common.DB
 
 
         public static string ConnectionString => InitConn();
-        public static DataBaseType DbType = DataBaseType.SqlServer;
+        public static DataBaseType DbType = DataBaseType.MySql;
 
 
         private static string InitConn()
@@ -31,17 +31,17 @@ namespace CDWM_MR.Common.DB
             else if (isSqlServerEnabled)
             {
                 DbType = DataBaseType.SqlServer;
-                return DifDBConnOfSecurity(@"D:\my-file\dbCountPsw1.txt", @"c:\my-file\dbCountPsw1.txt", sqlServerConnection);
+                return sqlServerConnection;
             }
             else if (isMySqlEnabled)
             {
                 DbType = DataBaseType.MySql;
-                return DifDBConnOfSecurity(@"D:\my-file\dbCountPsw1_MySqlConn.txt", @"c:\my-file\dbCountPsw1_MySqlConn.txt", mySqlConnection);
+                return mySqlConnection;
             }
             else if (IsOracleEnabled)
             {
                 DbType = DataBaseType.Oracle;
-                return DifDBConnOfSecurity(@"D:\my-file\dbCountPsw1_OracleConn.txt", @"c:\my-file\dbCountPsw1_OracleConn.txt", oracleConnection);
+                return oracleConnection;
             }
             else
             {

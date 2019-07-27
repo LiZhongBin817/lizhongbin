@@ -9,6 +9,11 @@
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\ZK\Desktop\CDWM_MR-master\CDWM_MR\CDWM_MR.Model.xml</DocumentationFile>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="sqlSugarCore" Version="5.0.0.2" />
   </ItemGroup>

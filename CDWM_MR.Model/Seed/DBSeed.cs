@@ -1,4 +1,5 @@
-﻿using CDWM_MR.Model.Seed;
+﻿using CDWM_MR.Model.Models;
+using CDWM_MR.Model.Seed;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,7 +28,16 @@ namespace CDWM_MR.Model.Seed
                 }
                 // 注意！一定要先手动创建一个【空的数据库】
                 // 如果生成过了，第二次，就不用再执行一遍了,注释掉该方法即可
-                myContext.CreateTableByEntity(false);
+                myContext.CreateTableByEntity(false,
+                    typeof(Sys_Menu),
+                    typeof(Sys_Interface_Info),
+                    typeof(Sys_OperateLog),
+                    typeof(Sys_Operation),
+                    typeof(Sys_Role),
+                    typeof(Sys_Role_Menu),
+                    typeof(Sys_UserInfo),
+                    typeof(Sys_User_Operation),
+                    typeof(Sys_User_Role_Mapper));
 
                 // 后期单独处理某些表
                 //myContext.Db.CodeFirst.InitTables(typeof(sysUserInfo));
