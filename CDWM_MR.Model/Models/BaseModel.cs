@@ -23,10 +23,22 @@ namespace CDWM_MR.Model.Models
         public System.DateTime CreateTime { get; set; } = DateTime.Now;
 
         /// <summary>
-        /// 创建人
+        /// 创建人--关联Sys_UserInfo
         /// </summary>
-        [SugarColumn(IsNullable = false, ColumnDataType="varchar")]
+        [SugarColumn(IsNullable = false,Length = 20)]
         public string CreatePeople { get; set; }
+
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        [SugarColumn(Length = int.MaxValue, IsNullable = true)]
+        public System.DateTime UpdateTime { get; set; } = DateTime.Now;
+
+        /// <summary>
+        /// 更新人--关联Sys_UserInfo
+        /// </summary>
+        [SugarColumn(IsNullable = true,Length = 20)]
+        public string UpdatePeople { get; set; }
 
         /// <summary>
         /// 备注

@@ -10,19 +10,14 @@ namespace CDWM_MR.Model.Models
     /// <summary>
     /// 日志记录
     /// </summary>
-    public class OperateLog : RootEntity
+    public class Sys_OperateLog : BaseModel
     {
 
         /// <summary>
-        ///获取或设置是否禁用，逻辑上的删除，非物理删除
+        /// 获取或设置是否禁用，逻辑上的删除，非物理删除
         /// </summary>
         [SugarColumn(IsNullable = true)]
         public bool? IsDeleted { get; set; }
-        /// <summary>
-        /// 区域名
-        /// </summary>
-        [SugarColumn(Length = int.MaxValue, IsNullable = true)]
-        public string Area { get; set; }
         /// <summary>
         /// 区域控制器名
         /// </summary>
@@ -43,6 +38,7 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(Length = int.MaxValue, IsNullable = true)]
         public string Description { get; set; }
+
         /// <summary>
         /// 登录时间
         /// </summary>
@@ -51,14 +47,19 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 登录名称
         /// </summary>
-        [SugarColumn(Length = int.MaxValue, IsNullable = true)]
+        [SugarColumn(Length = 50, IsNullable = true)]
         public string LoginName { get; set; }
-        /// <summary>
-        /// 用户ID
-        /// </summary>
-        public int UserId { get; set; }
 
-        [SugarColumn(IsIgnore = true)]
-        public virtual sysUserInfo User { get; set; }
+        /// <summary>
+        /// 操作的菜单名称
+        /// </summary>
+        [SugarColumn(IsNullable = true)]
+        public string MenuName { get; set; }
+
+        /// <summary>
+        /// 操作类型(0--登陆;1--退出;2--添加;3--修改;4--删除)
+        /// </summary>
+        [SugarColumn(IsNullable = true)]
+        public int OperateType { get; set; }
     }
 }
