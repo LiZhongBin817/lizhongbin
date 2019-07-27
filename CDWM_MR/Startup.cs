@@ -50,6 +50,11 @@ namespace CDWM_MR
         /// </summary>
         public static ILoggerRepository Repository { get; set; }
 
+        /// <summary>
+        ///  读取配置文件---通过依赖注入中构造函数注入
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="env"></param>
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
@@ -63,11 +68,21 @@ namespace CDWM_MR
 
         }
 
+        /// <summary>
+        /// 配置文件
+        /// </summary>
         public IConfiguration Configuration { get; }
+        /// <summary>
+        /// 
+        /// </summary>
         public IHostingEnvironment Env { get; }
         private const string ApiName = "CDWM_MR";
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// 运行时调用此方法。使用此方法向容器中添加服务。
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             #region 部分服务注入-netcore自带方法
@@ -129,8 +144,15 @@ namespace CDWM_MR
 
             services.AddMiniProfiler(options =>
                 {
-                    options.RouteBasePath = "/profiler";
-                    (options.Storage as MemoryCacheStorage).CacheDuration = TimeSpan.FromMinutes(10);
+                    try
+                    {
+                        options.RouteBasePath = "/profiler";
+                        (options.Storage as MemoryCacheStorage).CacheDuration = TimeSpan.FromMinutes(10);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
 
                 }
             );
@@ -152,7 +174,7 @@ namespace CDWM_MR
                         Title = $"{ApiName} 接口文档",
                         Description = $"{ApiName} HTTP API " + version,
                         TermsOfService = "None",
-                        Contact = new Contact { Name = "CDWM_MR", Email = "CDWM_MR@xxx.com", Url = "https://www.jianshu.com/u/94102b59cc2a" }
+                        Contact = new Contact { Name = "CDWM_MR", Email = "2226975012@qq.com", Url = "https://www.jianshu.com/u/94102b59cc2a" }
                     });
                     // 按相对路径排序，作者：Alby
                     c.OrderActionsBy(o => o.RelativePath);
@@ -377,10 +399,11 @@ namespace CDWM_MR
 
             #region 带有接口层的服务注入
 
-            #region Service.dll 注入，有对应接口
+                
             //获取项目绝对路径，请注意，这个是实现类的dll文件，不是接口 IService.dll ，注入容器当然是Activatore
             try
             {
+                #region Service.dll 注入，有对应接口
                 var servicesDllFile = Path.Combine(basePath, "CDWM_MR.Services.dll");
                 var assemblysServices = Assembly.LoadFrom(servicesDllFile);//直接采用加载文件的方法  ※※★※※ 如果你是第一次下载项目，请先F6编译，然后再F5执行，※※★※※
 
@@ -415,12 +438,12 @@ namespace CDWM_MR
                 var repositoryDllFile = Path.Combine(basePath, "CDWM_MR.Repository.dll");
                 var assemblysRepository = Assembly.LoadFrom(repositoryDllFile);
                 builder.RegisterAssemblyTypes(assemblysRepository).AsImplementedInterfaces();
+                #endregion
             }
             catch (Exception ex)
             {
                 throw new Exception("※※★※※ 如果你是第一次下载项目，请先对整个解决方案dotnet build（F6编译），然后再对api层 dotnet run（F5执行），\n因为解耦了，如果你是发布的模式，请检查bin文件夹是否存在Repository.dll和service.dll ※※★※※" + ex.Message + "\n" + ex.InnerException);
             }
-            #endregion
             #endregion
 
 
@@ -454,7 +477,12 @@ namespace CDWM_MR
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// 运行时调用此方法。使用此方法配置HTTP请求管道。
+        /// 创建一个HttpContext处理请求
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
 
