@@ -4,25 +4,9 @@
         <name>CDWM_MR</name>
     </assembly>
     <members>
-        <member name="T:CDWM_MR.AOP.BlogCacheAOP">
+        <member name="T:CDWM_MR.AOP.CacheAOPbase">
             <summary>
-            面向切面的缓存使用
-            </summary>
-        </member>
-        <member name="T:CDWM_MR.AOP.BlogLogAOP">
-            <summary>
-            拦截器BlogLogAOP 继承IInterceptor接口
-            </summary>
-        </member>
-        <member name="M:CDWM_MR.AOP.BlogLogAOP.Intercept(Castle.DynamicProxy.IInvocation)">
-            <summary>
-            实例化IInterceptor唯一方法 
-            </summary>
-            <param name="invocation">包含被拦截方法的信息</param>
-        </member>
-        <member name="T:CDWM_MR.AOP.BlogRedisCacheAOP">
-            <summary>
-            面向切面的缓存使用
+            缓存切面
             </summary>
         </member>
         <member name="M:CDWM_MR.AOP.CacheAOPbase.Intercept(Castle.DynamicProxy.IInvocation)">
@@ -44,6 +28,74 @@
             </summary>
             <param name="arg"></param>
             <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.AOP.CdwmCacheAOP">
+            <summary>
+            面向切面的缓存使用
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmCacheAOP.#ctor(CDWM_MR.Common.MemoryCache.ICaching)">
+            <summary>
+            通过注入的方式，把缓存操作接口通过构造函数注入
+            </summary>
+            <param name="cache"></param>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmCacheAOP.Intercept(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            Intercept方法是拦截的关键所在，也是IInterceptor接口中的唯一定义
+            </summary>
+            <param name="invocation"></param>
+        </member>
+        <member name="T:CDWM_MR.AOP.CdwmLogAOP">
+            <summary>
+            拦截器CdwmLogAOP 继承IInterceptor接口
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmLogAOP.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{CDWM_MR.Hubs.ChatHub})">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="hubContext"></param>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmLogAOP.Intercept(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            实例化IInterceptor唯一方法 
+            </summary>
+            <param name="invocation">包含被拦截方法的信息</param>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmLogAOP.IsAsyncMethod(System.Reflection.MethodInfo)">
+            <summary>
+            是否为异步方法
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.AOP.InternalAsyncHelper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.AOP.CdwmRedisCacheAOP">
+            <summary>
+            面向切面的缓存使用
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmRedisCacheAOP.#ctor(CDWM_MR_Common.Redis.IRedisHelper)">
+            <summary>
+            通过注入的方式，把缓存操作接口通过构造函数注入
+            </summary>
+            <param name="cache"></param>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmRedisCacheAOP.Intercept(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            Intercept方法是拦截的关键所在，也是IInterceptor接口中的唯一定义
+            </summary>
+            <param name="invocation"></param>
+        </member>
+        <member name="T:CDWM_MR.AuthHelper.OverWrite.JwtHelper">
+            <summary>
+            Jwt令牌帮助类
+            </summary>
         </member>
         <member name="M:CDWM_MR.AuthHelper.OverWrite.JwtHelper.IssueJwt(CDWM_MR.AuthHelper.OverWrite.TokenModelJwt)">
             <summary>
@@ -128,11 +180,7 @@
             </summary>
         </member>
         <member name="M:CDWM_MR.AuthHelper.PermissionHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,CDWM_MR.AuthHelper.PermissionRequirement)">
-            <summary>
-            构造函数注入
-            </summary>
-            <param name="schemes"></param>
-            <param name="roleModulePermissionServices"></param>
+            重载异步处理程序
         </member>
         <member name="T:CDWM_MR.AuthHelper.PermissionItem">
             <summary>
@@ -210,6 +258,11 @@
             <param name="signingCredentials">签名验证实体</param>
             <param name="expiration">过期时间</param>
         </member>
+        <member name="T:CDWM_MR.AutoMapper.CustomProfile">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:CDWM_MR.AutoMapper.CustomProfile.#ctor">
             <summary>
             配置构造函数，用来创建关系映射
@@ -217,8 +270,15 @@
         </member>
         <member name="T:CDWM_MR.Controllers.LoginController">
             <summary>
-            登陆控制器
+            登陆控制器--无权限控制
             </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.LoginController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.Content.Isys_role_menuServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="sysuserinfo"></param>
+            <param name="sysrolemenu"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.LoginController.First">
             <summary>
@@ -234,15 +294,42 @@
             否则，如果想特例其他授权机制的话，需要在 controller 上带上  [Authorize]，然后再action上自定义授权即可，比如 [Authorize(Roles = "Admin")]
             </summary>
         </member>
+        <member name="M:CDWM_MR.Filter.GlobalRouteAuthorizeConvention.Apply(Microsoft.AspNetCore.Mvc.ApplicationModels.ApplicationModel)">
+            <summary>
+            接口实现
+            </summary>
+            <param name="application"></param>
+        </member>
         <member name="T:CDWM_MR.Filter.GlobalAuthorizeFilter">
             <summary>
             全局权限过滤器【无效】
             </summary>
         </member>
+        <member name="M:CDWM_MR.Filter.GlobalAuthorizeFilter.OnAuthorizationAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Filter.GlobalExceptionsFilter">
             <summary>
             全局异常错误日志
             </summary>
+        </member>
+        <member name="M:CDWM_MR.Filter.GlobalExceptionsFilter.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,CDWM_MR.Log.ILoggerHelper,Microsoft.AspNetCore.SignalR.IHubContext{CDWM_MR.Hubs.ChatHub})">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="env"></param>
+            <param name="loggerHelper"></param>
+            <param name="hubContext"></param>
+        </member>
+        <member name="M:CDWM_MR.Filter.GlobalExceptionsFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            异常处理--接口实现
+            </summary>
+            <param name="context"></param>
         </member>
         <member name="M:CDWM_MR.Filter.GlobalExceptionsFilter.WriteLog(System.String,System.Exception)">
             <summary>
@@ -251,6 +338,22 @@
             <param name="throwMsg"></param>
             <param name="ex"></param>
             <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Filter.InternalServerErrorObjectResult">
+            <summary>
+            内部错误结果
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Filter.InternalServerErrorObjectResult.#ctor(System.Object)">
+            <summary>
+            内部错误500
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:CDWM_MR.Filter.JsonErrorResponse">
+            <summary>
+            返回错误信息
+            </summary>
         </member>
         <member name="P:CDWM_MR.Filter.JsonErrorResponse.Message">
             <summary>
@@ -267,11 +370,73 @@
             全局路由前缀公约
             </summary>
         </member>
+        <member name="M:CDWM_MR.Filter.GlobalRoutePrefixFilter.#ctor(Microsoft.AspNetCore.Mvc.Routing.IRouteTemplateProvider)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="routeTemplateProvider"></param>
+        </member>
+        <member name="M:CDWM_MR.Filter.GlobalRoutePrefixFilter.Apply(Microsoft.AspNetCore.Mvc.ApplicationModels.ApplicationModel)">
+            <summary>
+            接口的Apply方法
+            </summary>
+            <param name="application"></param>
+        </member>
+        <member name="T:CDWM_MR.Middlewares.MiddlewareHelpers">
+            <summary>
+            中间件--请求响应处理以及Jwt生成
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Middlewares.MiddlewareHelpers.UseJwtTokenAuth(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            生成用户Jwt令牌
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Middlewares.MiddlewareHelpers.UseReuestResponseLog(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            用户请求响应日志处理
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Middlewares.RequRespLogMildd">
             <summary>
             中间件
             记录请求和响应数据
             </summary>
+        </member>
+        <member name="F:CDWM_MR.Middlewares.RequRespLogMildd._next">
+            <summary>
+            请求的委托变量
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Middlewares.RequRespLogMildd.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:CDWM_MR.Middlewares.RequRespLogMildd.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            请求处理
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Middlewares.RequRespLogMildd.RequestDataLog(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            请求日志处理
+            </summary>
+            <param name="request"></param>
+        </member>
+        <member name="M:CDWM_MR.Middlewares.RequRespLogMildd.ResponseDataLog(Microsoft.AspNetCore.Http.HttpResponse,System.IO.MemoryStream)">
+            <summary>
+            响应异常日志处理
+            </summary>
+            <param name="response"></param>
+            <param name="ms"></param>
         </member>
         <member name="T:CDWM_MR.Program">
             <summary>
@@ -290,6 +455,11 @@
             </summary>
             <param name="args"></param>
             <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Startup">
+            <summary>
+            初始化--真正意义上的
+            </summary>
         </member>
         <member name="P:CDWM_MR.Startup.Repository">
             <summary>
@@ -310,7 +480,7 @@
         </member>
         <member name="P:CDWM_MR.Startup.Env">
             <summary>
-            
+            运行时托管变量--Web宿主环境
             </summary>
         </member>
         <member name="M:CDWM_MR.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">

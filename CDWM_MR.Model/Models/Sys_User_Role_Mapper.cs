@@ -8,7 +8,7 @@ namespace CDWM_MR.Model.Models
     /// <summary>
     /// 用户,角色关联表
     /// </summary>
-    public class Sys_User_Role_Mapper
+    public class sys_user_role_mapper
     {
         /// <summary>
         /// ID主键

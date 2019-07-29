@@ -4,12 +4,20 @@
 <#@ assembly name="System.Data.dll" #>
 <#@ assembly name="System.Data.DataSetExtensions.dll" #>
 <#@ assembly name="System.Xml.dll" #>
+<#@ assembly name="$(ProjectDir)PublicDll\MySql.Data.dll" #>
+<#@ assembly name="$(ProjectDir)PublicDll\System.Configuration.ConfigurationManager.dll" #>
+<#@ assembly name="$(ProjectDir)PublicDll\System.Management.dll" #>
+<#@ assembly name="$(ProjectDir)PublicDll\System.Security.Permissions.dll" #>
 <#@ import namespace="System" #>
 <#@ import namespace="System.Xml" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Data" #>
+<#@ import namespace="MySql.Data.MySqlClient" #>
+<#@ import namespace="MySql.Data" #>
+<#@ import namespace="System.Data" #>
 <#@ import namespace="System.Data.SqlClient" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data.Common"#>
 <#@ import namespace="System.IO" #>
 <#@ include file="$(ProjectDir)DbHelper.ttinclude"  #>
 
@@ -41,6 +49,7 @@ if(tableName!=""){
     #>  
 using System;
 using CDWM_MR.Model.Models;
+using CDWM_MR.IRepository.Base;
 namespace CDWM_MR.IRepository.Content
 {	
 	/// <summary>
@@ -61,14 +70,13 @@ namespace CDWM_MR.IRepository.Content
 <# 
     //SqlConnection conn = new SqlConnection(config.ConnectionString);
     //conn.Open(); 
-    //System.Data.DataTable schema = conn.GetDataTable(config.ConnectionString,); 
+    System.Data.DataTable schema = new System.Data.DataTable();
     
-     System.Data.DataTable schema = new System.Data.DataTable(); 
-            using (SqlConnection connection = new SqlConnection("Data Source=.;Initial Catalog=CDWM_MR;User ID=sa;Password=123456;"))
+     using (MySqlConnection conn = new MySqlConnection("Server=220.248.173.29;Port=3303;Database=cdwm_mr;Uid=root;Pwd=root;"))
             {
-                SqlCommand command = connection.CreateCommand();
-                command.CommandText = "SELECT NAME FROM sysobjects WHERE xtype = 'U' AND OBJECTPROPERTY (id, 'IsMSShipped') = 0";
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter("select TABLE_Name from information_schema.tables where table_schema='cdwm_mr'", conn);
+                adapter.SelectCommand.CommandType = CommandType.Text;
                 adapter.Fill(schema);
             }
 
@@ -77,26 +85,27 @@ namespace CDWM_MR.IRepository.Content
 <# 
     foreach(System.Data.DataRow row in schema.Rows) 
     {  
-		manager.StartBlock("I"+row["NAME"].ToString()+"Repository"+".cs");//文件名
+		manager.StartBlock("I"+row["TABLE_Name"].ToString()+"Repository"+".cs");//文件名
 	 #>
-	//----------<#=row["NAME"].ToString()#>开始----------
+	//----------<#=row["TABLE_Name"].ToString()#>开始----------
     
 	
 using System;
 using CDWM_MR.Model.Models;
+using CDWM_MR.IRepository.Base;
 namespace CDWM_MR.IRepository.Content
 {	
 	/// <summary>
-	/// I<#=row["NAME"].ToString()#>Repository
+	/// I<#=row["TABLE_Name"].ToString()#>Repository
 	/// </summary>	
-	public interface I<#=row["NAME"].ToString()#>Repository : IBaseRepository<<#=row["NAME"].ToString()#>>//类名
+	public interface I<#=row["TABLE_Name"].ToString()#>Repository : IBaseRepository<<#=row["TABLE_Name"].ToString()#>>//类名
     {
 
        
     }
 }
 
-	//----------<#=row["NAME"].ToString()#>结束----------
+	//----------<#=row["TABLE_Name"].ToString()#>结束----------
 	<# 
 		manager.EndBlock(); 
 		} 

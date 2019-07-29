@@ -24,6 +24,10 @@ namespace CDWM_MR.Filter
     /// </summary>
     public class GlobalRouteAuthorizeConvention : IApplicationModelConvention
     {
+        /// <summary>
+        /// 接口实现
+        /// </summary>
+        /// <param name="application"></param>
         public void Apply(ApplicationModel application)
         {
             foreach (var c in application.Controllers)
@@ -47,6 +51,11 @@ namespace CDWM_MR.Filter
     public class GlobalAuthorizeFilter : AuthorizeFilter
     {
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
             if (context.Filters.Any(item => item is IAsyncAuthorizationFilter && item != this))

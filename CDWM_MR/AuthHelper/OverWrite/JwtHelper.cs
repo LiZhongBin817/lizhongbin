@@ -9,6 +9,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CDWM_MR.AuthHelper.OverWrite
 {
+    /// <summary>
+    /// Jwt令牌帮助类
+    /// </summary>
     public class JwtHelper
     {
 

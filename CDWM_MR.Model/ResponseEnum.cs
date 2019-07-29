@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CDWM_MR.Model
 {
+    /// <summary>
+    /// 响应枚举信息
+    /// </summary>
     public enum ResponseEnum
     {
         /// <summary>

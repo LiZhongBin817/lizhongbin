@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CDWM_MR.AOP
 {
+    /// <summary>
+    /// 缓存切面
+    /// </summary>
     public abstract class CacheAOPbase : IInterceptor
     {
         /// <summary>

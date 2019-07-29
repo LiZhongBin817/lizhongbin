@@ -21,28 +21,23 @@ namespace CDWM_MR.Middlewares
     public class RequRespLogMildd
     {
         /// <summary>
-        /// 
+        /// 请求的委托变量
         /// </summary>
         private readonly RequestDelegate _next;
 
         /// <summary>
-        /// 
-        /// </summary>
-        private readonly IBlogArticleServices _blogArticleServices;
-        /// <summary>
-        /// 
+        /// 构造函数注入
         /// </summary>
         /// <param name="next"></param>
-        /// <param name="blogArticleServices"></param>
-        public RequRespLogMildd(RequestDelegate next, IBlogArticleServices blogArticleServices)
+        public RequRespLogMildd(RequestDelegate next)
         {
             _next = next;
-            _blogArticleServices = blogArticleServices;
+            //_blogArticleServices = blogArticleServices;
         }
 
 
         /// <summary>
-        /// 
+        /// 请求处理
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>

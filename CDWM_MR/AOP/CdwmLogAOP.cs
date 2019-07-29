@@ -15,15 +15,19 @@ using System.Threading.Tasks;
 namespace CDWM_MR.AOP
 {
     /// <summary>
-    /// 拦截器BlogLogAOP 继承IInterceptor接口
+    /// 拦截器CdwmLogAOP 继承IInterceptor接口
     /// </summary>
-    public class BlogLogAOP : IInterceptor
+    public class CdwmLogAOP : IInterceptor
     {
         private readonly IHubContext<ChatHub> _hubContext;
-        public BlogLogAOP(IHubContext<ChatHub> hubContext)
+
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="hubContext"></param>
+        public CdwmLogAOP(IHubContext<ChatHub> hubContext)
         {
             _hubContext = hubContext;
-
         }
 
 
@@ -116,7 +120,11 @@ namespace CDWM_MR.AOP
             }
         }
 
-
+        /// <summary>
+        /// 是否为异步方法
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
         public static bool IsAsyncMethod(MethodInfo method)
         {
             return (
@@ -127,6 +135,9 @@ namespace CDWM_MR.AOP
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
 
     internal static class InternalAsyncHelper
     {

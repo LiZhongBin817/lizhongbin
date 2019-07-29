@@ -8,7 +8,7 @@ namespace CDWM_MR.Model.Models
     /// <summary>
     /// 角色权限表
     /// </summary>
-    public class Sys_Role_Menu:BaseModel
+    public class sys_role_menu:BaseModel
     {
         /// <summary>
         /// 角色ID--关联Sys_Role

@@ -2,7 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.17" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Update="CDWM_MR.FrameWork.Entity\CDWM_MR.FrameWork.tt">
@@ -40,6 +45,9 @@
     <None Update="CDWM_MR_Framework.Services\CDWM_MR_Framework_Services.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CDWM_MR_Framework_Services.cs</LastGenOutput>
+    </None>
+    <None Update="PublicDll\8.0.17\lib\netstandard2.0\MySql.Data.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
@@ -93,6 +101,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CDWM_MR_Framework_Services.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="PublicDll\" />
   </ItemGroup>
 
 </Project>
