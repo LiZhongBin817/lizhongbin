@@ -24,6 +24,12 @@ namespace CDWM_MR.Filter
         private readonly ILoggerHelper _loggerHelper;
         private readonly IHubContext<ChatHub> _hubContext;
 
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="env"></param>
+        /// <param name="loggerHelper"></param>
+        /// <param name="hubContext"></param>
         public GlobalExceptionsFilter(IHostingEnvironment env, ILoggerHelper loggerHelper, IHubContext<ChatHub> hubContext)
         {
             _env = env;
@@ -31,6 +37,10 @@ namespace CDWM_MR.Filter
             _hubContext = hubContext;
         }
 
+        /// <summary>
+        /// 异常处理--接口实现
+        /// </summary>
+        /// <param name="context"></param>
         public void OnException(ExceptionContext context)
         {
             var json = new JsonErrorResponse();
@@ -43,7 +53,6 @@ namespace CDWM_MR.Filter
             context.Result = new InternalServerErrorObjectResult(json);
 
             MiniProfiler.Current.CustomTiming("Errors：", json.Message);
-
 
             //采用log4net 进行错误日志记录
             _loggerHelper.Error(json.Message, WriteLog(json.Message, context.Exception));
@@ -65,14 +74,25 @@ namespace CDWM_MR.Filter
         }
 
     }
+
+    /// <summary>
+    /// 内部错误结果
+    /// </summary>
     public class InternalServerErrorObjectResult : ObjectResult
     {
+        /// <summary>
+        /// 内部错误500
+        /// </summary>
+        /// <param name="value"></param>
         public InternalServerErrorObjectResult(object value) : base(value)
         {
             StatusCode = StatusCodes.Status500InternalServerError;
         }
     }
-    //返回错误信息
+
+    /// <summary>
+    /// 返回错误信息
+    /// </summary>
     public class JsonErrorResponse
     {
         /// <summary>

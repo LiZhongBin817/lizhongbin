@@ -59,329 +59,334 @@
             备注
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.ID">
+        <member name="T:CDWM_MR.Model.Models.sys_interface_info">
+            <summary>
+            用户接口信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_interface_info.ID">
             <summary>
             ID主键
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.InterfaceUrl">
+        <member name="P:CDWM_MR.Model.Models.sys_interface_info.InterfaceUrl">
             <summary>
             接口地址
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.OperationVersion">
+        <member name="P:CDWM_MR.Model.Models.sys_interface_info.OperationVersion">
             <summary>
             接口版本
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.InterfaceName">
+        <member name="P:CDWM_MR.Model.Models.sys_interface_info.InterfaceName">
             <summary>
             接口名称
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.ExternalInterface">
+        <member name="P:CDWM_MR.Model.Models.sys_interface_info.ExternalInterface">
             <summary>
             是否为第三方接口0--是，1--否
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.Verify">
+        <member name="P:CDWM_MR.Model.Models.sys_interface_info.Verify">
             <summary>
             是否验证权限0--是，1--否
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.Remark">
+        <member name="P:CDWM_MR.Model.Models.sys_interface_info.Remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="T:CDWM_MR.Model.Models.Sys_Menu">
+        <member name="T:CDWM_MR.Model.Models.sys_menu">
             <summary>
             菜单表
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Menu.ParentID">
+        <member name="P:CDWM_MR.Model.Models.sys_menu.ParentID">
             <summary>
             默认第一级菜单
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuLevel">
+        <member name="P:CDWM_MR.Model.Models.sys_menu.MenuLevel">
             <summary>
             菜单级别
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuName">
+        <member name="P:CDWM_MR.Model.Models.sys_menu.MenuName">
             <summary>
             菜单名称
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuNumber">
+        <member name="P:CDWM_MR.Model.Models.sys_menu.MenuNumber">
             <summary>
             菜单编号
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuOrder">
+        <member name="P:CDWM_MR.Model.Models.sys_menu.MenuOrder">
             <summary>
             菜单顺序号
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuUrl">
+        <member name="P:CDWM_MR.Model.Models.sys_menu.MenuUrl">
             <summary>
             菜单Url
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuType">
+        <member name="P:CDWM_MR.Model.Models.sys_menu.MenuType">
             <summary>
             菜单类型0--为主菜单
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuImg">
+        <member name="P:CDWM_MR.Model.Models.sys_menu.MenuImg">
             <summary>
             菜单图标
             </summary>
         </member>
-        <member name="T:CDWM_MR.Model.Models.Sys_OperateLog">
+        <member name="T:CDWM_MR.Model.Models.sys_operatelog">
             <summary>
             日志记录
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.IsDeleted">
+        <member name="P:CDWM_MR.Model.Models.sys_operatelog.IsDeleted">
             <summary>
             获取或设置是否禁用，逻辑上的删除，非物理删除
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.Controller">
+        <member name="P:CDWM_MR.Model.Models.sys_operatelog.Controller">
             <summary>
             区域控制器名
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.Action">
+        <member name="P:CDWM_MR.Model.Models.sys_operatelog.Action">
             <summary>
             Action名称
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.IPAddress">
+        <member name="P:CDWM_MR.Model.Models.sys_operatelog.IPAddress">
             <summary>
             IP地址
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.Description">
+        <member name="P:CDWM_MR.Model.Models.sys_operatelog.Description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.LogTime">
+        <member name="P:CDWM_MR.Model.Models.sys_operatelog.LogTime">
             <summary>
             登录时间
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.LoginName">
+        <member name="P:CDWM_MR.Model.Models.sys_operatelog.LoginName">
             <summary>
             登录名称
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.MenuName">
+        <member name="P:CDWM_MR.Model.Models.sys_operatelog.MenuName">
             <summary>
             操作的菜单名称
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.OperateType">
+        <member name="P:CDWM_MR.Model.Models.sys_operatelog.OperateType">
             <summary>
             操作类型(0--登陆;1--退出;2--添加;3--修改;4--删除)
             </summary>
         </member>
-        <member name="T:CDWM_MR.Model.Models.Sys_Operation">
+        <member name="T:CDWM_MR.Model.Models.sys_operation">
             <summary>
             菜单按钮接口表
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Operation.OperationNumber">
+        <member name="P:CDWM_MR.Model.Models.sys_operation.OperationNumber">
             <summary>
             操作编号--生成规则为:
             ON0001
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Operation.OperationName">
+        <member name="P:CDWM_MR.Model.Models.sys_operation.OperationName">
             <summary>
             操作名称
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Operation.MenuID">
+        <member name="P:CDWM_MR.Model.Models.sys_operation.MenuID">
             <summary>
             菜单ID--关联Sys_Menu
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Operation.InterfaceID">
+        <member name="P:CDWM_MR.Model.Models.sys_operation.InterfaceID">
             <summary>
             接口ID --关联Sys_Interface_Info
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Operation.OperationStatus">
+        <member name="P:CDWM_MR.Model.Models.sys_operation.OperationStatus">
             <summary>
             操作状态0--启用;1--禁用
             </summary>
         </member>
-        <member name="T:CDWM_MR.Model.Models.Sys_Role">
+        <member name="T:CDWM_MR.Model.Models.sys_role">
             <summary>
             角色表
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Role.RoleNumber">
+        <member name="P:CDWM_MR.Model.Models.sys_role.RoleNumber">
             <summary>
             角色编号--自动生成,规则为:
             RN001
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Role.RoleName">
+        <member name="P:CDWM_MR.Model.Models.sys_role.RoleName">
             <summary>
             角色名称
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Role.DeleteFlag">
+        <member name="P:CDWM_MR.Model.Models.sys_role.DeleteFlag">
             <summary>
             删除标记,默认为1--已删除,0--未删除
             </summary>
         </member>
-        <member name="T:CDWM_MR.Model.Models.Sys_Role_Menu">
+        <member name="T:CDWM_MR.Model.Models.sys_role_menu">
             <summary>
             角色权限表
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Role_Menu.RoleID">
+        <member name="P:CDWM_MR.Model.Models.sys_role_menu.RoleID">
             <summary>
             角色ID--关联Sys_Role
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Role_Menu.MenuID">
+        <member name="P:CDWM_MR.Model.Models.sys_role_menu.MenuID">
             <summary>
             菜单ID--关联Sys_Menu
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_Role_Menu.OperationID">
+        <member name="P:CDWM_MR.Model.Models.sys_role_menu.OperationID">
             <summary>
             操作者ID
             </summary>
         </member>
-        <member name="T:CDWM_MR.Model.Models.Sys_UserInfo">
+        <member name="T:CDWM_MR.Model.Models.sys_userinfo">
             <summary>
             用户信息表
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.FUserNumber">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.FUserNumber">
             <summary>
             用户编号
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.FUserName">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.FUserName">
             <summary>
             用户名称
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.LoginName">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.LoginName">
             <summary>
             登录账号
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.LoginPassWord">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.LoginPassWord">
             <summary>
             登录密码,默认密码为12345
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.RealName">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.RealName">
             <summary>
             真实姓名
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.Sex">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.Sex">
             <summary>
             性别，默认为男
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.MobilePhone">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.MobilePhone">
             <summary>
             手机号
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.Adress">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.Adress">
             <summary>
             地址
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.Email">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.Email">
             <summary>
             邮箱
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.UseStatus">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.UseStatus">
             <summary>
             状态0为正常，1为作废
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.DeleteFlag">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.DeleteFlag">
             <summary>
             删除标记,默认值为0--正常
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.UserType">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.UserType">
             <summary>
             登陆用户类型0--超级管理员;1--管理员;2--普通用户(默认)
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.LastLoginTime">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.LastLoginTime">
              <summary>
             最后登录时间 
              </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.RoleNames">
+        <member name="P:CDWM_MR.Model.Models.sys_userinfo.RoleNames">
             <summary>
             分配的角色
             </summary>
         </member>
-        <member name="T:CDWM_MR.Model.Models.Sys_User_Operation">
+        <member name="T:CDWM_MR.Model.Models.sys_user_operation">
             <summary>
             用户操作权限表
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_User_Operation.UserID">
+        <member name="P:CDWM_MR.Model.Models.sys_user_operation.UserID">
             <summary>
             用户ID--关联Sys_UserInfo
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_User_Operation.OperationID">
+        <member name="P:CDWM_MR.Model.Models.sys_user_operation.OperationID">
             <summary>
             操作权限ID--关联Sys_Operation
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_User_Operation.MenuID">
+        <member name="P:CDWM_MR.Model.Models.sys_user_operation.MenuID">
             <summary>
             菜单ID--关联Sys_Menu
             </summary>
         </member>
-        <member name="T:CDWM_MR.Model.Models.Sys_User_Role_Mapper">
+        <member name="T:CDWM_MR.Model.Models.sys_user_role_mapper">
             <summary>
             用户,角色关联表
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_User_Role_Mapper.ID">
+        <member name="P:CDWM_MR.Model.Models.sys_user_role_mapper.ID">
             <summary>
             ID主键
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_User_Role_Mapper.RoleID">
+        <member name="P:CDWM_MR.Model.Models.sys_user_role_mapper.RoleID">
             <summary>
             角色ID--关联Sys_Role
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_User_Role_Mapper.UserID">
+        <member name="P:CDWM_MR.Model.Models.sys_user_role_mapper.UserID">
             <summary>
             用户ID--关联Sys_UserInfo
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_User_Role_Mapper.CreateTime">
+        <member name="P:CDWM_MR.Model.Models.sys_user_role_mapper.CreateTime">
             <summary>
             创建时间
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.Sys_User_Role_Mapper.CreatePeople">
+        <member name="P:CDWM_MR.Model.Models.sys_user_role_mapper.CreatePeople">
             <summary>
             创建人--关联Sys_UserInfo
             </summary>
@@ -414,6 +419,11 @@
         <member name="P:CDWM_MR.Model.PageModel`1.data">
             <summary>
             返回数据
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.ResponseEnum">
+            <summary>
+            响应枚举信息
             </summary>
         </member>
         <member name="F:CDWM_MR.Model.ResponseEnum.NoPermissions">

@@ -8,7 +8,7 @@ namespace CDWM_MR.Model.Models
     /// <summary>
     /// 菜单按钮接口表
     /// </summary>
-    public class Sys_Operation:BaseModel
+    public class sys_operation:BaseModel
     {
         /// <summary>
         /// 操作编号--生成规则为:

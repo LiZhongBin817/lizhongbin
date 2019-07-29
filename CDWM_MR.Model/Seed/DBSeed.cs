@@ -29,15 +29,15 @@ namespace CDWM_MR.Model.Seed
                 // 注意！一定要先手动创建一个【空的数据库】
                 // 如果生成过了，第二次，就不用再执行一遍了,注释掉该方法即可
                 myContext.CreateTableByEntity(false,
-                    typeof(Sys_Menu),
-                    typeof(Sys_Interface_Info),
-                    typeof(Sys_OperateLog),
-                    typeof(Sys_Operation),
-                    typeof(Sys_Role),
-                    typeof(Sys_Role_Menu),
-                    typeof(Sys_UserInfo),
-                    typeof(Sys_User_Operation),
-                    typeof(Sys_User_Role_Mapper));
+                    typeof(sys_menu),
+                    typeof(sys_interface_info),
+                    typeof(sys_operatelog),
+                    typeof(sys_operation),
+                    typeof(sys_role),
+                    typeof(sys_role_menu),
+                    typeof(sys_userinfo),
+                    typeof(sys_user_operation),
+                    typeof(sys_user_role_mapper));
 
                 // 后期单独处理某些表
                 //myContext.Db.CodeFirst.InitTables(typeof(sysUserInfo));

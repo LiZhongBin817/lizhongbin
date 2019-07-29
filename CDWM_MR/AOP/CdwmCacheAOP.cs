@@ -9,16 +9,24 @@ namespace CDWM_MR.AOP
     /// <summary>
     /// 面向切面的缓存使用
     /// </summary>
-    public class BlogCacheAOP : CacheAOPbase
+    public class CdwmCacheAOP : CacheAOPbase
     {
-        //通过注入的方式，把缓存操作接口通过构造函数注入
+        
         private readonly ICaching _cache;
-        public BlogCacheAOP(ICaching cache)
+
+        /// <summary>
+        /// 通过注入的方式，把缓存操作接口通过构造函数注入
+        /// </summary>
+        /// <param name="cache"></param>
+        public CdwmCacheAOP(ICaching cache)
         {
             _cache = cache;
         }
 
-        //Intercept方法是拦截的关键所在，也是IInterceptor接口中的唯一定义
+        /// <summary>
+        /// Intercept方法是拦截的关键所在，也是IInterceptor接口中的唯一定义
+        /// </summary>
+        /// <param name="invocation"></param>
         public override void Intercept(IInvocation invocation)
         {
             var method = invocation.MethodInvocationTarget ?? invocation.Method;

@@ -7,6 +7,12 @@
 <#@ import namespace="System" #>
 <#@ import namespace="System.Xml" #>
 <#@ import namespace="System.Linq" #>
+<#@ assembly name="$(ProjectDir)PublicDll\MySql.Data.dll" #>
+<#@ assembly name="$(ProjectDir)PublicDll\System.Configuration.ConfigurationManager.dll" #>
+<#@ assembly name="$(ProjectDir)PublicDll\System.Management.dll" #>
+<#@ assembly name="$(ProjectDir)PublicDll\System.Security.Permissions.dll" #>
+<#@ import namespace="MySql.Data.MySqlClient" #>
+<#@ import namespace="MySql.Data" #>
 <#@ import namespace="System.Data" #>
 <#@ import namespace="System.Data.SqlClient" #>
 <#@ import namespace="System.Collections.Generic" #>
@@ -42,9 +48,9 @@ if(tableName!=""){
 
 
 using System;
-using CDWM_MR_Model.Model;
-using CDWM_MR_IServices.BASE;
-namespace CDWM_MR_IServices.Content
+using CDWM_MR.Model.Models;
+using CDWM_MR.IServices.BASE;
+namespace CDWM_MR.IServices.Content
 {	
 	/// <summary>
 	/// I<#=tableName#>Services
@@ -62,12 +68,13 @@ namespace CDWM_MR_IServices.Content
 	#>
 
 <# 
-    System.Data.DataTable schema = new System.Data.DataTable(); 
-            using (SqlConnection connection = new SqlConnection("Data Source=.;Initial Catalog=CDWM_MR;User ID=sa;Password=123456;"))
+    System.Data.DataTable schema = new System.Data.DataTable();
+    
+     using (MySqlConnection conn = new MySqlConnection("Server=220.248.173.29;Port=3303;Database=cdwm_mr;Uid=root;Pwd=root;"))
             {
-                SqlCommand command = connection.CreateCommand();
-                command.CommandText = "SELECT NAME FROM sysobjects WHERE xtype = 'U' AND OBJECTPROPERTY (id, 'IsMSShipped') = 0";
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter("select TABLE_Name from information_schema.tables where table_schema='cdwm_mr'", conn);
+                adapter.SelectCommand.CommandType = CommandType.Text;
                 adapter.Fill(schema);
             }
  #>
@@ -75,27 +82,27 @@ namespace CDWM_MR_IServices.Content
 <# 
     foreach(System.Data.DataRow row in schema.Rows) 
     {  
-		manager.StartBlock("I"+row["NAME"].ToString()+"Services"+".cs");
+		manager.StartBlock("I"+row["TABLE_Name"].ToString()+"Services"+".cs");
 	 #>
-	//----------<#=row["NAME"].ToString()#>开始----------
+	//----------<#=row["TABLE_Name"].ToString()#>开始----------
     
 
 using System;
-using CDWM_MR_Model.Model;
-using CDWM_MR_IServices.BASE;
-namespace CDWM_MR_IServices.Content
+using CDWM_MR.Model.Models;
+using CDWM_MR.IServices.BASE;
+namespace CDWM_MR.IServices.Content
 {	
 	/// <summary>
-	/// <#=row["NAME"].ToString()#>Services
+	/// <#=row["TABLE_Name"].ToString()#>Services
 	/// </summary>	
-    public partial interface I<#=row["NAME"].ToString()#>Services :IBaseServices<<#=row["NAME"].ToString()#>>
+    public partial interface I<#=row["TABLE_Name"].ToString()#>Services :IBaseServices<<#=row["TABLE_Name"].ToString()#>>
 	{
 
        
     }
 }
 
-	//----------<#=row["NAME"].ToString()#>结束----------
+	//----------<#=row["TABLE_Name"].ToString()#>结束----------
 	<# 
 		manager.EndBlock(); 
 		} 

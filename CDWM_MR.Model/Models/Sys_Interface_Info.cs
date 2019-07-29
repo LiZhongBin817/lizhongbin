@@ -5,7 +5,10 @@ using System.Text;
 
 namespace CDWM_MR.Model.Models
 {
-    public class Sys_Interface_Info
+    /// <summary>
+    /// 用户接口信息
+    /// </summary>
+    public class sys_interface_info
     {
 
         /// <summary>

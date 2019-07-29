@@ -8,7 +8,7 @@ namespace CDWM_MR.Model.Models
     /// <summary>
     /// 用户信息表
     /// </summary>
-    public class Sys_UserInfo : BaseModel
+    public class sys_userinfo : BaseModel
     {
         /// <summary>
         /// 用户编号

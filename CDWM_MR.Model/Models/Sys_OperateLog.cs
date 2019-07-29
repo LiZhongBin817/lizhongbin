@@ -10,7 +10,7 @@ namespace CDWM_MR.Model.Models
     /// <summary>
     /// 日志记录
     /// </summary>
-    public class Sys_OperateLog : BaseModel
+    public class sys_operatelog : BaseModel
     {
 
         /// <summary>

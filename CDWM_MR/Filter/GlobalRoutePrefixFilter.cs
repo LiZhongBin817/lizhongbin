@@ -24,12 +24,19 @@ namespace CDWM_MR.Filter
     {
         private readonly AttributeRouteModel _centralPrefix;
 
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="routeTemplateProvider"></param>
         public GlobalRoutePrefixFilter(IRouteTemplateProvider routeTemplateProvider)
         {
             _centralPrefix = new AttributeRouteModel(routeTemplateProvider);
         }
 
-        //接口的Apply方法
+        /// <summary>
+        /// 接口的Apply方法
+        /// </summary>
+        /// <param name="application"></param>
         public void Apply(ApplicationModel application)
         {
             //遍历所有的 Controller

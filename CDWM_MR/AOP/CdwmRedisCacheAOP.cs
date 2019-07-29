@@ -3,22 +3,30 @@ using Castle.DynamicProxy;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using CDWM_MR_Common.Redis;
 
 namespace CDWM_MR.AOP
 {
     /// <summary>
     /// 面向切面的缓存使用
     /// </summary>
-    public class BlogRedisCacheAOP : CacheAOPbase
+    public class CdwmRedisCacheAOP : CacheAOPbase
     {
-        //通过注入的方式，把缓存操作接口通过构造函数注入
-        private readonly IRedisCacheManager _cache;
-        public BlogRedisCacheAOP(IRedisCacheManager cache)
+        private readonly IRedisHelper _cache;
+
+        /// <summary>
+        /// 通过注入的方式，把缓存操作接口通过构造函数注入
+        /// </summary>
+        /// <param name="cache"></param>
+        public CdwmRedisCacheAOP(IRedisHelper cache)
         {
             _cache = cache;
         }
-        
-        //Intercept方法是拦截的关键所在，也是IInterceptor接口中的唯一定义
+
+        /// <summary>
+        /// Intercept方法是拦截的关键所在，也是IInterceptor接口中的唯一定义
+        /// </summary>
+        /// <param name="invocation"></param>
         public override void Intercept(IInvocation invocation)
         {
             var method = invocation.MethodInvocationTarget ?? invocation.Method;
@@ -30,7 +38,7 @@ namespace CDWM_MR.AOP
                 //获取自定义缓存键
                 var cacheKey = CustomCacheKey(invocation);
                 //注意是 string 类型，方法GetValue
-                var cacheValue = _cache.GetValue(cacheKey);
+                var cacheValue = _cache.StringGet(cacheKey);
                 if (cacheValue != null)
                 {
                     //将当前获取到的缓存值，赋值给当前执行方法
@@ -63,7 +71,7 @@ namespace CDWM_MR.AOP
                     else
                     {
                         // 核心2，要进行 ChangeType
-                        response = Convert.ChangeType(_cache.Get<object>(cacheKey), type);
+                        response = Convert.ChangeType(_cache.StringGet<object>(cacheKey), type);
                     }
 
                     invocation.ReturnValue = response;
@@ -90,7 +98,7 @@ namespace CDWM_MR.AOP
                     }
                     if (response == null) response = string.Empty;
 
-                    _cache.Set(cacheKey, response, TimeSpan.FromMinutes(qCachingAttribute.AbsoluteExpiration));
+                    _cache.StringSet(cacheKey, response, TimeSpan.FromMinutes(qCachingAttribute.AbsoluteExpiration));
                 }
             }
             else

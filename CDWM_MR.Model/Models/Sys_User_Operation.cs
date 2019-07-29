@@ -8,7 +8,7 @@ namespace CDWM_MR.Model.Models
     /// <summary>
     /// 用户操作权限表
     /// </summary>
-    public class Sys_User_Operation:BaseModel
+    public class sys_user_operation:BaseModel
     {
         /// <summary>
         /// 用户ID--关联Sys_UserInfo

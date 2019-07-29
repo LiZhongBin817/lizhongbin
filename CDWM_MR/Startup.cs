@@ -22,6 +22,7 @@ using CDWM_MR.IServices;
 using CDWM_MR.Log;
 using CDWM_MR.Middlewares;
 using CDWM_MR.Model;
+using CDWM_MR_Common.Redis;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
@@ -42,6 +43,9 @@ using static CDWM_MR.SwaggerHelper.CustomApiVersion;
 
 namespace CDWM_MR
 {
+    /// <summary>
+    /// 初始化--真正意义上的
+    /// </summary>
     public class Startup
     {
 
@@ -72,8 +76,9 @@ namespace CDWM_MR
         /// 配置文件
         /// </summary>
         public IConfiguration Configuration { get; }
+
         /// <summary>
-        /// 
+        /// 运行时托管变量--Web宿主环境
         /// </summary>
         public IHostingEnvironment Env { get; }
         private const string ApiName = "CDWM_MR";
@@ -94,7 +99,7 @@ namespace CDWM_MR
                 return cache;
             });
             // Redis注入
-            services.AddSingleton<IRedisCacheManager, RedisCacheManager>();
+            services.AddSingleton<IRedisHelper, RedisHelper>();
             // log日志注入
             services.AddSingleton<ILoggerHelper, LogHelper>();
             #endregion
@@ -144,15 +149,8 @@ namespace CDWM_MR
 
             services.AddMiniProfiler(options =>
                 {
-                    try
-                    {
-                        options.RouteBasePath = "/profiler";
-                        (options.Storage as MemoryCacheStorage).CacheDuration = TimeSpan.FromMinutes(10);
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
+                    options.RouteBasePath = "/profiler";
+                    (options.Storage as MemoryCacheStorage).CacheDuration = TimeSpan.FromMinutes(10);
 
                 }
             );
@@ -174,7 +172,7 @@ namespace CDWM_MR
                         Title = $"{ApiName} 接口文档",
                         Description = $"{ApiName} HTTP API " + version,
                         TermsOfService = "None",
-                        Contact = new Contact { Name = "CDWM_MR", Email = "2226975012@qq.com", Url = "https://www.jianshu.com/u/94102b59cc2a" }
+                        Contact = new Contact { Name = "CDWM_MR", Email = "2226975012@qq.com", Url = "https://www.zkxlf.xyz" }
                     });
                     // 按相对路径排序，作者：Alby
                     c.OrderActionsBy(o => o.RelativePath);
@@ -391,9 +389,9 @@ namespace CDWM_MR
             var builder = new ContainerBuilder();
             //注册要通过反射创建的组件
             //builder.RegisterType<AdvertisementServices>().As<IAdvertisementServices>();
-            builder.RegisterType<BlogCacheAOP>();//可以直接替换其他拦截器
-            builder.RegisterType<BlogRedisCacheAOP>();//可以直接替换其他拦截器
-            builder.RegisterType<BlogLogAOP>();//这样可以注入第二个
+            builder.RegisterType<CdwmCacheAOP>();//可以直接替换其他拦截器
+            builder.RegisterType<CdwmRedisCacheAOP>();//可以直接替换其他拦截器
+            builder.RegisterType<CdwmLogAOP>();//这样可以注入第二个
 
             // ※※★※※ 如果你是第一次下载项目，请先F6编译，然后再F5执行，※※★※※
 
@@ -414,15 +412,15 @@ namespace CDWM_MR
                 var cacheType = new List<Type>();
                 if (Appsettings.app(new string[] { "AppSettings", "RedisCaching", "Enabled" }).ObjToBool())
                 {
-                    cacheType.Add(typeof(BlogRedisCacheAOP));
+                    cacheType.Add(typeof(CdwmRedisCacheAOP));
                 }
                 if (Appsettings.app(new string[] { "AppSettings", "MemoryCachingAOP", "Enabled" }).ObjToBool())
                 {
-                    cacheType.Add(typeof(BlogCacheAOP));
+                    cacheType.Add(typeof(CdwmCacheAOP));
                 }
                 if (Appsettings.app(new string[] { "AppSettings", "LogAOP", "Enabled" }).ObjToBool())
                 {
-                    cacheType.Add(typeof(BlogLogAOP));
+                    cacheType.Add(typeof(CdwmLogAOP));
                 }
 
                 builder.RegisterAssemblyTypes(assemblysServices)

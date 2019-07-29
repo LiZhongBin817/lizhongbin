@@ -8,7 +8,7 @@ namespace CDWM_MR.Model.Models
     /// <summary>
     /// 角色表
     /// </summary>
-    public class Sys_Role:BaseModel
+    public class sys_role:BaseModel
     {
         /// <summary>
         /// 角色编号--自动生成,规则为:

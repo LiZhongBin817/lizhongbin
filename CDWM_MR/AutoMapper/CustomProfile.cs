@@ -3,6 +3,9 @@ using CDWM_MR.Model.Models;
 
 namespace CDWM_MR.AutoMapper
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CustomProfile : Profile
     {
         /// <summary>

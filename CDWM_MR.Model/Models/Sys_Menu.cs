@@ -8,7 +8,7 @@ namespace CDWM_MR.Model.Models
     /// <summary>
     /// 菜单表
     /// </summary>
-    public class Sys_Menu:BaseModel
+    public class sys_menu:BaseModel
     {
         /// <summary>
         /// 默认第一级菜单
