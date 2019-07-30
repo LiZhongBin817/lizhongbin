@@ -30,6 +30,12 @@ namespace CDWM_MR.Model.Models
         public int MenuID { get; set; }
 
         /// <summary>
+        /// 连接的接口地址
+        /// </summary>
+        [SugarColumn(IsNullable = true)]
+        public string LinkUrl { get; set; }
+
+        /// <summary>
         /// 接口ID --关联Sys_Interface_Info
         /// </summary>
         [SugarColumn(IsNullable = false)]

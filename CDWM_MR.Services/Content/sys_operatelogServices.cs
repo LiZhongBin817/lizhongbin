@@ -11,7 +11,7 @@ namespace CDWM_MR.Services.Content
 	/// <summary>
 	/// sys_operatelogServices
 	/// </summary>	
-	public class sys_operatelogServices : BaseServices<sys_operatelog>, Isys_operatelogServices
+	public partial class sys_operatelogServices : BaseServices<sys_operatelog>, Isys_operatelogServices
     {
 	
         private readonly Isys_operatelogRepository dal;

@@ -11,7 +11,7 @@ namespace CDWM_MR.Repository.Content
 	/// <summary>
 	/// sys_user_role_mapperRepository
 	/// </summary>	
-	public class sys_user_role_mapperRepository : BaseRepository<sys_user_role_mapper>, Isys_user_role_mapperRepository
+	public partial class sys_user_role_mapperRepository : BaseRepository<sys_user_role_mapper>, Isys_user_role_mapperRepository
     {
 
        

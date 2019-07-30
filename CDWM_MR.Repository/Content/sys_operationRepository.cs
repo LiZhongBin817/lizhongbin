@@ -11,7 +11,7 @@ namespace CDWM_MR.Repository.Content
 	/// <summary>
 	/// sys_operationRepository
 	/// </summary>	
-	public class sys_operationRepository : BaseRepository<sys_operation>, Isys_operationRepository
+	public partial class sys_operationRepository : BaseRepository<sys_operation>, Isys_operationRepository
     {
 
        

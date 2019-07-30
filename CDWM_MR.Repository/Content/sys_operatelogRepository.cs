@@ -11,7 +11,7 @@ namespace CDWM_MR.Repository.Content
 	/// <summary>
 	/// sys_operatelogRepository
 	/// </summary>	
-	public class sys_operatelogRepository : BaseRepository<sys_operatelog>, Isys_operatelogRepository
+	public partial class sys_operatelogRepository : BaseRepository<sys_operatelog>, Isys_operatelogRepository
     {
 
        

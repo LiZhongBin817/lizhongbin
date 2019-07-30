@@ -57,7 +57,7 @@ namespace CDWM_MR.Services.Content
 	/// <summary>
 	/// <#=tableName#>Services
 	/// </summary>	
-	public class <#=tableName#>Services : BaseServices<<#=tableName#>>, I<#=tableName#>Services
+	public partial class <#=tableName#>Services : BaseServices<<#=tableName#>>, I<#=tableName#>Services
     {
 	
         private readonly I<#=tableName#>Repository dal;
@@ -105,7 +105,7 @@ namespace CDWM_MR.Services.Content
 	/// <summary>
 	/// <#=row["TABLE_Name"].ToString()#>Services
 	/// </summary>	
-	public class <#=row["TABLE_Name"].ToString()#>Services : BaseServices<<#=row["TABLE_Name"].ToString()#>>, I<#=row["TABLE_Name"].ToString() #>Services
+	public partial class <#=row["TABLE_Name"].ToString()#>Services : BaseServices<<#=row["TABLE_Name"].ToString()#>>, I<#=row["TABLE_Name"].ToString() #>Services
     {
 	
         private readonly I<#=row["TABLE_Name"].ToString() #>Repository dal;

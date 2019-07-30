@@ -55,7 +55,7 @@ namespace CDWM_MR.IRepository.Content
 	/// <summary>
 	/// I<#=tableName#>Repository
 	/// </summary>	
-	public interface I<#=tableName#>Repository : IBaseRepository<<#=tableName#>>
+	public partial interface I<#=tableName#>Repository : IBaseRepository<<#=tableName#>>
     {
 
        
@@ -98,7 +98,7 @@ namespace CDWM_MR.IRepository.Content
 	/// <summary>
 	/// I<#=row["TABLE_Name"].ToString()#>Repository
 	/// </summary>	
-	public interface I<#=row["TABLE_Name"].ToString()#>Repository : IBaseRepository<<#=row["TABLE_Name"].ToString()#>>//类名
+	public partial interface I<#=row["TABLE_Name"].ToString()#>Repository : IBaseRepository<<#=row["TABLE_Name"].ToString()#>>//类名
     {
 
        

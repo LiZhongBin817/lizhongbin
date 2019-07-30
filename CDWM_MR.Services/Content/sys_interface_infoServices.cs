@@ -11,7 +11,7 @@ namespace CDWM_MR.Services.Content
 	/// <summary>
 	/// sys_interface_infoServices
 	/// </summary>	
-	public class sys_interface_infoServices : BaseServices<sys_interface_info>, Isys_interface_infoServices
+	public partial class sys_interface_infoServices : BaseServices<sys_interface_info>, Isys_interface_infoServices
     {
 	
         private readonly Isys_interface_infoRepository dal;

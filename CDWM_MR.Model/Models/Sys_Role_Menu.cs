@@ -28,5 +28,23 @@ namespace CDWM_MR.Model.Models
         [SugarColumn(IsNullable = true)]
         public int OperationID { get; set; }
 
+        /// <summary>
+        /// 导航sys_role表
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public sys_role Role { get; set; }
+
+        /// <summary>
+        /// 导航sys_menu表
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public sys_menu Menu { get; set; }
+
+        /// <summary>
+        /// 导航sys_operation
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public sys_operation Operation { get; set; }
+
     }
 }

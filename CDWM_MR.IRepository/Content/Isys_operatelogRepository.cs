@@ -9,7 +9,7 @@ namespace CDWM_MR.IRepository.Content
 	/// <summary>
 	/// Isys_operatelogRepository
 	/// </summary>	
-	public interface Isys_operatelogRepository : IBaseRepository<sys_operatelog>//类名
+	public partial interface Isys_operatelogRepository : IBaseRepository<sys_operatelog>//类名
     {
 
        

@@ -11,7 +11,7 @@ namespace CDWM_MR.Repository.Content
 	/// <summary>
 	/// sys_userinfoRepository
 	/// </summary>	
-	public class sys_userinfoRepository : BaseRepository<sys_userinfo>, Isys_userinfoRepository
+	public partial class sys_userinfoRepository : BaseRepository<sys_userinfo>, Isys_userinfoRepository
     {
 
        

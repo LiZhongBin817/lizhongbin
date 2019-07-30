@@ -31,7 +31,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 更新时间
         /// </summary>
-        [SugarColumn(Length = int.MaxValue, IsNullable = true)]
+        [SugarColumn( IsNullable = true)]
         public System.DateTime UpdateTime { get; set; } = DateTime.Now;
 
         /// <summary>

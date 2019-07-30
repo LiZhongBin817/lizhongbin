@@ -9,7 +9,7 @@ namespace CDWM_MR.IRepository.Content
 	/// <summary>
 	/// Isys_user_operationRepository
 	/// </summary>	
-	public interface Isys_user_operationRepository : IBaseRepository<sys_user_operation>//类名
+	public partial interface Isys_user_operationRepository : IBaseRepository<sys_user_operation>//类名
     {
 
        
