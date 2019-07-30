@@ -55,7 +55,7 @@ namespace CDWM_MR.IServices.Content
 	/// <summary>
 	/// I<#=tableName#>Services
 	/// </summary>	
-	public interface I<#=tableName#>Services :IBaseServices<<#=tableName#>>
+	public partial interface I<#=tableName#>Services :IBaseServices<<#=tableName#>>
     {
 
        

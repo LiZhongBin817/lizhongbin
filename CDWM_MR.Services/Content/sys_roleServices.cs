@@ -11,7 +11,7 @@ namespace CDWM_MR.Services.Content
 	/// <summary>
 	/// sys_roleServices
 	/// </summary>	
-	public class sys_roleServices : BaseServices<sys_role>, Isys_roleServices
+	public partial class sys_roleServices : BaseServices<sys_role>, Isys_roleServices
     {
 	
         private readonly Isys_roleRepository dal;

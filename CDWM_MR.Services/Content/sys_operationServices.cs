@@ -11,7 +11,7 @@ namespace CDWM_MR.Services.Content
 	/// <summary>
 	/// sys_operationServices
 	/// </summary>	
-	public class sys_operationServices : BaseServices<sys_operation>, Isys_operationServices
+	public partial class sys_operationServices : BaseServices<sys_operation>, Isys_operationServices
     {
 	
         private readonly Isys_operationRepository dal;

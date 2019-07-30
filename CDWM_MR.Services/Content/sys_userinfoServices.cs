@@ -11,7 +11,7 @@ namespace CDWM_MR.Services.Content
 	/// <summary>
 	/// sys_userinfoServices
 	/// </summary>	
-	public class sys_userinfoServices : BaseServices<sys_userinfo>, Isys_userinfoServices
+	public partial class sys_userinfoServices : BaseServices<sys_userinfo>, Isys_userinfoServices
     {
 	
         private readonly Isys_userinfoRepository dal;

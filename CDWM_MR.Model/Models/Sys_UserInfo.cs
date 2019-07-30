@@ -85,7 +85,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         ///最后登录时间 
         /// </summary>
-        [SugarColumn(Length = int.MaxValue, IsNullable = true)]
+        [SugarColumn(IsNullable = true)]
         public DateTime LastLoginTime { get; set; } = DateTime.Now;
 
         /// <summary>

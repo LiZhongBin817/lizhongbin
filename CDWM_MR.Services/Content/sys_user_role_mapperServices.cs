@@ -11,7 +11,7 @@ namespace CDWM_MR.Services.Content
 	/// <summary>
 	/// sys_user_role_mapperServices
 	/// </summary>	
-	public class sys_user_role_mapperServices : BaseServices<sys_user_role_mapper>, Isys_user_role_mapperServices
+	public partial class sys_user_role_mapperServices : BaseServices<sys_user_role_mapper>, Isys_user_role_mapperServices
     {
 	
         private readonly Isys_user_role_mapperRepository dal;

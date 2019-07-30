@@ -45,8 +45,9 @@ namespace CDWM_MR.Controllers
             sys_userinfo addmodel = new sys_userinfo();
             addmodel.FUserName = "admin";
             addmodel.FUserNumber = "00001";
-            addmodel.FUserNumber = null;
+            //addmodel.FUserNumber = null;
             addmodel.RealName = "张三";
+            addmodel.CreatePeople = "张三";
             return await _sysuserinfoservices.Add(addmodel);
         }
 

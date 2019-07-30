@@ -56,7 +56,7 @@ namespace CDWM_MR.Repository.Content
 	/// <summary>
 	/// <#=tableName#>Repository
 	/// </summary>	
-	public class <#=tableName#>Repository : BaseRepository<<#=tableName#>>, I<#=tableName#>Repository
+	public partial class <#=tableName#>Repository : BaseRepository<<#=tableName#>>, I<#=tableName#>Repository
     {
 
        
@@ -98,7 +98,7 @@ namespace CDWM_MR.Repository.Content
 	/// <summary>
 	/// <#=row["TABLE_Name"].ToString()#>Repository
 	/// </summary>	
-	public class <#=row["TABLE_Name"].ToString()#>Repository : BaseRepository<<#=row["TABLE_Name"].ToString()#>>, I<#=row["TABLE_Name"].ToString() #>Repository
+	public partial class <#=row["TABLE_Name"].ToString()#>Repository : BaseRepository<<#=row["TABLE_Name"].ToString()#>>, I<#=row["TABLE_Name"].ToString() #>Repository
     {
 
        

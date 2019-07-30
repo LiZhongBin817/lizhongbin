@@ -11,7 +11,7 @@ namespace CDWM_MR.Repository.Content
 	/// <summary>
 	/// sys_interface_infoRepository
 	/// </summary>	
-	public class sys_interface_infoRepository : BaseRepository<sys_interface_info>, Isys_interface_infoRepository
+	public partial class sys_interface_infoRepository : BaseRepository<sys_interface_info>, Isys_interface_infoRepository
     {
 
        

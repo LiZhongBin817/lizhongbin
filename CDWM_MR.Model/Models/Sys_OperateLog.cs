@@ -40,17 +40,6 @@ namespace CDWM_MR.Model.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// 登录时间
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public DateTime? LogTime { get; set; }
-        /// <summary>
-        /// 登录名称
-        /// </summary>
-        [SugarColumn(Length = 50, IsNullable = true)]
-        public string LoginName { get; set; }
-
-        /// <summary>
         /// 操作的菜单名称
         /// </summary>
         [SugarColumn(IsNullable = true)]

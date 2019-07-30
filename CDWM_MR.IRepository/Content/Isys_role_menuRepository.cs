@@ -9,7 +9,7 @@ namespace CDWM_MR.IRepository.Content
 	/// <summary>
 	/// Isys_role_menuRepository
 	/// </summary>	
-	public interface Isys_role_menuRepository : IBaseRepository<sys_role_menu>//类名
+	public partial interface Isys_role_menuRepository : IBaseRepository<sys_role_menu>//类名
     {
 
        

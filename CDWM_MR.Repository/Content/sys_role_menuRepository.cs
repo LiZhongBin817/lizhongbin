@@ -11,7 +11,7 @@ namespace CDWM_MR.Repository.Content
 	/// <summary>
 	/// sys_role_menuRepository
 	/// </summary>	
-	public class sys_role_menuRepository : BaseRepository<sys_role_menu>, Isys_role_menuRepository
+	public partial class sys_role_menuRepository : BaseRepository<sys_role_menu>, Isys_role_menuRepository
     {
 
        

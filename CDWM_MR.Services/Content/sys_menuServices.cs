@@ -11,7 +11,7 @@ namespace CDWM_MR.Services.Content
 	/// <summary>
 	/// sys_menuServices
 	/// </summary>	
-	public class sys_menuServices : BaseServices<sys_menu>, Isys_menuServices
+	public partial class sys_menuServices : BaseServices<sys_menu>, Isys_menuServices
     {
 	
         private readonly Isys_menuRepository dal;
