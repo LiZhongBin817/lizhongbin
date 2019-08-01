@@ -401,6 +401,16 @@
             创建人--关联Sys_UserInfo
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.sys_user_role_mapper.sysUserInfo">
+            <summary>
+            导航用户表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_user_role_mapper.sysRole">
+            <summary>
+            导航角色表
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.PageModel`1">
             <summary>
             通用分页信息类
@@ -456,12 +466,11 @@
             生成数据库
             </summary>
         </member>
-        <member name="M:CDWM_MR.Model.Seed.DBSeed.SeedAsync(CDWM_MR.Model.Seed.MyContext,System.Boolean)">
+        <member name="M:CDWM_MR.Model.Seed.DBSeed.SeedAsync(CDWM_MR.Model.Seed.MyContext)">
             <summary>
             异步添加种子数据
             </summary>
             <param name="myContext"></param>
-            <param name="CreateDataBase">默认不更新数据库</param>
         </member>
         <member name="T:CDWM_MR.Model.Seed.MyContext">
             <summary>

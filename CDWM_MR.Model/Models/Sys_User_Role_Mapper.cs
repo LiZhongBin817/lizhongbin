@@ -39,5 +39,17 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = false, Length = 20)]
         public string CreatePeople { get; set; }
+
+        /// <summary>
+        /// 导航用户表
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public sys_userinfo sysUserInfo { get; set; }
+
+        /// <summary>
+        /// 导航角色表
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public sys_role sysRole { get; set; }
     }
 }

@@ -382,7 +382,7 @@ namespace CDWM_MR
 
             services.AddSingleton(new Appsettings(Env));
             services.AddSingleton(new LogLock(Env));
-
+            services.AddSession();
 
             #region AutoFac DI
             //实例化 AutoFac  容器   
@@ -568,7 +568,7 @@ namespace CDWM_MR
             app.UseCookiePolicy();
             // 返回错误码
             app.UseStatusCodePages();//把错误码返回前台，比如是404
-
+            app.UseSession();
 
             app.UseMvc();
 
