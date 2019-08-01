@@ -16,16 +16,10 @@ namespace CDWM_MR.Model.Seed
         /// 异步添加种子数据
         /// </summary>
         /// <param name="myContext"></param>
-        /// <param name="CreateDataBase">默认不更新数据库</param>
-        public static void SeedAsync(MyContext myContext,bool CreateDataBase = false)
+        public static void SeedAsync(MyContext myContext)
         {
             try
             {
-                if (CreateDataBase)
-                {
-                    Console.WriteLine("未生成数据库！");
-                    return;
-                }
                 // 注意！一定要先手动创建一个【空的数据库】
                 // 如果生成过了，第二次，就不用再执行一遍了,注释掉该方法即可
                 myContext.CreateTableByEntity(false,

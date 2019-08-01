@@ -285,17 +285,43 @@
             登陆控制器--无权限控制
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.LoginController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.Content.Isys_role_menuServices)">
+        <member name="M:CDWM_MR.Controllers.LoginController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR_Common.Redis.IRedisHelper,CDWM_MR.AuthHelper.PermissionRequirement)">
             <summary>
             构造函数注入
             </summary>
             <param name="sysuserinfo"></param>
             <param name="sysrolemenu"></param>
+            <param name="userrole"></param>
+            <param name="addredis"></param>
+            <param name="requirement"></param>
         </member>
-        <member name="M:CDWM_MR.Controllers.LoginController.First">
+        <member name="M:CDWM_MR.Controllers.LoginController.ShowCode">
             <summary>
-            测试第一次
+            生成验证码
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.LoginController.UserLogin(System.String,System.String,System.String)">
+            <summary>
+            完成用户登录后生成Token
+            </summary>
+            <param name="UserName"></param>
+            <param name="PassWord"></param>
+            <param name="VerCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.LoginController.RefreshToken(System.String)">
+            <summary>
+            根据旧Token换取新Token
+            </summary>
+            <param name="Token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.LoginController.MD5PassWord(System.String)">
+            <summary>
+            测试MD5加密
+            </summary>
+            <param name="password"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">
