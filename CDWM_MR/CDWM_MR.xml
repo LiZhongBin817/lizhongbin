@@ -324,6 +324,11 @@
             <param name="password"></param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.MainController">
+            <summary>
+            主页面控制器
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">
             <summary>
             Summary:全局路由权限公约
