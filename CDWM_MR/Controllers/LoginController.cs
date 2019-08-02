@@ -13,6 +13,7 @@ using CDWM_MR.Model.Models;
 using CDWM_MR_Common.Redis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -77,17 +78,26 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("UserLogin")]
+        [EnableCors("LimitRequests")]
         public async Task<object> UserLogin(string UserName, string PassWord, string VerCode)
         {
             //检验验证码
             string checkCode = _redishelper.StringGet("Code");
             if (string.IsNullOrEmpty(checkCode))
             {
-                return "验证码错误！";
+                return new JsonResult(new {
+                    code = 1001,
+                    msg = "验证码错误！",
+                    data = new { }
+                });
             }
             if (VerCode != checkCode)
             {
-                return "验证码错误！";
+                return new JsonResult(new {
+                    code = 1001,
+                    msg = "验证码错误！",
+                    data = new { }
+                });
             }
             var md5 = MD5Helper.MD5Encrypt32(PassWord);//MD5加密
             var user = (await _sysuserinfoservices.Query(c => c.LoginName == UserName && c.LoginPassWord == md5 && c.UseStatus == 0)).FirstOrDefault();
@@ -117,7 +127,11 @@ namespace CDWM_MR.Controllers
                     data = new { access_token = token }
                 });
             }
-            return "用户名或密码错误！";
+            return new JsonResult(new {
+                code = 1001,
+                msg = "用户名或密码错误！",
+                data = new { }
+            });
         }
 
         /// <summary>
