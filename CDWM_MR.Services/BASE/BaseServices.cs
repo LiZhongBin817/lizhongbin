@@ -52,6 +52,15 @@ namespace CDWM_MR.Services.BASE
         }
 
         /// <summary>
+        /// 批量写入实体数据
+        /// </summary>
+        /// <param name="listEntity"></param>
+        /// <returns></returns>
+        public async Task<int> Add(List<TEntity> listEntity)
+        {
+            return await BaseDal.Add(listEntity);
+        }
+        /// <summary>
         /// 更新实体数据
         /// </summary>
         /// <param name="entity">博文实体类</param>

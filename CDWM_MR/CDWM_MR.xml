@@ -332,7 +332,7 @@
             <param name="LoginName"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.UserManageController.AddUser(System.String,System.String,System.String,System.String,System.String,System.Int16,System.String,System.String,System.String,System.Int16)">
+        <member name="M:CDWM_MR.Controllers.UserManageController.AddUser(System.String,System.String,System.String,System.String,System.String,System.Int16,System.String,System.String,System.String,System.Int16,System.String)">
             <summary>
             新增用户
             </summary>
@@ -346,6 +346,7 @@
             <param name="Adress">地址</param>
             <param name="Email">邮箱</param>
             <param name="UserType">登陆用户类型0--超级管理员;1--管理员;2--普通用户(默认)</param>
+            <param name="rolenameid">用户角色ID</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.UserManageController.DeleteUser(System.Int32)">
@@ -370,7 +371,7 @@
             <param name="FUserNumber">用户编号</param>
             <param name="FUserName">用户名称</param>
             <param name="LoginName">登录账号</param>
-            <param name="LoginPassWord">登录密码,默认密码为12345</param>
+            <param name="LoginPassWord">登录密码(默认密码为12345)</param>
             <param name="RealName">真实姓名</param>
             <param name="Sex">性别，默认为男</param>
             <param name="MobilePhone">手机号</param>

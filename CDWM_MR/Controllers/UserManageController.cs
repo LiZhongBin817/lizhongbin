@@ -20,11 +20,13 @@ namespace CDWM_MR.Controllers
         #region 相关变量
         readonly Isys_userinfoServices _sysuserinfoservices;
         readonly Isys_usermanageServices _sys_usermanageServices;
+        readonly Isys_user_role_mapperServices _sys_user_role_mapperServices;
         #endregion
-        public UserManageController(Isys_userinfoServices sysuserinfo, Isys_usermanageServices sysusermanage)
+        public UserManageController(Isys_userinfoServices sysuserinfo, Isys_usermanageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper)
         {
             _sysuserinfoservices = sysuserinfo;
             _sys_usermanageServices = sysusermanage;
+            _sys_user_role_mapperServices = sys_user_role_mapper;
         }
         #region  用户管理
         /// <summary>
@@ -54,12 +56,14 @@ namespace CDWM_MR.Controllers
         /// <param name="Adress">地址</param>
         /// <param name="Email">邮箱</param>
         /// <param name="UserType">登陆用户类型0--超级管理员;1--管理员;2--普通用户(默认)</param>
+        /// <param name="roleid">用户角色ID</param>
         /// <returns></returns>
         [HttpGet]
         [Route("AddUser")]
         [AllowAnonymous]//允许所有都访问
-        public  async Task<int> AddUser(string FUserNumber, string FUserName, string LoginName, string LoginPassWord, string RealName, short Sex, string MobilePhone, string Adress, string Email, short UserType)
+        public  async Task<int> AddUser(string FUserNumber, string FUserName, string LoginName, string LoginPassWord, string RealName, short Sex, string MobilePhone, string Adress, string Email, short UserType,string roleid)
         {
+            //将用户基本信息存入用户表
             sys_userinfo user = new sys_userinfo();
             user.FUserNumber = FUserNumber;
             user.FUserName = FUserName;
@@ -74,7 +78,27 @@ namespace CDWM_MR.Controllers
             user.UserType = UserType;
             user.CreateTime = DateTime.Now;
             user.CreatePeople = "李芊";
-            return await _sysuserinfoservices.Add(user);
+            //取到添加进来的用户ID
+            int UserID= await _sysuserinfoservices.Add(user);
+            //将用户角色关联进用户角色关联表
+            string[] Roleid = roleid.Split(',');
+            List<int> RoleID = new List<int>();
+            for(int i=0;i< Roleid.Count();i++)
+            {
+                RoleID.Add(Convert.ToInt32(Roleid[i]));
+            }
+            List<sys_user_role_mapper> role_mapper = new List<sys_user_role_mapper>();
+            for(int i=0;i< RoleID.Count();i++)
+            {
+                sys_user_role_mapper mapper = new sys_user_role_mapper();
+                mapper.UserID = UserID;
+                mapper.RoleID = RoleID[i];
+                mapper.CreateTime = DateTime.Now;
+                mapper.CreatePeople = "李芊";
+                role_mapper.Add(mapper);
+            }
+            //批量添加
+            return await _sys_user_role_mapperServices.Add(role_mapper);
         }
 
         /// <summary>

@@ -82,7 +82,6 @@ namespace CDWM_MR.Repository.BASE
             //var i = await Task.Run(() => _db.Insertable(entity).ExecuteReturnBigIdentity());
             ////返回的i是long类型,这里你可以根据你的业务需要进行处理
             //return (int)i;
-
             var insert = _db.Insertable(entity);
             return await insert.ExecuteReturnIdentityAsync();
         }
