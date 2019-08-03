@@ -118,7 +118,7 @@ namespace CDWM_MR.Controllers
         /// <param name="FUserNumber">用户编号</param>
         /// <param name="FUserName">用户名称</param>
         /// <param name="LoginName">登录账号</param>
-        /// <param name="LoginPassWord">登录密码,默认密码为12345</param>
+        /// <param name="LoginPassWord">登录密码(默认密码为12345)</param>
         /// <param name="RealName">真实姓名</param>
         /// <param name="Sex">性别，默认为男</param>
         /// <param name="MobilePhone">手机号</param>
