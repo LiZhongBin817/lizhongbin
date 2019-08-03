@@ -23,6 +23,7 @@ namespace CDWM_MR.IServices.BASE
         Task<bool> DeleteByIds(object[] ids);
 
         Task<bool> Update(TEntity model);
+        Task<bool> Updateable(List<TEntity> entity);
         Task<bool> Update(TEntity entity, string strWhere);
 
         Task<bool> Update(TEntity entity, List<string> lstColumns = null, List<string> lstIgnoreColumns = null, string strWhere = "");

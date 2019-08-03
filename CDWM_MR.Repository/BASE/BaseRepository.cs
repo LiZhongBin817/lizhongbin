@@ -130,6 +130,15 @@ namespace CDWM_MR.Repository.BASE
             //这种方式会以主键为条件
             return await _db.Updateable(entity).ExecuteCommandHasChangeAsync();
         }
+        /// <summary>
+        /// 批量更新
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task<bool> Updateable(List<TEntity> entity)
+        {
+            return await _db.Updateable(entity).ExecuteCommandHasChangeAsync();
+        }
 
         public async Task<bool> Update(TEntity entity, string strWhere)
         {
@@ -217,8 +226,6 @@ namespace CDWM_MR.Repository.BASE
             return await _db.Deleteable<TEntity>().In(ids).ExecuteCommandHasChangeAsync();
         }
 
-
-
         /// <summary>
         /// 功能描述:查询所有数据
         /// 作　　者:CDWM_MR
@@ -257,6 +264,10 @@ namespace CDWM_MR.Repository.BASE
         /// <summary>
         /// 功能描述:查询一个列表
         /// 作　　者:CDWM_MR
+
+
+
+
         /// </summary>
         /// <param name="whereExpression">条件表达式</param>
         /// <param name="strOrderByFileds">排序字段，如name asc,age desc</param>

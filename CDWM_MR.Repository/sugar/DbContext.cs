@@ -1,5 +1,6 @@
 ﻿using CDWM_MR.Common.LogHelper;
 using CDWM_MR.Log;
+using CDWM_MR.Model.Models;
 using SqlSugar;
 using StackExchange.Profiling;
 using System;
@@ -18,7 +19,7 @@ namespace CDWM_MR.Repository
         private static DbType _dbType;
         private SqlSugarClient _db;
         private readonly ILoggerHelper _loggerHelper = new LogHelper();
-
+        
         /// <summary>
         /// 连接字符串 
         /// CDWM_MR
@@ -312,9 +313,6 @@ namespace {Namespace}
 
             return key;
         }
-
-
-
         #region 静态方法
 
         /// <summary>

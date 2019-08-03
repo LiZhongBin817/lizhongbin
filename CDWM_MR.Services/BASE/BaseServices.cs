@@ -60,6 +60,10 @@ namespace CDWM_MR.Services.BASE
         {
             return await BaseDal.Update(entity);
         }
+        public async Task<bool> Updateable(List<TEntity> entity)
+        {
+            return await BaseDal.Updateable(entity);
+        }
         public async Task<bool> Update(TEntity entity, string strWhere)
         {
             return await BaseDal.Update(entity, strWhere);
@@ -180,7 +184,6 @@ namespace CDWM_MR.Services.BASE
         {
             return await BaseDal.Query(whereExpression, intTop, strOrderByFileds);
         }
-
         /// <summary>
         /// 功能描述:查询前N条数据
         /// 作　　者:AZLinli.CDWM_MR
@@ -255,5 +258,4 @@ namespace CDWM_MR.Services.BASE
             return await BaseDal.QueryMuch(joinExpression, selectExpression, whereLambda);
         }
     }
-
 }
