@@ -8,9 +8,9 @@ namespace CDWM_MR.AuthHelper
     public class PermissionItem
     {
         /// <summary>
-        /// 用户或角色或其他凭据名称
+        /// 用户或角色或其他凭据名称ID
         /// </summary>
-        public virtual string Role { get; set; }
+        public virtual int Role { get; set; }
         /// <summary>
         /// 请求Url
         /// </summary>

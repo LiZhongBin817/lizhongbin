@@ -184,7 +184,7 @@
             services 层注入
             </summary>
         </member>
-        <member name="M:CDWM_MR.AuthHelper.PermissionHandler.#ctor(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider,CDWM_MR.IServices.Content.Isys_role_menuServices)">
+        <member name="M:CDWM_MR.AuthHelper.PermissionHandler.#ctor(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider,CDWM_MR.IServices.IsysManageServices)">
             <summary>
             构造函数注入
             </summary>
@@ -202,7 +202,7 @@
         </member>
         <member name="P:CDWM_MR.AuthHelper.PermissionItem.Role">
             <summary>
-            用户或角色或其他凭据名称
+            用户或角色或其他凭据名称ID
             </summary>
         </member>
         <member name="P:CDWM_MR.AuthHelper.PermissionItem.Url">
@@ -280,18 +280,22 @@
             配置构造函数，用来创建关系映射
             </summary>
         </member>
+        <member name="T:CDWM_MR.Controllers.BaseController">
+            <summary>
+            基类控制器
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Controllers.LoginController">
             <summary>
             登陆控制器--无权限控制
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.LoginController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR_Common.Redis.IRedisHelper,CDWM_MR.AuthHelper.PermissionRequirement)">
+        <member name="M:CDWM_MR.Controllers.LoginController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR_Common.Redis.IRedisHelper,CDWM_MR.AuthHelper.PermissionRequirement)">
             <summary>
             构造函数注入
             </summary>
             <param name="sysuserinfo"></param>
-            <param name="sysrolemenu"></param>
-            <param name="userrole"></param>
+            <param name="sysManage"></param>
             <param name="addredis"></param>
             <param name="requirement"></param>
         </member>
@@ -328,6 +332,18 @@
             <summary>
             主页面控制器
             </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MainController.#ctor(CDWM_MR.IServices.IsysManageServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="sysmanage"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MainController.GetMenuData">
+            <summary>
+            获取菜单数据
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">
             <summary>

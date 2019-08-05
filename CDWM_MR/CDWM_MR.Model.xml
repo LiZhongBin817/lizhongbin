@@ -9,7 +9,7 @@
             通用返回信息类
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.MessageModel`1.success">
+        <member name="P:CDWM_MR.Model.MessageModel`1.code">
             <summary>
             操作是否成功
             </summary>
@@ -19,7 +19,7 @@
             返回信息
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.MessageModel`1.response">
+        <member name="P:CDWM_MR.Model.MessageModel`1.data">
             <summary>
             返回数据集合
             </summary>

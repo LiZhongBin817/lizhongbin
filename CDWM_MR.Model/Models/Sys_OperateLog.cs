@@ -21,22 +21,22 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 区域控制器名
         /// </summary>
-        [SugarColumn(Length = int.MaxValue, IsNullable = true)]
+        [SugarColumn(Length = 100, IsNullable = true)]
         public string Controller { get; set; }
         /// <summary>
         /// Action名称
         /// </summary>
-        [SugarColumn(Length = int.MaxValue, IsNullable = true)]
+        [SugarColumn(Length = 100, IsNullable = true)]
         public string Action { get; set; }
         /// <summary>
         /// IP地址
         /// </summary>
-        [SugarColumn(Length = int.MaxValue, IsNullable = true)]
+        [SugarColumn(Length = 100, IsNullable = true)]
         public string IPAddress { get; set; }
         /// <summary>
         /// 描述
         /// </summary>
-        [SugarColumn(Length = int.MaxValue, IsNullable = true)]
+        [SugarColumn(Length = 500, IsNullable = true)]
         public string Description { get; set; }
 
         /// <summary>
