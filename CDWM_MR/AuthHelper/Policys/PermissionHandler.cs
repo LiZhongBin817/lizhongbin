@@ -27,14 +27,14 @@ namespace CDWM_MR.AuthHelper
         /// <summary>
         /// services 层注入
         /// </summary>
-        public Isys_role_menuServices sysrolemenuServices { get; set; }
+        public IsysManageServices sysrolemenuServices { get; set; }
 
         /// <summary>
         /// 构造函数注入
         /// </summary>
         /// <param name="schemes"></param>
         /// <param name="roleModulePermissionServices"></param>
-        public PermissionHandler(IAuthenticationSchemeProvider schemes, Isys_role_menuServices roleModulePermissionServices)
+        public PermissionHandler(IAuthenticationSchemeProvider schemes, IsysManageServices roleModulePermissionServices)
         {
             Schemes = schemes;
             this.sysrolemenuServices = roleModulePermissionServices;
@@ -50,14 +50,14 @@ namespace CDWM_MR.AuthHelper
                         select new PermissionItem
                         {
                             Url = item.Operation?.LinkUrl,
-                            Role = item.Role?.RoleName,
+                            Role = Convert.ToInt32(item.Role?.ID),
                         }).ToList();
 
             requirement.Permissions = list;
 
             //从AuthorizationHandlerContext转成HttpContext，以便取出表求信息
             var filterContext = (context.Resource as Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext);
-            var httpContext = (context.Resource as Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)?.HttpContext;
+            var httpContext = filterContext?.HttpContext;
             //请求Url
             if (httpContext != null)
             {
@@ -68,16 +68,12 @@ namespace CDWM_MR.AuthHelper
                 {
                     if (await handlers.GetHandlerAsync(httpContext, scheme.Name) is IAuthenticationRequestHandler handler && await handler.HandleRequestAsync())
                     {
-                        //context.Fail();
-                        //return;
-
                         //自定义返回数据
                         var payload = JsonConvert.SerializeObject(new { Code = "401", Message = "很抱歉，您无权访问该接口!" });
                         httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
                         filterContext.Result = new JsonResult(payload);
                         context.Succeed(requirement);
                         return;
-
                     }
                 }
                 //判断请求是否拥有凭据，即有没有登录
@@ -88,26 +84,7 @@ namespace CDWM_MR.AuthHelper
                     //result?.Principal不为空即登录成功
                     if (result?.Principal != null)
                     {
-
                         httpContext.User = result.Principal;
-
-                        // 取消对URL的判断，因为只需判断该角色下是否匹配当前URL即可，若不匹配都是无效请求
-                        //var isMatchUrl = false;
-                        //var permisssionGroup = requirement.Permissions.GroupBy(g => g.Url);
-                        //foreach (var item in permisssionGroup)
-                        //{
-                        //    try
-                        //    {
-                        //        if (Regex.Match(questUrl, item.Key?.ObjToString().ToLower())?.Value == questUrl)
-                        //        {
-                        //            isMatchUrl = true;
-                        //            break;
-                        //        }
-                        //    }
-                        //    catch (Exception)
-                        //    {
-                        //    }
-                        //}
 
                         //权限中是否存在请求的url
                         //if (requirement.Permissions.GroupBy(g => g.Url).Where(w => w.Key?.ToLower() == questUrl).Count() > 0)
@@ -120,7 +97,7 @@ namespace CDWM_MR.AuthHelper
                                                     select item.Value).ToList();
 
                             var isMatchRole = false;
-                            var permisssionRoles = requirement.Permissions.Where(w => currentUserRoles.Contains(w.Role));
+                            var permisssionRoles = requirement.Permissions.Where(w => currentUserRoles.Contains(w.Role.ToString()));
                             foreach (var item in permisssionRoles)
                             {
                                 try
@@ -141,8 +118,6 @@ namespace CDWM_MR.AuthHelper
                             //if (currentUserRoles.Count <= 0 || requirement.Permissions.Where(w => currentUserRoles.Contains(w.Role) && w.Url.ToLower() == questUrl).Count() <= 0)
                             if (currentUserRoles.Count <= 0 || !isMatchRole)
                             {
-
-
                                 // 可以在这里设置跳转页面
                                 //httpContext.Response.Redirect(requirement.DeniedAction);
                                 //context.Succeed(requirement);

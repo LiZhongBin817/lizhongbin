@@ -19,11 +19,9 @@ namespace CDWM_MR.Repository.Content
         /// <returns></returns>
         public async Task<List<sys_user_role_mapper>> GetUserRolestr()
         {
-            var userrolelist = await Task.Run(() => Db.Queryable<sys_user_role_mapper>()
+            return await Task.Run(() => Db.Queryable<sys_user_role_mapper>()
             .Mapper(t => t.sysUserInfo,t => t.UserID)
             .Mapper(t => t.sysRole,t => t.RoleID).ToList());
-
-            return null;
         }
     }
 }

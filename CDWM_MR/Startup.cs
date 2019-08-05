@@ -26,6 +26,7 @@ using CDWM_MR_Common.Redis;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -209,44 +210,6 @@ namespace CDWM_MR
 
             #endregion
 
-            #region MVC + GlobalExceptions
-
-            //注入全局异常捕获
-            services.AddMvc(o =>
-            {
-                // 全局异常过滤
-                o.Filters.Add(typeof(GlobalExceptionsFilter));
-                // 全局路由权限公约
-                o.Conventions.Insert(0, new GlobalRouteAuthorizeConvention());
-                // 全局路由前缀，统一修改路由
-                o.Conventions.Insert(0, new GlobalRoutePrefixFilter(new RouteAttribute(RoutePrefix.Name)));
-            })
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-            // 取消默认驼峰
-            .AddJsonOptions(options => { options.SerializerSettings.ContractResolver = new DefaultContractResolver(); });
-
-
-            #endregion
-
-            #region TimedJob
-
-            //services.AddHostedService<Job1TimedService>();
-            //services.AddHostedService<Job2TimedService>();
-
-            #endregion
-
-            #region Httpcontext
-
-            // Httpcontext 注入
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IUser, AspNetUser>();
-
-            #endregion
-
-            #region SignalR 通讯
-            services.AddSignalR();
-            #endregion
-
             #region Authorize 权限认证三步走
 
             //使用说明：
@@ -315,14 +278,10 @@ namespace CDWM_MR
                          policy => policy.Requirements.Add(permissionRequirement));
             });
 
-
             #endregion
 
 
             #endregion
-
-
-
 
 
             #region 【第二步：配置认证服务】
@@ -348,9 +307,17 @@ namespace CDWM_MR
             })
              .AddJwtBearer(o =>
              {
+                 //不使用https
+                 o.RequireHttpsMetadata = false;
+                 
                  o.TokenValidationParameters = tokenValidationParameters;
                  o.Events = new JwtBearerEvents
                  {
+                     OnMessageReceived = context =>
+                     {
+                         context.Token = context.Request.Query["access_token"];
+                         return Task.CompletedTask;
+                     },
                      OnAuthenticationFailed = context =>
                      {
                          // 如果过期，则把<是否过期>添加到，返回头信息中
@@ -380,9 +347,49 @@ namespace CDWM_MR
 
             #endregion
 
+            #region MVC + GlobalExceptions
+
+            //注入全局异常捕获
+            services.AddMvc(o =>
+            {
+                // 全局异常过滤
+                o.Filters.Add(typeof(GlobalExceptionsFilter));
+                // 全局路由权限公约
+                o.Conventions.Insert(0, new GlobalRouteAuthorizeConvention());
+                // 全局路由前缀，统一修改路由
+                o.Conventions.Insert(0, new GlobalRoutePrefixFilter(new RouteAttribute(RoutePrefix.Name)));
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            // 取消默认驼峰
+            .AddJsonOptions(options => { options.SerializerSettings.ContractResolver = new DefaultContractResolver(); });
+
+
+            #endregion
+
+            #region TimedJob
+
+            //services.AddHostedService<Job1TimedService>();
+            //services.AddHostedService<Job2TimedService>();
+
+            #endregion
+
+            #region Httpcontext
+
+            // Httpcontext 注入
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IUser, AspNetUser>();
+
+            #endregion
+
+            #region SignalR 通讯
+            services.AddSignalR();
+            #endregion
+
+
             services.AddSingleton(new Appsettings(Env));
             services.AddSingleton(new LogLock(Env));
-            services.AddSession();
+            //services.AddSession();
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
             #region AutoFac DI
             //实例化 AutoFac  容器   
@@ -568,7 +575,7 @@ namespace CDWM_MR
             app.UseCookiePolicy();
             // 返回错误码
             app.UseStatusCodePages();//把错误码返回前台，比如是404
-            app.UseSession();
+            //app.UseSession();
 
             app.UseMvc();
 
