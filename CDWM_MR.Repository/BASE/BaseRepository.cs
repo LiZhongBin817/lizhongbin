@@ -117,6 +117,10 @@ namespace CDWM_MR.Repository.BASE
             return await _db.Insertable(listEntity.ToArray()).ExecuteCommandAsync();
         }
 
+        #region 过滤查询
+
+        #endregion
+
         /// <summary>
         /// 更新实体数据
         /// </summary>
