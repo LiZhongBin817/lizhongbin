@@ -612,22 +612,22 @@
             表格数据，支持分页
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.TableModel`1.Code">
+        <member name="P:CDWM_MR.Model.TableModel`1.code">
             <summary>
             返回编码
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.TableModel`1.Msg">
+        <member name="P:CDWM_MR.Model.TableModel`1.msg">
             <summary>
             返回信息
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.TableModel`1.Count">
+        <member name="P:CDWM_MR.Model.TableModel`1.count">
             <summary>
             记录总数
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.TableModel`1.Data">
+        <member name="P:CDWM_MR.Model.TableModel`1.data">
             <summary>
             返回数据集
             </summary>

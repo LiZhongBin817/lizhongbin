@@ -119,7 +119,10 @@ namespace CDWM_MR.Services.BASE
             return await BaseDal.DeleteByIds(ids);
         }
 
-
+        public async Task<bool> DeleteTable(Expression<Func<TEntity, bool>> whereExpression)
+        {
+            return await BaseDal.DeleteTable(whereExpression);
+        }
 
         /// <summary>
         /// 功能描述:查询所有数据

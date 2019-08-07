@@ -22,6 +22,8 @@ namespace CDWM_MR.IServices.BASE
 
         Task<bool> Delete(TEntity model);
 
+        Task<bool> DeleteTable(Expression<Func<TEntity, bool>> whereExpression);
+
         Task<bool> DeleteByIds(object[] ids);
 
         Task<bool> Update(TEntity model);

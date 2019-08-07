@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CDWM_MR.Model
 {
@@ -12,18 +13,18 @@ namespace CDWM_MR.Model
         /// <summary>
         /// 返回编码
         /// </summary>
-        public int Code { get; set; }
+        public int code { get; set; }
         /// <summary>
         /// 返回信息
         /// </summary>
-        public string Msg { get; set; }
+        public string msg { get; set; }
         /// <summary>
         /// 记录总数
         /// </summary>
-        public int Count { get; set; }
+        public int count { get; set; }
         /// <summary>
         /// 返回数据集
         /// </summary>
-        public List<T> Data { get; set; }
+        public T data { get; set; }
     }
 }

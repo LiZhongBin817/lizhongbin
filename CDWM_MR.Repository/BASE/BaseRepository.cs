@@ -226,6 +226,15 @@ namespace CDWM_MR.Repository.BASE
         }
 
         /// <summary>
+        /// 根据条件删除数据
+        /// </summary>
+        /// <param name="whereExpression"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteTable(Expression<Func<TEntity, bool>> whereExpression)
+        {
+            return await _db.Deleteable<TEntity>().Where(whereExpression).ExecuteCommandHasChangeAsync();
+        }
+        /// <summary>
         /// 功能描述:查询所有数据
         /// 作　　者:CDWM_MR
         /// </summary>

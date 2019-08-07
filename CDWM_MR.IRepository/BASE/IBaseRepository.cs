@@ -23,6 +23,7 @@ namespace CDWM_MR.IRepository.Base
         Task<bool> Delete(TEntity model);
 
         Task<bool> DeleteByIds(object[] ids);
+        Task<bool> DeleteTable(Expression<Func<TEntity, bool>> whereExpression);
 
         Task<bool> Update(TEntity model);
         Task<bool> Update(TEntity entity, string strWhere);
