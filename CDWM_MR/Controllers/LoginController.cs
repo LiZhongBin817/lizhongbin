@@ -104,7 +104,7 @@ namespace CDWM_MR.Controllers
             if (user != null)
             {
                 //将登陆的用户信息存入Redis缓存
-                await _redishelper.StringSetAsync("UserInfo", user,TimeSpan.FromMinutes(30));
+                await _redishelper.StringSetAsync($"UserInfo{user.ID}", user,TimeSpan.FromMinutes(30));
                 var rolestr = await _SysManage.GetuserRole(user.ID);//角色的组合
                 //如果是基于用户的授权策略，这里要添加用户;如果是基于角色的授权策略，这里要添加角色
                 var claims = new List<Claim> {

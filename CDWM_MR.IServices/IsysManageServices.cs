@@ -13,6 +13,8 @@ namespace CDWM_MR.IServices
 
         Task<string> GetuserRole(int userid);
 
-        Task<List<object>> GetMenuTree();
+        Task<List<sys_menu>> GetMenuTree();
+
+        List<object> Childmenu(int Parentid, List<sys_menu> MenuList);
     }
 }

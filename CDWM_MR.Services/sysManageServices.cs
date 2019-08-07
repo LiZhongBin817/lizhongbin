@@ -60,14 +60,20 @@ namespace CDWM_MR.Services
         /// </summary>
         /// <returns></returns>
         [Caching(AbsoluteExpiration = 60)]
-        public async Task<List<object>> GetMenuTree()
+        public async Task<List<sys_menu>> GetMenuTree()
         {
             var allMenu = await SysMenuDal.Query();//查询出菜单表所有数据
-            var menulist = Childmenu(0, allMenu);
-            return menulist;
+            //var menulist = Childmenu(0, allMenu);
+            return allMenu;
         }
 
-        private List<object> Childmenu(int Parentid,List<sys_menu> MenuList)
+        /// <summary>
+        /// 获取菜单信息
+        /// </summary>
+        /// <param name="Parentid"></param>
+        /// <param name="MenuList"></param>
+        /// <returns></returns>
+        public List<object> Childmenu(int Parentid, List<sys_menu> MenuList)
         {
             List<object> rMenulist = new List<object>();
             List<sys_menu> allChildren = MenuList.FindAll(c => c.ParentID == Parentid);
@@ -78,7 +84,7 @@ namespace CDWM_MR.Services
             }
             foreach (var item in allChildren)
             {
-                var olist = Childmenu(item.ID,MenuList);
+                var olist = Childmenu(item.ID, MenuList);
                 if (olist.Count == 0)
                 {
                     sys_menu model = MenuList.Find(c => c.ID == item.ID);
