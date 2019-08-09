@@ -14,7 +14,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
     ,views: layui.cache.base + 'views/' //视图所在目录
     ,entry: 'index' //默认视图文件名
     ,engine: '.html' //视图文件后缀名
-    ,pageTabs: false//是否开启页面选项卡功能。单页版不推荐开启
+    ,pageTabs: true//是否开启页面选项卡功能。单页版不推荐开启
     
     ,name: '抄表云平台'
     ,tableName: 'CDWM_MR' //本地存储表名
