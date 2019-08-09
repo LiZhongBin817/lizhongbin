@@ -52,6 +52,15 @@ namespace CDWM_MR.Services.BASE
         }
 
         /// <summary>
+        /// 批量写入实体数据
+        /// </summary>
+        /// <param name="listEntity"></param>
+        /// <returns></returns>
+        public async Task<int> Add(List<TEntity> listEntity)
+        {
+            return await BaseDal.Add(listEntity);
+        }
+        /// <summary>
         /// 更新实体数据
         /// </summary>
         /// <param name="entity">博文实体类</param>
@@ -60,6 +69,21 @@ namespace CDWM_MR.Services.BASE
         {
             return await BaseDal.Update(entity);
         }
+        public async Task<bool> Updateable(List<TEntity> entity)
+        {
+            return await BaseDal.Updateable(entity);
+        }
+        /// <summary>
+        /// 批量更新
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="wherelambda"></param>
+        /// <returns></returns>
+        public async Task<bool> Update(Expression<Func<TEntity, TEntity>> expression, Expression<Func<TEntity, bool>> wherelambda)
+        {
+            return await BaseDal.Update(expression, wherelambda);
+        }
+
         public async Task<bool> Update(TEntity entity, string strWhere)
         {
             return await BaseDal.Update(entity, strWhere);
@@ -106,7 +130,10 @@ namespace CDWM_MR.Services.BASE
             return await BaseDal.DeleteByIds(ids);
         }
 
-
+        public async Task<bool> DeleteTable(Expression<Func<TEntity, bool>> whereExpression)
+        {
+            return await BaseDal.DeleteTable(whereExpression);
+        }
 
         /// <summary>
         /// 功能描述:查询所有数据
@@ -180,7 +207,6 @@ namespace CDWM_MR.Services.BASE
         {
             return await BaseDal.Query(whereExpression, intTop, strOrderByFileds);
         }
-
         /// <summary>
         /// 功能描述:查询前N条数据
         /// 作　　者:AZLinli.CDWM_MR
@@ -250,10 +276,13 @@ namespace CDWM_MR.Services.BASE
          intPageIndex, intPageSize, strOrderByFileds);
         }
 
+        public async Task<PageModel<object>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> whereExpression1, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null)
+        {
+            return await BaseDal.QueryPage(whereExpression, whereExpression1, intPageIndex, intPageSize, strOrderByFileds);
+        }
         public async Task<List<TResult>> QueryMuch<T, T2, T3, TResult>(Expression<Func<T, T2, T3, object[]>> joinExpression, Expression<Func<T, T2, T3, TResult>> selectExpression, Expression<Func<T, T2, T3, bool>> whereLambda = null) where T : class, new()
         {
             return await BaseDal.QueryMuch(joinExpression, selectExpression, whereLambda);
         }
     }
-
 }

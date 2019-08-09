@@ -328,6 +328,59 @@
             <param name="password"></param>
             <returns></returns>
         </member>
+<<<<<<< HEAD
+        <member name="M:CDWM_MR.Controllers.UserManageController.ShowUserInfoDate(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            显示数据
+            </summary>
+            <param name="FUserName">用户名称</param>
+            <param name="LoginName">登录名</param>
+            <param name="page">当前页</param>
+            <param name="limit">每页显示数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.UserManageController.roleDate">
+            <summary>
+            给添加界面的角色选择复选框传值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.UserManageController.AddUser(System.String,System.String)">
+            <summary>
+            添加用户
+            </summary>
+            <param name="JsonDate"></param>
+            <param name="roleid">用户角色ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.UserManageController.DeleteUser(System.Int32)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="ID">用户ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.UserManageController.DeleteUsers(System.String)">
+            <summary>
+            批量删除用户
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.UserManageController.ModifyData(System.Int32)">
+            <summary>
+            向编辑界面传参
+            </summary>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.UserManageController.ModifyUserInfo(System.String,System.String)">
+            <summary>
+            编辑用户信息
+            </summary>
+            <param name="JsonDate"></param>
+            <param name="roleid"></param>
+=======
         <member name="T:CDWM_MR.Controllers.MainController">
             <summary>
             主页面控制器
@@ -343,6 +396,7 @@
             <summary>
             获取菜单数据
             </summary>
+>>>>>>> 05ee141d7a251553aeb97d444243a03fdea73281
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">

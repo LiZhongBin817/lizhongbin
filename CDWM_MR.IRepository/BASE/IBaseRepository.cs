@@ -16,18 +16,21 @@ namespace CDWM_MR.IRepository.Base
         Task<List<TEntity>> QueryByIDs(object[] lstIds);
 
         Task<int> Add(TEntity model);
+        Task<int> Add(List<TEntity> listEntity);
 
         Task<bool> DeleteById(object id);
 
         Task<bool> Delete(TEntity model);
 
         Task<bool> DeleteByIds(object[] ids);
+        Task<bool> DeleteTable(Expression<Func<TEntity, bool>> whereExpression);
 
         Task<bool> Update(TEntity model);
         Task<bool> Update(TEntity entity, string strWhere);
 
         Task<bool> Update(TEntity entity, List<string> lstColumns = null, List<string> lstIgnoreColumns = null, string strWhere = "");
-
+        Task<bool> Updateable(List<TEntity> entity);
+        Task<bool> Update(Expression<Func<TEntity, TEntity>> expression, Expression<Func<TEntity, bool>> wherelambda);
         Task<List<TEntity>> Query();
         Task<List<TEntity>> Query(string strWhere);
         Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression);
@@ -41,7 +44,7 @@ namespace CDWM_MR.IRepository.Base
         Task<List<TEntity>> Query(
             Expression<Func<TEntity, bool>> whereExpression, int intPageIndex, int intPageSize, string strOrderByFileds);
         Task<List<TEntity>> Query(string strWhere, int intPageIndex, int intPageSize, string strOrderByFileds);
-
+        Task<PageModel<object>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> whereExpression1, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null);
 
         Task<PageModel<TEntity>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null);
 

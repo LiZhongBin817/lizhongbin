@@ -1,4 +1,5 @@
 ﻿using CDWM_MR.IServices.BASE;
+using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,8 @@ namespace CDWM_MR.IServices
         Task<List<sys_menu>> GetMenuTree();
 
         List<object> Childmenu(int Parentid, List<sys_menu> MenuList);
+        Task<TableModel<object>> Modify(int ID);
+        Task<int> ModifyInfo(string JsonDate, string roleid);
+        Task<int> AddUserinfo(string JsonDate, string roleid);
     }
 }

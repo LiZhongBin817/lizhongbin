@@ -82,7 +82,6 @@ namespace CDWM_MR.Repository.BASE
             //var i = await Task.Run(() => _db.Insertable(entity).ExecuteReturnBigIdentity());
             ////返回的i是long类型,这里你可以根据你的业务需要进行处理
             //return (int)i;
-
             var insert = _db.Insertable(entity);
             return await insert.ExecuteReturnIdentityAsync();
         }
@@ -134,19 +133,32 @@ namespace CDWM_MR.Repository.BASE
             //这种方式会以主键为条件
             return await _db.Updateable(entity).ExecuteCommandHasChangeAsync();
         }
+        /// <summary>
+        /// 批量更新
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task<bool> Updateable(List<TEntity> entity)
+        {
+            return await _db.Updateable(entity).ExecuteCommandHasChangeAsync();
+        }
 
         public async Task<bool> Update(TEntity entity, string strWhere)
         {
             //return await Task.Run(() => _db.Updateable(entity).Where(strWhere).ExecuteCommand() > 0);
             return await _db.Updateable(entity).Where(strWhere).ExecuteCommandHasChangeAsync();
         }
-
         public async Task<bool> Update(string strSql, SugarParameter[] parameters = null)
         {
             //return await Task.Run(() => _db.Ado.ExecuteCommand(strSql, parameters) > 0);
             return await _db.Ado.ExecuteCommandAsync(strSql, parameters) > 0;
         }
 
+        [Obsolete]
+        public async Task<bool> Update(Expression<Func<TEntity, TEntity>> expression, Expression<Func<TEntity, bool>> wherelambda)
+        {
+           return await _db.Updateable<TEntity>().UpdateColumns(expression).Where(wherelambda).ExecuteCommandHasChangeAsync();
+        }
         public async Task<bool> Update(
           TEntity entity,
           List<string> lstColumns = null,
@@ -221,8 +233,15 @@ namespace CDWM_MR.Repository.BASE
             return await _db.Deleteable<TEntity>().In(ids).ExecuteCommandHasChangeAsync();
         }
 
-
-
+        /// <summary>
+        /// 根据条件删除数据
+        /// </summary>
+        /// <param name="whereExpression"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteTable(Expression<Func<TEntity, bool>> whereExpression)
+        {
+            return await _db.Deleteable<TEntity>().Where(whereExpression).ExecuteCommandHasChangeAsync();
+        }
         /// <summary>
         /// 功能描述:查询所有数据
         /// 作　　者:CDWM_MR
@@ -261,6 +280,10 @@ namespace CDWM_MR.Repository.BASE
         /// <summary>
         /// 功能描述:查询一个列表
         /// 作　　者:CDWM_MR
+
+
+
+
         /// </summary>
         /// <param name="whereExpression">条件表达式</param>
         /// <param name="strOrderByFileds">排序字段，如name asc,age desc</param>
@@ -384,19 +407,36 @@ namespace CDWM_MR.Repository.BASE
         /// <param name="intPageSize">页大小</param>
         /// <param name="strOrderByFileds">排序字段，如name asc,age desc</param>
         /// <returns></returns>
+        public async Task<PageModel<object>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> whereExpression1,int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null)
+        {
+            RefAsync<int> totalCount = 0;
+            var list = await _db.Queryable<TEntity>()
+             .OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds)
+             .WhereIF(whereExpression != null, whereExpression)
+             .Select(whereExpression1)
+             .ToPageListAsync(intPageIndex, intPageSize, totalCount);
+            int pageCount = (Math.Ceiling(totalCount.ObjToDecimal() / intPageSize.ObjToDecimal())).ObjToInt();
+            return new PageModel<object>() { dataCount = totalCount, pageCount = pageCount, page = intPageIndex, PageSize = intPageSize, data = list };
+        }
+        /// <summary>
+        /// 分页查询不加select方法
+        /// </summary>
+        /// <param name="whereExpression"></param>
+        /// <param name="whereExpression1"></param>
+        /// <param name="intPageIndex"></param>
+        /// <param name="intPageSize"></param>
+        /// <param name="strOrderByFileds"></param>
+        /// <returns></returns>
         public async Task<PageModel<TEntity>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null)
         {
-
             RefAsync<int> totalCount = 0;
             var list = await _db.Queryable<TEntity>()
              .OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds)
              .WhereIF(whereExpression != null, whereExpression)
              .ToPageListAsync(intPageIndex, intPageSize, totalCount);
-
             int pageCount = (Math.Ceiling(totalCount.ObjToDecimal() / intPageSize.ObjToDecimal())).ObjToInt();
             return new PageModel<TEntity>() { dataCount = totalCount, pageCount = pageCount, page = intPageIndex, PageSize = intPageSize, data = list };
         }
-
 
         /// <summary> 
         ///查询-多表查询
