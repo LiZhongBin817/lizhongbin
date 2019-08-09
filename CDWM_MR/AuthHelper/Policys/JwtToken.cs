@@ -33,8 +33,9 @@ namespace CDWM_MR.AuthHelper
             //打包返回前台
             var responseJson = new
             {
-                success = true,
-                token = encodedJwt,
+                code = 0,
+                msg = "登入成功",
+                data = encodedJwt,
                 expires_in = permissionRequirement.Expiration.TotalSeconds,
                 token_type = "Bearer"
             };

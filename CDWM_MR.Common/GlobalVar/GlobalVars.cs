@@ -1,4 +1,6 @@
-﻿namespace CDWM_MR
+﻿using System.Collections.Generic;
+
+namespace CDWM_MR
 {
     /// <summary>
     /// 权限变量配置
@@ -6,7 +8,15 @@
     public static class Permissions
     {
         public const string Name = "Permission";
+
+        /// <summary>
+        /// 当前用户所有角色
+        /// </summary>
+        public static List<string> RolesList { get; set; }
+
     }
+
+    
 
     /// <summary>
     /// 路由变量前缀配置

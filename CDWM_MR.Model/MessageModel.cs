@@ -12,7 +12,7 @@ namespace CDWM_MR.Model
         /// <summary>
         /// 操作是否成功
         /// </summary>
-        public bool success { get; set; } = false;
+        public int code { get; set; } = 0;
         /// <summary>
         /// 返回信息
         /// </summary>
@@ -20,7 +20,7 @@ namespace CDWM_MR.Model
         /// <summary>
         /// 返回数据集合
         /// </summary>
-        public T response { get; set; }
+        public T data { get; set; }
 
     }
 }

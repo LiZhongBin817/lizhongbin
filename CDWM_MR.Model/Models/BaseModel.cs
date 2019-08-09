@@ -43,7 +43,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 备注
         /// </summary>
-        [SugarColumn(Length = int.MaxValue, IsNullable = true)]
+        [SugarColumn(Length = 500, IsNullable = true)]
         public string Remark { get; set; }
     }
 }

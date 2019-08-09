@@ -116,6 +116,10 @@ namespace CDWM_MR.Repository.BASE
             return await _db.Insertable(listEntity.ToArray()).ExecuteCommandAsync();
         }
 
+        #region 过滤查询
+
+        #endregion
+
         /// <summary>
         /// 更新实体数据
         /// </summary>
@@ -403,6 +407,26 @@ namespace CDWM_MR.Repository.BASE
         /// <param name="intPageSize">页大小</param>
         /// <param name="strOrderByFileds">排序字段，如name asc,age desc</param>
         /// <returns></returns>
+        public async Task<PageModel<object>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> whereExpression1,int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null)
+        {
+            RefAsync<int> totalCount = 0;
+            var list = await _db.Queryable<TEntity>()
+             .OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds)
+             .WhereIF(whereExpression != null, whereExpression)
+             .Select(whereExpression1)
+             .ToPageListAsync(intPageIndex, intPageSize, totalCount);
+            int pageCount = (Math.Ceiling(totalCount.ObjToDecimal() / intPageSize.ObjToDecimal())).ObjToInt();
+            return new PageModel<object>() { dataCount = totalCount, pageCount = pageCount, page = intPageIndex, PageSize = intPageSize, data = list };
+        }
+        /// <summary>
+        /// 分页查询不加select方法
+        /// </summary>
+        /// <param name="whereExpression"></param>
+        /// <param name="whereExpression1"></param>
+        /// <param name="intPageIndex"></param>
+        /// <param name="intPageSize"></param>
+        /// <param name="strOrderByFileds"></param>
+        /// <returns></returns>
         public async Task<PageModel<TEntity>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null)
         {
             RefAsync<int> totalCount = 0;
@@ -410,11 +434,9 @@ namespace CDWM_MR.Repository.BASE
              .OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds)
              .WhereIF(whereExpression != null, whereExpression)
              .ToPageListAsync(intPageIndex, intPageSize, totalCount);
-
             int pageCount = (Math.Ceiling(totalCount.ObjToDecimal() / intPageSize.ObjToDecimal())).ObjToInt();
             return new PageModel<TEntity>() { dataCount = totalCount, pageCount = pageCount, page = intPageIndex, PageSize = intPageSize, data = list };
         }
-
 
         /// <summary> 
         ///查询-多表查询

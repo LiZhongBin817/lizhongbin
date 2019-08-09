@@ -8,11 +8,15 @@ using CDWM_MR.AuthHelper;
 using CDWM_MR.AuthHelper.OverWrite;
 using CDWM_MR.Common;
 using CDWM_MR.Common.Helper;
+using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model.Models;
 using CDWM_MR_Common.Redis;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,28 +32,26 @@ namespace CDWM_MR.Controllers
     {
 
         #region 相关变量
-        readonly Isys_userinfoServices _sysuserinfoservices;
-        readonly Isys_role_menuServices _sysrolemenu;
         readonly PermissionRequirement _requirement;
         readonly IRedisHelper _redishelper;
-        readonly Isys_user_role_mapperServices _userrole;
+        readonly IsysManageServices _SysManage;
+        readonly Isys_userinfoServices _SysUserinfo;
         #endregion
 
         /// <summary>
         /// 构造函数注入
         /// </summary>
         /// <param name="sysuserinfo"></param>
-        /// <param name="sysrolemenu"></param>
-        /// <param name="userrole"></param>
+        /// <param name="sysManage"></param>
         /// <param name="addredis"></param>
         /// <param name="requirement"></param>
-        public LoginController(Isys_userinfoServices sysuserinfo,Isys_role_menuServices sysrolemenu,Isys_user_role_mapperServices userrole,IRedisHelper addredis, PermissionRequirement requirement)
+        public LoginController(Isys_userinfoServices sysuserinfo,IsysManageServices sysManage,IRedisHelper addredis, PermissionRequirement requirement)
         {
+            
             _redishelper = addredis;
-            _sysuserinfoservices = sysuserinfo;
-            _sysrolemenu = sysrolemenu;
             _requirement = requirement;
-            _userrole = userrole;
+            _SysManage = sysManage;
+            _SysUserinfo = sysuserinfo;
         }
 
         /// <summary>
@@ -63,8 +65,7 @@ namespace CDWM_MR.Controllers
             Common.ValidateCode valcode = new Common.ValidateCode();
             string Code;
             byte[] buffer = valcode.GetVerifyCode(out Code);//将验证码画到画布上
-            //TimeSpan timeSetting = new TimeSpan(1000 * 60 * 30);
-            _redishelper.StringSet("Code", Code);
+            _redishelper.StringSet("Code", Code,TimeSpan.FromSeconds(180));
             return File(buffer, "image/jpeg");
         }
 
@@ -77,28 +78,34 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("UserLogin")]
+        [EnableCors("LimitRequests")]
         public async Task<object> UserLogin(string UserName, string PassWord, string VerCode)
         {
             //检验验证码
             string checkCode = _redishelper.StringGet("Code");
             if (string.IsNullOrEmpty(checkCode))
             {
-                return "验证码错误！";
+                return new JsonResult(new {
+                    code = 1001,
+                    msg = "验证码错误！",
+                    data = new { }
+                });
             }
             if (VerCode != checkCode)
             {
-                return "验证码错误！";
+                return new JsonResult(new {
+                    code = 1001,
+                    msg = "验证码错误！",
+                    data = new { }
+                });
             }
             var md5 = MD5Helper.MD5Encrypt32(PassWord);//MD5加密
-            var user = (await _sysuserinfoservices.Query(c => c.LoginName == UserName && c.LoginPassWord == md5 && c.UseStatus == 0)).FirstOrDefault();
+            var user = (await _SysManage.Query(c => c.LoginName == UserName && c.LoginPassWord == md5 && c.UseStatus == 0)).FirstOrDefault();
             if (user != null)
             {
-                TimeSpan timeSetting = new TimeSpan(1000*60*30);
                 //将登陆的用户信息存入Redis缓存
-                var t = await _redishelper.StringSetAsync("UserInfo", user,timeSetting);
-                var h = _redishelper.StringGet("UserInfo");
-                var rolestr = await _userrole.GetuserRole(user.ID);//角色的组合
-
+                await _redishelper.StringSetAsync($"UserInfo{user.ID}", user,TimeSpan.FromMinutes(30));
+                var rolestr = await _SysManage.GetuserRole(user.ID);//角色的组合
                 //如果是基于用户的授权策略，这里要添加用户;如果是基于角色的授权策略，这里要添加角色
                 var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, UserName),
@@ -111,13 +118,13 @@ namespace CDWM_MR.Controllers
                 identity.AddClaims(claims);
 
                 var token = JwtToken.BuildJwtToken(claims.ToArray(), _requirement);
-                return new JsonResult(new {
-                    code = 0,
-                    msg = "登入成功",
-                    data = new { access_token = token }
-                });
+                return new JsonResult(token);
             }
-            return "用户名或密码错误！";
+            return new JsonResult(new {
+                code = 1001,
+                msg = "用户名或密码错误！",
+                data = new { }
+            });
         }
 
         /// <summary>
@@ -138,12 +145,12 @@ namespace CDWM_MR.Controllers
                 });
             }
             var tokenmodel = JwtHelper.SerializeJwt(Token);//Token解析
-            if (tokenmodel != null&& tokenmodel.Uid > 0)
+            if (tokenmodel != null && tokenmodel.Uid > 0)
             {
-                var user = await _sysuserinfoservices.QueryById(tokenmodel.Uid);
+                var user = await _SysManage.QueryById(tokenmodel.Uid);
                 if (user != null)
                 {
-                    var userRoles = await _userrole.GetuserRole(Convert.ToInt32(tokenmodel.Uid));
+                    var userRoles = await _SysManage.GetuserRole(Convert.ToInt32(tokenmodel.Uid));
                     //如果是基于用户的授权策略，这里要添加用户;如果是基于角色的授权策略，这里要添加角色
                     var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, user.LoginName),
