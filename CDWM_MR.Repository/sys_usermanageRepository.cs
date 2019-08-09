@@ -1,6 +1,8 @@
 ﻿ using CDWM_MR.IRepository;
+using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Repository.BASE;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -22,5 +24,7 @@ namespace CDWM_MR.Repository.Content
             return await Db.Queryable<sys_userinfo>().WhereIF(!string.IsNullOrEmpty(FUserName), c => c.FUserName == FUserName)
                 .WhereIF(!string.IsNullOrEmpty(LoginName), c => c.LoginName == LoginName).Where(c=>c.DeleteFlag!=1).ToListAsync();
         }
+
+        
     }
 }

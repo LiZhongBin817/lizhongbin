@@ -20,7 +20,6 @@ namespace CDWM_MR.Model
     }
     public class AddUser
     {
-        public string FUserNumber { get; set; }
         public string FUserName { get; set; }
         public string LoginName { get; set; }
         public string LoginPassWord { get; set; }
@@ -33,7 +32,6 @@ namespace CDWM_MR.Model
     }
     public class EditDate
     {
-        public string FUserNumber { get; set; }
         public string FUserName { get; set; }
         public string LoginName { get; set; }
         public string RealName { get; set; }
@@ -58,6 +56,9 @@ namespace CDWM_MR.Model
         public string Adress { get; set; }
         public string Email { get; set; }
         public string UserType { get; set; }
+        public int page { get; set; } // 当前页标
+        public int dataCount { get; set; } // 数据总数
+        public int PageSize { set; get; }// 每页大小
         public List<sys_role> roles { get; set; }//用户角色表
     }
 }

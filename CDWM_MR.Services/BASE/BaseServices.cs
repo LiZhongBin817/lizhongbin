@@ -73,6 +73,17 @@ namespace CDWM_MR.Services.BASE
         {
             return await BaseDal.Updateable(entity);
         }
+        /// <summary>
+        /// 批量更新
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="wherelambda"></param>
+        /// <returns></returns>
+        public async Task<bool> Update(Expression<Func<TEntity, TEntity>> expression, Expression<Func<TEntity, bool>> wherelambda)
+        {
+            return await BaseDal.Update(expression, wherelambda);
+        }
+
         public async Task<bool> Update(TEntity entity, string strWhere)
         {
             return await BaseDal.Update(entity, strWhere);

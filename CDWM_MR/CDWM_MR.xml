@@ -324,12 +324,14 @@
             <param name="password"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.UserManageController.ShowUserInfoDate(System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.UserManageController.ShowUserInfoDate(System.String,System.String,System.Int32,System.Int32)">
             <summary>
-            显示用户数据
+            显示数据
             </summary>
-            <param name="FUserName"></param>
-            <param name="LoginName"></param>
+            <param name="FUserName">用户名称</param>
+            <param name="LoginName">登录名</param>
+            <param name="page">当前页</param>
+            <param name="limit">每页显示数量</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.UserManageController.roleDate">
@@ -357,7 +359,7 @@
             <summary>
             批量删除用户
             </summary>
-            <param name="IDs"></param>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.UserManageController.ModifyData(System.Int32)">

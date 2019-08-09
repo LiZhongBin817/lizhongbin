@@ -144,13 +144,17 @@ namespace CDWM_MR.Repository.BASE
             //return await Task.Run(() => _db.Updateable(entity).Where(strWhere).ExecuteCommand() > 0);
             return await _db.Updateable(entity).Where(strWhere).ExecuteCommandHasChangeAsync();
         }
-
         public async Task<bool> Update(string strSql, SugarParameter[] parameters = null)
         {
             //return await Task.Run(() => _db.Ado.ExecuteCommand(strSql, parameters) > 0);
             return await _db.Ado.ExecuteCommandAsync(strSql, parameters) > 0;
         }
 
+        [Obsolete]
+        public async Task<bool> Update(Expression<Func<TEntity, TEntity>> expression, Expression<Func<TEntity, bool>> wherelambda)
+        {
+           return await _db.Updateable<TEntity>().UpdateColumns(expression).Where(wherelambda).ExecuteCommandHasChangeAsync();
+        }
         public async Task<bool> Update(
           TEntity entity,
           List<string> lstColumns = null,
@@ -401,7 +405,6 @@ namespace CDWM_MR.Repository.BASE
         /// <returns></returns>
         public async Task<PageModel<TEntity>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null)
         {
-
             RefAsync<int> totalCount = 0;
             var list = await _db.Queryable<TEntity>()
              .OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds)

@@ -39,62 +39,68 @@ namespace CDWM_MR.Controllers
 
         #region 显示
         /// <summary>
-        /// 显示用户数据
+        /// 显示数据
         /// </summary>
-        /// <param name="FUserName"></param>
-        /// <param name="LoginName"></param>
+        /// <param name="FUserName">用户名称</param>
+        /// <param name="LoginName">登录名</param>
+        /// <param name="page">当前页</param>
+        /// <param name="limit">每页显示数量</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [Route("ShowUserInfoDate")]
-        [AllowAnonymous]//允许所有都访问
+        [AllowAnonymous]
         [EnableCors("LimitRequests")]
-        public async Task<TableModel<List<ShowUser>>> ShowUserInfoDate(string FUserName, string LoginName)
+        public async Task<TableModel<List<ShowUser>>> ShowUserInfoDate(string FUserName, string LoginName, int page=1, int limit=5)
         {
-            var temp = await _sys_usermanageServices.Showsys_userinfo(FUserName, LoginName);
-            List<ShowUser> users = new List<ShowUser>();
-            //用户角色表
-            List<sys_role> role = await _sys_roleServices.Query();
-            for (int i = 0; i < temp.Count(); i++)
+            PageModel<sys_userinfo> user = new PageModel<sys_userinfo>();
+            if (!string.IsNullOrEmpty(FUserName) && !string.IsNullOrEmpty(LoginName))
             {
-                ShowUser user = new ShowUser();
-                user.ID = temp[i].ID;
-                user.FUserNumber = temp[i].FUserNumber;
-                user.FUserName = temp[i].FUserName;
-                user.LoginName = temp[i].LoginName;
-                user.LoginPassWord = temp[i].LoginPassWord;
-                user.RealName = temp[i].RealName;
-                if (temp[i].Sex == 1)
+                user = await _sysuserinfoservices.QueryPage(c => c.FUserName == FUserName && c.LoginName == LoginName && c.DeleteFlag != 1, page, limit, "");
+            }
+            else if (string.IsNullOrEmpty(FUserName) && !string.IsNullOrEmpty(LoginName))
+            {
+                user = await _sysuserinfoservices.QueryPage(c => c.LoginName == LoginName && c.DeleteFlag != 1, page, limit, "");
+            }
+            else if (!string.IsNullOrEmpty(FUserName) && string.IsNullOrEmpty(LoginName))
+            {
+                user = await _sysuserinfoservices.QueryPage(c => c.FUserName == FUserName && c.DeleteFlag != 1, page, limit, "");
+            }
+            else
+            {
+                user = await _sysuserinfoservices.QueryPage(c => c.DeleteFlag != 1, page, limit, "");
+            }
+            List<ShowUser> userlist = new List<ShowUser>();
+            for (int i = 0; i < user.data.Count(); i++)
+            {
+                ShowUser users = new ShowUser();
+                users.ID = user.data[i].ID;
+                users.FUserNumber = user.data[i].FUserNumber;
+                users.FUserName = user.data[i].FUserName;
+                users.LoginName = user.data[i].LoginName;
+                users.LoginPassWord = user.data[i].LoginPassWord;
+                users.RealName = user.data[i].RealName;
+                if (user.data[i].Sex == 1)
                 {
-                    user.Sex = "女";
+                    users.Sex = "女";
                 }
                 else
                 {
-                    user.Sex = "男";
+                    users.Sex = "男";
                 }
-                user.MobilePhone = temp[i].MobilePhone;
-                user.Adress = temp[i].Adress;
-                user.Email = temp[i].Email;
-                if (temp[i].UserType == 0)
-                {
-                    user.UserType = "超级管理员";
-                }
-                else if (temp[i].UserType == 1)
-                {
-                    user.UserType = "管理员";
-                }
-                else if (temp[i].UserType == 2)
-                {
-                    user.UserType = "普通员工";
-                }
-                user.roles = role;
-                users.Add(user);
+                users.MobilePhone = user.data[i].MobilePhone;
+                users.Adress = user.data[i].Adress;
+                users.Email = user.data[i].Email;
+                users.UserType = user.data[i].UserType == 0 ? "超级管理员" : (user.data[i].UserType == 1 ? "管理员" : "普通员工");
+                users.page = user.page;//当前页标
+                users.PageSize = user.PageSize;//每页大小
+                userlist.Add(users);
             }
             return new TableModel<List<ShowUser>>()
             {
                 code = 0,
                 msg = "ok",
-                count = 10,
-                data = users
+                count = user.dataCount,
+                data = userlist
             };
         }
         #endregion
@@ -125,29 +131,23 @@ namespace CDWM_MR.Controllers
         /// <param name="JsonDate"></param>
         /// <param name="roleid">用户角色ID</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [Route("AddUser")]
         [AllowAnonymous]//允许所有都访问
         public async Task<int> AddUser(string JsonDate, string roleid)
         {
-            AddUser Add = Common.Helper.JsonHelper.GetObject<AddUser>(JsonDate);
-            //将用户基本信息存入用户表
-            sys_userinfo user = new sys_userinfo();
-            user.FUserNumber = Add.FUserNumber;
-            user.FUserName = Add.FUserName;
-            user.LoginName = Add.LoginName;
-            user.LoginPassWord = Add.LoginPassWord;
-            user.RealName = Add.RealName;
-            user.Sex = Add.Sex;
-            user.MobilePhone = Add.MobilePhone;
-            user.Adress = Add.Adress;
-            user.Email = Add.Email;
-            user.UseStatus = 0;//正常
-            user.UserType = Add.UserType;
-            user.CreateTime = DateTime.Now;
-            user.CreatePeople = "李芊";
+            sys_userinfo Add = Common.Helper.JsonHelper.GetObject<sys_userinfo>(JsonDate);
+            //编号：CDWM_MR******
+            
+            var date = await _sysuserinfoservices.Query();
+            //取到最后一个用户的ID
+            int id = date[date.Count() - 1].ID + 1;
+            string number = $"CDWM_MR{id.ToString().PadLeft(6, '0')}";
+            Add.FUserNumber = number;
+            Add.CreateTime = DateTime.Now;
+            Add.CreatePeople = "李芊";
             //取到添加进来的用户ID
-            int UserID = await _sysuserinfoservices.Add(user);
+            int UserID = await _sysuserinfoservices.Add(Add);
             //将用户角色关联进用户角色关联表
             //编辑用户角色表信息
             string[] RoleName = roleid.Split(',');
@@ -177,7 +177,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <param name="ID">用户ID</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         [Route("DeleteUser")]
         [AllowAnonymous]//允许所有都访问
         public async Task<bool> DeleteUser(int ID)
@@ -190,7 +190,7 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 批量删除用户
         /// </summary>
-        /// <param name="IDs"></param>
+        /// <param name="ids"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("DeleteUsers")]
@@ -216,31 +216,32 @@ namespace CDWM_MR.Controllers
         [HttpGet]
         [Route("ModifyData")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<TableModel<EditDate>> ModifyData(int ID)
+        public async Task<TableModel<sys_user_role_mapper>> ModifyData(int ID)
         {
-            sys_userinfo Modify = await _sysuserinfoservices.QueryById(ID);
+            //sys_userinfo Modify = await _sysuserinfoservices.QueryById(ID);
             //用户角色表
-            List<sys_role> role = await _sys_roleServices.Query();
+            //List<sys_role> role = await _sys_roleServices.Query();
             //用户关联的数据
-            List<sys_user_role_mapper> role_mapper = await _sys_user_role_mapperServices.Query(c => c.UserID == ID);
-            EditDate edit = new EditDate();
-            edit.FUserNumber = Modify.FUserNumber;
-            edit.FUserName = Modify.FUserName;
-            edit.LoginName = Modify.LoginName;
-            edit.RealName = Modify.RealName;
-            edit.Sex = Modify.Sex;
-            edit.MobilePhone = Modify.MobilePhone;
-            edit.Adress = Modify.Adress;
-            edit.Email = Modify.Email;
-            edit.UserType = Modify.UserType;
-            edit.roles = role;
-            edit.role_mapper = role_mapper;
-            return new TableModel<EditDate>()
+            sys_user_role_mapper role_mapper = await _sys_user_role_mapperServices.Query(ID);
+            //role_mapper.sysUserInfo.FUserName;
+
+            //EditDate edit = new EditDate();
+            //edit.FUserName = Modify.FUserName;
+            //edit.LoginName = Modify.LoginName;
+            //edit.RealName = Modify.RealName;
+            //edit.Sex = Modify.Sex;
+            //edit.MobilePhone = Modify.MobilePhone;
+            //edit.Adress = Modify.Adress;
+            //edit.Email = Modify.Email;
+            //edit.UserType = Modify.UserType;
+            //edit.roles = ;
+            //edit.role_mapper = role_mapper;
+            return new TableModel<sys_user_role_mapper>()
             {
                 code = 0,
                 msg = "ok",
                 count = 1,
-                data = edit
+                data = role_mapper
             };
         }
 
@@ -250,29 +251,26 @@ namespace CDWM_MR.Controllers
         /// <param name="JsonDate"></param>
         /// <param name="roleid"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [Route("ModifyUserInfo")]
         [AllowAnonymous]//允许所有都访问 
         public async Task<int> ModifyUserInfo(string JsonDate, string roleid)
         {
             //将数据转换成JSON对象
-            EditUser Edit = Common.Helper.JsonHelper.GetObject<EditUser>(JsonDate);
-            //用ID查出要编辑的数据
+            sys_userinfo Edit = Common.Helper.JsonHelper.GetObject<sys_userinfo>(JsonDate);
+            await _sysuserinfoservices.Update(c => new sys_userinfo {
+                FUserName = Edit.FUserName,
+                LoginName=Edit.LoginName,
+                RealName=Edit.RealName,
+                Sex=Edit.Sex,
+                MobilePhone=Edit.MobilePhone,
+                Adress=Edit.Adress,
+                Email=Edit.Email,
+                UserType=Edit.UserType,
+                UpdateTime=DateTime.Now,
+                UpdatePeople="李芊"
+            }, c => c.ID == Edit.ID);
             int ID = Edit.ID;
-            sys_userinfo user = await _sysuserinfoservices.QueryById(ID);
-            user.FUserNumber = Edit.FUserNumber;
-            user.FUserName = Edit.FUserName;
-            user.LoginName = Edit.LoginName;
-            user.RealName = Edit.RealName;
-            user.Sex = Edit.Sex;
-            user.MobilePhone = Edit.MobilePhone;
-            user.Adress = Edit.Adress;
-            user.Email = Edit.Email;
-            user.UserType = Edit.UserType;
-            user.CreateTime = DateTime.Now;
-            user.CreatePeople = "李芊";
-            //编辑用户表信息
-            await _sysuserinfoservices.Update(user);
             //将用户角色关联表数据先删除
             await _sys_user_role_mapperServices.DeleteTable(c => c.UserID == ID);
             //编辑用户角色表信息
