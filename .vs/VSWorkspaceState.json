@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\views",
+    "\\src\\views\\set\\user",
+    "\\src\\views\\SysManage",
+    "\\src\\views\\SysManage\\Interface",
+    "\\src\\views\\SysManage\\usermanage",
+    "\\start"
+  ],
+  "SelectedNode": "\\src\\views\\SysManage\\Interface\\list.html",
+  "PreviewInSolutionExplorer": false
+}
