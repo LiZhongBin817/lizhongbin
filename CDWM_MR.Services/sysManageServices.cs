@@ -119,7 +119,12 @@ namespace CDWM_MR.Services
             List<sys_role> rolelist = await sys_roleDal.Query();
             //用户关联的数据
             string roleid = await GetuserRole(ID);
-            string[] roles = roleid.Split(',');
+            string[] Roles = roleid.Split(',');
+            List<int> roles = new List<int>();
+            for (int i = 0; i < Roles.Count(); i++)
+            {
+                roles.Add(Convert.ToInt32(Roles[i]));
+            }
             return new TableModel<object>()
             {
                 code = 0,
