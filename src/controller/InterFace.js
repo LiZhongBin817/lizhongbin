@@ -8,11 +8,12 @@ layui.define(['table', 'form','view'], function (exports) {
     var view = layui.view;
     var table = layui.table;
     var form = layui.form;
+    var load = layer.load(3);
     //渲染表格
     table.render({
         elem: '#Interface',
-        method: 'Get',
-        url: 'http://localhost:8081/api/InterFace/ShowInterface',
+        method: 'post',
+        url: 'http://localhost:8081/InterfaceInfoShow',
         cols: [[
             { field: 'InterfaceName', title: '接口名称', width: 200 },
             { field: 'InterfaceUrl', title: '接口地址', width: 200 },
@@ -50,7 +51,9 @@ layui.define(['table', 'form','view'], function (exports) {
         limit: 20,
         toolbar: "#toolbarDemo",
         limits: [20, 30, 40],
-        done: function () { }
+        done: function () {
+            layer.close(load);
+        }
     });
     //监听表格中的操作
     table.on('tool(test)', function (obj) {
@@ -66,8 +69,9 @@ layui.define(['table', 'form','view'], function (exports) {
                     view(this.id).render('SysManage/Interface/interfacedit',data).done(function () {
                         form.render(null, 'interfaceeditform');//渲染表单
                         //监听提交
-                        form.on('submit(interface-edit-submit)', function (data) {
-                            var field = data.field; //获取提交的字段                          
+                        form.on('submit(interface-edit-submit)', function (Data) {
+                            var field = Data.field; //获取提交的字段  
+                            var load = layer.load(3);
                             var sendData = {
                                 "OperationVersion:": field.OperationVersion,
                                 "InterfaceName": field.InterfaceName,
@@ -78,14 +82,26 @@ layui.define(['table', 'form','view'], function (exports) {
                             };
                             console.log(sendData);
                             admin.req({
-                                url: 'http://localhost:8081/api/InterFace/EditInterface',
-                                type: 'Get',
-                                data: { "interfaceObj": JSON.stringify(sendData) },
-                                success: function (message) {
-                                    if (message.msg == "ok") {
-                                        layui.table.reload('Interface'); //重载表格
-                                        layer.close(index); //执行关闭 
-                                    }
+                                url: 'http://localhost:8081/ModifyInterface',
+                                type: 'post',
+                                data: {
+                                    "JsonData": JSON.stringify(sendData),
+                                    "ID": data.ID
+                                },
+                                success: function (obj) {
+                                    switch (obj.msg) {
+                                        case "The same TnterfaceUrl or InterfaceName exists":
+                                            layer.msg("存在相同的接口地址或接口名称");
+                                            layer.close(load);
+                                        case "edit error":
+                                            layer.msg("编辑异常");
+                                            layer.close(load);
+                                        case "ok":
+                                            table.reload('Interface'); //重载表格
+                                            layer.close(index); //执行关闭 
+                                            layer.close(load);
+                                            layer.msg("成功修改一条数据");
+                                    }                                   
                                 }
                             })
                         });
@@ -117,19 +133,24 @@ layui.define(['table', 'form','view'], function (exports) {
                         //监听增加接口界面的提交,不需要再获取iframe
                         form.on('submit(addinterface_submit)', function (obj) {
                             var field = obj.field;
+                            var load = layer.load(3);
                             admin.req({
-                                url: '',
+                                url: 'http://localhost:8081/AddInterface',
+                                type:'post',
                                 data: {
-                                    "interfaceObj": JSON.stringify(field)
+                                    "JsonData": JSON.stringify(field)
                                 },
-                                success: function (message) {
-                                    if (message.msg == "ok") {
-                                        table.reload('demo');
-                                        layer.close(index); //执行关闭 
+                                success: function (obj) {
+
+                                    if (obj.msg=="ok") {
+                                        table.reload("Interface");
+                                        layer.close(index); //执行关闭
+                                        layer.close(load);
                                         layer.msg("成功添加一条数据");
                                     }
                                     else {
-                                        layer.msg("添加异常");
+                                        layer.msg("接口地址或接口名称重复");
+                                        layer.close(load);
                                     }
                                 }
                             });
