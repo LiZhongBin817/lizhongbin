@@ -252,5 +252,10 @@ namespace CDWM_MR.Model.Models
         /// NB表是否注册到iot平台(1:是；2：否)
         /// </summary>
         public System.Int32? isreg { get; set; }
+
+        /// <summary>
+        /// 更换水表时间
+        /// </summary>
+        public System.DateTime? updatemetertime { get; set; }
     }
 }

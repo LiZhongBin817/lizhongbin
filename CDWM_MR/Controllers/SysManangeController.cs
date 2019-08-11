@@ -16,6 +16,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CDWM_MR.Controllers
 {
+    /// <summary>
+    /// 系统管理
+    /// </summary>
     public class SysManangeController : Controller
     {
         #region 相关变量
