@@ -36,7 +36,7 @@ namespace CDWM_MR
                     var configuration = services.GetRequiredService<IConfiguration>();
                     if (configuration.GetSection("AppSettings")["SeedDBEnabled"].ObjToBool())
                     {
-                        var myContext = services.GetRequiredService<MyContext>();
+                        //var myContext = services.GetRequiredService<MyContext>();
                         //DBSeed.SeedAsync(myContext);
                     }
                 }
