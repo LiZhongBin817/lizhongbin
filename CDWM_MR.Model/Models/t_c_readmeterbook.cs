@@ -18,7 +18,7 @@ namespace CDWM_MR.Model.Models
         }
 
         /// <summary>
-        /// 抄表册编号
+        /// 抄表册编号1
         /// </summary>
         [SugarColumn(IsPrimaryKey = true)]
         public System.String bookno { get; set; }
