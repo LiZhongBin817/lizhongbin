@@ -24,7 +24,7 @@ namespace CDWM_MR.Model.Models
         public System.String meternum { get; set; }
 
         /// <summary>
-        /// 水表名称
+        /// 水表名称123
         /// </summary>
         public System.String metername { get; set; }
 
