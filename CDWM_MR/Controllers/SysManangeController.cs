@@ -26,6 +26,7 @@ namespace CDWM_MR.Controllers
         readonly IsysManageServices _sysManageServices;
         readonly Isys_user_role_mapperServices _sys_user_role_mapperServices;
         readonly Isys_roleServices _sys_roleServices;
+        readonly Isys_interface_infoServices _Isys_interface_infoServices;
         #endregion
 
         /// <summary>
@@ -35,12 +36,13 @@ namespace CDWM_MR.Controllers
         /// <param name="sysusermanage"></param>
         /// <param name="sys_user_role_mapper"></param>
         /// <param name="sys_role"></param>
-        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role)
+        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info)
         {
             _sysuserinfoservices = sysuserinfo;
             _sysManageServices = sysusermanage;
             _sys_user_role_mapperServices = sys_user_role_mapper;
             _sys_roleServices = sys_role;
+            _Isys_interface_infoServices = Isys_interface_info;
         }
 
         #region  用户管理
@@ -63,7 +65,6 @@ namespace CDWM_MR.Controllers
             PageModel<object> user = new PageModel<object>();
             #region lambda拼接式
             Expression<Func<sys_userinfo, bool>> wherelambda = c=>c.DeleteFlag!=1;
-            if (!string.IsNullOrEmpty(FUserName))
             {
                 wherelambda = PredicateExtensions.And<sys_userinfo>(wherelambda, c => c.FUserName==FUserName);
             }
@@ -197,6 +198,131 @@ namespace CDWM_MR.Controllers
         }
         #endregion
 
+        #endregion
+
+        #region 接口管理
+        #region 显示接口数据
+        /// <summary>
+        /// 显示接口数据
+        /// </summary>
+        /// <param name="InterfaceUrl"></param>
+        /// <param name="InterfaceName"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("InterfaceInfoShow")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> InterfaceInfoShow(string InterfaceUrl, string InterfaceName, int page = 1, int limit = 10)
+        {
+            PageModel<object> Interface = new PageModel<object>();
+            #region lambda拼接式
+            Expression<Func<sys_interface_info,bool>>wherelambda=c=>true;
+            if(!string .IsNullOrEmpty(InterfaceUrl))
+            {
+                wherelambda = PredicateExtensions.And<sys_interface_info>(wherelambda, c => c.InterfaceUrl == InterfaceUrl);
+            }
+            if(!string.IsNullOrEmpty(InterfaceName))
+            {
+                wherelambda = PredicateExtensions.And<sys_interface_info>(wherelambda, c => c.InterfaceName == InterfaceName);
+            }
+            #endregion
+            Expression<Func<sys_interface_info, object>> expression = c => new
+            {
+                ID = c.ID,
+                InterfaceUrl = c.InterfaceUrl,
+                InterfaceName = c.InterfaceName,
+                OperationVersion = c.OperationVersion,
+                ExternalInterface = c.ExternalInterface,
+                Verify = c.Verify,
+                Remark = c.Remark
+            };
+            Interface = await _Isys_interface_infoServices.QueryPage(wherelambda, expression, page, limit, "");
+            return new TableModel<object>()
+            {
+                code = 0,
+                msg = "ok",
+                count = Interface.dataCount,
+                data = Interface.data
+            };
+        }
+        #endregion
+        #region 添加接口
+        /// <summary>
+        /// 添加接口
+        /// </summary>
+        /// <param name="JsonData">前台传来的Json对象</param>
+        /// <returns>总数目</returns>
+        [HttpPost]
+        [Route("AddInterface")]
+        [AllowAnonymous]
+        public async Task<MessageModel<object>> AddInterface(string JsonData)
+        {
+           sys_interface_info Jsondata = Common.Helper.JsonHelper.GetObject<sys_interface_info>(JsonData);
+            #region 判重
+            String InterfaceName = Jsondata.InterfaceName;
+            string InterfaceUrl = Jsondata.InterfaceUrl;
+            var listInter= await _Isys_interface_infoServices.Query(c => c.InterfaceName == InterfaceName|| c.InterfaceUrl == InterfaceUrl);
+            var msg = "";
+            if (listInter.Count()>0)
+            {
+                return new MessageModel<object>()
+                {
+                    code = 0,
+                    data = null,
+                    msg = "error"
+                };
+            }
+            #endregion
+            msg= await _Isys_interface_infoServices.Add(Jsondata)>0?"ok":"error";
+            return new MessageModel<object>()
+            {
+                code = 0,
+                data = null,
+                msg = msg
+            };
+        }
+        #endregion
+
+
+        #region 编辑接口
+        /// <summary>
+        /// 修改接口信息
+        /// </summary>
+        /// <param name="JsonData">修改后的接口对象</param>
+        /// <param name="ID">编辑的ID</param>
+        /// <returns>返回是否成功</returns>
+        [HttpPost]
+        [Route("ModifyInterface")]
+        [AllowAnonymous]//允许所有都访问 
+        public async Task<MessageModel<object>> ModifyInterface(string JsonData,int ID)
+        {
+            sys_interface_info Jsondata = Common.Helper.JsonHelper.GetObject<sys_interface_info>(JsonData);
+            Jsondata.ID = ID;
+            #region 判重
+            Expression<Func<sys_interface_info, bool>> wherelambda = c =>c.ID!=ID&&(c.InterfaceName == Jsondata.InterfaceName|| c.InterfaceUrl == Jsondata.InterfaceUrl);
+            var listQuery = await _Isys_interface_infoServices.Query(wherelambda);
+            string massage = "";
+            if (listQuery.Count != 0)
+            {
+                return new MessageModel<object>()
+                {
+                    data = null,
+                    code = 0,
+                    msg = "The same TnterfaceUrl or InterfaceName exists"
+                };
+            }
+            #endregion
+            massage = await _Isys_interface_infoServices.Update(Jsondata) == true ? "ok" : "error";
+            return new MessageModel<object>()
+            {
+                data = null,
+                code = 0,
+                msg = "ok"
+            };
+        }
+        #endregion
         #endregion
     }
 }
