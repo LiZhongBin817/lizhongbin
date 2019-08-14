@@ -36,6 +36,7 @@ namespace CDWM_MR.Controllers
         /// <param name="sysusermanage"></param>
         /// <param name="sys_user_role_mapper"></param>
         /// <param name="sys_role"></param>
+        /// <param name="Isys_interface_info"></param>
         public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info)
         {
             _sysuserinfoservices = sysuserinfo;
@@ -284,8 +285,6 @@ namespace CDWM_MR.Controllers
             };
         }
         #endregion
-
-
         #region 编辑接口
         /// <summary>
         /// 修改接口信息

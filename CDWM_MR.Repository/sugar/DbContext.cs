@@ -87,7 +87,7 @@ namespace CDWM_MR.Repository
                     IsAutoRemoveDataCache = true
                 }
             });
-
+            //ISqlSugarClient db = DbRepository.GetInstance(DbType.MySql, MySqlConnString)
             //_db.Aop.OnLogExecuted = (sql, pars) => //SQL执行完事件
             //{
             //    OutSql2Log(sql, GetParas(pars));
@@ -114,6 +114,7 @@ namespace CDWM_MR.Repository
         public SimpleClient<T> GetEntityDB<T>() where T : class, new()
         {
             return new SimpleClient<T>(_db);
+            //return DbRepository.GetInstance()
         }
         /// <summary>
         /// 功能描述:获取数据库处理对象
@@ -349,7 +350,7 @@ namespace {Namespace}
         {
             ConnectionConfig config = new ConnectionConfig()
             {
-                ConnectionString = _connectionString,
+                ConnectionString = "Server=220.248.173.29;Port=3303;Database=marketing_sw;Uid=root;Pwd=root;",
                 DbType = _dbType,
                 IsAutoCloseConnection = blnIsAutoCloseConnection,
                 ConfigureExternalServices = new ConfigureExternalServices()
