@@ -7,6 +7,7 @@ namespace CDWM_MR_Common.Redis
 {
     public interface IRedisHelper
     {
+        Task<bool> KeyDeleteAsync(string key);
         #region List集合操作异步方法
         /// <summary>
         /// 从左侧向list中添加一个值，返回集合总数
