@@ -1,0 +1,316 @@
+﻿<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+    <link href="{{layui.setter.base}}style/dtree/dtree.css?v={{ layui.admin.v }}-1" media="all" rel="stylesheet" />
+    <link href="{{layui.setter.base}}style/dtree/font/dtreefont.css?v={{ layui.admin.v }}-1" media="all" rel="stylesheet" />
+</script>
+
+
+<div class="layui-fluid" style="color:azure;background:azure;height:auto">
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md12" style="height: 30px">
+            <div class="layui-btn-group">
+                <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-xs" lay-submit lay-filter="polling" data-type="Del"><i class="layui-icon">&#xe640;</i>删除菜单</button>
+                <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-xs" lay-submit lay-filter="polling" onclick="window.location.reload()"><i class="layui-icon">&#x1002;</i>刷新菜单</button>
+                <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-xs" lay-submit lay-filter="polling" data-type="Save"><i class="layui-icon">&#xe642;</i>保存菜单</button>
+                <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-xs" lay-submit lay-filter="polling" data-type="Add"><i class="layui-icon">&#xe608;</i>添加菜单</button>
+            </div>
+
+        </div>
+        <div class="layui-col-md3" style="height: 100%;">
+            <div class="layui-form layui-filter">
+                <div id="test1" style="box-shadow: 2px 2px 10px #909090;height:100%;color:green"></div>  <!--左侧菜单信息-->
+            </div>
+
+        </div>
+        <div class="layui-col-md9" style=" height: auto;color:azure;background:azure ">
+            <div region="center" style="padding: 10px; margin:3%; box-shadow: 2px 2px 10px #909090;">
+                <div class="layui-form" id="MenuInfoForm">
+                    <input type="hidden" name="BackgroundType" value="1">
+                    <input type="hidden" name="Menu_ID">
+                    <input type="hidden" name="eModuleID" id="eModuleID">
+                    <table class="layui-table body" layui-filter="tbtest" id="demo" border="0" cellpadding="2" cellspacing="0" style="margin-top: 5px;border-collapse: separate;border-spacing: 0px 10px">
+                        <colgroup>
+                            <col style="width: 100px" />
+                            <col style="width: 230px" />
+                            <col style="width: 100px" />
+                            <col style="width: 230px" />
+                        </colgroup>
+                        <tr>
+                            <td class="title" lay-data="{field:''}" style="border:0">菜单等级:</td>
+                            <td style="border:0"><input id="Menu_Type" type="text" name="Menu_Type" value="2"></td>
+                            <td colspan="2" style="border:0; color: red;font-weight: 900">注：数字为1为目录类型；数字2为展示菜单类型</td>
+                        </tr>
+                        <tr>
+                            <td class="title" style="border:0">当前模块:</td>
+                            <td style="border:0"><input class="c1" type="text" name="eModuleName" id="eModuleName" disabled="disabled"></td>
+                            <td class="title" style="border:0">上一级菜单:</td>
+                            <td style="border:0"><input class="c2" type="text" name="LastMenu" id="LastMenu"></td>
+                        </tr>
+                        <tr>
+                            <td class="title" style="border:0">菜单名称:</td>
+                            <td style="border:0"><input class="c3" type="text" name="Menu_Name" id="Menu_Name" required="required" placeholder="请输入菜单名称"></td>
+                            <td class="title" style="border:0">排序:</td>
+                            <td style="border:0"><input class="c4" type="text" name="Seq" id="Seq" min="1" maxlength="100" increment="1" style="width: 180px;" placeholder="请输入序号"></td>
+                        </tr>
+                        <tr>
+                            <td class="title" style="border:0">URL地址:</td>
+                            <td colspan="3" style="border:0"><input class="c5" type="text" name="GetURL" id="GetURL" style="width: 577px;" placeholder="请输入URL地址"></td>
+                        </tr>
+                        <tr>
+                            <td class="title" style="border:0">详细描述：</td>
+                            <td colspan="3" style="border:0"><textarea class="c6" name="Remark" id="Remark" rows="4" style="width: 600px;" placeholder="请输入备注"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="border:0"></td>
+                        </tr>
+                    </table>
+                    <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="submitinfo" style="display:none;" id="Pcontrol">页面增删改查权限配置</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['admin', 'table', 'dtree', 'form', 'layer'], function () {
+        var admin = layui.admin,
+            table = layui.table,
+            dtree = layui.dtree,
+            form = layui.form,
+            layer = layui.layer,
+            $ = layui.$,
+            view = layui.view;
+        var Current_module;//模块名字
+        var CurrentID = 0;//当前模块id
+        var loadingFlag;
+        let fn = function () {
+            return new Promise((res, rej) => {
+                setTimeout(function () {
+                    admin.req({
+                        url: 'http://localhost:8081/GetTrees',
+                        type: 'get'
+                        , beforeSend: function (XMLHttpRequest) {
+                            //注意，layer.msg默认3秒自动关闭，如果数据加载耗时比较长，需要设置time
+                            loadingFlag = layer.msg('正在读取数据，请稍候……', { icon: 16, shade: 0.01, shadeClose: false, time: 60000 });
+                        }
+                        , done: function (data) {
+                            layer.close(loadingFlag);
+                            res(data.data);
+                        }
+                        , error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            loadingFlag = layer.msg('加载失败，请刷新页面重新加载')
+                        }
+                    });
+                }, 100);
+            });
+        };
+        fn().then(function (t) {
+            dtree.render({
+                elem: '#test1'//绑定元素
+                //, id: 'demoId'
+                , data: t
+            });
+        });
+
+        dtree.on("node('test1')", function (obj) {
+            //点击回调节点数据
+            Current_module = obj.param.context;//获取当前模块名字
+            CurrentID = obj.param.nodeId;
+            admin.req({
+                url: 'http://localhost:8081/ShowInfo',
+                type: 'get',
+                data: {
+                    "id": obj.param.nodeId
+                }
+                , done: function (data) {
+                    // var NowCurrent = data.data.MenuName;//当前模块
+                    var LastMenu = data.data[0].MenuName;//上一级菜单
+                    var Order = data.data[0].order;//排序
+                    var Remark = data.data[0].Remark;//详细描述
+                    var Address = data.data[0].MenuUrl;//URL地址
+                    var ParentID = data.data[0].ParentID;
+                    console.log(LastMenu);
+                    console.log(Order);
+                    console.log(Remark);
+                    console.log(Address);
+                    console.log(ParentID);
+                    var textarea = document.getElementsByTagName("textarea");
+                    textarea.value = Remark;
+                    var input = document.getElementsByTagName("input");
+                    input[5].value = "系统管理";
+                    input[6].value = LastMenu;
+                    input[7].value = Current_module;
+                    input[8].value = Order;
+                    input[9].value = Address;
+                    console.log(ParentID);
+                    var btn = document.getElementById("Pcontrol");
+                    btn.style.display = ParentID != 0 ? "block" : "none";
+                }
+            });
+        });
+
+        form.on('submit(submitinfo)', function () {
+            var list = new Array();
+            admin.popup({
+                title: '权限增删改查',
+                area: ['600px', '500px'],
+                id: 'LAY-btn-power',
+                maxmin: true,
+                btn: ['确认', '取消'],
+                yes: function (index, layero) {
+                    var div = layero.contents().find('#layui-Page-Power-Setting');
+                    var Odiv = div.find(".Add"), Odiv1 = div.find(".Del"), Odiv2 = div.find(".Modified"), Odiv3 = div.find(".Select");
+                    var sendAddData = "", sendDelData = "", sendModifiedData = "", sendSelectData = "";
+                    //Odiv.join()
+                    for (var i = 0; i < Odiv.length; i++) {
+                        if (Odiv[i].value !== "") {
+                            sendAddData += Odiv[i].value + ",";
+                        }
+                        if (Odiv1[i].value !== "") {
+                            sendDelData += Odiv1[i].value + ",";
+                        }
+                        if (Odiv2[i].value !== "") {
+                            sendModifiedData += Odiv2[i].value + ",";
+                        }
+                        if (Odiv3[i].value !== "") {
+                            sendSelectData += Odiv3[i].value + ",";
+                        }
+                    }
+                    //对字符串进行处理---去掉最后一个逗号
+                    sendAddData = sendAddData.substring(0, sendAddData.lastIndexOf(','));
+                    sendDelData = sendDelData.substring(0, sendDelData.lastIndexOf(','));
+                    sendModifiedData = sendModifiedData.substring(0, sendModifiedData.lastIndexOf(','));
+                    sendSelectData = sendSelectData.substring(0, sendSelectData.lastIndexOf(','));
+                    admin.req({
+                        url: 'http://localhost:8081/AuthorityManagement',
+                        type: 'post',
+                        data: {
+                            "adddata": sendAddData,
+                            "deldata": sendDelData,
+                            "modifdata": sendModifiedData,
+                            "seedata": sendSelectData,
+                            "id": CurrentID,
+                        },
+                        success: function (obj) {
+                            if (obj.code == 0) {
+                                layer.msg("提交成功");
+                            }
+                            else {
+                                layer.msg("提交失败");
+                            }
+                        }
+                    });
+                },
+                success: function (layero, index) {
+                    view(this.id).render('SysManage/Menu/poweradministration', null).done(function () {
+                        form.render(null, 'layui-Page-Power-Setting');
+                        var div = layero.contents().find('#layui-Page-Power-Setting');
+                        var Odiv = div.find(".Add"), Odiv1 = div.find(".Del"), Odiv2 = div.find(".Modified"), Odiv3 = div.find(".Select");
+                        admin.req({
+                            url: 'http://localhost:8081/GetInfo',
+                            type: 'get',
+                            data: {
+                                "id": CurrentID,
+                            },
+                            success: function (obj) {
+                                var addarry = obj.data.addstr, delarry = obj.data.delstr, modifarry = obj.data.modifstr, seearry = obj.data.seestr;
+                                for (var i = 0; i < addarry.length; i++) {
+                                    Odiv[i].value = addarry[i].LinkUrl + "+" + addarry[i].OperationName;
+                                }
+                                for (var j = 0; j < delarry.length; j++) {
+                                    Odiv1[j].value = delarry[j].LinkUrl + "+" + delarry[j].OperationName;
+                                }
+                                for (var k = 0; k < modifarry.length; k++) {
+                                    Odiv2[k].value = modifarry[k].LinkUrl + "+" + modifarry[k].OperationName;
+                                }
+                                for (var l; l < seearry.length; l++) {
+                                    Odiv3[l].value = seearry[l].LinkUrl + "+" + seearry[l].OperationName;
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+
+        });
+        //事件
+        var active = {
+            Del: function () {               
+                if (Current_module == undefined) {
+                    layer.msg( "请选择要删除的菜单");
+                }
+                else {
+                    var  message = "是否删除" + Current_module;
+                    layer.confirm(message, function (index) {
+                    admin.req({
+                        url: 'http://localhost:8081/DeleMenu',
+                        type: 'get',
+                        data: { "id": CurrentID, },
+                        success: function (obj) {
+                            if (obj.code == 0) {
+                                layer.msg("删除成功");
+                            }
+                            else {
+                                layer.msg("删除失败");
+                            }
+                        }
+                    });
+                });
+                } 
+            },
+            Save: function () {
+                console.log("保存");
+                var textarea = document.getElementsByTagName("textarea");
+                var input = document.getElementsByTagName("input");
+                var MenuLevel = input[4].value;//菜单等级
+                var Currentmodule = input[5].value;//当前模块
+                var LMune = input[6].value;//上级菜单
+                var MName = input[7].value;//菜单名称
+                var PaiXu = input[8].value;//排序
+                var URLAddress = input[9].value;//url地址
+                var MRemark = textarea[0].value;//详细描述
+                console.log(MRemark);
+                var sendData = {
+                    "MenuLevel": MenuLevel,
+                    "ParentID": CurrentID,
+                    "MenuName": MName,
+                    "MenuOrder": PaiXu,
+                    "MenuUrl": URLAddress,
+                    "Remark": MRemark,
+                }
+                admin.req({
+                    url: 'http://localhost:8081/SaveMenu',
+                    type: 'Post',
+                    data: {
+                        "json": JSON.stringify(sendData)
+                    },
+                    success: function (obj) {
+                        if (obj.code == 0) {
+                            layer.msg("添加成功");
+                        }
+                        else {
+                            layer.msg("添加失败");
+                        }
+                    }
+                });
+            },
+            Add: function () {
+                console.log("添加");
+                var textarea = document.getElementsByTagName("textarea");
+                var input = document.getElementsByTagName("input");
+                var btn = document.getElementsByTagName("button");
+                btn[4].style.display = "none";
+                input[7].value = "";
+                input[8].value = "";
+                input[9].value = "";
+                textarea[0].value = "";
+            }
+        }
+        $('.layui-btn.layuiadmin-btn-admin').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+
+</script>

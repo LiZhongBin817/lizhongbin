@@ -141,7 +141,6 @@ layui.define(['table', 'form','view'], function (exports) {
                                     "JsonData": JSON.stringify(field)
                                 },
                                 success: function (obj) {
-
                                     if (obj.msg=="ok") {
                                         table.reload("Interface");
                                         layer.close(index); //执行关闭
