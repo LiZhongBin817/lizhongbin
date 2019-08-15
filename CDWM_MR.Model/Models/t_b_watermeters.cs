@@ -6,7 +6,7 @@ using System.Text;
 namespace CDWM_MR.Model.Models
 {
     /// <summary>
-    /// 38. 水表基本信息表 t_b_watermeters
+    /// 38. 水表基本信息表 t_b_watermeters（档案管理模块核心表）
     /// </summary>
     public class t_b_watermeters
     {
@@ -39,7 +39,7 @@ namespace CDWM_MR.Model.Models
         public System.String electronno { get; set; }
 
         /// <summary>
-        /// 抄表册编号（mr_bookinfo::bookno）
+        /// 抄表册编号（t_c_readmeterbook::bookno）
         /// </summary>
         public System.String bookno { get; set; }
 
@@ -252,25 +252,5 @@ namespace CDWM_MR.Model.Models
         /// NB表是否注册到iot平台(1:是；2：否)
         /// </summary>
         public System.Int32? isreg { get; set; }
-
-        /// <summary>
-        /// GIS位置(190808新增)
-        /// </summary>
-        public System.String GISPlace { get; set; }
-
-        /// <summary>
-        /// 口径(190808新增)
-        /// </summary>
-        public System.String caliber { get; set; }
-
-        /// <summary>
-        /// 更换水表时间
-        /// </summary>
-        public System.DateTime? updatemetertime { get; set; }
-
-        /// <summary>
-        /// 截止用水量
-        /// </summary>
-        public System.Int32? lastwaternum { get; set; }
     }
 }
