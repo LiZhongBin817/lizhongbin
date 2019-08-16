@@ -37,18 +37,10 @@ namespace CDWM_MR.Repository.BASE
             DbContext.Init(BaseDBConfig.ConnectionString, (DbType)BaseDBConfig.DbType);
             _context = DbContext.GetDbContext();
             _db = _context.Db;
-            _entityDb = DbContext.GetCustomEntityDB<TEntity>(DbContext.GetConnectionConfig());//获取简单数据库操作对象
+            _entityDb = _context.GetEntityDB<TEntity>(_db);
         }
 
-        /// <summary>
-        /// 连接其他数据库时使用的根据条件查询
-        /// </summary>
-        /// <param name="whereLambda"></param>
-        /// <returns></returns>
-        public async Task<List<TEntity>> OQueryable(Expression<Func<TEntity,bool>> whereLambda)
-        {
-            return await _entityDb.AsQueryable().Where(whereLambda).ToListAsync();
-        }
+
 
         public async Task<TEntity> QueryById(object objId)
         {
@@ -288,6 +280,10 @@ namespace CDWM_MR.Repository.BASE
         /// <summary>
         /// 功能描述:查询一个列表
         /// 作　　者:CDWM_MR
+
+
+
+
         /// </summary>
         /// <param name="whereExpression">条件表达式</param>
         /// <param name="strOrderByFileds">排序字段，如name asc,age desc</param>

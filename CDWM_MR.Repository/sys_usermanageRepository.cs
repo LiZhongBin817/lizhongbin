@@ -25,6 +25,5 @@ namespace CDWM_MR.Repository.Content
                 .WhereIF(!string.IsNullOrEmpty(LoginName), c => c.LoginName == LoginName).Where(c=>c.DeleteFlag!=1).ToListAsync();
         }
 
-        
     }
 }

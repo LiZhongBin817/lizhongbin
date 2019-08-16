@@ -345,12 +345,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:CDWM_MR.Controllers.SysManangeController">
-            <summary>
-            系统管理
-            </summary>
-        </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_operationServices)">
             <summary>
             构造函数
             </summary>
@@ -358,7 +353,6 @@
             <param name="sysusermanage"></param>
             <param name="sys_user_role_mapper"></param>
             <param name="sys_role"></param>
-            <param name="Isys_interface_info"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.ShowUserInfoDate(System.String,System.String,System.Int32,System.Int32)">
             <summary>
@@ -437,6 +431,51 @@
             <param name="JsonData">修改后的接口对象</param>
             <param name="ID">编辑的ID</param>
             <returns>返回是否成功</returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetTrees">
+            <summary>
+            生成菜单树
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.ShowInfo(System.Int32)">
+            <summary>
+            展示点击菜单信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.SaveMenu(System.String)">
+            <summary>
+            添加菜单
+            </summary>
+            <param name="json"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.DeleMenu(System.Int32)">
+            <summary>
+            删除菜单
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.AuthorityManagement(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            菜单权限分配
+            </summary>
+            <param name="adddata"></param>
+            <param name="deldata"></param>
+            <param name="modifdata"></param>
+            <param name="seedata"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetInfo(System.Int32)">
+            <summary>
+            菜单权限信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
         </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">
             <summary>
