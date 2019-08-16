@@ -118,7 +118,34 @@ namespace CDWM_MR.Model.Models
         [SugarColumn(IsNullable = true)]
         public DateTime mrdatetime { get; set; }
 
-        //public 
+        /// <summary>
+        /// 审核状态(0--已审核;1--未审核)
+        /// </summary>
+        [SugarColumn(IsNullable = true)]
+        public bool checkstatus { get; set; }
 
+        /// <summary>
+        /// 抄表状态
+        /// </summary>
+        [SugarColumn(IsNullable = true)]
+        public bool readstatus { get; set; }
+
+        /// <summary>
+        /// 上传图片信息
+        /// </summary>
+        [SugarColumn(IsNullable = true,ColumnDataType = "text")]
+        public string imginfo { get; set; }
+
+        /// <summary>
+        /// 水表状态0--正常;1--漏水
+        /// </summary>
+        [SugarColumn(IsNullable = true)]
+        public short watermeterstatus { get; set; }
+
+        /// <summary>
+        /// 抄表方式0--实抄;1--估抄
+        /// </summary>
+        [SugarColumn(IsNullable = true)]
+        public short mrtype { get; set; }
     }
 }
