@@ -17,6 +17,12 @@ namespace CDWM_MR.Model.Models
         public int ID { get; set; }
 
         /// <summary>
+        /// 自动帐号(系统自动生成)(关联水表用户信息)
+        /// </summary>
+        [SugarColumn(IsPrimaryKey = true,Length = 15)]
+        public System.String autoaccount { get; set; }
+
+        /// <summary>
         /// 任务单id(来源于mr_taskinfo)
         /// </summary>
         [SugarColumn(IsNullable = true)]
@@ -65,42 +71,6 @@ namespace CDWM_MR.Model.Models
         public bool readstatus { get; set; }
 
         /// <summary>
-        /// 审核状态0--已审核;1--未审核
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public int checkstatus { get; set; }
-
-        /// <summary>
-        /// 审核信息
-        /// </summary>
-        [SugarColumn(IsNullable = true,Length = 200)]
-        public string checkinfo { get; set; }
-
-        /// <summary>
-        /// 审核成功时间
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public DateTime checksuccesstime { get; set; }
-
-        /// <summary>
-        /// 审核人（sys_userinfo::ID）
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public int checkor { get; set; }
-
-        /// <summary>
-        /// 结转状态0--已结转;1--未结转;
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public int turnstatus { get; set; } = 1;
-
-        /// <summary>
-        /// 结转完成日期
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public DateTime turndate { get; set; }
-
-        /// <summary>
         /// 复审读数
         /// </summary>
         [SugarColumn(IsNullable = true, DecimalDigits = 10)]
@@ -109,7 +79,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 上传的图片内容
         /// </summary>
-        [SugarColumn(IsNullable = true, ColumnDataType = "text")]
+        [SugarColumn(IsNullable = true,Length = 500)]
         public string imginfo { get; set; }
 
         /// <summary>

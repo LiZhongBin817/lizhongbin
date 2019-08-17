@@ -345,6 +345,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.SysManangeController">
+            <summary>
+            系统管理
+            </summary>
+        </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_operationServices)">
             <summary>
             构造函数
@@ -353,6 +358,8 @@
             <param name="sysusermanage"></param>
             <param name="sys_user_role_mapper"></param>
             <param name="sys_role"></param>
+            <param name="Isys_interface_info"></param>
+            <param name="sys_OperationServices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.ShowUserInfoDate(System.String,System.String,System.Int32,System.Int32)">
             <summary>

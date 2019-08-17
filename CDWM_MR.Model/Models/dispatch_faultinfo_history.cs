@@ -8,8 +8,14 @@ namespace CDWM_MR.Model.Models
     /// <summary>
     /// 派工单历史信息
     /// </summary>
-    public class dispatch_faultinfo_history:BaseModel
+    public class dispatch_faultinfo_history
     {
+        /// <summary>
+        /// ID主键
+        /// </summary>
+        [SugarColumn(IsNullable = false, IsPrimaryKey = true, IsIdentity = true)]
+        public int ID { get; set; }
+
         #region 上传故障工单
         /// <summary>
         /// 故障编号

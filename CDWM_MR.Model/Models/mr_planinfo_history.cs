@@ -9,5 +9,6 @@ namespace CDWM_MR.Model.Models
     /// </summary>
     public class mr_planinfo_history:BaseModel
     {
+
     }
 }

@@ -10,6 +10,12 @@ namespace CDWM_MR.Model.Models
     /// </summary>
     public class dispatch_faultinfo
     {
+        /// <summary>
+        /// ID主键
+        /// </summary>
+        [SugarColumn(IsNullable = false, IsPrimaryKey = true, IsIdentity = true)]
+        public int ID { get; set; }
+
         #region 上传故障工单
         /// <summary>
         /// 故障编号
@@ -71,32 +77,6 @@ namespace CDWM_MR.Model.Models
         public int reportpeople { get; set; }
         #endregion
 
-        #region 派工信息
-        /// <summary>
-        /// 派工人(mr_b_reader)
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public int dispatcher { get; set; }
-
-        /// <summary>
-        /// 操作派工人员(sys_userinfo)
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public int operadispatch { get; set; }
-
-        /// <summary>
-        /// 派工时间
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public DateTime dispatchtime { get; set; }
-
-        /// <summary>
-        /// 最迟处理时间
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public DateTime lasthandletime { get; set; }
-        #endregion
-
         #region 处理故障信息
         /// <summary>
         /// 故障处理时间
@@ -137,7 +117,6 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = true,Length = 200)]
         public string checkinfo { get; set; }
-
 
         #endregion
 

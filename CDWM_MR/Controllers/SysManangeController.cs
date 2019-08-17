@@ -16,7 +16,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CDWM_MR.Controllers
 {
-   
+    /// <summary>
+    /// 系统管理
+    /// </summary>
     public class SysManangeController : Controller
     {
         #region 相关变量
@@ -35,6 +37,8 @@ namespace CDWM_MR.Controllers
         /// <param name="sysusermanage"></param>
         /// <param name="sys_user_role_mapper"></param>
         /// <param name="sys_role"></param>
+        /// <param name="Isys_interface_info"></param>
+        /// <param name="sys_OperationServices"></param>
         public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_operationServices sys_OperationServices)
         {
             _sysuserinfoservices = sysuserinfo;
@@ -248,6 +252,7 @@ namespace CDWM_MR.Controllers
             };
         }
         #endregion
+
         #region 添加接口
         /// <summary>
         /// 添加接口
@@ -284,7 +289,6 @@ namespace CDWM_MR.Controllers
             };
         }
         #endregion
-
 
         #region 编辑接口
         /// <summary>

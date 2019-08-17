@@ -59,6 +59,722 @@
             备注
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.Models.dispatch_faultinfo">
+            <summary>
+            派工故障信息管理
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.faultnumber">
+            <summary>
+            故障编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.faulttype">
+            <summary>
+            故障类型sys_config
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.meternum">
+            <summary>
+            水表编号(t_b_watermeters)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.autoaccount">
+            <summary>
+            用户账号信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.faultcontent">
+            <summary>
+            故障信息内容
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.imginfos">
+            <summary>
+            附件信息---至少3张照片信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.reporttime">
+            <summary>
+            上报时间,故障工单上传时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.gisinfo">
+            <summary>
+            gis位置信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.readerid">
+            <summary>
+            抄表员ID
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.reportpeople">
+            <summary>
+            上报人
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.dispatcher">
+            <summary>
+            派工人(mr_b_reader)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.operadispatch">
+            <summary>
+            操作派工人员(sys_userinfo)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.dispatchtime">
+            <summary>
+            派工时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.lasthandletime">
+            <summary>
+            最迟处理时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.handletime">
+            <summary>
+            故障处理时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.handleinfo">
+            <summary>
+            故障处理信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.handleimg">
+            <summary>
+            处理后上传的图片
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.checksource">
+            <summary>
+            审核来源0--APP手机端;1--后台管理系统;
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.checker">
+            <summary>
+            审核人sys_userinfo,m_b_reader
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.checkinfo">
+            <summary>
+            审核信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.handlestatus">
+            <summary>
+            处理状态0--未受理;1--已受理;2--已处理;3--已存档(已审核)
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.dispatch_faultinfo_history">
+            <summary>
+            派工单历史信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.faultnumber">
+            <summary>
+            故障编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.faulttype">
+            <summary>
+            故障类型
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.meternum">
+            <summary>
+            水表编号(t_b_watermeters)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.autoaccount">
+            <summary>
+            用户账号信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.faultcontent">
+            <summary>
+            故障信息内容
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.imginfos">
+            <summary>
+            附件信息---至少3张照片信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.reporttime">
+            <summary>
+            上报时间,故障工单上传时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.gisinfo">
+            <summary>
+            gis位置信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.mrreadernumber">
+            <summary>
+            抄表员编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.mrreadername">
+            <summary>
+            抄表员姓名
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.reportpeoplename">
+            <summary>
+            上报人姓名
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.reportpeoplenumber">
+            <summary>
+            上报人编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.dispatchername">
+            <summary>
+            派工人姓名(mr_b_reader)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.dispatchernumber">
+            <summary>
+            派工人编号(mr_b_reader)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.operadispatchname">
+            <summary>
+            操作派工人员姓名(sys_userinfo)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.operadispatchnumber">
+            <summary>
+            操作派工人员编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.dispatchtime">
+            <summary>
+            派工时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.lasthandletime">
+            <summary>
+            最迟处理时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.handletime">
+            <summary>
+            故障处理时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.handleinfo">
+            <summary>
+            故障处理信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo_history.handleimg">
+            <summary>
+            处理后上传的图片
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.mr_b_bookinfo">
+            <summary>
+            抄表册信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.bookno">
+            <summary>
+            抄表册编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.readmanid">
+            <summary>
+            抄表人(mr_reader：ID)
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:CDWM_MR.Model.Models.mr_b_bookinfo.bookname" -->
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.readperiod">
+            <summary>
+            抄表周期(11:按月 21:单月 22:双月31:按季度1 32:按季度2 33:按季度3)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.regionno">
+            <summary>
+            区域编号(t_b_regions:regionno)
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.mr_b_reader">
+            <summary>
+            抄表员
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.mrreadernumber">
+            <summary>
+            抄表员编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.mrreadername">
+            <summary>
+            抄表员姓名
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.telephone">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.appcount">
+            <summary>
+            app用户
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.apppassword">
+            <summary>
+            app密码(MD5加密)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.nearnrtime">
+            <summary>
+            最近抄表时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.sex">
+            <summary>
+            性别(0：男；1：女)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.idcard">
+            <summary>
+            身份证
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.deleteflag">
+            <summary>
+            删除状态（0：未删除；1：删除）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.roles">
+            <summary>
+            备用字段(存储角色id组合)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.lastlogintime">
+            <summary>
+            最后登录时间
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.mr_datainfo">
+            <summary>
+            抄表数据信息表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.ID">
+            <summary>
+            ID主键
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.taskid">
+            <summary>
+            任务单id(来源于mr_taskinfo)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.meternum">
+            <summary>
+            水表编号,（t_b_watermeters::meternum）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.readerid">
+            <summary>
+            抄表员id（mr_b_reader：:ID）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.byhanddata">
+            <summary>
+            人为抄表数据
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.bymachinedata">
+            <summary>
+            图像识别抄表数据
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.uploadgisplace">
+            <summary>
+            上传的GIS信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.readDateTime">
+            <summary>
+            抄表时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.readstatus">
+            <summary>
+            抄表状态(0--已抄表;1--未抄表)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.checkstatus">
+            <summary>
+            审核状态0--已审核;1--未审核
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.checkinfo">
+            <summary>
+            审核信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.checksuccesstime">
+            <summary>
+            审核成功时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.checkor">
+            <summary>
+            审核人（sys_userinfo::ID）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.turnstatus">
+            <summary>
+            结转状态0--已结转;1--未结转;
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.turndate">
+            <summary>
+            结转完成日期
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.againcheckdata">
+            <summary>
+            复审读数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.imginfo">
+            <summary>
+            上传的图片内容
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.lastreadnum">
+            <summary>
+            最终审核水量数据(和审核数据一样)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo.remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.mr_datainfo_history">
+            <summary>
+            抄表数据历史表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.meternum">
+            <summary>
+            水表编号（t_b_watermeters）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.autoaccount">
+            <summary>
+            用水账号--自动生成(t_b_users)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.username">
+            <summary>
+            用户姓名t_b_users
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.address">
+            <summary>
+            家庭地址t_b_users
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.telephone">
+            <summary>
+            联系电话t_b_users
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.meterbookname">
+            <summary>
+            抄表册名称(mr_bookinfo)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.meterbooknumber">
+            <summary>
+            抄表册编号(mr_bookinfo)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.mrreadernumber">
+            <summary>
+            抄表员编号(mr_b_reader)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.mrreadername">
+            <summary>
+            抄表员姓名(mr_b_reader)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.areano">
+            <summary>
+            小区编号t_b_areas
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.areaname">
+            <summary>
+            小区名称t_b_areas
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.regionno">
+            <summary>
+            片区编号t_b_regions
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.regionname">
+            <summary>
+            片区名称t_b_regions
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.mrdateTime">
+            <summary>
+            抄表月份(年+月格式201908)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.lastmonthdata">
+            <summary>
+            上月抄表读数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.nowmonthdata">
+            <summary>
+            当前月份抄表读数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.usewaternum">
+            <summary>
+            当前月份用水量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.mrdatetime">
+            <summary>
+            抄表详细时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.checkstatus">
+            <summary>
+            审核状态(0--已审核;1--未审核)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.readstatus">
+            <summary>
+            抄表状态
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.imginfo">
+            <summary>
+            上传图片信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.watermeterstatus">
+            <summary>
+            水表状态0--正常;1--漏水
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.mrtype">
+            <summary>
+            抄表方式0--实抄;1--估抄
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.mr_data_checkhistory">
+            <summary>
+            抄表数据审核历史表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.ID">
+            <summary>
+            ID主键
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.autoaccount">
+            <summary>
+            用水账号--自动生成(t_b_users)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.username">
+            <summary>
+            用户姓名t_b_users
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.meternum">
+            <summary>
+            水表表号(t_b_watermeters)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.regionname">
+            <summary>
+            区域名称（t_b_region::regionname）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.areaname">
+            <summary>
+            小区名称t_b_areas
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.yearmonth">
+            <summary>
+            月份（一个周期）年+月
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.uploaddata">
+            <summary>
+            抄表上传读数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.bymachinedadata">
+            <summary>
+            图像识别读数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.againcheckdata">
+            <summary>
+            复审读数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.uploadimg">
+            <summary>
+            上传的图片内容
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.checkdatetime">
+            <summary>
+            审核时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_data_checkhistory.checkstatus">
+            <summary>
+            审核状态(0--通过;1--不通过)
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.mr_planinfo">
+            <summary>
+            抄表计划单
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo.mplannumber">
+            <summary>
+            抄表计划单编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo.mplanname">
+            <summary>
+            抄表计划单名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo.mplanyear">
+            <summary>
+            所属年
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo.mplanmonth">
+            <summary>
+            所属月份
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo.planstarttime">
+            <summary>
+            计划单开始时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo.planendtime">
+            <summary>
+            计划单结束时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo.finishstatus">
+            <summary>
+            完成状态0--计划;1--下达;2--完成
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.mr_planinfo_history">
+            <summary>
+            抄表计划单历史表
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.mr_taskinfo">
+            <summary>
+            抄表任务单信息表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.tasknumber">
+            <summary>
+            抄表任务单编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.taskname">
+            <summary>
+            抄表任务单名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.bookid">
+            <summary>
+            抄表册ID,来源于mr_b_bookinfo::ID
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.readerid">
+            <summary>
+            抄表员ID,mr_b_reader::ID
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.planid">
+            <summary>
+            计划单ID(mr_planinfo::ID)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.taskstarttime">
+            <summary>
+            任务单起抄时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.taskendtime">
+            <summary>
+            任务单止抄时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.downloadstarttime">
+            <summary>
+            下载任务单开始时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.downloadendtime">
+            <summary>
+            下载任务单结束时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.taskstatus">
+            <summary>
+            任务单完成状态0--计划;1--下达;2--完成
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.dowloadstatus">
+            <summary>
+            下载状态0--已下载;1--未下载
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.mr_taskinfo_history">
+            <summary>
+            抄表任务单历史表
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.sys_interface_info">
             <summary>
             用户接口信息
