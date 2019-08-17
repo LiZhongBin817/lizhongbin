@@ -156,6 +156,11 @@ namespace CDWM_MR.Services.BASE
             return await BaseDal.Query(strWhere);
         }
 
+        public async Task<List<TEntity>> Queryfield(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TEntity>> sellambda)
+        {
+            return await BaseDal.Queryfield(whereExpression,sellambda);
+        }
+
         /// <summary>
         /// 功能描述:查询数据列表
         /// 作　　者:AZLinli.CDWM_MR

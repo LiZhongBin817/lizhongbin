@@ -281,8 +281,22 @@ namespace CDWM_MR.Repository.BASE
         /// <returns>数据列表</returns>
         public async Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression)
         {
-            //return await Task.Run(() => _entityDb.GetList(whereExpression));
             return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
+            //return await Task.Run(() => _entityDb.GetList(whereExpression));
+            //return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
+        }
+
+        /// <summary>
+        /// 功能描述:查询数据列表(查询部分列)
+        /// 作　　者:CDWM_MR
+        /// </summary>
+        /// <param name="whereExpression">whereExpression</param>
+        /// <returns>数据列表</returns>
+        public async Task<List<TEntity>> Queryfield(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity,TEntity>> sellambda)
+        {
+            return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).Select(sellambda).ToListAsync();
+            //return await Task.Run(() => _entityDb.GetList(whereExpression));
+            //return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
         }
 
         /// <summary>

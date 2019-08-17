@@ -691,6 +691,11 @@
             操作状态0--启用;1--禁用
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.OperationType">
+            <summary>
+            权限种类 0:增加 1:删除 2:修改  3:查看
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.sys_role">
             <summary>
             角色表

@@ -46,6 +46,11 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = true)]
         public short OperationStatus { get; set; } = 0;
+        /// <summary>
+        /// 权限种类 0:增加 1:删除 2:修改  3:查看
+        /// </summary>
+        [SugarColumn(IsNullable = true)]
+        public int OperationType { get; set; }
 
     }
 }

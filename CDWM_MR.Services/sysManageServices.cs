@@ -1,6 +1,7 @@
 ﻿using CDWM_MR.Common;
 using CDWM_MR.IRepository.Content;
 using CDWM_MR.IServices;
+using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Services.BASE;
@@ -19,8 +20,10 @@ namespace CDWM_MR.Services
         readonly Isys_role_menuRepository SysRoleMenuDal;
         readonly Isys_user_role_mapperRepository SysUserRoleDal;
         readonly Isys_roleRepository sys_roleDal;
+        readonly Isys_menuRepository MenuRepository;
+        readonly Isys_operationRepository OperationRepository;
 
-        public sysManageServices(Isys_userinfoRepository userinfodal,Isys_menuRepository sysmenudal,Isys_role_menuRepository sysrolemenudal,Isys_user_role_mapperRepository sysuserroledal, Isys_roleRepository sys_roledal)
+        public sysManageServices(Isys_userinfoRepository userinfodal,Isys_menuRepository sysmenudal,Isys_role_menuRepository sysrolemenudal,Isys_user_role_mapperRepository sysuserroledal, Isys_roleRepository sys_roledal, Isys_menuRepository menuRepository, Isys_operationRepository operationRepository)
         {
             UserinfoDal = userinfodal;
             SysMenuDal = sysmenudal;
@@ -28,6 +31,9 @@ namespace CDWM_MR.Services
             SysUserRoleDal = sysuserroledal;
             base.BaseDal = userinfodal;
             sys_roleDal = sys_roledal;
+            MenuRepository = menuRepository;
+            OperationRepository = operationRepository;
+             
         }
 
         /// <summary>
@@ -216,6 +222,321 @@ namespace CDWM_MR.Services
             //添加用户角色表
             return await SysUserRoleDal.Add(user_role);
         }
+        #endregion
+
+        #region 角色管理
+        //用来存放返回数据的
+        List<object> commonlist = new List<object>();
+        #region 根据角色id查询菜单id
+        public async Task<TableModel<object>> GetMenuID(int id)
+        {
+            //创建一个集合存放菜单id
+            List<int> menuData = new List<int>();
+            //根据角色id去角色菜单表里面查询菜单
+            var data = await SysRoleMenuDal.Query(c=>c.RoleID==id);
+            foreach (var item in data)
+            {
+                menuData.Add(item.MenuID);
+            }
+            return new TableModel<object>()
+            {
+                code = 0,
+                msg = "查询成功",
+                count = menuData.Count,
+                data = menuData,
+            };
+        }
+        #endregion
+
+        #region 获取菜单列表
+        /// <summary>
+        /// 获得菜单树
+        /// </summary>
+        /// <param name="id">父级菜单的id</param>
+        /// <returns></returns>
+        public async Task<TableModel<object>> GetMenu()
+        {
+            List<sys_menu> plist = new List<sys_menu>();
+            //查询菜单表里面的所有数据
+            var alllist = await MenuRepository.Query();
+            List<sys_menu> query = new List<sys_menu>();
+            foreach (var item in alllist)
+            {
+                if (item.ParentID == 0)
+                {
+                    query.Add(item);
+                }
+            }
+            foreach (var item in query)
+            {
+                sys_menu menu = new sys_menu();
+                menu.ID = Convert.ToInt32(item.ID);
+                menu.ParentID = 0;
+                menu.MenuName = item.MenuName;
+                menu.MenuUrl = item.MenuUrl;
+                menu.MenuLevel = item.MenuLevel;
+                menu.MenuType = item.MenuType;
+                menu.MenuNumber = item.MenuNumber;
+                plist.Add(menu);
+                var menuinfo = new { id = menu.ID, pid = menu.ParentID, title = menu.MenuName, url = menu.MenuUrl ,menuType=menu.MenuType,menuNumber=menu.MenuNumber};
+                commonlist.Add(menuinfo);
+            }
+            var data = await MenuRepository.Query();//拿到菜单表里的所有数据
+            await GetChildNode(data,plist);
+            return new TableModel<object>()
+            {
+                code = 0,
+                msg = "查询成功",
+                count = commonlist.Count,
+                data = commonlist
+            };
+        }
+        /// <summary>
+        /// 遍历查询子节点
+        /// </summary>
+        /// <param name="Plist"></param>
+        /// <returns></returns>
+        public async Task GetChildNode(List<sys_menu> data, List<sys_menu> Plist)
+        {           
+            foreach (var item in Plist)
+            {
+                List<sys_menu> childlist = new List<sys_menu>();
+                foreach (var item1 in data)
+                {
+
+                    if (item.ID == item1.ParentID)
+                    {
+                        childlist.Add(item1);
+                    }
+
+                }
+                if (childlist.Count == 0)
+                {
+                    continue;
+                }
+                List<sys_menu> plist = new List<sys_menu>();
+                foreach (var item2 in childlist)
+                {
+                    sys_menu menu = new sys_menu();
+                    menu.ID = item2.ID;
+                    menu.ParentID = item.ID;
+                    menu.MenuName = item2.MenuName;
+                    menu.MenuUrl = item2.MenuUrl;
+                    menu.MenuLevel = item2.MenuLevel;
+                    menu.MenuType = item2.MenuType;
+                    menu.MenuNumber = item2.MenuNumber;
+                    plist.Add(menu);
+                    var menuinfo = new { id = menu.ID, pid = menu.ParentID, title = menu.MenuName, url = menu.MenuUrl,menuType=menu.MenuType, menuNumber = menu.MenuNumber };
+                    commonlist.Add(menuinfo);
+                }
+                await GetChildNode(data,plist);
+
+            }
+        }
+        #endregion
+
+        #region 判断角色菜单
+        /// 判断该角色是否存在该菜单
+        /// </summary>
+        /// <param name="RoleID"></param>
+        /// <param name="MenuID"></param>
+        /// <returns></returns>
+        public async Task<TableModel<object>> Jude(int RoleID, int MenuID)
+        {
+            var data = await SysRoleMenuDal.Query(c=>c.RoleID==RoleID&&c.MenuID==MenuID);
+            if (data.Count == 0)
+            {
+                return new TableModel<object>()
+                {
+                    code = 0,
+                    msg = "NO",
+                    count = data.Count,
+                    data = data
+                };
+            }
+            else
+            {
+                return new TableModel<object>()
+                {
+                    code = 0,
+                    msg = "OK",
+                    count = data.Count,
+                    data = data,
+                };
+            }
+        }
+        #endregion
+
+        #region  保存权限
+        public async Task<TableModel<object>> SaveOperation(int RoleID, string MenuID)
+        {
+            //创建一个list集合用来存放返回渲染在复选框里面的值
+            List<int> list = new List<int>();
+            string[] MenuId = MenuID.Split(',');
+            //存放操作用户角色表的对象
+            List<sys_role_menu> commonData = new List<sys_role_menu>();
+            //查询角色菜单表的所有角色与RoleID相等的数据
+            var allData = await SysRoleMenuDal.Query(c => c.RoleID == RoleID);
+            //将权限表的信息查出来
+            var operationData = await OperationRepository.Query();           
+            foreach (var item in MenuId)
+            {
+                //查询到菜单对应的权限
+                var Data = operationData.FindAll(c => c.MenuID.ToString() == item);
+                if (Data.Count == 0)
+                {
+                    return new TableModel<object>()
+                    {
+                        code = 0,
+                        msg = "NO",
+                        count = 0,
+                        data = ""
+                    };
+                }
+                else
+                {
+
+                    foreach (var item1 in Data)
+                    {
+                        sys_role_menu role_Menu = new sys_role_menu();
+                        role_Menu.RoleID = RoleID;
+                        role_Menu.MenuID = Convert.ToInt32(item);
+                        role_Menu.OperationID = item1.ID;
+                        role_Menu.CreateTime = DateTime.Now;
+                        role_Menu.CreatePeople = "李忠斌";
+                        commonData.Add(role_Menu);
+                    }
+                }
+
+            }
+            //删除角色ID对应的所有数据
+            foreach (var item in allData)
+            {
+                int ID = item.ID;
+                await SysRoleMenuDal.DeleteById(ID);
+            }
+            await SysRoleMenuDal.Add(commonData);
+            //用来返回到前端时渲染在复选框里面的菜单数据
+            List<sys_role_menu> menuData = await SysRoleMenuDal.Query(c => c.RoleID == RoleID);
+            foreach (var item in menuData)
+            {
+                list.Add(item.MenuID);
+            }
+            return new TableModel<object>()
+            {
+                code = 0,
+                msg = "OK",
+                count = 0,
+                data = list
+            };
+        }
+
+        #endregion
+
+        #region 渲染权限
+        /// <summary>
+        /// 通过菜单ID查询权限ID
+        /// </summary>
+        /// <param name="menuID"></param>
+        /// <returns></returns>
+        public async Task<TableModel<object>> GetOperation(int RoleID, int menuID)
+        {
+            //查出菜单id相同的数据
+            var data = await SysRoleMenuDal.Query(c=>c.RoleID==RoleID&&c.MenuID==menuID);
+            //查出权限表里面的所有数据
+            var alldata = await OperationRepository.Query();
+            //创建一个集合来存放权限id
+            List<int> opID = new List<int>();
+            foreach (var item in data)
+            {
+                foreach (var item1 in alldata)
+                {
+                    if (item.OperationID == item1.ID)
+                    {
+                        sys_operation operation = new sys_operation();
+                        operation.ID = item1.ID;
+                        operation.OperationName = item1.OperationName;
+                        operation.OperationType = item1.OperationType;
+                        operation.Remark = item.Remark;
+                        var operationInfo = new { opID = operation.ID, opName = operation.OperationName, opType = operation.OperationType, opRemark = operation.Remark };
+                        commonlist.Add(operationInfo);
+                    }
+                }
+            }
+            return new TableModel<object>()
+            {
+                code = 0,
+                msg = "查询成功",
+                count = commonlist.Count,
+                data = commonlist
+            };
+        }
+        #endregion
+
+        #region 修改权限
+        public async Task<TableModel<sys_operation>> EditOperations(int RoleID, int MenuID, string OperationID)
+        {
+            //用于在数据库更新操作的集合
+            List<sys_role_menu> commonlist1 = new List<sys_role_menu>();
+            //查询权限表，将权限表中的Remark全置为0
+            bool b = await SysRoleMenuDal.Update(c => new sys_role_menu
+            {
+                Remark = "0"
+            }, c => c.MenuID == MenuID && c.RoleID == RoleID);
+            if (OperationID == null)
+            {
+                return new TableModel<sys_operation>()
+                {
+                    code = 0,
+                    msg = "OK",
+                    count = 0,
+                    data = null,
+                };
+            }
+            else
+            {
+                string[] OpId = OperationID.Split(',');
+                if (b)
+                {
+                    //查出角色对应的菜单有哪些权限ID
+                    List<sys_role_menu> role_Menus = await SysRoleMenuDal.Query(c => c.RoleID == RoleID && c.MenuID == MenuID);
+                    //查出权限表中的所有数据
+                    List<sys_operation> operations = await OperationRepository.Query();
+                    foreach (var item in role_Menus)
+                    {
+                        foreach (var item1 in OpId)
+                        {
+                            if (item.OperationID.ToString() == item1)
+                            {
+                                sys_role_menu data = new sys_role_menu();
+                                data.ID = item.ID;
+                                data.RoleID = item.RoleID;
+                                data.MenuID = item.MenuID;
+                                data.OperationID = item.OperationID;
+                                data.CreateTime = item.CreateTime;
+                                data.CreatePeople = item.CreatePeople;
+                                data.UpdatePeople = item.UpdatePeople;
+                                data.UpdateTime = item.UpdateTime;
+                                data.UpdatePeople = item.UpdatePeople;
+                                data.Remark = "1";
+                                commonlist1.Add(data);
+                            }
+                        }
+                    }
+                    await SysRoleMenuDal.Updateable(commonlist1);
+                }
+            }
+
+            return new TableModel<sys_operation>()
+            {
+                code = 0,
+                msg = "OK",
+                count = 0,
+                data = null,
+            };
+        }
+        #endregion
+
         #endregion
 
     }

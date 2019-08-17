@@ -10,6 +10,7 @@ using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -27,6 +28,15 @@ namespace CDWM_MR.Controllers
         readonly Isys_user_role_mapperServices _sys_user_role_mapperServices;
         readonly Isys_roleServices _sys_roleServices;
         readonly Isys_interface_infoServices _Isys_interface_infoServices;
+        readonly Isys_role_menuServices _Role_MenuServices;
+
+        #endregion
+
+        #region 创建相应表的对象
+        sys_role role = new sys_role();
+        sys_role_menu _Role_Menu = new sys_role_menu();
+        sys_user_role_mapper _User_Role_Mapper = new sys_user_role_mapper();
+        public string createPeople;//用来存放创建人
         #endregion
 
         /// <summary>
@@ -37,13 +47,15 @@ namespace CDWM_MR.Controllers
         /// <param name="sys_user_role_mapper"></param>
         /// <param name="sys_role"></param>
         /// <param name="Isys_interface_info"></param>
-        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info)
+        /// <param name="role_MenuServices"></param>
+        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info, Isys_role_menuServices role_MenuServices)
         {
             _sysuserinfoservices = sysuserinfo;
             _sysManageServices = sysusermanage;
             _sys_user_role_mapperServices = sys_user_role_mapper;
             _sys_roleServices = sys_role;
             _Isys_interface_infoServices = Isys_interface_info;
+            _Role_MenuServices = role_MenuServices;
         }
 
         #region  用户管理
@@ -322,6 +334,308 @@ namespace CDWM_MR.Controllers
             };
         }
         #endregion
+        #endregion
+
+        #region 角色管理
+
+        #region 添加角色
+        /// <summary>
+        /// 添加角色
+        /// </summary>
+        /// <param name="RoleNumber">角色编号</param>
+        /// <param name="RoleName">角色名称</param>
+        /// <param name="CreatePeople">创建人</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("AddRole")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<MessageModel<object>> AddRole(string RoleNumber, string RoleName, string CreatePeople)
+        {
+            //将创建人给全局变量createPeople在分配权限的时候用
+            createPeople = CreatePeople;
+            if (RoleName == null || RoleNumber == null || CreatePeople == null)
+            {
+                return new MessageModel<object>()
+                {
+                    code = 0,
+                    msg = "角色编号或者角色名称和创建人不能为空",
+                    data = "",
+
+                };
+            }
+            role.RoleNumber = RoleNumber;
+            role.RoleName = RoleName;
+            role.CreatePeople = CreatePeople;
+            role.CreateTime = DateTime.Now;
+            role.DeleteFlag = 0;
+            List<sys_role> list = await _sys_roleServices.Query();
+            foreach (var item in list)
+            {
+                if (item.RoleName == RoleName || item.RoleNumber == RoleNumber)
+                {
+                    return new MessageModel<object>()
+                    {
+                        code = 0,
+                        msg = "该角色或者角色编号已经存在",
+                        data = ""
+
+                    };
+                }
+            }
+            var id = await _sys_roleServices.Add(role);
+            return new MessageModel<object>()
+            {
+                code = 0,
+                msg = "添加成功",
+                data = new
+                {
+                    RoleID = id.ObjToString(),
+                }
+            };
+        }
+        #endregion
+
+        #region 删除角色
+        /// <summary>
+        /// 删除角色
+        /// </summary>
+        /// <param name="RoleName">删除的角色名称</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("DeleteRole")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<MessageModel<object>> DeleteRole(string RoleName)
+        {
+            //寻找到RoleName相等的数据对应的ID
+            List<sys_role> list = await _sys_roleServices.Query(t => t.RoleName == RoleName);
+            bool a = false;
+            bool b = false;
+            bool c = false;
+            int SID = list[0].ID;//存放角色ID
+            a = await _sys_roleServices.DeleteById(SID); //删除角色表中对应的id数据
+            //在表sys_role_menu中根据角色id找到对应的进行删除
+            b = await _Role_MenuServices.DeleteTable(t => t.RoleID == SID);
+            c = await _sys_user_role_mapperServices.DeleteTable(t => t.RoleID == SID);
+            var data = new MessageModel<object>();
+            if (a == true)
+            {
+                return new MessageModel<object>()
+                {
+                    code = 0,
+                    msg = "删除成功",
+                    data = ""
+                };
+            }
+            else
+            {
+                return new MessageModel<object>()
+                {
+                    code = 0,
+                    msg = "该角色名称不存在",
+                    data = ""
+                };
+            }
+        }
+        #endregion
+
+        #region 编辑角色
+        /// <summary>
+        /// 编辑角色
+        /// </summary>
+        /// <param name="RoleName">旧角色名称</param>
+        /// <param name="NewRoleName">新角色名称</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("EditRole")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<MessageModel<object>> EditRole(string RoleName, string NewRoleName)
+        {
+            //查找到角色表中的所有数据
+            List<sys_role> list = await _sys_roleServices.Query();
+            var data = new MessageModel<object>();
+            foreach (var item in list)
+            {
+                if (item.RoleName == NewRoleName)
+                {
+                    break;
+                }
+                else
+                {
+                    if (item.RoleName == RoleName)
+                    {
+                        role.RoleNumber = item.RoleNumber;
+                        role.RoleName = NewRoleName;
+                        role.ID = item.ID;
+                        role.CreatePeople = item.CreatePeople;
+                        role.UpdatePeople = item.CreatePeople;
+                        role.CreateTime = item.CreateTime;
+                        role.UpdateTime = DateTime.Now;
+                        break;
+                    }
+                }
+
+            }
+            if (role != null && role.ID > 0)
+            {
+                var b = await _sys_roleServices.Update(role);
+                if (b)
+                {
+                    data.msg = "更新成功";
+                    data.data = role;
+                }
+            }
+            else
+            {
+
+                data.msg = "该角色不能与存在的角色重复";
+                data.data = "";
+            }
+            return data;
+        }
+        #endregion
+
+        #region 展示角色名称
+        /// <summary>
+        /// 显示角色数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("ShowRole")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> ShowRole()
+        {
+            //查询角色表中的所有数据
+            List<sys_role> list = await _sys_roleServices.Query();
+            //存放角色
+            List<int> roleID = new List<int>();
+            //声明一个list集合用来装所有的角色名称
+            List<string> roleName = new List<string>();
+            foreach (var item in list)
+            {
+                roleName.Add(item.RoleName);
+                roleID.Add(item.ID);
+            }
+            return new TableModel<object>()
+            {
+                code = 0,
+                msg = "查询成功",
+                count = roleName.Count,
+                data = new
+                {
+                    roleID = roleID,
+                    roleName = roleName,
+                },
+
+
+            };
+
+        }
+        #endregion
+
+        #region 根据角色id查询菜单id
+        /// <summary>
+        /// 根据角色id查询菜单id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetMenuID")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> GetMenuID(int id)
+        {
+            return await _sysManageServices.GetMenuID(id);
+        }
+        #endregion
+
+        #region 获得菜单列表
+        /// <summary>
+        /// 获得菜单列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetMenu")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> GetMenu()
+        {
+            return await _sysManageServices.GetMenu();
+        }
+        #endregion
+
+        #region 判断角色菜单
+        /// <summary>
+        /// 判断角色菜单
+        /// </summary>
+        /// <param name="RoleID"></param>
+        /// <param name="MenuID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Jude")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> Jude(int RoleID, int MenuID)
+        {
+            return await _sysManageServices.Jude(RoleID, MenuID);
+        }
+        #endregion
+
+        #region 保存权限
+        /// <summary>
+        /// 为角色分配菜单
+        /// </summary>
+        /// <param name="RoleID"></param>
+        /// <param name="MenuID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("SaveOperation")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> SaveOperation(int RoleID, string MenuID)
+        {
+            return await _sysManageServices.SaveOperation(RoleID, MenuID);
+        }
+        #endregion
+
+        #region 渲染权限
+        /// <summary>
+        /// 渲染权限
+        /// </summary>
+        /// <param name="RoleID"></param>
+        /// <param name="menuID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetOperation")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> GetOperation(int RoleID, int menuID)
+        {
+            return await _sysManageServices.GetOperation(RoleID, menuID);
+        }
+        #endregion
+
+        #region 权限修改
+        /// <summary>
+        /// 权限修改
+        /// </summary>
+        /// <param name="RoleID"></param>
+        /// <param name="MenuID"></param>
+        /// <param name="OperationID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("EditOperations")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<sys_operation>> EditOperations(int RoleID, int MenuID, string OperationID)
+        {
+            return await _sysManageServices.EditOperations(RoleID, MenuID, OperationID);
+        }
+        #endregion
+
         #endregion
     }
 }

@@ -350,7 +350,7 @@
             系统管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices)">
             <summary>
             构造函数
             </summary>
@@ -359,6 +359,7 @@
             <param name="sys_user_role_mapper"></param>
             <param name="sys_role"></param>
             <param name="Isys_interface_info"></param>
+            <param name="role_MenuServices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.ShowUserInfoDate(System.String,System.String,System.Int32,System.Int32)">
             <summary>
@@ -437,6 +438,82 @@
             <param name="JsonData">修改后的接口对象</param>
             <param name="ID">编辑的ID</param>
             <returns>返回是否成功</returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.AddRole(System.String,System.String,System.String)">
+            <summary>
+            添加角色
+            </summary>
+            <param name="RoleNumber">角色编号</param>
+            <param name="RoleName">角色名称</param>
+            <param name="CreatePeople">创建人</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.DeleteRole(System.String)">
+            <summary>
+            删除角色
+            </summary>
+            <param name="RoleName">删除的角色名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.EditRole(System.String,System.String)">
+            <summary>
+            编辑角色
+            </summary>
+            <param name="RoleName">旧角色名称</param>
+            <param name="NewRoleName">新角色名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.ShowRole">
+            <summary>
+            显示角色数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetMenuID(System.Int32)">
+            <summary>
+            根据角色id查询菜单id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetMenu">
+            <summary>
+            获得菜单列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.Jude(System.Int32,System.Int32)">
+            <summary>
+            判断角色菜单
+            </summary>
+            <param name="RoleID"></param>
+            <param name="MenuID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.SaveOperation(System.Int32,System.String)">
+            <summary>
+            为角色分配菜单
+            </summary>
+            <param name="RoleID"></param>
+            <param name="MenuID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetOperation(System.Int32,System.Int32)">
+            <summary>
+            渲染权限
+            </summary>
+            <param name="RoleID"></param>
+            <param name="menuID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.EditOperations(System.Int32,System.Int32,System.String)">
+            <summary>
+            权限修改
+            </summary>
+            <param name="RoleID"></param>
+            <param name="MenuID"></param>
+            <param name="OperationID"></param>
+            <returns></returns>
         </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">
             <summary>
