@@ -547,6 +547,31 @@
             <param name="MenuID"></param>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.SaveOperation(System.Int32,System.String)">
+            <summary>
+            为角色分配菜单
+            </summary>
+            <param name="RoleID"></param>
+            <param name="MenuID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetOperation(System.Int32,System.Int32)">
+            <summary>
+            渲染权限
+            </summary>
+            <param name="RoleID"></param>
+            <param name="menuID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.EditOperations(System.Int32,System.Int32,System.String)">
+            <summary>
+            权限修改
+            </summary>
+            <param name="RoleID"></param>
+            <param name="MenuID"></param>
+            <param name="OperationID"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">
             <summary>
             Summary:全局路由权限公约

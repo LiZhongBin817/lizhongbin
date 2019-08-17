@@ -584,6 +584,59 @@ namespace CDWM_MR.Controllers
         }
         #endregion
 
+        #region 保存权限
+        /// <summary>
+        /// 为角色分配菜单
+        /// </summary>
+        /// <param name="RoleID"></param>
+        /// <param name="MenuID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("SaveOperation")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> SaveOperation(int RoleID, string MenuID)
+        {
+            return await _sysManageServices.SaveOperation(RoleID, MenuID);
+        }
+        #endregion
+
+        #region 渲染权限
+        /// <summary>
+        /// 渲染权限
+        /// </summary>
+        /// <param name="RoleID"></param>
+        /// <param name="menuID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetOperation")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> GetOperation(int RoleID, int menuID)
+        {
+            return await _sysManageServices.GetOperation(RoleID, menuID);
+        }
+        #endregion
+
+        #region 权限修改
+        /// <summary>
+        /// 权限修改
+        /// </summary>
+        /// <param name="RoleID"></param>
+        /// <param name="MenuID"></param>
+        /// <param name="OperationID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("EditOperations")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<sys_operation>> EditOperations(int RoleID, int MenuID, string OperationID)
+        {
+            return await _sysManageServices.EditOperations(RoleID, MenuID, OperationID);
+        }
+        #endregion
+
+
         #endregion
     }
 }
