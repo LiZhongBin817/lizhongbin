@@ -615,6 +615,11 @@
             菜单图标
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.sys_menu.Childrenlist">
+            <summary>
+            子类集合
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.sys_operatelog">
             <summary>
             日志记录
@@ -917,6 +922,51 @@
             状态(1:可用;2:注销)
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.Models.t_b_nature">
+            <summary>
+            26. 用水性质 t_b_nature
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.t_b_nature.#ctor">
+            <summary>
+            26. 用水性质 t_b_nature（在本系统中为用水类型）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_nature.bntid">
+            <summary>
+            用水性质编码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_nature.naturename">
+            <summary>
+            用水性质名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_nature.bntstate">
+            <summary>
+            状态（1：使用中；2：注销；其它：未定）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_nature.createtime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_nature.createby">
+            <summary>
+            创建人(t_s_operator:: optid)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_nature.lastmodifytime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_nature.lastmodifyby">
+            <summary>
+            最后修改人(t_s_operator:: optid)
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.t_b_regions">
             <summary>
             23. 片区信息表 t_b_regions（相当于本系统中的区域表）
@@ -1069,7 +1119,7 @@
         </member>
         <member name="T:CDWM_MR.Model.Models.t_b_watermeters">
             <summary>
-            38. 水表基本信息表 t_b_watermeters
+            38. 水表基本信息表 t_b_watermeters（档案管理模块核心表）
             </summary>
         </member>
         <member name="M:CDWM_MR.Model.Models.t_b_watermeters.#ctor">
@@ -1099,7 +1149,7 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.t_b_watermeters.bookno">
             <summary>
-            抄表册编号（mr_bookinfo::bookno）
+            抄表册编号（t_c_readmeterbook::bookno）
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.t_b_watermeters.cbseq">
@@ -1310,26 +1360,6 @@
         <member name="P:CDWM_MR.Model.Models.t_b_watermeters.isreg">
             <summary>
             NB表是否注册到iot平台(1:是；2：否)
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.t_b_watermeters.GISPlace">
-            <summary>
-            GIS位置(190808新增)
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.t_b_watermeters.caliber">
-            <summary>
-            口径(190808新增)
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.t_b_watermeters.updatemetertime">
-            <summary>
-            更换水表时间
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.t_b_watermeters.lastwaternum">
-            <summary>
-            截止用水量
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.PageModel`1">
@@ -1551,6 +1581,11 @@
         <member name="P:CDWM_MR.Model.TableModel`1.data">
             <summary>
             返回数据集
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Children.List">
+            <summary>
+            子类集合
             </summary>
         </member>
     </members>

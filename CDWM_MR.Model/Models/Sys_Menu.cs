@@ -57,5 +57,10 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = true, Length = 30)]
         public string MenuImg { get; set; }
+        /// <summary>
+        /// 子类集合
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public Children Childrenlist{ get; set; }
     }
 }

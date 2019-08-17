@@ -27,6 +27,7 @@ namespace CDWM_MR.IServices.BASE
         Task<bool> DeleteByIds(object[] ids);
 
         Task<bool> Update(TEntity model);
+        Task<bool> OUpdate(Expression<Func<TEntity, TEntity>> expression, Expression<Func<TEntity, bool>> wherelambda);
         Task<bool> Updateable(List<TEntity> entity);
         Task<bool> Update(TEntity entity, string strWhere);
 
@@ -51,7 +52,7 @@ namespace CDWM_MR.IServices.BASE
 
         Task<PageModel<object>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> whereExpression1, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null);
         Task<PageModel<TEntity>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null);
-
+        Task<PageModel<TEntity>> OQueryPage(Expression<Func<TEntity, bool>> whereExpression, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null);
         Task<List<TResult>> QueryMuch<T, T2, T3, TResult>(
             Expression<Func<T, T2, T3, object[]>> joinExpression,
             Expression<Func<T, T2, T3, TResult>> selectExpression,

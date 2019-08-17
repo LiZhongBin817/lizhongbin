@@ -22,8 +22,4 @@
     <ProjectReference Include="..\CDWM_MR.Common\CDWM_MR.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-
 </Project>

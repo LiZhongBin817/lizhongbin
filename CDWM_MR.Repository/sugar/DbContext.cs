@@ -19,7 +19,7 @@ namespace CDWM_MR.Repository
         private static DbType _dbType;
         private SqlSugarClient _db;
         private readonly ILoggerHelper _loggerHelper = new LogHelper();
-        
+
         /// <summary>
         /// 连接字符串 
         /// CDWM_MR
@@ -87,12 +87,6 @@ namespace CDWM_MR.Repository
                     IsAutoRemoveDataCache = true
                 }
             });
-            //ISqlSugarClient db = DbRepository.GetInstance(DbType.MySql, MySqlConnString)
-            //_db.Aop.OnLogExecuted = (sql, pars) => //SQL执行完事件
-            //{
-            //    OutSql2Log(sql, GetParas(pars));
-            //};
-
             _db.Aop.OnLogExecuting = (sql, pars) => //SQL执行中事件
             {
                 Parallel.For(0, 1, e =>
@@ -114,7 +108,6 @@ namespace CDWM_MR.Repository
         public SimpleClient<T> GetEntityDB<T>() where T : class, new()
         {
             return new SimpleClient<T>(_db);
-            //return DbRepository.GetInstance()
         }
         /// <summary>
         /// 功能描述:获取数据库处理对象
