@@ -35,6 +35,7 @@ namespace CDWM_MR.Services
             redis = redisHelper;
         }
 
+        #region  菜单管理
         /// <summary>
         /// 获取角色菜单权限表
         /// </summary>
@@ -109,6 +110,7 @@ namespace CDWM_MR.Services
             }
             return rMenulist;
         }
+        #endregion
 
         #region 用户管理
         /// <summary>
@@ -150,7 +152,7 @@ namespace CDWM_MR.Services
         /// <param name="JsonDate"></param>
         /// <param name="roleid"></param>
         /// <returns></returns>
-        public async Task<int> ModifyInfo(string JsonDate, string roleid)
+        public async Task<int> ModifyInfo(string JsonDate, int[] roleid)
         {
             //将数据转换成JSON对象
             sys_userinfo Edit = Common.Helper.JsonHelper.GetObject<sys_userinfo>(JsonDate);
@@ -171,13 +173,12 @@ namespace CDWM_MR.Services
             //将用户角色关联表数据先删除
             await SysUserRoleDal.DeleteTable(c => c.UserID == ID);
             //编辑用户角色表信息
-            string[] RoleName = roleid.Split(',');
             List<sys_user_role_mapper> user_role = new List<sys_user_role_mapper>();
-            for (int i = 0; i < RoleName.Count() - 1; i++)
+            for (int i = 0; i < roleid.Count(); i++)
             {
                 sys_user_role_mapper us = new sys_user_role_mapper();
                 us.UserID = ID;
-                us.RoleID = Convert.ToInt32(RoleName[i]);
+                us.RoleID = roleid[i];
                 us.CreatePeople = "李芊";
                 us.CreateTime = DateTime.Now;
                 user_role.Add(us);
@@ -192,7 +193,7 @@ namespace CDWM_MR.Services
         /// <param name="JsonDate"></param>
         /// <param name="roleid"></param>
         /// <returns></returns>
-        public async Task<int> AddUserinfo(string JsonDate, string roleid)
+        public async Task<int> AddUserinfo(string JsonDate, int[] roleid)
         {
             sys_userinfo Add = Common.Helper.JsonHelper.GetObject<sys_userinfo>(JsonDate);
             //编号：CDWM_MR******
@@ -207,13 +208,12 @@ namespace CDWM_MR.Services
             int UserID = await UserinfoDal.Add(Add);
             //将用户角色关联进用户角色关联表
             //编辑用户角色表信息
-            string[] RoleName = roleid.Split(',');
             List<sys_user_role_mapper> user_role = new List<sys_user_role_mapper>();
-            for (int i = 0; i < RoleName.Count() - 1; i++)
+            for (int i = 0; i < roleid.Count(); i++)
             {
                 sys_user_role_mapper us = new sys_user_role_mapper();
                 us.UserID = UserID;
-                us.RoleID = Convert.ToInt32(RoleName[i]);
+                us.RoleID = roleid[i];
                 us.CreatePeople = "李芊";
                 us.CreateTime = DateTime.Now;
                 user_role.Add(us);

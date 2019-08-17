@@ -27,7 +27,7 @@ namespace CDWM_MR.IRepository.Base
 
         Task<bool> Update(TEntity model);
         Task<bool> Update(TEntity entity, string strWhere);
-
+        Task<bool> OUpdate(Expression<Func<TEntity, TEntity>> expression, Expression<Func<TEntity, bool>> wherelambda);
         Task<bool> Update(TEntity entity, List<string> lstColumns = null, List<string> lstIgnoreColumns = null, string strWhere = "");
         Task<bool> Updateable(List<TEntity> entity);
         Task<bool> Update(Expression<Func<TEntity, TEntity>> expression, Expression<Func<TEntity, bool>> wherelambda);
@@ -45,7 +45,7 @@ namespace CDWM_MR.IRepository.Base
             Expression<Func<TEntity, bool>> whereExpression, int intPageIndex, int intPageSize, string strOrderByFileds);
         Task<List<TEntity>> Query(string strWhere, int intPageIndex, int intPageSize, string strOrderByFileds);
         Task<PageModel<object>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> whereExpression1, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null);
-
+        Task<PageModel<TEntity>> OQueryPage(Expression<Func<TEntity, bool>> whereExpression, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null);
         Task<PageModel<TEntity>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null);
 
         Task<List<TResult>> QueryMuch<T, T2, T3, TResult>(

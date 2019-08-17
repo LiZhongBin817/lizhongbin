@@ -345,6 +345,68 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.MeterReadingController">
+            <summary>
+            抄表管理
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.#ctor(CDWM_MR.IServices.Content.It_b_areasServices,CDWM_MR.IServices.Content.It_b_regionsServices)">
+            <summary>
+            构造函数(依赖注入)
+            </summary>
+            <param name="t_b_areasServices"></param>
+            <param name="t_b_regionsServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.ShowregionDate(System.String,System.Int32,System.Int32)">
+            <summary>
+            显示区域管理
+            </summary>
+            <param name="regionname">片区编号</param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.ShowareasDate(System.String,System.Int32,System.Int32)">
+            <summary>
+            显示小区管理
+            </summary>
+            <param name="regionno">片区编号</param>
+            <param name="page">当前页面号</param>
+            <param name="limit">页面大小</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.Deleteregion(System.String)">
+            <summary>
+            删除区域管理
+            </summary>
+            <param name="regionno">所属片区编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.Deleteareas(System.String,System.String)">
+            <summary>
+            删除小区管理
+            </summary>
+            <param name="regionno">所属片区编号</param>
+            <param name="areano">小区编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.Editregion(System.String,System.String)">
+            <summary>
+            编辑区域管理
+            </summary>
+            <param name="regionno">所属片区编号</param>
+            <param name="regionname">片区名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.Editareas(System.String,System.String,System.String)">
+            <summary>
+            编辑小区管理
+            </summary>
+            <param name="regionno">所属片区编号</param>
+            <param name="areano">小区编号</param>
+            <param name="areaname">小区名称</param>
+            <returns></returns>
+        </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_operationServices)">
             <summary>
             构造函数
@@ -370,7 +432,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.AddUser(System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.AddUser(System.String,System.Int32[])">
             <summary>
             添加用户
             </summary>
@@ -399,7 +461,7 @@
             <param name="ID"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.ModifyUserInfo(System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.ModifyUserInfo(System.String,System.Int32[])">
             <summary>
             编辑用户信息
             </summary>
