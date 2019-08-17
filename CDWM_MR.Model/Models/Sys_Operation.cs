@@ -51,16 +51,6 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = true)]
         public int OperationType { get; set; }
-        /// <summary>
-        /// 更新人
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public string UpdatePeople { get; set; }
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public DateTime UpdateTime { get; set; }
 
     }
 }

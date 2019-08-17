@@ -41,6 +41,8 @@ namespace CDWM_MR.IServices.BASE
         Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> orderByExpression, bool isAsc = true);
         Task<List<TEntity>> Query(string strWhere, string strOrderByFileds);
 
+        Task<List<TEntity>> Queryfield(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TEntity>> sellambda);
+
         Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression, int intTop, string strOrderByFileds);
         Task<List<TEntity>> Query(string strWhere, int intTop, string strOrderByFileds);
 
