@@ -37,7 +37,7 @@ namespace CDWM_MR.Repository.BASE
             DbContext.Init(BaseDBConfig.ConnectionString, (DbType)BaseDBConfig.DbType);
             _context = DbContext.GetDbContext();
             _db = _context.Db;
-            _entityDb = _context.GetEntityDB<TEntity>(_db);
+            _entityDb = DbContext.GetCustomEntityDB<TEntity>(DbContext.GetConnectionConfig());//获取简单数据库操作对象
         }
 
 
@@ -132,6 +132,16 @@ namespace CDWM_MR.Repository.BASE
             //return i > 0;
             //这种方式会以主键为条件
             return await _db.Updateable(entity).ExecuteCommandHasChangeAsync();
+        }
+        /// <summary>
+        ///  根据条件更新其他数据库
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="wherelambda"></param>
+        /// <returns></returns>
+        public async Task<bool> OUpdate(Expression<Func<TEntity, TEntity>> expression, Expression<Func<TEntity, bool>> wherelambda)
+        {
+            return await _entityDb.AsSugarClient().Updateable(expression).Where(wherelambda).ExecuteCommandHasChangeAsync();
         }
         /// <summary>
         /// 批量更新
@@ -273,8 +283,22 @@ namespace CDWM_MR.Repository.BASE
         /// <returns>数据列表</returns>
         public async Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression)
         {
-            //return await Task.Run(() => _entityDb.GetList(whereExpression));
             return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
+            //return await Task.Run(() => _entityDb.GetList(whereExpression));
+            //return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
+        }
+
+        /// <summary>
+        /// 功能描述:查询数据列表(查询部分列)
+        /// 作　　者:CDWM_MR
+        /// </summary>
+        /// <param name="whereExpression">whereExpression</param>
+        /// <returns>数据列表</returns>
+        public async Task<List<TEntity>> Queryfield(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity,TEntity>> sellambda)
+        {
+            return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).Select(sellambda).ToListAsync();
+            //return await Task.Run(() => _entityDb.GetList(whereExpression));
+            //return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
         }
 
         /// <summary>
@@ -438,6 +462,25 @@ namespace CDWM_MR.Repository.BASE
             return new PageModel<TEntity>() { dataCount = totalCount, pageCount = pageCount, page = intPageIndex, PageSize = intPageSize, data = list };
         }
 
+        /// <summary>
+        /// 分页查询其他数据库不加select方法
+        /// </summary>
+        /// <param name="whereExpression"></param>
+        /// <param name="whereExpression1"></param>
+        /// <param name="intPageIndex"></param>
+        /// <param name="intPageSize"></param>
+        /// <param name="strOrderByFileds"></param>
+        /// <returns></returns>
+        public async Task<PageModel<TEntity>> OQueryPage(Expression<Func<TEntity, bool>> whereExpression, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null)
+        {
+            RefAsync<int> totalCount = 0;
+            var list = await _entityDb.AsSugarClient().Queryable<TEntity>()
+             .OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds)
+             .WhereIF(whereExpression != null, whereExpression)
+             .ToPageListAsync(intPageIndex, intPageSize, totalCount);
+            int pageCount = (Math.Ceiling(totalCount.ObjToDecimal() / intPageSize.ObjToDecimal())).ObjToInt();
+            return new PageModel<TEntity>() { dataCount = totalCount, pageCount = pageCount, page = intPageIndex, PageSize = intPageSize, data = list };
+        }
         /// <summary> 
         ///查询-多表查询
         /// </summary> 
