@@ -26,6 +26,7 @@ namespace CDWM_MR.Controllers
         readonly Isys_user_role_mapperServices _sys_user_role_mapperServices;
         readonly Isys_roleServices _sys_roleServices;
         readonly Isys_interface_infoServices _Isys_interface_infoServices;
+        readonly Isys_operationServices _sys_OperationServices;
         readonly Isys_role_menuServices _Role_MenuServices;
         #endregion
     
@@ -39,13 +40,14 @@ namespace CDWM_MR.Controllers
         /// <param name="sys_role"></param>
         /// <param name="Isys_interface_info"></param>
         /// <param name="sysrolemenu"></param>
-        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu)
+        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices)
         {
             _sysuserinfoservices = sysuserinfo;
             _sysManageServices = sysusermanage;
             _sys_user_role_mapperServices = sys_user_role_mapper;
             _sys_roleServices = sys_role;
             _Isys_interface_infoServices = Isys_interface_info;
+            _sys_OperationServices = sys_OperationServices;
             _Role_MenuServices = sysrolemenu;
         }
 
@@ -358,6 +360,190 @@ namespace CDWM_MR.Controllers
         #endregion
         #endregion
 
+        #region 菜单管理
+
+        #region 生成菜单树
+        /// <summary>
+        /// 生成菜单树
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetTrees")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> GetTrees()
+        {
+            var data=await _sysManageServices.GetTree(0);
+            return new TableModel<object>() {
+                code=0,
+                msg="ok",
+                data=data
+            };
+           
+        }
+        #endregion
+
+        #region 显示菜单信息
+        /// <summary>
+        /// 展示点击菜单信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("ShowInfo")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> ShowInfo(int id)
+        {
+            var data = await _sysManageServices.GetMenuInfo(id);
+            return new TableModel<object>()
+            {
+               code=0,
+               msg="ok",
+               data=data
+            };
+        }
+        #endregion
+
+        #region 添加菜单
+        /// <summary>
+        /// 添加菜单
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("SaveMenu")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> SaveMenu(string json)
+        {
+            if (await _sysManageServices.AddMenu(json))
+            {
+                return new TableModel<object>
+                {
+                    code = 0,
+                    msg = "添加成功",
+                    data=null
+
+                };
+            }
+                return new TableModel<object>
+                {
+                    code = 1,
+                    msg = "添加失败",
+                    data=null
+                    
+                };
+        }
+        #endregion
+
+        #region 删除菜单
+        /// <summary>
+        /// 删除菜单
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("DeleMenu")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> DeleMenu(int id)
+        {
+            if (await _sysManageServices.DelMenu(id))
+            {
+                return new TableModel<object>
+                {
+                    code = 0,
+                    msg="删除成功",
+                    data=null
+                };
+            }
+                return new TableModel<object>
+                {
+                    code = 0,
+                    msg = "删除失败",
+                    data=null
+                };
+        }
+        #endregion
+
+        #region 权限分配
+        /// <summary>
+        /// 菜单权限分配
+        /// </summary>
+        /// <param name="adddata"></param>
+        /// <param name="deldata"></param>
+        /// <param name="modifdata"></param>
+        /// <param name="seedata"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AuthorityManagement")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> AuthorityManagement(string adddata,string deldata,string modifdata,string seedata,int id)
+        {
+            if (await _sysManageServices.Power(adddata,deldata,modifdata,seedata,id))
+            {
+                return new TableModel<object>
+                {
+                    code = 0,
+                    msg = "分配成功",
+                    data=null
+                };
+            }
+                return new TableModel<object>
+                {
+                    code = 1,
+                    msg = "分配失败",
+                    data=null
+                };
+            
+        }
+        #endregion
+
+        #region 权限信息
+        /// <summary>
+        /// 菜单权限信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetInfo")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> GetInfo(int id)
+        {
+            try
+            {
+                var alllist = await _sys_OperationServices.Query(c => c.MenuID == id);
+                var addlist = alllist.FindAll(c => c.OperationType == 0);
+                var dellist = alllist.FindAll(c => c.OperationType == 1);
+                var modlist = alllist.FindAll(c => c.OperationType == 2);
+                var seelist = alllist.FindAll(c => c.OperationType == 3);
+                return new TableModel<object>
+                {
+                    code = 0,
+                    msg="ok",
+                    data = new { addstr = addlist, delstr = dellist, modifstr = modlist, seestr = seelist }
+                };
+            }
+            catch (Exception ex)
+            {
+
+                return new TableModel<object>
+                {
+                    code = 1,
+                    msg="false",
+                    data=null
+                };
+            }
+            
+
+        }
+        #endregion
+        #endregion
+
         #region 角色管理
 
         #region 添加角色
@@ -479,15 +665,17 @@ namespace CDWM_MR.Controllers
             List<sys_role> list = await _sys_roleServices.Query(c => c.RoleName == NewRoleName);
             if (list.Count > 0)
             {
-                return new MessageModel<object>() {
+                return new MessageModel<object>()
+                {
                     code = 1001,
                     msg = "重复",
                     data = NewRoleName
                 };
-            }           
-            var b = await _sys_roleServices.Update(c=>new sys_role {
-                RoleName= NewRoleName
-            },c=>c.RoleName==RoleName);
+            }
+            var b = await _sys_roleServices.Update(c => new sys_role
+            {
+                RoleName = NewRoleName
+            }, c => c.RoleName == RoleName);
             return new MessageModel<object>()
             {
                 code = 0,
@@ -635,8 +823,6 @@ namespace CDWM_MR.Controllers
             return await _sysManageServices.EditOperations(RoleID, MenuID, OperationID);
         }
         #endregion
-
-
         #endregion
     }
 }

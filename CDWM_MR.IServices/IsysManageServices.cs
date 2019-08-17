@@ -19,8 +19,6 @@ namespace CDWM_MR.IServices
         List<object> Childmenu(int Parentid, List<sys_menu> MenuList);
         Task<TableModel<object>> Modify(int ID);
 
-        //Task<int> AddUserinfo(string JsonDate, string roleid);
-
         Task<TableModel<object>> GetMenu();
 
         Task<TableModel<object>> Jude(int RoleID, int MenuID);
