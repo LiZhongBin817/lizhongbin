@@ -20,5 +20,10 @@ namespace CDWM_MR.IServices
         Task<TableModel<object>> Modify(int ID);
         Task<int> ModifyInfo(string JsonDate, string roleid);
         Task<int> AddUserinfo(string JsonDate, string roleid);
+        Task<List<object>> GetTree(int id);
+        Task<object> GetMenuInfo(int id);
+        Task<bool> AddMenu(string json);
+        Task<bool> DelMenu(int id);
+        Task<bool> Power(string adddata, string deldata, string modifdata, string seedata, int id);
     }
 }

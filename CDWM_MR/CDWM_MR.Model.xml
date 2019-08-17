@@ -144,6 +144,11 @@
             菜单图标
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.sys_menu.Childrenlist">
+            <summary>
+            子类集合
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.sys_operatelog">
             <summary>
             日志记录
@@ -218,6 +223,21 @@
         <member name="P:CDWM_MR.Model.Models.sys_operation.OperationStatus">
             <summary>
             操作状态0--启用;1--禁用
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.OperationType">
+            <summary>
+            权限种类 0:增加 1:删除 2:修改  3:查看
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.UpdatePeople">
+            <summary>
+            更新人
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.UpdateTime">
+            <summary>
+            更新时间
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.sys_role">
@@ -1100,6 +1120,11 @@
         <member name="P:CDWM_MR.Model.TableModel`1.data">
             <summary>
             返回数据集
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Children.List">
+            <summary>
+            子类集合
             </summary>
         </member>
     </members>
