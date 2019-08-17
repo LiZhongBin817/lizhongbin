@@ -19,7 +19,7 @@ namespace CDWM_MR.Repository
         private static DbType _dbType;
         private SqlSugarClient _db;
         private readonly ILoggerHelper _loggerHelper = new LogHelper();
-        
+
         /// <summary>
         /// 连接字符串 
         /// CDWM_MR
@@ -87,12 +87,6 @@ namespace CDWM_MR.Repository
                     IsAutoRemoveDataCache = true
                 }
             });
-
-            //_db.Aop.OnLogExecuted = (sql, pars) => //SQL执行完事件
-            //{
-            //    OutSql2Log(sql, GetParas(pars));
-            //};
-
             _db.Aop.OnLogExecuting = (sql, pars) => //SQL执行中事件
             {
                 Parallel.For(0, 1, e =>
@@ -349,7 +343,7 @@ namespace {Namespace}
         {
             ConnectionConfig config = new ConnectionConfig()
             {
-                ConnectionString = _connectionString,
+                ConnectionString = "Server=220.248.173.29;Port=3303;Database=marketing_sw;Uid=root;Pwd=root;",
                 DbType = _dbType,
                 IsAutoCloseConnection = blnIsAutoCloseConnection,
                 ConfigureExternalServices = new ConfigureExternalServices()

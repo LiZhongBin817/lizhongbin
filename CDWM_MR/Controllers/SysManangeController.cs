@@ -64,9 +64,10 @@ namespace CDWM_MR.Controllers
         {
             PageModel<object> user = new PageModel<object>();
             #region lambda拼接式
-            Expression<Func<sys_userinfo, bool>> wherelambda = c=>c.DeleteFlag!=1;
+            Expression<Func<sys_userinfo, bool>> wherelambda = c => c.DeleteFlag != 1;
+            if (!string.IsNullOrEmpty(FUserName))
             {
-                wherelambda = PredicateExtensions.And<sys_userinfo>(wherelambda, c => c.FUserName==FUserName);
+                wherelambda = PredicateExtensions.And<sys_userinfo>(wherelambda, c => c.FUserName == FUserName);
             }
             if (!string.IsNullOrEmpty(LoginName))
             {
@@ -82,18 +83,18 @@ namespace CDWM_MR.Controllers
                 LoginPassWord = c.LoginPassWord,
                 RealName = c.RealName,
                 Sex = c.Sex == 1 ? "女" : "男",
-                MobilePhone=c.MobilePhone,
-                Adress=c.Adress,
-                Email=c.Email,
-                UserType=c.UserType == 0 ? "超级管理员" : (c.UserType == 1 ? "管理员" : "普通员工"),
-        };
+                MobilePhone = c.MobilePhone,
+                Adress = c.Adress,
+                Email = c.Email,
+                UserType = c.UserType
+            };
             user = await _sysuserinfoservices.QueryPage(wherelambda, expression, page, limit, "");
             return new TableModel<object>()
             {
                 code = 0,
                 msg = "ok",
                 count = user.dataCount,
-                data = user
+                data = user.data
             };
         }
         #endregion
@@ -127,9 +128,16 @@ namespace CDWM_MR.Controllers
         [HttpPost]
         [Route("AddUser")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<int> AddUser(string JsonDate, string roleid)
+        public async Task<TableModel<object>> AddUser(string JsonDate, int[] roleid)
         {
-            return await _sysManageServices.AddUserinfo(JsonDate, roleid);
+            await _sysManageServices.AddUserinfo(JsonDate, roleid);
+            return new TableModel<object>
+            {
+                code = 0,
+                msg = "ok",
+                count = 0,
+                data = null
+            };
         }
         #endregion
 
@@ -142,11 +150,18 @@ namespace CDWM_MR.Controllers
         [HttpGet]
         [Route("DeleteUser")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<bool> DeleteUser(int ID)
+        public async Task<TableModel<object>> DeleteUser(int ID)
         {
             sys_userinfo user = await _sysuserinfoservices.QueryById(ID);
             user.DeleteFlag = 1;
-            return await _sysuserinfoservices.Update(user);
+            await _sysuserinfoservices.Update(user);
+            return new TableModel<object>
+            {
+                code = 0,
+                msg = "ok",
+                count = 0,
+                data = null
+            };
         }
 
         /// <summary>
@@ -157,7 +172,7 @@ namespace CDWM_MR.Controllers
         [HttpGet]
         [Route("DeleteUsers")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<bool> DeleteUsers(string ids)
+        public async Task<TableModel<object>> DeleteUsers(string ids)
         {
             object[] IDs = ids.Split(',');
             List<sys_userinfo> users = await _sysuserinfoservices.QueryByIDs(IDs);
@@ -165,7 +180,14 @@ namespace CDWM_MR.Controllers
             {
                 users[i].DeleteFlag = 1;
             }
-            return await _sysuserinfoservices.Updateable(users);
+            await _sysuserinfoservices.Updateable(users);
+            return new TableModel<object>
+            {
+                code = 0,
+                msg = "ok",
+                count = 0,
+                data = null
+            };
         }
         #endregion
 
@@ -192,12 +214,19 @@ namespace CDWM_MR.Controllers
         [HttpPost]
         [Route("ModifyUserInfo")]
         [AllowAnonymous]//允许所有都访问 
-        public async Task<int> ModifyUserInfo(string JsonDate, string roleid)
+        public async Task<TableModel<object>> ModifyUserInfo(string JsonDate, int[] roleid)
         {
-            return await _sysManageServices.ModifyInfo(JsonDate, roleid);
+            await _sysManageServices.ModifyInfo(JsonDate, roleid);
+            return new TableModel<object>
+            {
+                code = 0,
+                msg = "ok",
+                count = 0,
+                data = null
+            };
         }
         #endregion
-
+         
         #endregion
 
         #region 接口管理
