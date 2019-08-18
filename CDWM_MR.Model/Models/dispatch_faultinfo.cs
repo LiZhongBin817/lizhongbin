@@ -77,49 +77,6 @@ namespace CDWM_MR.Model.Models
         public int reportpeople { get; set; }
         #endregion
 
-        #region 处理故障信息
-        /// <summary>
-        /// 故障处理时间
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public DateTime handletime { get; set; }
-
-        /// <summary>
-        /// 故障处理信息
-        /// </summary>
-        [SugarColumn(IsNullable = true, Length = 100)]
-        public string handleinfo { get; set; }
-
-        /// <summary>
-        /// 处理后上传的图片
-        /// </summary>
-        [SugarColumn(IsNullable = true,ColumnDataType = "text")]
-        public string handleimg { get; set; }
-
-        #endregion
-
-        #region 审核故障工单
-
-        /// <summary>
-        /// 审核来源0--APP手机端;1--后台管理系统;
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public int checksource { get; set; }
-
-        /// <summary>
-        /// 审核人sys_userinfo,m_b_reader
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public int checker { get; set; }
-
-        /// <summary>
-        /// 审核信息
-        /// </summary>
-        [SugarColumn(IsNullable = true,Length = 200)]
-        public string checkinfo { get; set; }
-
-        #endregion
-
         /// <summary>
         /// 处理状态0--未受理;1--已受理;2--已处理;3--已存档(已审核)
         /// </summary>

@@ -144,36 +144,6 @@
             上报人
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.handletime">
-            <summary>
-            故障处理时间
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.handleinfo">
-            <summary>
-            故障处理信息
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.handleimg">
-            <summary>
-            处理后上传的图片
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.checksource">
-            <summary>
-            审核来源0--APP手机端;1--后台管理系统;
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.checker">
-            <summary>
-            审核人sys_userinfo,m_b_reader
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.checkinfo">
-            <summary>
-            审核信息
-            </summary>
-        </member>
         <member name="P:CDWM_MR.Model.Models.dispatch_faultinfo.handlestatus">
             <summary>
             处理状态0--未受理;1--已受理;2--已处理;3--已存档(已审核)
@@ -294,9 +264,104 @@
             处理后上传的图片
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.Models.dispatch_fault_check">
+            <summary>
+            派工故障审核表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_check.ID">
+            <summary>
+            ID主键
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_check.dispatchid">
+            <summary>
+            派工单id-关联dispatchsheet_info
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_check.faultid">
+            <summary>
+            故障工单id-关联dispatch_faultinfo
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_check.hendleid">
+            <summary>
+            处理故障表id
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_check.autoaccount">
+            <summary>
+            用户账号信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_check.checksource">
+            <summary>
+            审核来源0--APP手机端;1--后台管理系统;
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_check.checker">
+            <summary>
+            审核人sys_userinfo,m_b_reader
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_check.checkinfo">
+            <summary>
+            审核信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_check.checkstatus">
+            <summary>
+            审核状态0--审核已通过;1--审核未通过
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.dispatch_fault_handleinfo">
+            <summary>
+            派工故障处理信息表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_handleinfo.dispatchid">
+            <summary>
+            派工单id-关联dispatchsheet_info
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_handleinfo.faultid">
+            <summary>
+            故障工单id-关联dispatch_faultinfo
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_handleinfo.hendlesource">
+            <summary>
+            处理来源(0--APP;1--后台管理系统)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_handleinfo.handlepeople">
+            <summary>
+            处理人(sys_userinfo、t_b_users)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_handleinfo.handletime">
+            <summary>
+            故障处理时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_handleinfo.handleinfo">
+            <summary>
+            故障处理信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.dispatch_fault_handleinfo.handleimg">
+            <summary>
+            处理后上传的图片
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.finishturn_check">
             <summary>
             结转状态审核历史表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.finishturn_check.ID">
+            <summary>
+            ID主键
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.finishturn_check.datainfoid">
@@ -509,7 +574,11 @@
             抄表人(mr_reader：ID)
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:CDWM_MR.Model.Models.mr_b_bookinfo.bookname" -->
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.bookname">
+            <summary>
+            抄表册名称
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.readperiod">
             <summary>
             抄表周期(11:按月 21:单月 22:双月31:按季度1 32:按季度2 33:按季度3)
@@ -665,6 +734,11 @@
             抄表数据历史表
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.ID">
+            <summary>
+            ID主键
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.meternum">
             <summary>
             水表编号（t_b_watermeters）
@@ -750,7 +824,7 @@
             当前月份用水量
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.mrdatetime">
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.omrdatetime">
             <summary>
             抄表详细时间
             </summary>
@@ -860,6 +934,41 @@
             抄表计划单历史表
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo_history.ID">
+            <summary>
+            ID主键
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo_history.mplannumber">
+            <summary>
+            抄表计划单编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo_history.mplanname">
+            <summary>
+            抄表计划单名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo_history.mplanyear">
+            <summary>
+            所属年
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo_history.mplanmonth">
+            <summary>
+            所属月份
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo_history.planstarttime">
+            <summary>
+            计划单开始时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo_history.planendtime">
+            <summary>
+            计划单结束时间
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.mr_taskinfo">
             <summary>
             抄表任务单信息表
@@ -923,6 +1032,56 @@
         <member name="T:CDWM_MR.Model.Models.mr_taskinfo_history">
             <summary>
             抄表任务单历史表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo_history.ID">
+            <summary>
+            ID主键
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo_history.tasknumber">
+            <summary>
+            抄表任务单编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo_history.taskname">
+            <summary>
+            抄表任务单名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo_history.bookno">
+            <summary>
+            抄表册编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo_history.mrreadernumber">
+            <summary>
+            抄表员编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo_history.mplannumber">
+            <summary>
+            抄表计划单编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo_history.taskstarttime">
+            <summary>
+            任务单起抄时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo_history.taskendtime">
+            <summary>
+            任务单止抄时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo_history.downloadstarttime">
+            <summary>
+            下载任务单开始时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo_history.downloadendtime">
+            <summary>
+            下载任务单结束时间
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.sys_interface_info">
@@ -2011,6 +2170,11 @@
         <member name="P:CDWM_MR.Model.TableModel`1.data">
             <summary>
             返回数据集
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Children">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Children.List">

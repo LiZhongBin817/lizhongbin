@@ -11,6 +11,12 @@ namespace CDWM_MR.Model.Models
     public class finishturn_check
     {
         /// <summary>
+        /// ID主键
+        /// </summary>
+        [SugarColumn(IsNullable = false, IsPrimaryKey = true, IsIdentity = true)]
+        public int ID { get; set; }
+
+        /// <summary>
         /// 抄表数据ID
         /// </summary>
         [SugarColumn(IsNullable = true)]

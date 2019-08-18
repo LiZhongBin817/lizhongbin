@@ -11,6 +11,12 @@ namespace CDWM_MR.Model.Models
     public class mr_datainfo_history
     {
         /// <summary>
+        /// ID主键
+        /// </summary>
+        [SugarColumn(IsNullable = false, IsPrimaryKey = true, IsIdentity = true)]
+        public int ID { get; set; }
+
+        /// <summary>
         /// 水表编号（t_b_watermeters）
         /// </summary>
         [SugarColumn(IsNullable = true,Length = 10)]
@@ -116,7 +122,7 @@ namespace CDWM_MR.Model.Models
         /// 抄表详细时间
         /// </summary>
         [SugarColumn(IsNullable = true)]
-        public DateTime mrdatetime { get; set; }
+        public DateTime omrdatetime { get; set; }
 
         /// <summary>
         /// 审核状态(0--已审核;1--未审核)

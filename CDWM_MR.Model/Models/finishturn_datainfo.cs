@@ -13,7 +13,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 自动帐号(系统自动生成)(关联水表用户信息)
         /// </summary>
-        [SugarColumn(IsPrimaryKey = true, Length = 15)]
+        [SugarColumn(IsNullable = true, Length = 15)]
         public System.String autoaccount { get; set; }
 
         /// <summary>
