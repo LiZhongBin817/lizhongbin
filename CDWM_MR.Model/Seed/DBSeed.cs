@@ -22,21 +22,45 @@ namespace CDWM_MR.Model.Seed
             {
                 // 注意！一定要先手动创建一个【空的数据库】
                 // 如果生成过了，第二次，就不用再执行一遍了,注释掉该方法即可
-                myContext.CreateTableByEntity(false,
-                    typeof(sys_menu),
-                    typeof(sys_interface_info),
-                    typeof(sys_operatelog),
-                    typeof(sys_operation),
-                    typeof(sys_role),
-                    typeof(sys_role_menu),
-                    typeof(sys_userinfo),
-                    typeof(sys_user_operation),
-                    typeof(sys_user_role_mapper));
+                //myContext.CreateTableByEntity(false,
+                //    typeof(dispatch_fault_check),
+                //    typeof(dispatch_fault_handleinfo),
+                //    typeof(dispatch_faultinfo),
+                //    typeof(dispatch_faultinfo_history),
+                //    typeof(dispatchsheet_info),
+                //    typeof(finishturn_check),
+                //    typeof(finishturn_datainfo),
+                //    typeof(finishturn_datainfo_history),
+                //    typeof(mr_b_bookinfo),
+                //    typeof(mr_b_reader),
+                //    typeof(mr_data_check),
+                //    typeof(mr_datainfo),
+                //    typeof(mr_datainfo_history),
+                //    typeof(mr_planinfo),
+                //    typeof(mr_planinfo_history),
+                //    typeof(mr_taskinfo),
+                //    typeof(mr_taskinfo_history),
+                //    typeof(sys_parameter));
 
                 // 后期单独处理某些表
-                //myContext.Db.CodeFirst.InitTables(typeof(sysUserInfo));
-                //myContext.Db.CodeFirst.InitTables(typeof(Permission)); 
-                //myContext.Db.CodeFirst.InitTables(typeof(Advertisement));
+                myContext.Db.CodeFirst.InitTables(typeof(dispatch_fault_check));
+                myContext.Db.CodeFirst.InitTables(typeof(dispatch_fault_handleinfo));
+                myContext.Db.CodeFirst.InitTables(typeof(dispatch_faultinfo));
+                myContext.Db.CodeFirst.InitTables(typeof(dispatch_faultinfo_history));
+                myContext.Db.CodeFirst.InitTables(typeof(dispatchsheet_info));
+                myContext.Db.CodeFirst.InitTables(typeof(finishturn_check));
+                myContext.Db.CodeFirst.InitTables(typeof(finishturn_datainfo));
+                myContext.Db.CodeFirst.InitTables(typeof(finishturn_datainfo_history));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_b_bookinfo));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_b_reader));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_data_check));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_datainfo));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_datainfo_history));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_planinfo));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_planinfo_history));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_taskinfo));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_taskinfo_history));
+                myContext.Db.CodeFirst.InitTables(typeof(sys_parameter));
 
                 Console.WriteLine("正在生成数据库 ...");
 
