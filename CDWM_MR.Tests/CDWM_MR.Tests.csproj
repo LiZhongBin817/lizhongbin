@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="Moq" Version="4.10.1" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CDWM_MR.Repository\CDWM_MR.Repository.csproj" />
+    <ProjectReference Include="..\CDWM_MR.Services\CDWM_MR.Services.csproj" />
+    <ProjectReference Include="..\CDWM_MR\CDWM_MR.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controller_Test\" />
+    <Folder Include="DependencyInjection\" />
+    <Folder Include="Redis_Test\" />
+    <Folder Include="Repository_Test\" />
+    <Folder Include="Service_Test\" />
+  </ItemGroup>
+
+</Project>

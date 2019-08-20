@@ -1,0 +1,110 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CDWM_MR.FrameWork.Entity\CDWM_MR.FrameWork.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CDWM_MR.FrameWork.cs</LastGenOutput>
+    </None>
+    <None Update="CDWM_MR.FrameWork.IRepository\CDWM_MR.FrameWork.IRepository.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CDWM_MR.FrameWork.IRepository.cs</LastGenOutput>
+    </None>
+    <None Update="CDWM_MR.FrameWork.IServices\CDWM_MR.FrameWork.IServices.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CDWM_MR.FrameWork.IServices.cs</LastGenOutput>
+    </None>
+    <None Update="CDWM_MR.FrameWork.Repository\CDWM_MR.FrameWork.Repository.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CDWM_MR.FrameWork.Repository.cs</LastGenOutput>
+    </None>
+    <None Update="CDWM_MR.FrameWork.Services\CDWM_MR.FrameWork.Services.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CDWM_MR.FrameWork.Services.cs</LastGenOutput>
+    </None>
+    <None Update="CDWM_MR_Framework.IRepository\CDWM_MR_Framework_IRepositoy.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CDWM_MR_Framework_IRepositoy.cs</LastGenOutput>
+    </None>
+    <None Update="CDWM_MR_Framework.IServices\CDWM_MR_Framework_IServices.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CDWM_MR_Framework_IServices.cs</LastGenOutput>
+    </None>
+    <None Update="CDWM_MR_Framework.Repository\CDWM_MR_Framework_Repository.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CDWM_MR_Framework_Repository.cs</LastGenOutput>
+    </None>
+    <None Update="CDWM_MR_Framework.Services\CDWM_MR_Framework_Services.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CDWM_MR_Framework_Services.cs</LastGenOutput>
+    </None>
+    <None Update="PublicDll\8.0.17\lib\netstandard2.0\MySql.Data.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CDWM_MR.FrameWork.Entity\CDWM_MR.FrameWork.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CDWM_MR.FrameWork.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CDWM_MR.FrameWork.IRepository\CDWM_MR.FrameWork.IRepository.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CDWM_MR.FrameWork.IRepository.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CDWM_MR.FrameWork.IServices\CDWM_MR.FrameWork.IServices.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CDWM_MR.FrameWork.IServices.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CDWM_MR.FrameWork.Repository\CDWM_MR.FrameWork.Repository.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CDWM_MR.FrameWork.Repository.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CDWM_MR.FrameWork.Services\CDWM_MR.FrameWork.Services.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CDWM_MR.FrameWork.Services.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CDWM_MR_Framework.IRepository\CDWM_MR_Framework_IRepositoy.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CDWM_MR_Framework_IRepositoy.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CDWM_MR_Framework.IServices\CDWM_MR_Framework_IServices.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CDWM_MR_Framework_IServices.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CDWM_MR_Framework.Repository\CDWM_MR_Framework_Repository.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CDWM_MR_Framework_Repository.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CDWM_MR_Framework.Services\CDWM_MR_Framework_Services.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CDWM_MR_Framework_Services.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="PublicDll\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,607 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CDWM_MR.Model</name>
+    </assembly>
+    <members>
+        <member name="T:CDWM_MR.Model.MessageModel`1">
+            <summary>
+            通用返回信息类
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.MessageModel`1.success">
+            <summary>
+            操作是否成功
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.MessageModel`1.msg">
+            <summary>
+            返回信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.MessageModel`1.response">
+            <summary>
+            返回数据集合
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.BaseModel">
+            <summary>
+            CDWM_MR基类表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.BaseModel.ID">
+            <summary>
+            ID主键
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.BaseModel.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.BaseModel.CreatePeople">
+            <summary>
+            创建人--关联Sys_UserInfo
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.BaseModel.UpdateTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.BaseModel.UpdatePeople">
+            <summary>
+            更新人--关联Sys_UserInfo
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.BaseModel.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.ID">
+            <summary>
+            ID主键
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.InterfaceUrl">
+            <summary>
+            接口地址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.OperationVersion">
+            <summary>
+            接口版本
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.InterfaceName">
+            <summary>
+            接口名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.ExternalInterface">
+            <summary>
+            是否为第三方接口0--是，1--否
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.Verify">
+            <summary>
+            是否验证权限0--是，1--否
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Interface_Info.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.Sys_Menu">
+            <summary>
+            菜单表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Menu.ParentID">
+            <summary>
+            默认第一级菜单
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuLevel">
+            <summary>
+            菜单级别
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuName">
+            <summary>
+            菜单名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuNumber">
+            <summary>
+            菜单编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuOrder">
+            <summary>
+            菜单顺序号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuUrl">
+            <summary>
+            菜单Url
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuType">
+            <summary>
+            菜单类型0--为主菜单
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Menu.MenuImg">
+            <summary>
+            菜单图标
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.Sys_OperateLog">
+            <summary>
+            日志记录
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.IsDeleted">
+            <summary>
+            获取或设置是否禁用，逻辑上的删除，非物理删除
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.Controller">
+            <summary>
+            区域控制器名
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.Action">
+            <summary>
+            Action名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.IPAddress">
+            <summary>
+            IP地址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.LogTime">
+            <summary>
+            登录时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.LoginName">
+            <summary>
+            登录名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.MenuName">
+            <summary>
+            操作的菜单名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_OperateLog.OperateType">
+            <summary>
+            操作类型(0--登陆;1--退出;2--添加;3--修改;4--删除)
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.Sys_Operation">
+            <summary>
+            菜单按钮接口表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Operation.OperationNumber">
+            <summary>
+            操作编号--生成规则为:
+            ON0001
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Operation.OperationName">
+            <summary>
+            操作名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Operation.MenuID">
+            <summary>
+            菜单ID--关联Sys_Menu
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Operation.InterfaceID">
+            <summary>
+            接口ID --关联Sys_Interface_Info
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Operation.OperationStatus">
+            <summary>
+            操作状态0--启用;1--禁用
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.Sys_Role">
+            <summary>
+            角色表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Role.RoleNumber">
+            <summary>
+            角色编号--自动生成,规则为:
+            RN001
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Role.RoleName">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Role.DeleteFlag">
+            <summary>
+            删除标记,默认为1--已删除,0--未删除
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.Sys_Role_Menu">
+            <summary>
+            角色权限表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Role_Menu.RoleID">
+            <summary>
+            角色ID--关联Sys_Role
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Role_Menu.MenuID">
+            <summary>
+            菜单ID--关联Sys_Menu
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_Role_Menu.OperationID">
+            <summary>
+            操作者ID
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.Sys_UserInfo">
+            <summary>
+            用户信息表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.FUserNumber">
+            <summary>
+            用户编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.FUserName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.LoginName">
+            <summary>
+            登录账号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.LoginPassWord">
+            <summary>
+            登录密码,默认密码为12345
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.RealName">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.Sex">
+            <summary>
+            性别，默认为男
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.MobilePhone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.Adress">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.UseStatus">
+            <summary>
+            状态0为正常，1为作废
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.DeleteFlag">
+            <summary>
+            删除标记,默认值为0--正常
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.UserType">
+            <summary>
+            登陆用户类型0--超级管理员;1--管理员;2--普通用户(默认)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.LastLoginTime">
+             <summary>
+            最后登录时间 
+             </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_UserInfo.RoleNames">
+            <summary>
+            分配的角色
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.Sys_User_Operation">
+            <summary>
+            用户操作权限表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_User_Operation.UserID">
+            <summary>
+            用户ID--关联Sys_UserInfo
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_User_Operation.OperationID">
+            <summary>
+            操作权限ID--关联Sys_Operation
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_User_Operation.MenuID">
+            <summary>
+            菜单ID--关联Sys_Menu
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.Sys_User_Role_Mapper">
+            <summary>
+            用户,角色关联表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_User_Role_Mapper.ID">
+            <summary>
+            ID主键
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_User_Role_Mapper.RoleID">
+            <summary>
+            角色ID--关联Sys_Role
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_User_Role_Mapper.UserID">
+            <summary>
+            用户ID--关联Sys_UserInfo
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_User_Role_Mapper.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Sys_User_Role_Mapper.CreatePeople">
+            <summary>
+            创建人--关联Sys_UserInfo
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.PageModel`1">
+            <summary>
+            通用分页信息类
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.PageModel`1.page">
+            <summary>
+            当前页标
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.PageModel`1.pageCount">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.PageModel`1.dataCount">
+            <summary>
+            数据总数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.PageModel`1.PageSize">
+            <summary>
+            每页大小
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.PageModel`1.data">
+            <summary>
+            返回数据
+            </summary>
+        </member>
+        <member name="F:CDWM_MR.Model.ResponseEnum.NoPermissions">
+            <summary>
+            无权限
+            </summary>
+        </member>
+        <member name="F:CDWM_MR.Model.ResponseEnum.NoFound">
+            <summary>
+            找不到指定资源
+            </summary>
+        </member>
+        <member name="F:CDWM_MR.Model.ResponseEnum.ServerError">
+            <summary>
+            找不到指定资源
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Seed.DBSeed">
+            <summary>
+            生成数据库
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.DBSeed.SeedAsync(CDWM_MR.Model.Seed.MyContext,System.Boolean)">
+            <summary>
+            异步添加种子数据
+            </summary>
+            <param name="myContext"></param>
+            <param name="CreateDataBase">默认不更新数据库</param>
+        </member>
+        <member name="T:CDWM_MR.Model.Seed.MyContext">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Seed.MyContext.ConnectionString">
+            <summary>
+            连接字符串 
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Seed.MyContext.DbType">
+            <summary>
+            数据库类型
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Seed.MyContext.Db">
+            <summary>
+            数据连接对象 
+            Blog.Core 
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Seed.MyContext.Context">
+            <summary>
+            数据库上下文实例（自动关闭连接）
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.#ctor">
+            <summary>
+            功能描述:构造函数
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.GetEntityDB``1">
+            <summary>
+            功能描述:获取数据库处理对象
+            </summary>
+            <returns>返回值</returns>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.GetEntityDB``1(SqlSugar.SqlSugarClient)">
+            <summary>
+            功能描述:获取数据库处理对象
+            </summary>
+            <param name="db">db</param>
+            <returns>返回值</returns>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.CreateClassFileByDBTalbe(System.String)">
+            <summary>
+            功能描述:根据数据库表生产实体类
+            </summary>       
+            <param name="strPath">实体类存放路径</param>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.CreateClassFileByDBTalbe(System.String,System.String)">
+            <summary>
+            功能描述:根据数据库表生产实体类
+            </summary>
+            <param name="strPath">实体类存放路径</param>
+            <param name="strNameSpace">命名空间</param>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.CreateClassFileByDBTalbe(System.String,System.String,System.String[])">
+            <summary>
+            功能描述:根据数据库表生产实体类
+            </summary>
+            <param name="strPath">实体类存放路径</param>
+            <param name="strNameSpace">命名空间</param>
+            <param name="lstTableNames">生产指定的表</param>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.CreateClassFileByDBTalbe(System.String,System.String,System.String[],System.String,System.Boolean)">
+            <summary>
+            功能描述:根据数据库表生产实体类
+            </summary>
+            <param name="strPath">实体类存放路径</param>
+            <param name="strNameSpace">命名空间</param>
+            <param name="lstTableNames">生产指定的表</param>
+            <param name="strInterface">实现接口</param>
+            <param name="blnSerializable">是否序列化</param>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.CreateTableByEntity``1(System.Boolean,``0[])">
+            <summary>
+            功能描述:根据实体类生成数据库表
+            </summary>
+            <param name="blnBackupTable">是否备份表true为备份表</param>
+            <param name="lstEntitys">指定的实体</param>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.CreateTableByEntity(System.Boolean,System.Type[])">
+            <summary>
+            功能描述:根据实体类生成数据库表
+            </summary>
+            <param name="blnBackupTable">是否备份表</param>
+            <param name="lstEntitys">指定的实体</param>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.GetDbContext">
+            <summary>
+            功能描述:获得一个DbContext
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.Init(System.String,SqlSugar.DbType)">
+            <summary>
+            功能描述:设置初始化参数
+            作　　者:Blog.Core
+            </summary>
+            <param name="strConnectionString">连接字符串</param>
+            <param name="enmDbType">数据库类型</param>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.GetConnectionConfig(System.Boolean,System.Boolean)">
+            <summary>
+            功能描述:创建一个链接配置
+            作　　者:Blog.Core
+            </summary>
+            <param name="blnIsAutoCloseConnection">是否自动关闭连接</param>
+            <param name="blnIsShardSameThread">是否夸类事务</param>
+            <returns>ConnectionConfig</returns>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.GetCustomDB(SqlSugar.ConnectionConfig)">
+            <summary>
+            功能描述:获取一个自定义的DB
+            作　　者:Blog.Core
+            </summary>
+            <param name="config">config</param>
+            <returns>返回值</returns>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.GetCustomEntityDB``1(SqlSugar.SqlSugarClient)">
+            <summary>
+            功能描述:获取一个自定义的数据库处理对象
+            </summary>
+            <param name="sugarClient">sugarClient</param>
+            <returns>返回值</returns>
+        </member>
+        <member name="M:CDWM_MR.Model.Seed.MyContext.GetCustomEntityDB``1(SqlSugar.ConnectionConfig)">
+            <summary>
+            功能描述:获取一个自定义的数据库处理对象
+            作　　者:Blog.Core
+            </summary>
+            <param name="config">config</param>
+            <returns>返回值</returns>
+        </member>
+        <member name="T:CDWM_MR.Model.TableModel`1">
+            <summary>
+            表格数据，支持分页
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.TableModel`1.Code">
+            <summary>
+            返回编码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.TableModel`1.Msg">
+            <summary>
+            返回信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.TableModel`1.Count">
+            <summary>
+            记录总数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.TableModel`1.Data">
+            <summary>
+            返回数据集
+            </summary>
+        </member>
+    </members>
+</doc>

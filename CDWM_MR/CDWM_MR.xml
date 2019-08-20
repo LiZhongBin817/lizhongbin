@@ -1,0 +1,913 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CDWM_MR</name>
+    </assembly>
+    <members>
+        <member name="T:CDWM_MR.AOP.CacheAOPbase">
+            <summary>
+            缓存切面
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AOP.CacheAOPbase.Intercept(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            AOP的拦截方法
+            </summary>
+            <param name="invocation"></param>
+        </member>
+        <member name="M:CDWM_MR.AOP.CacheAOPbase.CustomCacheKey(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            自定义缓存的key
+            </summary>
+            <param name="invocation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.AOP.CacheAOPbase.GetArgumentValue(System.Object)">
+            <summary>
+            object 转 string
+            </summary>
+            <param name="arg"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.AOP.CdwmCacheAOP">
+            <summary>
+            面向切面的缓存使用
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmCacheAOP.#ctor(CDWM_MR.Common.MemoryCache.ICaching)">
+            <summary>
+            通过注入的方式，把缓存操作接口通过构造函数注入
+            </summary>
+            <param name="cache"></param>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmCacheAOP.Intercept(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            Intercept方法是拦截的关键所在，也是IInterceptor接口中的唯一定义
+            </summary>
+            <param name="invocation"></param>
+        </member>
+        <member name="T:CDWM_MR.AOP.CdwmLogAOP">
+            <summary>
+            拦截器CdwmLogAOP 继承IInterceptor接口
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmLogAOP.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{CDWM_MR.Hubs.ChatHub})">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="hubContext"></param>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmLogAOP.Intercept(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            实例化IInterceptor唯一方法 
+            </summary>
+            <param name="invocation">包含被拦截方法的信息</param>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmLogAOP.IsAsyncMethod(System.Reflection.MethodInfo)">
+            <summary>
+            是否为异步方法
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.AOP.InternalAsyncHelper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.AOP.CdwmRedisCacheAOP">
+            <summary>
+            面向切面的缓存使用
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmRedisCacheAOP.#ctor(CDWM_MR_Common.Redis.IRedisHelper)">
+            <summary>
+            通过注入的方式，把缓存操作接口通过构造函数注入
+            </summary>
+            <param name="cache"></param>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmRedisCacheAOP.Intercept(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            Intercept方法是拦截的关键所在，也是IInterceptor接口中的唯一定义
+            </summary>
+            <param name="invocation"></param>
+        </member>
+        <member name="T:CDWM_MR.AuthHelper.OverWrite.JwtHelper">
+            <summary>
+            Jwt令牌帮助类
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AuthHelper.OverWrite.JwtHelper.IssueJwt(CDWM_MR.AuthHelper.OverWrite.TokenModelJwt)">
+            <summary>
+            颁发JWT字符串
+            </summary>
+            <param name="tokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.AuthHelper.OverWrite.JwtHelper.SerializeJwt(System.String)">
+            <summary>
+            解析
+            </summary>
+            <param name="jwtStr"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.AuthHelper.OverWrite.TokenModelJwt">
+            <summary>
+            令牌
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.OverWrite.TokenModelJwt.Uid">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.OverWrite.TokenModelJwt.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.OverWrite.TokenModelJwt.Work">
+            <summary>
+            职能
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.AuthHelper.JwtTokenAuth">
+            <summary>
+            中间件
+            原做为自定义授权中间件
+            先做检查 header token的使用
+            </summary>
+        </member>
+        <member name="F:CDWM_MR.AuthHelper.JwtTokenAuth._next">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AuthHelper.JwtTokenAuth.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:CDWM_MR.AuthHelper.JwtTokenAuth.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.AuthHelper.JwtToken">
+            <summary>
+            JWTToken生成类
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AuthHelper.JwtToken.BuildJwtToken(System.Security.Claims.Claim[],CDWM_MR.AuthHelper.PermissionRequirement)">
+            <summary>
+            获取基于JWT的Token
+            </summary>
+            <param name="claims">需要在登陆的时候配置</param>
+            <param name="permissionRequirement">在startup中定义的参数</param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.AuthHelper.PermissionHandler">
+            <summary>
+            权限授权处理器
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.PermissionHandler.Schemes">
+            <summary>
+            验证方案提供对象
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.PermissionHandler.sysrolemenuServices">
+            <summary>
+            services 层注入
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AuthHelper.PermissionHandler.#ctor(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider,CDWM_MR.IServices.IsysManageServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="schemes"></param>
+            <param name="roleModulePermissionServices"></param>
+        </member>
+        <member name="M:CDWM_MR.AuthHelper.PermissionHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,CDWM_MR.AuthHelper.PermissionRequirement)">
+            重载异步处理程序
+        </member>
+        <member name="T:CDWM_MR.AuthHelper.PermissionItem">
+            <summary>
+            用户或角色或其他凭据实体,就像是订单详情一样
+            之前的名字是 Permission
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.PermissionItem.Role">
+            <summary>
+            用户或角色或其他凭据名称ID
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.PermissionItem.Url">
+            <summary>
+            请求Url
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.AuthHelper.PermissionRequirement">
+            <summary>
+            必要参数类，类似一个订单信息
+            继承 IAuthorizationRequirement，用于设计自定义权限处理器PermissionHandler
+            因为AuthorizationHandler 中的泛型参数 TRequirement 必须继承 IAuthorizationRequirement
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.PermissionRequirement.Permissions">
+            <summary>
+            用户权限集合，一个订单包含了很多详情，
+            同理，一个网站的认证发行中，也有很多权限详情(这里是Role和URL的关系)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.PermissionRequirement.DeniedAction">
+            <summary>
+            无权限action
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.PermissionRequirement.ClaimType">
+            <summary>
+            认证授权类型
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.PermissionRequirement.LoginPath">
+            <summary>
+            请求路径
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.PermissionRequirement.Issuer">
+            <summary>
+            发行人
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.PermissionRequirement.Audience">
+            <summary>
+            订阅人
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.PermissionRequirement.Expiration">
+            <summary>
+            过期时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.AuthHelper.PermissionRequirement.SigningCredentials">
+            <summary>
+            签名验证
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AuthHelper.PermissionRequirement.#ctor(System.String,System.Collections.Generic.List{CDWM_MR.AuthHelper.PermissionItem},System.String,System.String,System.String,Microsoft.IdentityModel.Tokens.SigningCredentials,System.TimeSpan)">
+            <summary>
+            构造
+            </summary>
+            <param name="deniedAction">拒约请求的url</param>
+            <param name="permissions">权限集合</param>
+            <param name="claimType">声明类型</param>
+            <param name="issuer">发行人</param>
+            <param name="audience">订阅人</param>
+            <param name="signingCredentials">签名验证实体</param>
+            <param name="expiration">过期时间</param>
+        </member>
+        <member name="T:CDWM_MR.AutoMapper.CustomProfile">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.AutoMapper.CustomProfile.#ctor">
+            <summary>
+            配置构造函数，用来创建关系映射
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Controllers.BaseController">
+            <summary>
+            基类控制器
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Controllers.LoginController">
+            <summary>
+            登陆控制器--无权限控制
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.LoginController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR_Common.Redis.IRedisHelper,CDWM_MR.AuthHelper.PermissionRequirement)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="sysuserinfo"></param>
+            <param name="sysManage"></param>
+            <param name="addredis"></param>
+            <param name="requirement"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.LoginController.ShowCode">
+            <summary>
+            生成验证码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.LoginController.UserLogin(System.String,System.String,System.String)">
+            <summary>
+            完成用户登录后生成Token
+            </summary>
+            <param name="UserName"></param>
+            <param name="PassWord"></param>
+            <param name="VerCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.LoginController.RefreshToken(System.String)">
+            <summary>
+            根据旧Token换取新Token
+            </summary>
+            <param name="Token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.LoginController.MD5PassWord(System.String)">
+            <summary>
+            测试MD5加密
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.MainController">
+            <summary>
+            主页面控制器
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MainController.#ctor(CDWM_MR.IServices.IsysManageServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="sysmanage"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MainController.GetMenuData">
+            <summary>
+            获取菜单数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.MeterReadingController">
+            <summary>
+            抄表管理
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.#ctor(CDWM_MR.IServices.Content.It_b_areasServices,CDWM_MR.IServices.Content.It_b_regionsServices)">
+            <summary>
+            构造函数(依赖注入)
+            </summary>
+            <param name="t_b_areasServices"></param>
+            <param name="t_b_regionsServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.ShowregionDate(System.String,System.Int32,System.Int32)">
+            <summary>
+            显示区域管理
+            </summary>
+            <param name="regionname">片区编号</param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.ShowareasDate(System.String,System.Int32,System.Int32)">
+            <summary>
+            显示小区管理
+            </summary>
+            <param name="regionno">片区编号</param>
+            <param name="page">当前页面号</param>
+            <param name="limit">页面大小</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.Deleteregion(System.String)">
+            <summary>
+            删除区域管理
+            </summary>
+            <param name="regionno">所属片区编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.Deleteareas(System.String,System.String)">
+            <summary>
+            删除小区管理
+            </summary>
+            <param name="regionno">所属片区编号</param>
+            <param name="areano">小区编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.Editregion(System.String,System.String)">
+            <summary>
+            编辑区域管理
+            </summary>
+            <param name="regionno">所属片区编号</param>
+            <param name="regionname">片区名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingController.Editareas(System.String,System.String,System.String)">
+            <summary>
+            编辑小区管理
+            </summary>
+            <param name="regionno">所属片区编号</param>
+            <param name="areano">小区编号</param>
+            <param name="areaname">小区名称</param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.ParameterSettingController">
+            <summary>
+            参数管理
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.ParameterSettingController.#ctor(CDWM_MR.IServices.Content.Isys_parameter_settingServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="parameter_SettingServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.ParameterSettingController.ParameterShow(System.String,System.String,System.Int32,System.Int32,System.Int32)">
+             <summary>
+            显示参数信息
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.ParameterSettingController.AddParameter(System.String)">
+            <summary>
+            添加参数
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.ParameterSettingController.EditParameter(System.String,System.Int32)">
+            <summary>
+            编辑参数
+            </summary>
+            <param name="JsonData"></param>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.SysManangeController">
+            <summary>
+            系统管理
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_operationServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="sysuserinfo"></param>
+            <param name="sysusermanage"></param>
+            <param name="sys_user_role_mapper"></param>
+            <param name="sys_role"></param>
+            <param name="Isys_interface_info"></param>
+            <param name="sysrolemenu"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.ShowUserInfoDate(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            显示数据
+            </summary>
+            <param name="FUserName">用户名称</param>
+            <param name="LoginName">登录名</param>
+            <param name="page">当前页</param>
+            <param name="limit">每页显示数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.roleDate">
+            <summary>
+            给添加界面的角色选择复选框传值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.AddUser(System.String,System.Int32[])">
+            <summary>
+            添加用户
+            </summary>
+            <param name="JsonDate"></param>
+            <param name="roleid">用户角色ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.DeleteUser(System.Int32)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="ID">用户ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.DeleteUsers(System.String)">
+            <summary>
+            批量删除用户
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.ModifyData(System.Int32)">
+            <summary>
+            向编辑界面传参
+            </summary>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.ModifyUserInfo(System.String,System.Int32[])">
+            <summary>
+            编辑用户信息
+            </summary>
+            <param name="JsonDate"></param>
+            <param name="roleid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.InterfaceInfoShow(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            显示接口数据
+            </summary>
+            <param name="InterfaceUrl"></param>
+            <param name="InterfaceName"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.AddInterface(System.String)">
+            <summary>
+            添加接口
+            </summary>
+            <param name="JsonData">前台传来的Json对象</param>
+            <returns>总数目</returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.ModifyInterface(System.String,System.Int32)">
+            <summary>
+            修改接口信息
+            </summary>
+            <param name="JsonData">修改后的接口对象</param>
+            <param name="ID">编辑的ID</param>
+            <returns>返回是否成功</returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetTrees">
+            <summary>
+            生成菜单树
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.ShowInfo(System.Int32)">
+            <summary>
+            展示点击菜单信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.SaveMenu(System.String)">
+            <summary>
+            添加菜单
+            </summary>
+            <param name="json"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.DeleMenu(System.Int32)">
+            <summary>
+            删除菜单
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.AuthorityManagement(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            菜单权限分配
+            </summary>
+            <param name="adddata"></param>
+            <param name="deldata"></param>
+            <param name="modifdata"></param>
+            <param name="seedata"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetInfo(System.Int32)">
+            <summary>
+            菜单权限信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.AddRole(System.String,System.String,System.String)">
+            <summary>
+            添加角色
+            </summary>
+            <param name="RoleNumber">角色编号</param>
+            <param name="RoleName">角色名称</param>
+            <param name="CreatePeople">创建人</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.DeleteRole(System.String)">
+            <summary>
+            删除角色
+            </summary>
+            <param name="RoleName">删除的角色名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.EditRole(System.String,System.String)">
+            <summary>
+            编辑角色
+            </summary>
+            <param name="RoleName">旧角色名称</param>
+            <param name="NewRoleName">新角色名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.ShowRole">
+            <summary>
+            显示角色数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetMenuID(System.Int32)">
+            <summary>
+            根据角色id查询菜单id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetMenu">
+            <summary>
+            获得菜单列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.Jude(System.Int32,System.Int32)">
+            <summary>
+            判断角色菜单
+            </summary>
+            <param name="RoleID"></param>
+            <param name="MenuID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.SaveOperation(System.Int32,System.String)">
+            <summary>
+            为角色分配菜单
+            </summary>
+            <param name="RoleID"></param>
+            <param name="MenuID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetOperation(System.Int32,System.Int32)">
+            <summary>
+            渲染权限
+            </summary>
+            <param name="RoleID"></param>
+            <param name="menuID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.SysManangeController.EditOperations(System.Int32,System.Int32,System.String)">
+            <summary>
+            权限修改
+            </summary>
+            <param name="RoleID"></param>
+            <param name="MenuID"></param>
+            <param name="OperationID"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">
+            <summary>
+            Summary:全局路由权限公约
+            Remarks:目的是针对不同的路由，采用不同的授权过滤器
+            如果 controller 上不加 [Authorize] 特性，默认都是 Permission 策略
+            否则，如果想特例其他授权机制的话，需要在 controller 上带上  [Authorize]，然后再action上自定义授权即可，比如 [Authorize(Roles = "Admin")]
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Filter.GlobalRouteAuthorizeConvention.Apply(Microsoft.AspNetCore.Mvc.ApplicationModels.ApplicationModel)">
+            <summary>
+            接口实现
+            </summary>
+            <param name="application"></param>
+        </member>
+        <member name="T:CDWM_MR.Filter.GlobalAuthorizeFilter">
+            <summary>
+            全局权限过滤器【无效】
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Filter.GlobalAuthorizeFilter.OnAuthorizationAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Filter.GlobalExceptionsFilter">
+            <summary>
+            全局异常错误日志
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Filter.GlobalExceptionsFilter.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,CDWM_MR.Log.ILoggerHelper,Microsoft.AspNetCore.SignalR.IHubContext{CDWM_MR.Hubs.ChatHub})">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="env"></param>
+            <param name="loggerHelper"></param>
+            <param name="hubContext"></param>
+        </member>
+        <member name="M:CDWM_MR.Filter.GlobalExceptionsFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            异常处理--接口实现
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:CDWM_MR.Filter.GlobalExceptionsFilter.WriteLog(System.String,System.Exception)">
+            <summary>
+            自定义返回格式
+            </summary>
+            <param name="throwMsg"></param>
+            <param name="ex"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Filter.InternalServerErrorObjectResult">
+            <summary>
+            内部错误结果
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Filter.InternalServerErrorObjectResult.#ctor(System.Object)">
+            <summary>
+            内部错误500
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:CDWM_MR.Filter.JsonErrorResponse">
+            <summary>
+            返回错误信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Filter.JsonErrorResponse.Message">
+            <summary>
+            生产环境的消息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Filter.JsonErrorResponse.DevelopmentMessage">
+            <summary>
+            开发环境的消息
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Filter.GlobalRoutePrefixFilter">
+            <summary>
+            全局路由前缀公约
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Filter.GlobalRoutePrefixFilter.#ctor(Microsoft.AspNetCore.Mvc.Routing.IRouteTemplateProvider)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="routeTemplateProvider"></param>
+        </member>
+        <member name="M:CDWM_MR.Filter.GlobalRoutePrefixFilter.Apply(Microsoft.AspNetCore.Mvc.ApplicationModels.ApplicationModel)">
+            <summary>
+            接口的Apply方法
+            </summary>
+            <param name="application"></param>
+        </member>
+        <member name="T:CDWM_MR.Middlewares.MiddlewareHelpers">
+            <summary>
+            中间件--请求响应处理以及Jwt生成
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Middlewares.MiddlewareHelpers.UseJwtTokenAuth(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            生成用户Jwt令牌
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Middlewares.MiddlewareHelpers.UseReuestResponseLog(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            用户请求响应日志处理
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Middlewares.RequRespLogMildd">
+            <summary>
+            中间件
+            记录请求和响应数据
+            </summary>
+        </member>
+        <member name="F:CDWM_MR.Middlewares.RequRespLogMildd._next">
+            <summary>
+            请求的委托变量
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Middlewares.RequRespLogMildd.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:CDWM_MR.Middlewares.RequRespLogMildd.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            请求处理
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Middlewares.RequRespLogMildd.RequestDataLog(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            请求日志处理
+            </summary>
+            <param name="request"></param>
+        </member>
+        <member name="M:CDWM_MR.Middlewares.RequRespLogMildd.ResponseDataLog(Microsoft.AspNetCore.Http.HttpResponse,System.IO.MemoryStream)">
+            <summary>
+            响应异常日志处理
+            </summary>
+            <param name="response"></param>
+            <param name="ms"></param>
+        </member>
+        <member name="T:CDWM_MR.Program">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Program.Main(System.String[])">
+            <summary>
+            主入口
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:CDWM_MR.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Startup">
+            <summary>
+            初始化--真正意义上的
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Startup.Repository">
+            <summary>
+            log4net 仓储库
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+             读取配置文件---通过依赖注入中构造函数注入
+            </summary>
+            <param name="configuration"></param>
+            <param name="env"></param>
+        </member>
+        <member name="P:CDWM_MR.Startup.Configuration">
+            <summary>
+            配置文件
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Startup.Env">
+            <summary>
+            运行时托管变量--Web宿主环境
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            运行时调用此方法。使用此方法向容器中添加服务。
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            运行时调用此方法。使用此方法配置HTTP请求管道。
+            创建一个HttpContext处理请求
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:CDWM_MR.SwaggerHelper.CustomApiVersion">
+            <summary>
+            自定义版本
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.SwaggerHelper.CustomApiVersion.ApiVersions">
+            <summary>
+            Api接口版本 自定义
+            </summary>
+        </member>
+        <member name="F:CDWM_MR.SwaggerHelper.CustomApiVersion.ApiVersions.V1">
+            <summary>
+            V1 版本
+            </summary>
+        </member>
+        <member name="F:CDWM_MR.SwaggerHelper.CustomApiVersion.ApiVersions.V2">
+            <summary>
+            V2 版本
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.SwaggerHelper.CustomRouteAttribute">
+            <summary>
+            自定义路由 /api/{version}/[controler]/[action]
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.SwaggerHelper.CustomRouteAttribute.GroupName">
+            <summary>
+            分组名称,是来实现接口 IApiDescriptionGroupNameProvider
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.SwaggerHelper.CustomRouteAttribute.#ctor(System.String)">
+            <summary>
+            自定义路由构造函数，继承基类路由
+            </summary>
+            <param name="actionName"></param>
+        </member>
+        <member name="M:CDWM_MR.SwaggerHelper.CustomRouteAttribute.#ctor(CDWM_MR.SwaggerHelper.CustomApiVersion.ApiVersions,System.String)">
+            <summary>
+            自定义版本+路由构造函数，继承基类路由
+            </summary>
+            <param name="actionName"></param>
+            <param name="version"></param>
+        </member>
+    </members>
+</doc>
