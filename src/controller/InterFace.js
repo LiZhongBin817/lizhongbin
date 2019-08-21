@@ -61,6 +61,7 @@ layui.define(['table', 'form','view'], function (exports) {
         var layEvent = obj.event;    
         //编辑按钮
         if (layEvent === 'edit') {
+            console.log("编辑");
             admin.popup({              
                 title: '接口编辑弹窗',               
                 id: 'InterFaceEdit',

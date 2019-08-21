@@ -1,16 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\json",
-    "\\json\\user",
     "\\src",
-    "\\src\\style\\dtree",
-    "\\src\\style\\dtree\\font",
+    "\\src\\controller",
+    "\\src\\style",
     "\\src\\views",
     "\\src\\views\\SysManage",
-    "\\src\\views\\user",
-    "\\start"
+    "\\src\\views\\SysManage\\Interface",
+    "\\src\\views\\SysManage\\Menu",
+    "\\start",
+    "\\start\\autocomplete"
   ],
-  "SelectedNode": "\\src\\views\\user\\login.html",
+  "SelectedNode": "\\start",
   "PreviewInSolutionExplorer": false
 }
