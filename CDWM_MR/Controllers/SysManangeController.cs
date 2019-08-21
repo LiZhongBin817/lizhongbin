@@ -17,7 +17,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CDWM_MR.Controllers
 {
-   
+    /// <summary>
+    /// 系统管理
+    /// </summary>
     public class SysManangeController : Controller
     {
         #region 相关变量
@@ -283,6 +285,7 @@ namespace CDWM_MR.Controllers
             };
         }
         #endregion
+
         #region 添加接口
         /// <summary>
         /// 添加接口
@@ -321,7 +324,6 @@ namespace CDWM_MR.Controllers
         #endregion
 
 
-        
         #region 编辑接口
         /// <summary>
         /// 修改接口信息

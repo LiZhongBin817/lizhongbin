@@ -25,7 +25,6 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 抄表册名称
         /// </summary>
-        /// </summary>
         [SugarColumn(IsNullable = true,Length = 80)]
         public System.String bookname { get; set; }
 

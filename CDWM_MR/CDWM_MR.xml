@@ -442,6 +442,43 @@
             <param name="JsonDate"></param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.ParameterSettingController">
+            <summary>
+            参数管理
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.ParameterSettingController.#ctor(CDWM_MR.IServices.Content.Isys_parameter_settingServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="parameter_SettingServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.ParameterSettingController.ParameterShow(System.String,System.String,System.Int32,System.Int32,System.Int32)">
+             <summary>
+            显示参数信息
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.ParameterSettingController.AddParameter(System.String)">
+            <summary>
+            添加参数
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.ParameterSettingController.EditParameter(System.String,System.Int32)">
+            <summary>
+            编辑参数
+            </summary>
+            <param name="JsonData"></param>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.SysManangeController">
+            <summary>
+            系统管理
+            </summary>
+        </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_operationServices)">
             <summary>
             构造函数

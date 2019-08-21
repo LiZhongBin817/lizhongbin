@@ -58,6 +58,7 @@ namespace CDWM_MR.Services
         {
             var userlist = await SysUserRoleDal.GetUserRolestr();
             string roleids = string.Empty;
+
             if (userlist != null)
             {
                 roleids = string.Join(',', userlist.Where(c => c.UserID == userid).Select(c => c.sysRole.ID));
