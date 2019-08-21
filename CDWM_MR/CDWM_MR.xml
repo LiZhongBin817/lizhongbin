@@ -407,6 +407,41 @@
             <param name="areaname">小区名称</param>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.OprationManageController.#ctor(CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.IServices.Content.Isys_menuServices,CDWM_MR.IServices.Content.Isys_interface_infoServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="isys_OperationServices"></param>
+            <param name="_MenuServices"></param>
+            <param name="_Interface_InfoServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.OprationManageController.ShowInfor(System.String,System.Int32,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            显示权限信息
+            </summary>
+            <param name="OperationName"></param>
+            <param name="InterfaceID"></param>
+            <param name="LinkUrl"></param>
+            <param name="MenuID"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.OprationManageController.ModifyInfor(System.String,System.Int32)">
+            <summary>
+            编辑权限
+            </summary>
+            <param name="data"></param>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.OprationManageController.AddData(System.String)">
+            <summary>
+            添加权限
+            </summary>
+            <param name="JsonDate"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.ParameterSettingController">
             <summary>
             参数管理
