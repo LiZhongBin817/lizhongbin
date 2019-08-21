@@ -6,6 +6,7 @@
  @License：LPPL（layui付费产品协议）
     
  */
+<<<<<<< HEAD
 
 layui.define(['laytpl', 'layer', 'element', 'util'], function (exports) {
     exports('setter', {
@@ -53,6 +54,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function (exports) {
             'echarts', //echarts 核心包
             'echartsTheme', //echarts 主题
             'dtree',//树形菜单
+            'treeTable',//角色管理菜单展示
             'autocomplete'//自动填充
         ]
 
