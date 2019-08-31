@@ -304,10 +304,6 @@ namespace CDWM_MR.Repository.BASE
         /// <summary>
         /// 功能描述:查询一个列表
         /// 作　　者:CDWM_MR
-
-
-
-
         /// </summary>
         /// <param name="whereExpression">条件表达式</param>
         /// <param name="strOrderByFileds">排序字段，如name asc,age desc</param>

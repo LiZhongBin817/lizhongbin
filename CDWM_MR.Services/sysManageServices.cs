@@ -603,6 +603,7 @@ namespace CDWM_MR.Services
             {
                 await redis.KeyDeleteAsync("CDWM_MR_sysManageServices:GetMenuTree");
                 var alllist = await SysMenuDal.Query();
+                int ID = alllist[alllist.Count - 1].ID + 1;
                 sys_menu menu = Common.Helper.JsonHelper.GetObject<sys_menu>(json);
                 var count = alllist.FindAll(c => c.MenuName == menu.MenuName);
                 if (count.Count != 0)
@@ -612,7 +613,7 @@ namespace CDWM_MR.Services
                 menu.CreateTime = DateTime.Now;
                 menu.CreatePeople = "1";
                 menu.MenuType = menu.MenuLevel;
-                menu.MenuNumber = "M0" + menu.ID;
+                menu.MenuNumber = "M00" +ID;
                 await SysMenuDal.Add(menu);
                 return true;
             }
