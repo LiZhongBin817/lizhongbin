@@ -3,26 +3,11 @@
     "",
     "\\src",
     "\\src\\controller",
-    "\\src\\style",
-    "\\src\\lib\\extend",
-    "\\src\\style\\dtree",
     "\\src\\views",
+    "\\src\\views\\MR_B_BookManage\\mr_b_readerManage",
     "\\src\\views\\SysManage",
-    "\\src\\views\\SysManage\\Interface",
-    "\\src\\views\\SysManage\\Menu",
-    "\\src\\views\\SysManage\\RoleManage",
-    "\\src\\views\\user",
-    "\\start",
-    "\\start\\autocomplete"
+    "\\src\\views\\SysManage\\RoleManage"
   ],
-  "SelectedNode": ["\\start",
-    "\\src\\lib\\extend",
-    "\\src\\style\\dtree",
-    "\\src\\views",
-    "\\src\\views\\SysManage",
-    "\\src\\views\\SysManage\\Menu",
-    "\\src\\views\\SysManage\\RoleManage",
-    "\\src\\views\\user"
-  ],
+  "SelectedNode": "\\src\\views\\SysManage\\RoleManage\\AddPage.html",
   "PreviewInSolutionExplorer": false
 }

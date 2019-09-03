@@ -1,0 +1,66 @@
+﻿<title>抄表员管理</title>
+
+<script type="text/html" template>
+    <link  rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all"/>
+</script>
+
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12" >
+            <div class="layui-card">
+                <div class="layui-card-header layui-form layuiadmin-card-header-auto">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">编号</label>
+                        <div class="layui-inline">
+                            <input type="text"  class="layui-input" name="MR_Number" id="MR_Number" autocomplete="off" placeholder="抄表员编号"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">名称</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="MR_Name" id="MR_Name" autocomplete="off" placeholder="抄表员名称" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">电话</label>
+                        <div class="layui-inline">
+                            <input class="layui-input"  name="MR_Telephone" id="MR_Telephone" autocomplete="off" placeholder="联系方式"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">账号</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="MR_AppCount" id="MR_AppCount" autocomplete="off" placeholder="App账号"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="Search">查询</button>
+                        </div>
+                    </div>                  
+                </div>
+                <div class="layui-card-body">
+                    <table name="MR-Info" id="MR-Info" class="layui-hide" lay-filter="MR_Data"></table>
+                </div>
+            </div>
+        </div>           
+    </div>
+</div>
+<script type="text/html" id="toolbarDemo2">
+    <div class="layui-btn-container">
+        <button class="layui-btn  layui-btn-sm" lay-event="AddMrInfo"><i class="layui-icon">&#xe608;</i>添加</button>
+    </div>
+</script>
+<script type="text/html" id="barDemo1">
+        <button type="button" class="layui-btn  layui-btn-sm layui-btn-radius" lay-event="edit">修改</button>
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="delete">删除</button>
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-event="reset">重置密码</button>
+</script>
+<script>
+    layui.use('MeterReader', layui.factory('MeterReader')).use(['admin', 'MeterReader', 'table', 'form', 'view'], function () {
+        var admin = layui.admin
+            , table = layui.table
+            , form = layui.form
+            , view = layui.view
+    });
+</script>

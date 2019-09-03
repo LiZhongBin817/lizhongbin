@@ -6,7 +6,6 @@
  @License：LPPL（layui付费产品协议）
     
  */
-<<<<<<< HEAD
 
 layui.define(['laytpl', 'layer', 'element', 'util'], function (exports) {
     exports('setter', {
