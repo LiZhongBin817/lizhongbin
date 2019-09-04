@@ -75,5 +75,28 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = true)]
         public short dowloadstatus { get; set; } = 1;
+
+        #region 导航属性
+
+        /// <summary>
+        /// 抄表册
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public mr_b_bookinfo bookinfo { get; set; }
+
+        /// <summary>
+        /// 抄表员信息
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public mr_b_reader readerinfo { get; set; }
+
+        /// <summary>
+        /// 计划单信息表
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public mr_planinfo planinfo { get; set; }
+
+        #endregion
+
     }
 }

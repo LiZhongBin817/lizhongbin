@@ -29,32 +29,32 @@
             CDWM_MR基类表
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.BaseModel.ID">
+        <member name="P:CDWM_MR.Model.Models.BaseModel.id">
             <summary>
             ID主键
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.BaseModel.CreateTime">
+        <member name="P:CDWM_MR.Model.Models.BaseModel.createtime">
             <summary>
             创建时间
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.BaseModel.CreatePeople">
+        <member name="P:CDWM_MR.Model.Models.BaseModel.createpeople">
             <summary>
             创建人--关联Sys_UserInfo
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.BaseModel.UpdateTime">
+        <member name="P:CDWM_MR.Model.Models.BaseModel.updatetime">
             <summary>
             更新时间
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.BaseModel.UpdatePeople">
+        <member name="P:CDWM_MR.Model.Models.BaseModel.updatepeople">
             <summary>
             更新人--关联Sys_UserInfo
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.BaseModel.Remark">
+        <member name="P:CDWM_MR.Model.Models.BaseModel.remark">
             <summary>
             备注
             </summary>
@@ -559,6 +559,41 @@
             结转止码
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.Models.mr_book_meter">
+            <summary>
+            抄表册与水表关联表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_book_meter.bookid">
+            <summary>
+            抄表册ID
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_book_meter.watermeterid">
+            <summary>
+            水表ID
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_book_meter.meterseq">
+            <summary>
+            表册内水表顺序
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.mr_book_reader">
+            <summary>
+            抄表册与抄表员关联表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_book_reader.bookid">
+            <summary>
+            抄表册ID
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_book_reader.readerid">
+            <summary>
+            抄表员ID
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.mr_b_bookinfo">
             <summary>
             抄表册信息
@@ -1027,6 +1062,21 @@
         <member name="P:CDWM_MR.Model.Models.mr_taskinfo.dowloadstatus">
             <summary>
             下载状态0--已下载;1--未下载
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.bookinfo">
+            <summary>
+            抄表册
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.readerinfo">
+            <summary>
+            抄表员信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.planinfo">
+            <summary>
+            计划单信息表
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.mr_taskinfo_history">
@@ -1949,6 +1999,126 @@
         <member name="P:CDWM_MR.Model.Models.t_b_watermeters.isreg">
             <summary>
             NB表是否注册到iot平台(1:是；2：否)
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.v_taskinfo">
+            <summary>
+            任务单视图
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_taskinfo.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.taskid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.bookid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.dowloadstatus">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.downloadendtime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.downloadstarttime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.planid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.taskendtime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.readerid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.tasknumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.taskname">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.taskstatus">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.CreateTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.CreatePeople">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.Remark">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.bookno">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.bookname">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.regionname">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.contectusernum">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.mrreadernumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.mrreadername">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.mplanmonth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.mplanyear">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.PageModel`1">

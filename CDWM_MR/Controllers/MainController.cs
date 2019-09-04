@@ -49,7 +49,7 @@ namespace CDWM_MR.Controllers
                 Menulist.AddRange(data.FindAll(s => s.RoleID == t).Select(d => d.MenuID));
             });
             var temp = Menulist.Distinct().ToList();//不更新原集合--去重
-            var temp1 = menulist.Where(c => temp.Contains(c.ID)).ToList();//不更新原集合--查找出对应的集合
+            var temp1 = menulist.Where(c => temp.Contains(c.id)).ToList();//不更新原集合--查找出对应的集合
             var rMenuList = SysManage.Childmenu(0, temp1);
             return new MessageModel<List<object>> {
                 msg = "成功",

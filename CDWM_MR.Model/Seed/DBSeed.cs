@@ -43,24 +43,8 @@ namespace CDWM_MR.Model.Seed
                 //    typeof(sys_parameter));
 
                 // 后期单独处理某些表
-                myContext.Db.CodeFirst.InitTables(typeof(dispatch_fault_check));
-                myContext.Db.CodeFirst.InitTables(typeof(dispatch_fault_handleinfo));
-                myContext.Db.CodeFirst.InitTables(typeof(dispatch_faultinfo));
-                myContext.Db.CodeFirst.InitTables(typeof(dispatch_faultinfo_history));
-                myContext.Db.CodeFirst.InitTables(typeof(dispatchsheet_info));
-                myContext.Db.CodeFirst.InitTables(typeof(finishturn_check));
-                myContext.Db.CodeFirst.InitTables(typeof(finishturn_datainfo));
-                myContext.Db.CodeFirst.InitTables(typeof(finishturn_datainfo_history));
-                myContext.Db.CodeFirst.InitTables(typeof(mr_b_bookinfo));
-                myContext.Db.CodeFirst.InitTables(typeof(mr_b_reader));
-                myContext.Db.CodeFirst.InitTables(typeof(mr_data_check));
-                myContext.Db.CodeFirst.InitTables(typeof(mr_datainfo));
-                myContext.Db.CodeFirst.InitTables(typeof(mr_datainfo_history));
-                myContext.Db.CodeFirst.InitTables(typeof(mr_planinfo));
-                myContext.Db.CodeFirst.InitTables(typeof(mr_planinfo_history));
-                myContext.Db.CodeFirst.InitTables(typeof(mr_taskinfo));
-                myContext.Db.CodeFirst.InitTables(typeof(mr_taskinfo_history));
-                myContext.Db.CodeFirst.InitTables(typeof(sys_parameter));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_book_reader));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_book_meter));
 
                 Console.WriteLine("正在生成数据库 ...");
 

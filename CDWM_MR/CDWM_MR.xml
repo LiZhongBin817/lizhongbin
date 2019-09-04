@@ -407,6 +407,11 @@
             <param name="areaname">小区名称</param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.MRManageController">
+            <summary>
+            抄表管理
+            </summary>
+        </member>
         <member name="M:CDWM_MR.Controllers.OprationManageController.#ctor(CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.IServices.Content.Isys_menuServices,CDWM_MR.IServices.Content.Isys_interface_infoServices)">
             <summary>
             构造函数
@@ -687,6 +692,59 @@
             <param name="RoleID"></param>
             <param name="MenuID"></param>
             <param name="OperationID"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.v1.AppDownloadMRPlanController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="taskservices"></param>
+            <param name="Taskinfo"></param>
+            <param name="Env"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.DownLoadMR(System.Nullable{System.Int32})">
+            <summary>
+            下载抄表计划
+            </summary>
+            <param name="ID"></param>
+            <param name="UserNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.downLoadMRinfo(System.String)">
+            <summary>
+            抄表册EXCEL文件下载
+            </summary>
+            <param name="bookno">抄表册编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.JudeSuccess(System.String,System.Nullable{System.Int32})">
+            <summary>
+            下载回掉
+            </summary>
+            <param name="bookno"></param>
+            <param name="status">下载状态</param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.v1.AppLoginController">
+            <summary>
+            APP登陆接口
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppLoginController.#ctor(CDWM_MR.IServices.Content.Imr_b_readerServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="reader"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppLoginController.appuserlogin(CDWM_MR.Model.Models.sys_userinfo)">
+            <summary>
+            App用户登录
+            </summary>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">

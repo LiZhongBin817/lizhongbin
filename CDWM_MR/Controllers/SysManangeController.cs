@@ -84,7 +84,7 @@ namespace CDWM_MR.Controllers
             #endregion
             Expression<Func<sys_userinfo, object>> expression = c => new
             {
-                ID = c.ID,
+                ID = c.id,
                 FUserNumber = c.FUserNumber,
                 FUserName = c.FUserName,
                 LoginName = c.LoginName,
@@ -577,8 +577,8 @@ namespace CDWM_MR.Controllers
             }
             role.RoleNumber = RoleNumber;
             role.RoleName = RoleName;
-            role.CreatePeople = CreatePeople;
-            role.CreateTime = DateTime.Now;
+            role.createpeople = CreatePeople;
+            role.createtime = DateTime.Now;
             role.DeleteFlag = 0;
             List<sys_role> list = await _sys_roleServices.Query();
             foreach (var item in list)
@@ -624,7 +624,7 @@ namespace CDWM_MR.Controllers
             bool a = false;
             bool b = false;
             bool c = false;
-            int SID = list[0].ID;//存放角色ID
+            int SID = list[0].id;//存放角色ID
             a = await _sys_roleServices.DeleteById(SID); //删除角色表中对应的id数据
             //在表sys_role_menu中根据角色id找到对应的进行删除
             b = await _Role_MenuServices.DeleteTable(t => t.RoleID == SID);
@@ -708,7 +708,7 @@ namespace CDWM_MR.Controllers
             foreach (var item in list)
             {
                 roleName.Add(item.RoleName);
-                roleID.Add(item.ID);
+                roleID.Add(item.id);
             }
             return new TableModel<object>()
             {
