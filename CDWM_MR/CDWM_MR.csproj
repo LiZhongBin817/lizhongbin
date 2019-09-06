@@ -57,9 +57,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\v1\" />
     <Folder Include="Controllers\v2\" />
-    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\MR_bookinfo\20190904001.xls" />
   </ItemGroup>
 
   <ItemGroup>

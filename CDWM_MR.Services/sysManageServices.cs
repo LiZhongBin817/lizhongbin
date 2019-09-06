@@ -61,7 +61,7 @@ namespace CDWM_MR.Services
 
             if (userlist != null)
             {
-                roleids = string.Join(',', userlist.Where(c => c.UserID == userid).Select(c => c.sysRole.ID));
+                roleids = string.Join(',', userlist.Where(c => c.UserID == userid).Select(c => c.sysRole.id));
             }
 
             return roleids;
@@ -96,10 +96,10 @@ namespace CDWM_MR.Services
             }
             foreach (var item in allChildren)
             {
-                var olist = Childmenu(item.ID, MenuList);
+                var olist = Childmenu(item.id, MenuList);
                 if (olist.Count == 0)
                 {
-                    sys_menu model = MenuList.Find(c => c.ID == item.ID);
+                    sys_menu model = MenuList.Find(c => c.id == item.id);
                     if (model.MenuType == 2)
                     {
                         var addmodel = new { title = model.MenuName, icon = model.MenuImg, jump = model.MenuUrl };
@@ -170,10 +170,10 @@ namespace CDWM_MR.Services
                 Adress = Edit.Adress,
                 Email = Edit.Email,
                 UserType = Edit.UserType,
-                UpdateTime = DateTime.Now,
-                UpdatePeople = "李芊"
-            }, c => c.ID == Edit.ID);
-            int ID = Edit.ID;
+                updatetime = DateTime.Now,
+                updatepeople = "李芊"
+            }, c => c.id == Edit.id);
+            int ID = Edit.id;
             //将用户角色关联表数据先删除
             await SysUserRoleDal.DeleteTable(c => c.UserID == ID);
             //编辑用户角色表信息
@@ -203,11 +203,11 @@ namespace CDWM_MR.Services
             //编号：CDWM_MR******
             var date = await UserinfoDal.Query();
             //取到最后一个用户的ID
-            int id = date[date.Count() - 1].ID + 1;
+            int id = date[date.Count() - 1].id + 1;
             string number = $"CDWM_MR{id.ToString().PadLeft(6, '0')}";
             Add.FUserNumber = number;
-            Add.CreateTime = DateTime.Now;
-            Add.CreatePeople = "李芊";
+            Add.createtime = DateTime.Now;
+            Add.createpeople = "李芊";
             //取到添加进来的用户ID
             int UserID = await UserinfoDal.Add(Add);
             //将用户角色关联进用户角色关联表
@@ -273,7 +273,7 @@ namespace CDWM_MR.Services
             foreach (var item in query)
             {
                 sys_menu menu = new sys_menu();
-                menu.ID = Convert.ToInt32(item.ID);
+                menu.id = Convert.ToInt32(item.id);
                 menu.ParentID = 0;
                 menu.MenuName = item.MenuName;
                 menu.MenuUrl = item.MenuUrl;
@@ -281,7 +281,7 @@ namespace CDWM_MR.Services
                 menu.MenuType = item.MenuType;
                 menu.MenuNumber = item.MenuNumber;
                 plist.Add(menu);
-                var menuinfo = new { id = menu.ID, pid = menu.ParentID, title = menu.MenuName, url = menu.MenuUrl ,menuType=menu.MenuType,menuNumber=menu.MenuNumber};
+                var menuinfo = new { id = menu.id, pid = menu.ParentID, title = menu.MenuName, url = menu.MenuUrl ,menuType=menu.MenuType,menuNumber=menu.MenuNumber};
                 commonlist.Add(menuinfo);
             }
             var data = await SysMenuDal.Query();//拿到菜单表里的所有数据
@@ -307,7 +307,7 @@ namespace CDWM_MR.Services
                 foreach (var item1 in data)
                 {
 
-                    if (item.ID == item1.ParentID)
+                    if (item.id == item1.ParentID)
                     {
                         childlist.Add(item1);
                     }
@@ -321,15 +321,15 @@ namespace CDWM_MR.Services
                 foreach (var item2 in childlist)
                 {
                     sys_menu menu = new sys_menu();
-                    menu.ID = item2.ID;
-                    menu.ParentID = item.ID;
+                    menu.id = item2.id;
+                    menu.ParentID = item.id;
                     menu.MenuName = item2.MenuName;
                     menu.MenuUrl = item2.MenuUrl;
                     menu.MenuLevel = item2.MenuLevel;
                     menu.MenuType = item2.MenuType;
                     menu.MenuNumber = item2.MenuNumber;
                     plist.Add(menu);
-                    var menuinfo = new { id = menu.ID, pid = menu.ParentID, title = menu.MenuName, url = menu.MenuUrl,menuType=menu.MenuType, menuNumber = menu.MenuNumber };
+                    var menuinfo = new { id = menu.id, pid = menu.ParentID, title = menu.MenuName, url = menu.MenuUrl,menuType=menu.MenuType, menuNumber = menu.MenuNumber };
                     commonlist.Add(menuinfo);
                 }
                 await GetChildNode(data,plist);
@@ -404,9 +404,9 @@ namespace CDWM_MR.Services
                         sys_role_menu role_Menu = new sys_role_menu();
                         role_Menu.RoleID = RoleID;
                         role_Menu.MenuID = Convert.ToInt32(item);
-                        role_Menu.OperationID = item1.ID;
-                        role_Menu.CreateTime = DateTime.Now;
-                        role_Menu.CreatePeople = "李忠斌";
+                        role_Menu.OperationID = item1.id;
+                        role_Menu.createtime = DateTime.Now;
+                        role_Menu.createpeople = "李忠斌";
                         commonData.Add(role_Menu);
                     }
                 }
@@ -415,7 +415,7 @@ namespace CDWM_MR.Services
             //删除角色ID对应的所有数据
             foreach (var item in allData)
             {
-                int ID = item.ID;
+                int ID = item.id;
                 await SysRoleMenuDal.DeleteById(ID);
             }
             await SysRoleMenuDal.Add(commonData);
@@ -454,14 +454,14 @@ namespace CDWM_MR.Services
             {
                 foreach (var item1 in alldata)
                 {
-                    if (item.OperationID == item1.ID)
+                    if (item.OperationID == item1.id)
                     {
                         sys_operation operation = new sys_operation();
-                        operation.ID = item1.ID;
+                        operation.id = item1.id;
                         operation.OperationName = item1.OperationName;
                         operation.OperationType = item1.OperationType;
-                        operation.Remark = item.Remark;
-                        var operationInfo = new { opID = operation.ID, opName = operation.OperationName, opType = operation.OperationType, opRemark = operation.Remark };
+                        operation.remark = item.remark;
+                        var operationInfo = new { opID = operation.id, opName = operation.OperationName, opType = operation.OperationType, opRemark = operation.remark };
                         commonlist.Add(operationInfo);
                     }
                 }
@@ -484,7 +484,7 @@ namespace CDWM_MR.Services
             //查询权限表，将权限表中的Remark全置为0
             bool b = await SysRoleMenuDal.Update(c => new sys_role_menu
             {
-                Remark = "0"
+                remark = "0"
             }, c => c.MenuID == MenuID && c.RoleID == RoleID);
             if (OperationID == null)
             {
@@ -512,16 +512,16 @@ namespace CDWM_MR.Services
                             if (item.OperationID.ToString() == item1)
                             {
                                 sys_role_menu data = new sys_role_menu();
-                                data.ID = item.ID;
+                                data.id = item.id;
                                 data.RoleID = item.RoleID;
                                 data.MenuID = item.MenuID;
                                 data.OperationID = item.OperationID;
-                                data.CreateTime = item.CreateTime;
-                                data.CreatePeople = item.CreatePeople;
-                                data.UpdatePeople = item.UpdatePeople;
-                                data.UpdateTime = item.UpdateTime;
-                                data.UpdatePeople = item.UpdatePeople;
-                                data.Remark = "1";
+                                data.createtime = item.createtime;
+                                data.createpeople = item.createpeople;
+                                data.updatepeople = item.updatepeople;
+                                data.updatetime = item.updatetime;
+                                data.updatepeople = item.updatepeople;
+                                data.remark = "1";
                                 commonlist1.Add(data);
                             }
                         }
@@ -559,24 +559,24 @@ namespace CDWM_MR.Services
             foreach (var item in treelist)
             {
                 //查询该条数据是否拥有子类
-                var count = alllist.FindAll(m => m.ParentID == item.ID);
+                var count = alllist.FindAll(m => m.ParentID == item.id);
                 if (count.Count != 0)//存在子菜单
                 {
-                    var addchildrenlist = await GetTree(item.ID);//递归遍历子类 
-                    var infor = new { title = item.MenuName, id = item.ID, children = addchildrenlist };
+                    var addchildrenlist = await GetTree(item.id);//递归遍历子类 
+                    var infor = new { title = item.MenuName, id = item.id, children = addchildrenlist };
                     jsonolist.Add(infor);
                 }
                 else if (count.Count == 0)//无子菜单
                 {
                     //查找ID菜单
-                    var firstmenu = alllist.FindAll(c => c.ID == item.ID);
+                    var firstmenu = alllist.FindAll(c => c.id == item.id);
                     sys_menu sys_Menu = new sys_menu();
                     foreach (var a in firstmenu)
                     {
                         sys_Menu.MenuName = a.MenuName;
-                        sys_Menu.ID = a.ID;
+                        sys_Menu.id = a.id;
                     }
-                    var menuinfo = new { title = sys_Menu.MenuName, id = sys_Menu.ID };
+                    var menuinfo = new { title = sys_Menu.MenuName, id = sys_Menu.id };
                     jsonolist.Add(menuinfo);
                 }
             }
@@ -603,15 +603,15 @@ namespace CDWM_MR.Services
             {
                 await redis.KeyDeleteAsync("CDWM_MR_sysManageServices:GetMenuTree");
                 var alllist = await SysMenuDal.Query();
-                int ID = alllist[alllist.Count - 1].ID + 1;
+                int ID = alllist[alllist.Count - 1].id + 1;
                 sys_menu menu = Common.Helper.JsonHelper.GetObject<sys_menu>(json);
                 var count = alllist.FindAll(c => c.MenuName == menu.MenuName);
                 if (count.Count != 0)
                 {
                     return false;
                 }
-                menu.CreateTime = DateTime.Now;
-                menu.CreatePeople = "1";
+                menu.createtime = DateTime.Now;
+                menu.createpeople = "1";
                 menu.MenuType = menu.MenuLevel;
                 menu.MenuNumber = "M00" +ID;
                 await SysMenuDal.Add(menu);
@@ -666,8 +666,8 @@ namespace CDWM_MR.Services
                         {
                             LinkUrl = LinkUrl,
                             OperationName = operationname,
-                            UpdatePeople = "1",
-                            UpdateTime = DateTime.Now,
+                            updatepeople = "1",
+                            updatetime = DateTime.Now,
                             MenuID = id,
                             OperationType = 0
                         }, c => c.LinkUrl == LinkUrl);
@@ -684,8 +684,8 @@ namespace CDWM_MR.Services
                         {
                             LinkUrl = LinkUrl,
                             OperationName = operationname,
-                            UpdatePeople = "1",
-                            UpdateTime = DateTime.Now,
+                            updatepeople = "1",
+                            updatetime = DateTime.Now,
                             MenuID = id,
                             OperationType = 1
                         }, c => c.LinkUrl == LinkUrl);
@@ -702,8 +702,8 @@ namespace CDWM_MR.Services
                         {
                             LinkUrl = LinkUrl,
                             OperationName = operationname,
-                            UpdatePeople = "1",
-                            UpdateTime = DateTime.Now,
+                            updatepeople = "1",
+                            updatetime = DateTime.Now,
                             MenuID = id,
                             OperationType = 2
                         }, c => c.LinkUrl == LinkUrl);
@@ -720,8 +720,8 @@ namespace CDWM_MR.Services
                         {
                             LinkUrl = LinkUrl,
                             OperationName = operationname,
-                            UpdatePeople = "1",
-                            UpdateTime = DateTime.Now,
+                            updatepeople = "1",
+                            updatetime = DateTime.Now,
                             MenuID = id,
                             OperationType = 3
                         }, c => c.LinkUrl == LinkUrl);

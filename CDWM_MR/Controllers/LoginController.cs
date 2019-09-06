@@ -104,12 +104,12 @@ namespace CDWM_MR.Controllers
             if (user != null)
             {
                 //将登陆的用户信息存入Redis缓存
-                await _redishelper.StringSetAsync($"UserInfo{user.ID}", user,TimeSpan.FromMinutes(30));
-                var rolestr = await _SysManage.GetuserRole(user.ID);//角色的组合
+                await _redishelper.StringSetAsync($"UserInfo{user.id}", user,TimeSpan.FromMinutes(30));
+                var rolestr = await _SysManage.GetuserRole(user.id);//角色的组合
                 //如果是基于用户的授权策略，这里要添加用户;如果是基于角色的授权策略，这里要添加角色
                 var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, user.ID.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Jti, user.id.ToString()),
                     new Claim(ClaimTypes.Expiration, DateTime.Now.AddSeconds(_requirement.Expiration.TotalSeconds).ToString()) };
                 claims.AddRange(rolestr.Split(',').Select(s => new Claim(ClaimTypes.Role, s)));
 

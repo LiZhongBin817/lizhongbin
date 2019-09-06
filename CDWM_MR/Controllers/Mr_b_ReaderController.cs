@@ -71,7 +71,7 @@ namespace CDWM_MR.Controllers
             #endregion
             Expression<Func<mr_b_reader, object>> expression = c => new
             {
-                ID = c.ID,
+                ID = c.id,
                 mrreadernumber = c.mrreadernumber,
                 mrreadername = c.mrreadername,
                 telephone = c.telephone,
@@ -83,7 +83,7 @@ namespace CDWM_MR.Controllers
                 idcard = c.idcard,
                 roles = c.roles,
                 lastlogintime = c.lastlogintime,
-                Remark = c.Remark,
+                Remark = c.remark,
                
             };
             pageModel = await _B_ReaderServices.QueryPage(wherelambda,expression,page,limit,"");
@@ -121,8 +121,8 @@ namespace CDWM_MR.Controllers
             jsonData.lastlogintime = DateTime.Now;
             jsonData.appcount = jsonData.mrreadernumber;
             jsonData.apppassword = MD5Helper.MD5Encrypt32(jsonData.apppassword);
-            jsonData.CreatePeople = "1";
-            jsonData.CreateTime = DateTime.Now;
+            jsonData.createpeople = "1";
+            jsonData.createtime = DateTime.Now;
 
             //根据一个账号对应一个用户判重，但是一个用户可以对应多个账号
             var data = MrData.FindAll(c => c.mrreadername == jsonData.mrreadername && c.appcount == jsonData.appcount);
@@ -168,11 +168,11 @@ namespace CDWM_MR.Controllers
                address= jsonData.address,
                sex =jsonData.sex,
                idcard=jsonData.idcard,
-               UpdatePeople=c.CreatePeople,
-               UpdateTime=DateTime.Now,
+               updatepeople=c.createpeople,
+               updatetime=DateTime.Now,
                roles=jsonData.roles,
-               Remark=jsonData.Remark
-           },c=>c.ID==ID)?"OK":"Error";
+               remark=jsonData.remark
+           },c=>c.id==ID)?"OK":"Error";
             return new TableModel<object>
             {
                 code = Msg == "OK" ? 0 : 1001,
@@ -197,7 +197,7 @@ namespace CDWM_MR.Controllers
             {
              //0---- 未删除    1-----删除
              deleteflag=1,
-            },c=>c.ID==ID) ? "OK" : "Error";
+            },c=>c.id==ID) ? "OK" : "Error";
             return new TableModel<object>
             {
                 code = Msg == "OK" ? 0 : 1001,
@@ -221,7 +221,7 @@ namespace CDWM_MR.Controllers
             string Msg = await _B_ReaderServices.Update(c=>new mr_b_reader
             {
                 apppassword=MD5Helper.MD5Encrypt32("123456")
-            },c=>c.ID==ID) ? "OK" : "Error";
+            },c=>c.id==ID) ? "OK" : "Error";
             return new TableModel<object>
             {
                 code = Msg == "OK" ? 0 : 1001,

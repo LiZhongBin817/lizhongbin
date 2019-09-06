@@ -31,7 +31,7 @@ namespace CDWM_MR.Controllers
         readonly Isys_operationServices _sys_OperationServices;
         readonly Isys_role_menuServices _Role_MenuServices;
         #endregion
-    
+
 
         /// <summary>
         /// 构造函数
@@ -42,6 +42,7 @@ namespace CDWM_MR.Controllers
         /// <param name="sys_role"></param>
         /// <param name="Isys_interface_info"></param>
         /// <param name="sysrolemenu"></param>
+        /// <param name="sys_OperationServices"></param>
         public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices)
         {
             _sysuserinfoservices = sysuserinfo;
@@ -84,7 +85,7 @@ namespace CDWM_MR.Controllers
             #endregion
             Expression<Func<sys_userinfo, object>> expression = c => new
             {
-                ID = c.ID,
+                ID = c.id,
                 FUserNumber = c.FUserNumber,
                 FUserName = c.FUserName,
                 LoginName = c.LoginName,
@@ -570,8 +571,8 @@ namespace CDWM_MR.Controllers
             #endregion
             role.RoleNumber = "RN-000"+NewRoleNumber.ToString();
             role.RoleName = RoleName;
-            role.CreatePeople ="1";
-            role.CreateTime = DateTime.Now;
+            role.createpeople = "1";
+            role.createtime = DateTime.Now;
             role.DeleteFlag = 0;
             foreach (var item in data)
             {
@@ -616,7 +617,7 @@ namespace CDWM_MR.Controllers
             bool a = false;
             bool b = false;
             bool c = false;
-            int SID = list[0].ID;//存放角色ID
+            int SID = list[0].id;//存放角色ID
             a = await _sys_roleServices.DeleteById(SID); //删除角色表中对应的id数据
             //在表sys_role_menu中根据角色id找到对应的进行删除
             b = await _Role_MenuServices.DeleteTable(t => t.RoleID == SID);
@@ -700,7 +701,7 @@ namespace CDWM_MR.Controllers
             foreach (var item in list)
             {
                 roleName.Add(item.RoleName);
-                roleID.Add(item.ID);
+                roleID.Add(item.id);
             }
             return new TableModel<object>()
             {
