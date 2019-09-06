@@ -19,25 +19,25 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 创建时间
         /// </summary>
-        [SugarColumn(IsNullable = false)]
+        [SugarColumn(IsNullable = false,ColumnDescription = "创建时间")]
         public System.DateTime createtime { get; set; } = DateTime.Now;
 
         /// <summary>
-        /// 创建人--关联Sys_UserInfo
+        /// 创建人
         /// </summary>
-        [SugarColumn(IsNullable = false,Length = 20)]
+        [SugarColumn(IsNullable = false,Length = 20,ColumnDescription = "创建人")]
         public string createpeople { get; set; }
 
         /// <summary>
         /// 更新时间
         /// </summary>
-        [SugarColumn( IsNullable = true)]
+        [SugarColumn( IsNullable = true,ColumnDescription = "更新时间")]
         public System.DateTime updatetime { get; set; } = DateTime.Now;
 
         /// <summary>
-        /// 更新人--关联Sys_UserInfo
+        /// 更新人
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 20)]
+        [SugarColumn(IsNullable = true,Length = 20,ColumnDescription = "更新人")]
         public string updatepeople { get; set; }
 
         /// <summary>

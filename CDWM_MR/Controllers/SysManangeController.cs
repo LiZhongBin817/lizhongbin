@@ -31,7 +31,7 @@ namespace CDWM_MR.Controllers
         readonly Isys_operationServices _sys_OperationServices;
         readonly Isys_role_menuServices _Role_MenuServices;
         #endregion
-    
+
 
         /// <summary>
         /// 构造函数
@@ -42,6 +42,7 @@ namespace CDWM_MR.Controllers
         /// <param name="sys_role"></param>
         /// <param name="Isys_interface_info"></param>
         /// <param name="sysrolemenu"></param>
+        /// <param name="sys_OperationServices"></param>
         public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices)
         {
             _sysuserinfoservices = sysuserinfo;
@@ -553,42 +554,34 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 添加角色
         /// </summary>
-        /// <param name="RoleNumber">角色编号</param>
         /// <param name="RoleName">角色名称</param>
-        /// <param name="CreatePeople">创建人</param>
         /// <returns></returns>
         [HttpGet]
         [Route("AddRole")]
         [AllowAnonymous]
         [EnableCors("LimitRequests")]
-        public async Task<MessageModel<object>> AddRole(string RoleNumber, string RoleName, string CreatePeople)
+        public async Task<MessageModel<object>> AddRole( string RoleName)
         {
             sys_role role = new sys_role();
-            //将创建人给全局变量createPeople在分配权限的时候用
-            if (RoleName == null || RoleNumber == null || CreatePeople == null)
-            {
-                return new MessageModel<object>()
-                {
-                    code = 0,
-                    msg = "角色编号或者角色名称和创建人不能为空",
-                    data = "",
-
-                };
-            }
-            role.RoleNumber = RoleNumber;
+            #region 自动生成编号
+            //查询表中最后一条数据
+             var data = await _sys_roleServices.Query();
+            string RoleNumber = data[data.Count - 1].RoleNumber;
+            int NewRoleNumber = Convert.ToInt32(RoleNumber.Substring(RoleNumber.Length - 1, 1))+1;
+            #endregion
+            role.RoleNumber = "RN-000"+NewRoleNumber.ToString();
             role.RoleName = RoleName;
-            role.createpeople = CreatePeople;
+            role.createpeople = "1";
             role.createtime = DateTime.Now;
             role.DeleteFlag = 0;
-            List<sys_role> list = await _sys_roleServices.Query();
-            foreach (var item in list)
+            foreach (var item in data)
             {
-                if (item.RoleName == RoleName || item.RoleNumber == RoleNumber)
+                if (item.RoleName == RoleName)
                 {
                     return new MessageModel<object>()
                     {
                         code = 0,
-                        msg = "该角色或者角色编号已经存在",
+                        msg = "该角色已经存在",
                         data = ""
 
                     };

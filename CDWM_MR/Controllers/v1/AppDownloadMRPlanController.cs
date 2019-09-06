@@ -65,8 +65,7 @@ namespace CDWM_MR.Controllers.v1
         /// </summary>
         /// <param name="bookno">抄表册编号</param>
         /// <returns></returns>
-        [Route("downLoadMRinfo")]
-        [HttpGet]
+        [HttpGet("{bookno}")]
         [EnableCors("LimitRequests")]
         public IActionResult downLoadMRinfo(string bookno)
         {
@@ -87,18 +86,18 @@ namespace CDWM_MR.Controllers.v1
         }
 
         /// <summary>
-        /// 下载回掉
+        /// 下载回调
         /// </summary>
         /// <param name="bookno"></param>
         /// <param name="status">下载状态</param>
         /// <returns></returns>
         [HttpGet("{bookno}/{status}")]
         [EnableCors("LimitRequests")]
-        public async Task<object> JudeSuccess(string bookno,int? status)
+        public async Task<object> JudeSuccess(int? bookno,int? status)
         {
             if (status == 0)
             {
-                await vtaskinfo.Update(c => new v_taskinfo() { dowloadstatus = 0 },c => c.bookno == bookno);
+                await taskServices.Update(c => new mr_taskinfo() { dowloadstatus = 0 },c => c.bookid == bookno);
                 return new
                 {
                     code = 0,
@@ -114,6 +113,34 @@ namespace CDWM_MR.Controllers.v1
                 data = bookno
             };
 
+        }
+
+        /// <summary>
+        /// 接受上传图片
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [EnableCors("LimitRequests")]
+        public async Task<MessageModel<string>> UploadImg()
+        {
+            var data = new MessageModel<string>();
+            string path = string.Empty;
+            string foldername = "images";
+            IFormFileCollection files = null;
+
+            try
+            {
+                files = Request.Form.Files;
+            }
+            catch (Exception)
+            {
+                files = null;
+            }
+
+            if (files == null || !files.Any()) { data.msg = $"请选择上传的文件。{files}"; return data; }
+            data.msg = "成功";
+            return data;
         }
 
     }

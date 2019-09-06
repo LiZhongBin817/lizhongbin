@@ -43,9 +43,32 @@ namespace CDWM_MR.Model.Seed
                 //    typeof(sys_parameter));
 
                 // 后期单独处理某些表
-                myContext.Db.CodeFirst.InitTables(typeof(mr_book_reader));
-                myContext.Db.CodeFirst.InitTables(typeof(mr_book_meter));
-
+                myContext.Db.CodeFirst.InitTables(typeof(mr_b_bookinfo));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_b_reader));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_book_meter)); 
+                myContext.Db.CodeFirst.InitTables(typeof(mr_book_reader)); 
+                myContext.Db.CodeFirst.InitTables(typeof(mr_datainfo)); 
+                myContext.Db.CodeFirst.InitTables(typeof(mr_datainfo_history));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_planinfo));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_planinfo_history));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_taskinfo));
+                myContext.Db.CodeFirst.InitTables(typeof(mr_taskinfo_history));
+                myContext.Db.CodeFirst.InitTables(typeof(rb_b_faultprocess));
+                myContext.Db.CodeFirst.InitTables(typeof(rb_b_faultprocess_history));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_faultinfo));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_faultinfo_history));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_ocrlog));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_ocrlog_history));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_photoattachment));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_photoattachment_history));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_recheck));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_recheck_history));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_wateradjust));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_wateradjust_history));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_watercarryovarcheck));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_watercarryovarcheck_history));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_watercarryover));
+                myContext.Db.CodeFirst.InitTables(typeof(rt_b_watercarryover_history));
                 Console.WriteLine("正在生成数据库 ...");
 
                 #region 判断数据库中是否存在该数据库

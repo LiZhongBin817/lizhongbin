@@ -13,19 +13,25 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 抄表册ID
         /// </summary>
-        [SugarColumn(IsNullable = false)]
+        [SugarColumn(IsNullable = false,ColumnDescription = "抄表册ID,来源于mr_bookinfo")]
         public int bookid { get; set; }
 
         /// <summary>
-        /// 水表ID
+        /// 水表编号
         /// </summary>
-        [SugarColumn(IsNullable = false)]
-        public int watermeterid { get; set; }
+        [SugarColumn(IsNullable = false,ColumnDescription = "水表编号")]
+        public string watermeternumber { get; set; }
+
+        /// <summary>
+        /// 用户编号
+        /// </summary>
+        [SugarColumn(IsNullable = false, ColumnDescription = "用户编号（冗余）")]
+        public string useraccount { get; set; }
 
         /// <summary>
         /// 表册内水表顺序
         /// </summary>
-        [SugarColumn(IsNullable = true)]
+        [SugarColumn(IsNullable = true,ColumnDescription = "表册内水表顺序")]
         public int meterseq { get; set; }
     }
 }

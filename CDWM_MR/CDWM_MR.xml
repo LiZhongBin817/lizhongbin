@@ -412,6 +412,58 @@
             抄表管理
             </summary>
         </member>
+        <member name="T:CDWM_MR.Controllers.Mr_b_ReaderController">
+            <summary>
+            抄表员管理
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.#ctor(CDWM_MR.IServices.Content.Imr_b_readerServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="b_ReaderServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.ShowMassage(System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            展示抄表员数据
+            </summary>
+            <param name="Number"></param>
+            <param name="Name"></param>
+            <param name="Telephone"></param>
+            <param name="Appcount"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.Add_Mr_B_ReaderData(System.String)">
+            <summary>
+            添加抄表员信息
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.Edit_Mr_B_ReaderData(System.String,System.Int32)">
+            <summary>
+            编辑抄表员信息
+            </summary>
+            <param name="JsonData"></param>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.Del_Mr_B_ReaderData(System.Int32)">
+             <summary>
+            逻辑删除抄表员信息
+             </summary>
+             <param name="ID"></param>
+             <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.ReSetPwd(System.Int32)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
         <member name="M:CDWM_MR.Controllers.OprationManageController.#ctor(CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.IServices.Content.Isys_menuServices,CDWM_MR.IServices.Content.Isys_interface_infoServices)">
             <summary>
             构造函数
@@ -494,6 +546,7 @@
             <param name="sys_role"></param>
             <param name="Isys_interface_info"></param>
             <param name="sysrolemenu"></param>
+            <param name="sys_OperationServices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.ShowUserInfoDate(System.String,System.String,System.Int32,System.Int32)">
             <summary>
@@ -618,13 +671,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.AddRole(System.String,System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.AddRole(System.String)">
             <summary>
             添加角色
             </summary>
-            <param name="RoleNumber">角色编号</param>
             <param name="RoleName">角色名称</param>
-            <param name="CreatePeople">创建人</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.DeleteRole(System.String)">
@@ -722,12 +773,19 @@
             <param name="bookno">抄表册编号</param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.JudeSuccess(System.String,System.Nullable{System.Int32})">
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.JudeSuccess(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
-            下载回掉
+            下载回调
             </summary>
             <param name="bookno"></param>
             <param name="status">下载状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.UploadImg">
+            <summary>
+            接受上传图片
+            </summary>
+            <param name="files"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppLoginController">
