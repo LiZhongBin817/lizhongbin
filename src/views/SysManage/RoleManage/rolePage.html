@@ -50,7 +50,7 @@
             RoleName = obj.attr('name');
             roleID = obj.attr('id');
             admin.req({
-                url: 'http://localhost:8081/GetMenuID'
+                url: 'http://localhost:8088/GetMenuID'
                 , type: 'Get'
                 , data: {
                     "id": roleID
@@ -80,7 +80,7 @@
                         //获取提交的字段
                         var field = data.field;
                         admin.req({
-                            url: "http://localhost:8081/AddRole"
+                            url: "http://localhost:8088/AddRole"
                             , type: 'Get'
                             , data: {
                                 "RoleNumber": data.field.RoleNumber,
@@ -137,7 +137,7 @@
                         form.on('submit(' + submitID + ')', function (data) {
                             var field = data.field;
                             admin.req({
-                                url: "http://localhost:8081/EditRole"
+                                url: "http://localhost:8088/EditRole"
                                 , type: 'Get'
                                 , data: {
                                     "RoleName": RoleName,
@@ -185,7 +185,7 @@
                 }, function () {
                     layer.close('dialog');
                     admin.req({
-                        url: 'http://localhost:8081/DeleteRole'
+                        url: 'http://localhost:8088/DeleteRole'
                         , type: 'Get'
                         , data: {
                             "RoleName": RoleName
@@ -223,7 +223,7 @@
             }
             else {
                 admin.req({
-                    url: 'http://localhost:8081/SaveOperation'
+                    url: 'http://localhost:8088/SaveOperation'
                     , type: 'Get'
                     , data: {
                         "RoleID": roleID,
@@ -251,7 +251,7 @@
         })
         function Refresh() {//刷新角色列表
             admin.req({
-                url: 'http://localhost:8081/ShowRole'
+                url: 'http://localhost:8088/ShowRole'
                 , type: 'Get'
                 , data: {
                 }
@@ -275,7 +275,7 @@
         $(function () {
             Refresh();
             admin.req({
-                url: 'http://localhost:8081/GetMenu'
+                url: 'http://localhost:8088/GetMenu'
                 , type: 'Get'
                 , success: function (data) {
                     layer.close(loadingFlag);
@@ -390,7 +390,7 @@
             else {
                 //判断复选框的值
                 admin.req({
-                    url: 'http://localhost:8081/Jude'
+                    url: 'http://localhost:8088/Jude'
                     , type: 'Get'
                     , data: {
                         "RoleID": roleID,
@@ -420,7 +420,7 @@
                                     }
                                     sendData = sendData.substring(0, sendData.length_1);
                                     admin.req({
-                                        url: 'http://localhost:8081/EditOperations'
+                                        url: 'http://localhost:8088/EditOperations'
                                         , type: 'Get'
                                         , data: {
                                             "RoleID": roleID,
@@ -443,7 +443,7 @@
                                         var div = layero.contents().find('#PowerBox');
                                         //渲染页面
                                         admin.req({
-                                            url: 'http://localhost:8081/GetOperation'
+                                            url: 'http://localhost:8088/GetOperation'
                                             , type: 'Get'
                                             , data: {
                                                 "RoleID": roleID,
