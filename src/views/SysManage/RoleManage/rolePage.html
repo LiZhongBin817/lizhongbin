@@ -1,7 +1,9 @@
-﻿<script type="text/html" template>
+﻿
+<title>角色管理</title>
+<script type="text/html" template>
     <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
 </script>
-<div class="layui-container">
+<div class="layui-fluid">
     <div class="layui-row">
         <div class="layui-col-md*" style="background-color:;height: 50px">
             <div class="layui-btn-group" style="height: 3px;">
@@ -12,19 +14,19 @@
             </div>
         </div>
     </div>
-    <div class="layui-row">
-        <div class="layui-col-md3" style="height: 400px;background-color:#BBFFBB;border-width: 1px;border-color: #F0F0F0;border-style: solid;box-shadow: 10px 10px 10px #E0E0E0" ;>
-            <div class="layui-card-header" style="background-color:">
+    <div class="layui-row layui-col-space5">
+        <div class="layui-col-md2" style="height: 400px;background-color:#FBFFFD;border-width: 1px;border-color: #F0F0F0;border-style: solid;box-shadow: 10px 10px 10px #E0E0E0" ;>
+            <div class="layui-card-header">
                 <label class="layui-card-label" style="font-size: 20px">角色</label>
                 <button class="layui-btn Refresh" style="float: right;background-color: #FFFFFF;color:#409EFF">刷新</button>
             </div>
-            <div class="layui-card-body" id="ul" style="cursor:pointer;">
-                <ul class="UL" id="test"></ul>
+            <div class="layui-card-body" id="ul">
+                <ul class="UL" id="test" style=" cursor:pointer "></ul>
             </div>
         </div>
-        <div class="layui-col-md8 layui-col-md-offset1" style="height:auto;background-color:#BBFFBB;border-width: 1px;border-style: solid;border-color:#F0F0F0;box-shadow: 20px 20px 20px 20px #E0E0E0 ">
-            <div id="content" style="background-color:">
-                <table id="menuTable" class="layui-table layui-form layui-anim" lay-size="sm" lay-filter="menuTable" style="background-color:#BBFFBB"></table>
+        <div class="layui-col-md9" style="height:auto;background-color:#FBFFFD;border-width: 1px;border-style: solid;border-color:#F0F0F0;box-shadow: 20px 20px 20px 20px #E0E0E0 ">
+            <div id="content">
+                <table id="menuTable" class="layui-table layui-form layui-anim" lay-size="sm" lay-filter="menuTable" style="background-color:#FBFFFD"></table>
             </div>
         </div>
     </div>
@@ -63,20 +65,19 @@
         $(document).on('click', ".singclick", function () {
             console.log($(this).attr('id'));
             $(".singclick").css("background-color","");
-            $(this).css("background-color","#80FFFF");
+            $(this).css("background-color","#ECFFFF");
             SingClick($(this));
         })
         $('.add').click(function () {
             admin.popup({
                 title: '增加'
-                , area: ['480px', '300px']
-                , btn: ['提交', '取消']
-                , yes: function (index, layero) {
-                    submitID = 'submit'
-                        , submit = layero.contents().find('#' + submitID);
+                ,id:'AddPage'
+                , area: ['400px', '180px']               
+                , success: function (layero, index) {
+                    view(this.id).render('SysManage/RoleManage/AddPage', null).done(function () {
 
                     //监听提交
-                    form.on('submit(' + submitID + ')', function (data) {
+                    form.on('submit(Role_submit)', function (data) {
                         //获取提交的字段
                         var field = data.field;
                         admin.req({
@@ -98,12 +99,9 @@
                                     time = setTimeout(function () {
                                         Refresh();//调用刷新的方法
                                     }, 500);
-                                }
-                                else if (msg.msg == "该角色或者角色编号已经存在") {
-                                    layer.msg("该角色或者角色编号已经存在");
-                                }
+                                }                              
                                 else {
-                                    layer.msg("角色编号或者角色名称不能为空");
+                                    layer.msg("该角色已存在");
                                 }
                             }
                             , error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -111,11 +109,6 @@
                             }
                         });
                     });
-                    submit.trigger('click');
-                }
-                , success: function (layero, index) {
-                    view(this.id).render('SysManage/RoleManage/AddPage', null).done(function () {
-
                     });
                 }
             });
@@ -319,7 +312,7 @@
                                 , width: '50px'
                                 , align: 'center'
                                 , template: function (item) {
-                                    return '<button lay-filter="Jurisdiction" id="' + item.id + '" onclick="operations(' + item.id + ',' + item.menuType + ')" class="layui-btn layui-btn-xs layui-btn-radius" operation>权限分配详情</button>';
+                                    return '<button lay-filter="Jurisdiction" id="' + item.id + '" class="layui-btn layui-btn-xs layui-btn-radius operation" >权限分配详情</button>';
                                 }
                             }
                         ]

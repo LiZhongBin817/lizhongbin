@@ -1,4 +1,6 @@
-﻿<script type="text/html" template>
+﻿<title>菜单管理</title>
+
+<script type="text/html" template>
     <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
     <link href="{{layui.setter.base}}style/dtree/dtree.css?v={{ layui.admin.v }}-1" media="all" rel="stylesheet" />
     <link href="{{layui.setter.base}}style/dtree/font/dtreefont.css?v={{ layui.admin.v }}-1" media="all" rel="stylesheet" />
@@ -130,20 +132,14 @@
                     var Remark = data.data[0].Remark;//详细描述
                     var Address = data.data[0].MenuUrl;//URL地址
                     var ParentID = data.data[0].ParentID;
-                    console.log(LastMenu);
-                    console.log(Order);
-                    console.log(Remark);
-                    console.log(Address);
-                    console.log(ParentID);
                     var textarea = document.getElementsByTagName("textarea");
                     textarea.value = Remark;
                     var input = document.getElementsByTagName("input");
-                    input[5].value = "系统管理";
-                    input[6].value = LastMenu;
+                    input[5].value = "菜单管理";
+                    ParentID == 0? input[6].value = "菜单管理":input[6].value = LastMenu;                    
                     input[7].value = Current_module;
                     input[8].value = Order;
                     input[9].value = Address;
-                    console.log(ParentID);
                     var btn = document.getElementById("Pcontrol");
                     btn.style.display = ParentID != 0 ? "block" : "none";
                 }
