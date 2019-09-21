@@ -1,28 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\src",
-    "\\src\\controller",
-    "\\src\\style",
-    "\\src\\lib\\extend",
-    "\\src\\style\\dtree",
-    "\\src\\views",
-    "\\src\\views\\SysManage",
-    "\\src\\views\\SysManage\\Interface",
-    "\\src\\views\\SysManage\\Menu",
-    "\\src\\views\\SysManage\\RoleManage",
-    "\\src\\views\\user",
-    "\\start",
-    "\\start\\autocomplete"
+    ""
   ],
-  "SelectedNode": ["\\start",
-    "\\src\\lib\\extend",
-    "\\src\\style\\dtree",
-    "\\src\\views",
-    "\\src\\views\\SysManage",
-    "\\src\\views\\SysManage\\Menu",
-    "\\src\\views\\SysManage\\RoleManage",
-    "\\src\\views\\user"
-  ],
+  "SelectedNode": "\\src",
   "PreviewInSolutionExplorer": false
 }
