@@ -1,5 +1,5 @@
-/*Title:²ÎÊıÉèÖÃ
- * Creator:ÀîÖÒ±ó
+/*Title:å‚æ•°è®¾ç½®
+ * Creator:æå¿ æ–Œ
  * Date:2019.8.19
  */
 layui.define(['table', 'form', 'view'], function (exports) {
@@ -9,21 +9,21 @@ layui.define(['table', 'form', 'view'], function (exports) {
         , view = layui.view
         , load = layer.load(3)
         , admin = layui.admin;
-    //±í¸ñäÖÈ¾
+    //è¡¨æ ¼æ¸²æŸ“
     table.render({
         elem: '#parameterdata'
         , method: 'Get'
         , url: 'http://localhost:8081/ParameterShow'
         , cols: [[
             { field: 'ID', title: 'ID', width: 50, fixed: 'left' },
-            { field: 'parameternumber', title: '²ÎÊı±àºÅ', width: 150 },
-            { field: 'parametername', title: '²ÎÊıÃû³Æ', width: 150 },
-            { field: 'parametertype', title: '²ÎÊıÀàĞÍ', width: 150 },
-            { field: 'parametertypename', title: '²ÎÊıÀàĞÍÃû', width: 150 },
+            { field: 'parameternumber', title: 'å‚æ•°ç¼–å·', width: 150 },
+            { field: 'parametername', title: 'å‚æ•°åç§°', width: 150 },
+            { field: 'parametertype', title: 'å‚æ•°ç±»å‹', width: 150 },
+            { field: 'parametertypename', title: 'å‚æ•°ç±»å‹å', width: 150 },
             { field: 'parameterkey', title: 'Code', width: 150 },
-            { field: 'parametervalue', title: '²ÎÊıÖµ', width: 150 },
-            { field: 'Remark', title: 'ÃèÊö', width: 150 },
-            { title: '²Ù×÷', width: 150, toolbar: '#barDemo', align: 'center', fixed: 'right' }
+            { field: 'parametervalue', title: 'å‚æ•°å€¼', width: 150 },
+            { field: 'Remark', title: 'æè¿°', width: 150 },
+            { title: 'æ“ä½œ', width: 125, toolbar: '#barDemo', align: 'center', fixed: 'right' }
         ]]
         , page: true
         , limit: 20
@@ -34,7 +34,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
         }
     });
 
-    //¼àÌı±í¸ñ²éÑ¯
+    //ç›‘å¬è¡¨æ ¼æŸ¥è¯¢
     form.on('submit(search)', function (obj) {
         var field = obj.field;
         table.reload('parameterdata', {
@@ -46,22 +46,22 @@ layui.define(['table', 'form', 'view'], function (exports) {
         });
     });
 
-    //¼àÌı¹¤¾ßÀ¸Ìí¼Ó°´Å¥
+    //ç›‘å¬å·¥å…·æ æ·»åŠ æŒ‰é’®
     table.on('toolbar(Parameter)', function (obj) {
         var LayEvent = obj.event;
         if (LayEvent == "AddParameter") {
             admin.popup({
                 id: 'AddParameter'
-                , title: 'Ìí¼Ó'
+                , title: 'æ·»åŠ '
                 , area: ['500px', '540px']
                 , success: function (layero, index) {
                     view(this.id).render('SysManage/ParameterSetting/AddParameter', null).done(function () {
                         form.render(null, 'addparameter');
-                        //ÉèÖÃµ¯³ö²ãµÄ±³¾°
+                        //è®¾ç½®å¼¹å‡ºå±‚çš„èƒŒæ™¯
                         layer.style(index, {
                             "background": '#ECF5FF'
                         });
-                        //¼àÌıÌá½»°´Å¥
+                        //ç›‘å¬æäº¤æŒ‰é’®
                         form.on('submit(Submit)', function (obj) {
                             var field = obj.field;
                             var load = layer.load(3);
@@ -74,12 +74,12 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                 , success: function (data) {
                                     if (data.msg == "OK") {
                                         table.reload('parameterdata');
-                                        layer.msg("Ìí¼Ó³É¹¦");
+                                        layer.msg("æ·»åŠ æˆåŠŸ");
                                         layer.close(index);
                                         layer.close(load);
                                     }
                                     else {
-                                        layer.msg("²ÎÊı±àºÅÒÑ´æÔÚ");
+                                        layer.msg("å‚æ•°ç¼–å·å·²å­˜åœ¨");
                                         layer.close(load);
                                     }
                                 }
@@ -91,25 +91,25 @@ layui.define(['table', 'form', 'view'], function (exports) {
         }
     });
 
-    //¼àÌı±í¸ñÀïÃæµÄ²Ù×÷
+    //ç›‘å¬è¡¨æ ¼é‡Œé¢çš„æ“ä½œ
     table.on('tool(Parameter)', function (obj) {
         var LayEvent = obj.event
             , data = obj.data;
         if (LayEvent == "EditParameter") {
             admin.popup({
                 id: 'EditParameter'
-                , title: '±à¼­'
+                , title: 'ç¼–è¾‘'
                 , area: ['500px', '540px']
                 , success: function (layero, index) {
                     view(this.id).render('SysManage/ParameterSetting/EditParameter', data).done(function () {
                         form.render(null, 'editparameter');
 
-                        //ÉèÖÃµ¯³ö²ãµÄ±³¾°
+                        //è®¾ç½®å¼¹å‡ºå±‚çš„èƒŒæ™¯
                         layer.style(index, {
                             "background": '#ECF5FF'
                         });
 
-                        //¼àÌıÌá½»°´Å¥
+                        //ç›‘å¬æäº¤æŒ‰é’®
                         form.on('submit(Edit-Submit)', function (Data) {
                             var field = Data.field;
                             var load = layer.load(3);
@@ -133,12 +133,12 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                 , success: function (data) {
                                     if (data.msg == "OK") {
                                         table.reload('parameterdata');
-                                        layer.msg("ĞŞ¸Ä³É¹¦");
+                                        layer.msg("ä¿®æ”¹æˆåŠŸ");
                                         layer.close(index);
                                         layer.close(load);
                                     }
                                     else {
-                                        layer.msg("ĞŞ¸ÄÊ§°Ü");
+                                        layer.msg("ä¿®æ”¹å¤±è´¥");
                                         layer.close(load);
                                     }
                                 }
