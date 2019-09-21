@@ -18,21 +18,31 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 抄表册编号
         /// </summary>
+        [SugarColumn(IsNullable = false,Length = 50,ColumnDescription = "抄表册编号")]
         public System.String bookno { get; set; }
 
         /// <summary>
         /// 抄表人(mr_reader：ID)
         /// </summary>
+        [SugarColumn(IsNullable = true,ColumnDescription = "抄表人(mr_reader：ID)")]
         public System.String readmanid { get; set; }
 
         /// <summary>
         /// 抄表册名称
         /// </summary>
+        [SugarColumn(IsNullable = true,Length = 80,ColumnDescription = "抄表册名称")]
         public System.String bookname { get; set; }
+
+        /// <summary>
+        /// 抄表册中表具类型
+        /// </summary>
+        [SugarColumn(IsNullable = true,ColumnDescription = "普表、数码表、远传表、混合等，来源：数据字典")]
+        public int booktype { get; set; }
 
         /// <summary>
         /// 抄表周期(11:按月 21:单月 22:双月31:按季度1 32:按季度2 33:按季度3)
         /// </summary>
+        [SugarColumn(IsNullable = true, ColumnDescription = "抄表周期(11:按月 21:单月 22:双月31:按季度1 32:按季度2 33:按季度3)")]
         public System.Int32? readperiod { get; set; }
 
         /// <summary>
@@ -65,10 +75,7 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         public System.String Remark { get; set; }
 
-        /// <summary>
-        /// 普表、数码表、远传表、混合等，来源：数据字典
-        /// </summary>
-        public System.Int32? booktype { get; set; }
+ 
 
         /// <summary>
         /// 分配状态(0--已分配;1--未分配)

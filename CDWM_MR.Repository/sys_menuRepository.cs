@@ -18,9 +18,9 @@ namespace CDWM_MR.Repository.Content
         public async Task<object> Getsinglemenuinfo(int sid)
         {
             return await Db.Queryable<sys_menu, sys_menu>((s, p) => new object[] {
-               JoinType.Left,s.ParentID==p.ID})
-               .Where(s => s.ID == sid)
-               .Select((s, p) => new { id = s.ID, order = s.MenuOrder, MenuUrl = s.MenuUrl, Remark = s.Remark, MenuName = p.MenuName,ParentID=s.ParentID }).ToListAsync();
+               JoinType.Left,s.ParentID==p.id})
+               .Where(s => s.id == sid)
+               .Select((s, p) => new { id = s.id, order = s.MenuOrder, MenuUrl = s.MenuUrl, Remark = s.remark, MenuName = p.MenuName,ParentID=s.ParentID }).ToListAsync();
         }
     }
 }

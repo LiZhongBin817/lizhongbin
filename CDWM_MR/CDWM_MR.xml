@@ -444,11 +444,68 @@
         </member>
         <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.AllocationOfData(System.Int32,System.String[],System.Int32)">
             <summary>
-            点击分配确认时 未完成 给taskinfo表添加数据
+            点击分配确认时 已完成
             </summary>
             <param name="data"></param>
             <param name="status"></param>
             <param name="planid"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.MRManageController">
+            <summary>
+            抄表管理
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Controllers.Mr_b_ReaderController">
+            <summary>
+            抄表员管理
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.#ctor(CDWM_MR.IServices.Content.Imr_b_readerServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="b_ReaderServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.ShowMassage(System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            展示抄表员数据
+            </summary>
+            <param name="Number"></param>
+            <param name="Name"></param>
+            <param name="Telephone"></param>
+            <param name="Appcount"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.Add_Mr_B_ReaderData(System.String)">
+            <summary>
+            添加抄表员信息
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.Edit_Mr_B_ReaderData(System.String,System.Int32)">
+            <summary>
+            编辑抄表员信息
+            </summary>
+            <param name="JsonData"></param>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.Del_Mr_B_ReaderData(System.Int32)">
+             <summary>
+            逻辑删除抄表员信息
+             </summary>
+             <param name="ID"></param>
+             <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.ReSetPwd(System.Int32)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="ID"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.OprationManageController.#ctor(CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.IServices.Content.Isys_menuServices,CDWM_MR.IServices.Content.Isys_interface_infoServices)">
@@ -533,6 +590,7 @@
             <param name="sys_role"></param>
             <param name="Isys_interface_info"></param>
             <param name="sysrolemenu"></param>
+            <param name="sys_OperationServices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.ShowUserInfoDate(System.String,System.String,System.Int32,System.Int32)">
             <summary>
@@ -657,13 +715,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.AddRole(System.String,System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.AddRole(System.String)">
             <summary>
             添加角色
             </summary>
-            <param name="RoleNumber">角色编号</param>
             <param name="RoleName">角色名称</param>
-            <param name="CreatePeople">创建人</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.DeleteRole(System.String)">
@@ -731,6 +787,66 @@
             <param name="RoleID"></param>
             <param name="MenuID"></param>
             <param name="OperationID"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.v1.AppDownloadMRPlanController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="taskservices"></param>
+            <param name="Taskinfo"></param>
+            <param name="Env"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.DownLoadMR(System.Nullable{System.Int32})">
+            <summary>
+            下载抄表计划
+            </summary>
+            <param name="ID"></param>
+            <param name="UserNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.downLoadMRinfo(System.String)">
+            <summary>
+            抄表册EXCEL文件下载
+            </summary>
+            <param name="bookno">抄表册编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.JudeSuccess(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            下载回调
+            </summary>
+            <param name="bookno"></param>
+            <param name="status">下载状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.UploadImg">
+            <summary>
+            接受上传图片
+            </summary>
+            <param name="files"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.v1.AppLoginController">
+            <summary>
+            APP登陆接口
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppLoginController.#ctor(CDWM_MR.IServices.Content.Imr_b_readerServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="reader"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppLoginController.appuserlogin(CDWM_MR.Model.Models.sys_userinfo)">
+            <summary>
+            App用户登录
+            </summary>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">

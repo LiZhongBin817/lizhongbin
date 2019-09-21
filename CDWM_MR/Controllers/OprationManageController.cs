@@ -79,7 +79,7 @@ namespace CDWM_MR.Controllers
             #endregion
             Expression<Func<sys_operation, object>> expression = c => new
             {
-                ID = c.ID,
+                ID = c.id,
                 AuthorityName = c.OperationName,
                 MenuID = c.MenuID,
                 InterfaceID = c.InterfaceID,
@@ -112,11 +112,11 @@ namespace CDWM_MR.Controllers
         public async Task<MessageModel<object>> ModifyInfor(string data, int ID)
         {
             sys_operation Data = Common.Helper.JsonHelper.GetObject<sys_operation>(data);          
-            Data.UpdatePeople = "1";
-            Data.UpdateTime = DateTime.Now;
-            Data.ID = ID;
+            Data.updatepeople = "1";
+            Data.updatetime = DateTime.Now;
+            Data.id = ID;
             #region 判重
-            Expression<Func<sys_operation, bool>> wherelambda = c =>c.ID!=ID&&(c.OperationName == Data.OperationName||c.LinkUrl==Data.LinkUrl);
+            Expression<Func<sys_operation, bool>> wherelambda = c =>c.id!=ID&&(c.OperationName == Data.OperationName||c.LinkUrl==Data.LinkUrl);
             var listQuery = await _sys_OperationServices.Query(wherelambda);
             string message = "";
             if (listQuery.Count != 0)
@@ -133,8 +133,8 @@ namespace CDWM_MR.Controllers
             {
                 LinkUrl = Data.LinkUrl,
                 OperationName = Data.OperationName,
-                UpdatePeople = "1",
-                UpdateTime = DateTime.Now,
+                updatepeople = "1",
+                updatetime = DateTime.Now,
                 OperationType = Data.OperationType
             }, c => c.OperationName == Data.OperationName) == true ? "ok" : "error";
             return new MessageModel<object>()
@@ -162,10 +162,10 @@ namespace CDWM_MR.Controllers
             int MenuID=Convert.ToInt32(jsondata[11].Substring(0, jsondata[11].IndexOf('-')));
             int InterfaceID=Convert.ToInt32(jsondata[17].Substring(0,jsondata[17].IndexOf('-')));
             var alllist= await _sys_OperationServices.Query();
-            int ID = alllist[alllist.Count-1].ID+1;
+            int ID = alllist[alllist.Count-1].id+1;
             sys_operation data = Common.Helper.JsonHelper.GetObject<sys_operation>(JsonDate);
-            data.CreatePeople = "1";
-            data.CreateTime = DateTime.Now;
+            data.createpeople = "1";
+            data.createtime = DateTime.Now;
             data.OperationNumber = "ON-000" + ID;
             data.MenuID = MenuID;
             data.InterfaceID = InterfaceID;
@@ -205,7 +205,7 @@ namespace CDWM_MR.Controllers
             List<object> list = new List<object>();
             foreach (var item in allist)
             {
-                var datalist = new { Name = item.MenuName, ID = item.ID };
+                var datalist = new { Name = item.MenuName, ID = item.id };
                 list.Add(datalist);
             }
             return new MessageModel<object>() {
@@ -251,7 +251,7 @@ namespace CDWM_MR.Controllers
             var msg=await _sys_OperationServices.Update(c => new sys_operation
             {
                 OperationStatus = (short)s
-            }, c => c.ID == ID) == true ? "ok" : "error";
+            }, c => c.id == ID) == true ? "ok" : "error";
             return new MessageModel<object>()
             {
                 data=null,
