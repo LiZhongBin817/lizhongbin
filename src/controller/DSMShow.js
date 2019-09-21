@@ -61,6 +61,14 @@ layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', '
                     c9.innerHTML = "<button class='btn btn-link' event:'Address'>查看</button>";
                     var c10 = row.insertCell(9);
                     c10.innerHTML = data[i].DSMOperation;
+                    //图片之前是10列，所以从11列开始插入图片路径，for循环从11开始
+                    //循环停止的条件是获取的图片数量加上固定列数，通过变量j将获取的图片插入到每一列中
+                    var j = 0;
+                    for (var x = 11; x < data[i].img.length+10; x++) {
+                        var c11 = row.insertCell(x);
+                        c11.innerHTML = data[i].img[j++];
+                        c11.style.display = "none";
+                    }
                 }
             }
         });
@@ -97,14 +105,7 @@ layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', '
 
                 },
                 success: function (data) {
-                    //获取表格ID
-                    var table = document.getElementById("DSMShow");
-                    for (var i = 0; i < data.length; i++) {
-                        //图片之前固定的列数是10，所有从第11列开始插入获取到的图片路径，在for循环中就是从11开始
-                        //循环停止的条件是获取到的图片数量加上固定列数，通过变量j将获取的图片插入到每一列中
-                        var j = 0;
-                        
-                    }
+                
                 }
             });
             admin.popup({
@@ -112,8 +113,9 @@ layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', '
                 area: ['700px', '500px'],
                 maxmin: true,
                 id: 'enclosure',
-                success: function () {
-
+                success: function (layero,index) {
+                    //获取表格中的列
+                    
                 }
             });
         }

@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\json",
+    "\\src",
+    "\\src\\controller",
+    "\\src\\views",
+    "\\src\\views\\MeterReadingManage",
+    "\\src\\views\\MeterReadingManage\\MeterReadingPlan_Manage"
   ],
-  "SelectedNode": "\\src",
+  "SelectedNode": "\\src\\controller\\MeterReadPlan.js",
   "PreviewInSolutionExplorer": false
 }
