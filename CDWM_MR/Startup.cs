@@ -22,6 +22,7 @@ using CDWM_MR.IServices;
 using CDWM_MR.Log;
 using CDWM_MR.Middlewares;
 using CDWM_MR.Model;
+using CDWM_MR.Tasks;
 using CDWM_MR_Common.Redis;
 using log4net;
 using log4net.Config;
@@ -136,7 +137,7 @@ namespace CDWM_MR
                     // 支持多个域名端口，注意端口号后不要带/斜杆：比如localhost:8000/，是错的
                     // 注意，http://127.0.0.1:1818 和 http://localhost:1818 是不一样的，尽量写两个
                     policy
-                    .WithOrigins("http://192.168.1.109:8088", "http://127.0.0.1:1818", "http://localhost:8080", "http://localhost:8021", "http://localhost:8088", "http://localhost:1818","http://localhost:8888","http://localhost:8086")
+                    .WithOrigins("http://192.168.1.109:8088", "http://127.0.0.1:1818", "http://192.168.1.118:8081", "http://localhost:8080", "http://localhost:8021", "http://localhost:8088", "http://localhost:1818","http://localhost:1030","http://localhost:8086")
                     .AllowAnyHeader()//Ensures that the policy allows any header.
                     .AllowAnyMethod();
                 });
@@ -369,7 +370,7 @@ namespace CDWM_MR
             #region TimedJob
 
             //services.AddHostedService<Job1TimedService>();
-            //services.AddHostedService<Job2TimedService>();
+            services.AddHostedService<JobWorkTime1>();
 
             #endregion
 

@@ -407,6 +407,50 @@
             <param name="areaname">小区名称</param>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.AddPlan(System.String)">
+            <summary>
+            添加计划单 已完成
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.ShowPlan(System.Int32,System.Int32)">
+            <summary>
+            显示计划单 已完成
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.ShowMeterReadingBooks(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            显示计划单中抄表册 未完成
+            </summary>
+            <param name="bookno"></param>
+            <param name="bookname"></param>
+            <param name="reader"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.ShowSelect">
+            <summary>
+            显示抄表员下拉框 已完成
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.DistributionOfMeterReadingBooks(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            显示分配抄表册 已完成
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.AllocationOfData(System.Int32,System.String[],System.Int32)">
+            <summary>
+            点击分配确认时 未完成 给taskinfo表添加数据
+            </summary>
+            <param name="data"></param>
+            <param name="status"></param>
+            <param name="planid"></param>
+            <returns></returns>
+        </member>
         <member name="M:CDWM_MR.Controllers.OprationManageController.#ctor(CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.IServices.Content.Isys_menuServices,CDWM_MR.IServices.Content.Isys_interface_infoServices)">
             <summary>
             构造函数
