@@ -28,6 +28,7 @@ namespace CDWM_MR.Controllers
     [Produces("application/json")]
     [Route("api/Login")]
     [AllowAnonymous]
+    [EnableCors("AllRequests")]
     public class LoginController : Controller
     {
 
@@ -45,9 +46,9 @@ namespace CDWM_MR.Controllers
         /// <param name="sysManage"></param>
         /// <param name="addredis"></param>
         /// <param name="requirement"></param>
-        public LoginController(Isys_userinfoServices sysuserinfo,IsysManageServices sysManage,IRedisHelper addredis, PermissionRequirement requirement)
+        public LoginController(Isys_userinfoServices sysuserinfo, IsysManageServices sysManage, IRedisHelper addredis, PermissionRequirement requirement)
         {
-            
+
             _redishelper = addredis;
             _requirement = requirement;
             _SysManage = sysManage;
@@ -65,7 +66,7 @@ namespace CDWM_MR.Controllers
             Common.ValidateCode valcode = new Common.ValidateCode();
             string Code;
             byte[] buffer = valcode.GetVerifyCode(out Code);//将验证码画到画布上
-            _redishelper.StringSet("Code", Code,TimeSpan.FromSeconds(180));
+            _redishelper.StringSet("Code", Code, TimeSpan.FromSeconds(180));
             return File(buffer, "image/jpeg");
         }
 
@@ -78,7 +79,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("UserLogin")]
-        [EnableCors("LimitRequests")]
         public async Task<object> UserLogin(string UserName, string PassWord, string VerCode)
         {
             //检验验证码

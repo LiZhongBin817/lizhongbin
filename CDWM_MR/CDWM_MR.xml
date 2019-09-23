@@ -763,7 +763,6 @@
             下载抄表计划
             </summary>
             <param name="ID"></param>
-            <param name="UserNumber"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.downLoadMRinfo(System.String)">
@@ -781,11 +780,11 @@
             <param name="status">下载状态</param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.UploadImg">
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.UploadImg(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
             接受上传图片
             </summary>
-            <param name="files"></param>
+            <param name="environment"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppLoginController">
