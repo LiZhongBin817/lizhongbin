@@ -16,7 +16,7 @@
 <div class="layui-fiuld">
     <div class="layui-col-md12">
         <div class="layui-card">
-            <div class="layui-card-header layui-form ayuiadmin-card-header-auto">
+            <div class="layui-card-header layui-form layuiadmin-card-header-auto">
                 <div class="layui-inline">
                     <label class="layui-form-label">权限名称:</label>
                     <div class="layui-inline">
@@ -71,7 +71,7 @@
             elem: '#power',
             method: 'post',
             url: 'http://localhost:8081/ShowInfor',//后台地址
-            page: 'true',
+            page: true,
             cols: [[
                 { field: 'ID', title: 'ID', width: 80, sort: true, fixed: 'left' },
                 { field: 'AuthorityName', title: '权限名', width: 150 },
