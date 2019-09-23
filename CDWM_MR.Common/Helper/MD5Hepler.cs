@@ -35,6 +35,7 @@ namespace CDWM_MR.Common.Helper
                 {
                     var lstData = Encoding.GetEncoding("utf-8").GetBytes(password);
                     var lstHash = new MD5CryptoServiceProvider().ComputeHash(lstData);
+                    var result = new StringBuilder(32);
                     for (int i = 0; i < lstHash.Length; i++)
                     {
                         pwd.Append(lstHash[i].ToString("x2").ToUpper());
@@ -62,6 +63,6 @@ namespace CDWM_MR.Common.Helper
             byte[] s = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
             return Convert.ToBase64String(s);
         }
-        
+
     }
 }

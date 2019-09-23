@@ -11,6 +11,10 @@ namespace CDWM_MR.Model.Models
     public class mr_taskinfo:BaseModel
     {
         /// <summary>
+        /// ID
+        /// </summary>
+        public int ID { get; set; }
+        /// <summary>
         /// 抄表任务单编号
         /// </summary>
         [SugarColumn(IsNullable = true,Length = 50,ColumnDescription = "抄表任务单编号")]

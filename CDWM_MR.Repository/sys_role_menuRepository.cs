@@ -17,7 +17,7 @@ namespace CDWM_MR.Repository.Content
         /// <returns></returns>
         public async Task<List<sys_role_menu>> GetRoleOperation()
         {
-            return await Task.Run(() => Db.Queryable<sys_role_menu>()
+            return await Task.Run(() => Db.Queryable<sys_role_menu>().Where(c => true)
             .Mapper(t => t.Role,t => t.RoleID)
             .Mapper(t => t.Operation,t => t.OperationID)
             .Mapper(t => t.Menu,t => t.MenuID).ToList());

@@ -11,6 +11,11 @@ namespace CDWM_MR.Model.Models
     public class mr_b_bookinfo:BaseModel
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public System.Int32 ID { get; set; }
+
+        /// <summary>
         /// 抄表册编号
         /// </summary>
         [SugarColumn(IsNullable = false,Length = 50,ColumnDescription = "抄表册编号")]
@@ -43,19 +48,44 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 区域编号(t_b_regions:regionno)
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 10,ColumnDescription = "区域编号(t_b_regions:regionno)")]
-        public string regionno { get; set; }
+        public System.String regionno { get; set; }
 
         /// <summary>
-        /// 分配状态
+        /// 创建时间
         /// </summary>
-        [SugarColumn(IsNullable = false,ColumnDescription = "分配状态(0--已分配;1--未分配)")]
-        public int allotstatus { get; set; } = 0;
+        public System.DateTime createtime { get; set; }
 
         /// <summary>
-        /// 关联用户抄表数量
+        /// 创建人
         /// </summary>
-        [SugarColumn(IsNullable = true,ColumnDescription = "关联抄表数量")]
-        public int contectusernum { get; set; }
+        public System.String createpeople { get; set; }
+
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        public System.DateTime? updatetime { get; set; }
+
+        /// <summary>
+        /// 更新人
+        /// </summary>
+        public System.String updatepeople { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public System.String Remark { get; set; }
+
+ 
+
+        /// <summary>
+        /// 分配状态(0--已分配;1--未分配)
+        /// </summary>
+        public System.Int32 allotstatus { get; set; }
+
+        /// <summary>
+        /// 关联用户数量
+        /// </summary>
+        public System.Int32? contectusernum { get; set; }
+
     }
 }
