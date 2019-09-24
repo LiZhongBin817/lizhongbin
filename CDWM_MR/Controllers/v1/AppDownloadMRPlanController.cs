@@ -45,7 +45,6 @@ namespace CDWM_MR.Controllers.v1
         /// 下载抄表计划
         /// </summary>
         /// <param name="ID"></param>
-        /// <param name="UserNumber"></param>
         /// <returns></returns>
         [HttpGet("{ID}")]
         [EnableCors("LimitRequests")]
