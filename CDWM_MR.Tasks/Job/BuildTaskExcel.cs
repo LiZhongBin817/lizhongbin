@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CDWM_MR.Tasks.Job
 {
+    [DisallowConcurrentExecution]//拒绝同一时间重复执行
     public class BuildTaskExcel : IJob
     {
 
@@ -22,6 +23,7 @@ namespace CDWM_MR.Tasks.Job
         public async Task Execute(IJobExecutionContext context)
         {
             await Task.Run(() => {
+                Console.WriteLine("123");
 
             });
         }

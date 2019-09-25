@@ -45,6 +45,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CDWM_MR.IRepository\CDWM_MR.IRepository.csproj" />
+    <ProjectReference Include="..\CDWM_MR.IServices\CDWM_MR.IServices.csproj" />
+    <ProjectReference Include="..\CDWM_MR.Repository\CDWM_MR.Repository.csproj" />
+    <ProjectReference Include="..\CDWM_MR.Services\CDWM_MR.Services.csproj" />
+    <ProjectReference Include="..\CDWM_MR.Tasks\CDWM_MR.Tasks.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -56,14 +63,6 @@
 
   <ItemGroup>
     <None Include="wwwroot\MR_bookinfo\20190904001.xls" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CDWM_MR.IRepository\CDWM_MR.IRepository.csproj" />
-    <ProjectReference Include="..\CDWM_MR.IServices\CDWM_MR.IServices.csproj" />
-    <ProjectReference Include="..\CDWM_MR.Repository\CDWM_MR.Repository.csproj" />
-    <ProjectReference Include="..\CDWM_MR.Services\CDWM_MR.Services.csproj" />
-    <ProjectReference Include="..\CDWM_MR.Tasks\CDWM_MR.Tasks.csproj" />
   </ItemGroup>
 
   <ItemGroup>

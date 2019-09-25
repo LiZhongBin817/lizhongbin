@@ -104,6 +104,11 @@
             抄表册信息
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.ID">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.bookno">
             <summary>
             抄表册编号
@@ -134,19 +139,49 @@
             区域编号(t_b_regions:regionno)
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.createtime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.createpeople">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.updatetime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.updatepeople">
+            <summary>
+            更新人
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.Remark">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.allotstatus">
             <summary>
-            分配状态
+            分配状态(0--已分配;1--未分配)
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.contectusernum">
             <summary>
-            关联用户抄表数量
+            关联用户数量
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.mr_b_reader">
             <summary>
             抄表员
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_b_reader.ID">
+            <summary>
+            ID
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_reader.mrreadernumber">
@@ -449,6 +484,11 @@
             抄表计划单
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo.ID">
+            <summary>
+            抄表计划单编号
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.mr_planinfo.mplannumber">
             <summary>
             抄表计划单编号
@@ -482,6 +522,11 @@
         <member name="P:CDWM_MR.Model.Models.mr_planinfo.finishstatus">
             <summary>
             完成状态0--计划;1--下达;2--完成
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_planinfo.createtime">
+            <summary>
+            创建时间
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.mr_planinfo_history">
@@ -542,6 +587,11 @@
         <member name="T:CDWM_MR.Model.Models.mr_taskinfo">
             <summary>
             抄表任务单信息表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo.ID">
+            <summary>
+            ID
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_taskinfo.tasknumber">
@@ -2546,126 +2596,6 @@
             NB表是否注册到iot平台(1:是；2：否)
             </summary>
         </member>
-        <member name="T:CDWM_MR.Model.Models.v_taskinfo">
-            <summary>
-            任务单视图
-            </summary>
-        </member>
-        <member name="M:CDWM_MR.Model.Models.v_taskinfo.#ctor">
-            <summary>
-            VIEW
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.taskid">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.bookid">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.dowloadstatus">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.downloadendtime">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.downloadstarttime">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.planid">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.taskendtime">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.readerid">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.tasknumber">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.taskname">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.taskstatus">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.CreateTime">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.CreatePeople">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.Remark">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.bookno">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.bookname">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.regionname">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.contectusernum">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.mrreadernumber">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.mrreadername">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.mplanmonth">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_taskinfo.mplanyear">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="T:CDWM_MR.Model.PageModel`1">
             <summary>
             通用分页信息类
@@ -2895,6 +2825,131 @@
         <member name="P:CDWM_MR.Model.Children.List">
             <summary>
             子类集合
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.ViewModels.v_taskinfo">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.ViewModels.v_taskinfo.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.taskid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.bookid">
+            <summary>
+            抄表册ID,来源于mr_b_bookinfo::id
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.dowloadstatus">
+            <summary>
+            下载状态0--已下载;1--未下载
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.downloadendtime">
+            <summary>
+            下载任务单结束时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.downloadstarttime">
+            <summary>
+            下载任务单开始时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.planid">
+            <summary>
+            计划单ID(mr_planinfo::id)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.taskstarttime">
+            <summary>
+            任务单起抄时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.taskendtime">
+            <summary>
+            任务单止抄时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.readerid">
+            <summary>
+            抄表员ID,mr_b_reader::id
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.tasknumber">
+            <summary>
+            抄表任务单编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.taskname">
+            <summary>
+            抄表任务单名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.taskstatus">
+            <summary>
+            任务单完成状态0--计划;1--下达;2--完成
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.CreatePeople">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.Remark">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.bookno">
+            <summary>
+            抄表册编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.bookname">
+            <summary>
+            抄表册名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.regionname">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.contectusernum">
+            <summary>
+            关联用户数量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.mrreadernumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.mrreadername">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.mplanmonth">
+            <summary>
+            所属月份
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.v_taskinfo.mplanyear">
+            <summary>
+            所属年
             </summary>
         </member>
     </members>

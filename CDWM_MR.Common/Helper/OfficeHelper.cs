@@ -1,10 +1,3 @@
-﻿using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 
 /****************************************************************************
 *CLR版本:4.0.30319.42000
@@ -28,10 +21,18 @@ using System.Reflection;
 *
 ****************************************************************************/
 
-namespace HX.Common
-{
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
+using System.IO;
+using System.Collections;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 
-    public class OfficeHelper
+namespace CDWM_MR.Common.Helper
+{
+   public class OfficeHelper
     {
         /// <summary>
         /// 导出Excel
@@ -180,8 +181,6 @@ namespace HX.Common
         }
     }
 
-
-    //新建类 重写Npoi流方法
     public class NpoiMemoryStream : MemoryStream
     {
         public NpoiMemoryStream()
@@ -197,5 +196,4 @@ namespace HX.Common
                 base.Close();
         }
     }
-
 }
