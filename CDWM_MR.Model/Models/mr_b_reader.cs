@@ -1,43 +1,41 @@
 ﻿using SqlSugar;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CDWM_MR.Model.Models
 {
     /// <summary>
     /// 抄表员
     /// </summary>
-    public class mr_b_reader:BaseModel
+    public class mr_b_reader : BaseModel
     {
         /// <summary>
         /// 抄表员编号
         /// </summary>
-        [SugarColumn(IsNullable = false,Length = 50)]
+        [SugarColumn(IsNullable = false, Length = 50)]
         public string mrreadernumber { get; set; }
 
         /// <summary>
         /// 抄表员姓名
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 50)]
+        [SugarColumn(IsNullable = true, Length = 50)]
         public string mrreadername { get; set; }
 
         /// <summary>
         /// 电话
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 20)]
+        [SugarColumn(IsNullable = true, Length = 20)]
         public string telephone { get; set; }
 
         /// <summary>
         /// app用户
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 50)]
+        [SugarColumn(IsNullable = true, Length = 50)]
         public string appcount { get; set; }
 
         /// <summary>
         /// app密码(MD5加密)
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 80)]
+        [SugarColumn(IsNullable = true, Length = 80)]
         public string apppassword { get; set; }
 
         /// <summary>
@@ -49,7 +47,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 地址
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 50)]
+        [SugarColumn(IsNullable = true, Length = 50)]
         public System.String address { get; set; }
 
         /// <summary>
@@ -61,7 +59,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 身份证
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 80)]
+        [SugarColumn(IsNullable = true, Length = 80)]
         public string idcard { get; set; }
 
         /// <summary>
@@ -73,7 +71,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 备用字段(存储角色id组合)
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 50)]
+        [SugarColumn(IsNullable = true, Length = 50)]
         public string roles { get; set; }
 
         /// <summary>
@@ -81,5 +79,7 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = true)]
         public DateTime lastlogintime { get; set; }
+        public System.Int32 ID { get; set; }
+
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CDWM_MR.Model.Models;
 
 namespace CDWM_MR.AutoMapper
 {

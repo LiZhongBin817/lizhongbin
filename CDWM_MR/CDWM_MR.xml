@@ -285,6 +285,82 @@
             基类控制器
             </summary>
         </member>
+        <member name="M:CDWM_MR.Controllers.BookManageController.t_b_bookinfoShow(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            显示所有抄表册信息
+            </summary>
+            <param name="bookno">抄表册编号</param>
+            <param name="bookname">抄表册名称</param>
+            <param name="page">分页参数</param>
+            <param name="limit">分页参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BookManageController.SelectUser(System.Collections.Generic.List{System.String},System.Int32,System.String[],System.String)">
+            <summary>
+            分配用户
+            </summary>
+            <param name="meternum">水表编号</param>
+            <param name="bookid">抄表册ID</param>
+            <param name="account">用户编号</param>
+            <param name="bookno">抄表册编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BookManageController.AddBook(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            添加一条抄表册信息
+            </summary>
+            <param name="bookno">抄表册编号</param>
+            <param name="bookname">抄表册名称</param>
+            <param name="regionno">区域编号</param>
+            <param name="readperiod">抄表周期</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BookManageController.RegionShow(System.Int32,System.Int32)">
+            <summary>
+            显示所有的区域信息
+            </summary>
+            <param name="page">分页参数</param>
+            <param name="limit">分页参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BookManageController.waterrederinfo(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            显示所有的抄表员
+            </summary>
+            <param name="readmanid">抄表员id</param>
+            <param name="mrreadernumber">抄表员编号</param>
+            <param name="mrreadername">抄表员名称</param>
+            <param name="page">分页参数</param>
+            <param name="limit">分页参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BookManageController.AllUserInfoShow(System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            显示所有的用户信息
+            </summary>
+            <param name="regionplace">区域名称</param>
+            <param name="areaname">小区名称</param>
+            <param name="disstatus">分配状态</param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BookManageController.AssoUserShow(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            显示关联的用户
+            </summary>
+            <param name="bookid">抄表册ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BookManageController.EditBook(System.Int32,System.String,System.String)">
+            <summary>
+            修改抄表册信息
+            </summary>
+            <param name="ID">抄表册ID</param>
+            <param name="bookname">抄表册名称</param>
+            <param name="regionno">区域</param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.LoginController">
             <summary>
             登陆控制器--无权限控制

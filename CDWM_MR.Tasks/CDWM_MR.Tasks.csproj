@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NPOI" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CDWM_MR.IServices\CDWM_MR.IServices.csproj" />
   </ItemGroup>
 

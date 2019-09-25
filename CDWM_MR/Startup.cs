@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
+using Blog.Core.Tasks;
 using CDWM_MR.AOP;
 using CDWM_MR.AuthHelper;
 using CDWM_MR.Common;
@@ -18,15 +11,12 @@ using CDWM_MR.Common.LogHelper;
 using CDWM_MR.Common.MemoryCache;
 using CDWM_MR.Filter;
 using CDWM_MR.Hubs;
-using CDWM_MR.IServices;
 using CDWM_MR.Log;
 using CDWM_MR.Middlewares;
-using CDWM_MR.Model;
 using CDWM_MR_Common.Redis;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -40,6 +30,14 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using StackExchange.Profiling.Storage;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 using static CDWM_MR.SwaggerHelper.CustomApiVersion;
 
 namespace CDWM_MR
@@ -136,7 +134,7 @@ namespace CDWM_MR
                     // 支持多个域名端口，注意端口号后不要带/斜杆：比如localhost:8000/，是错的
                     // 注意，http://127.0.0.1:1818 和 http://localhost:1818 是不一样的，尽量写两个
                     policy
-                    .WithOrigins("http://192.168.1.109:8088", "http://127.0.0.1:1818", "http://localhost:8080", "http://localhost:8021", "http://localhost:8088", "http://localhost:1818","http://localhost:8888","http://localhost:8086", "http://192.168.1.32:8080")
+                    .WithOrigins("http://192.168.1.109:8088", "http://127.0.0.1:1818", "http://localhost:8080", "http://localhost:8021", "http://localhost:8088", "http://localhost:1818", "http://localhost:8888", "http://localhost:8086", "http://192.168.1.32:8080")
                     .AllowAnyHeader()//Ensures that the policy allows any header.
                     .AllowAnyMethod();
                 });
@@ -309,7 +307,7 @@ namespace CDWM_MR
              {
                  //不使用https
                  o.RequireHttpsMetadata = false;
-                 
+
                  o.TokenValidationParameters = tokenValidationParameters;
                  o.Events = new JwtBearerEvents
                  {
@@ -369,7 +367,7 @@ namespace CDWM_MR
             #region TimedJob
 
             //services.AddHostedService<Job1TimedService>();
-            //services.AddHostedService<Job2TimedService>();
+            services.AddHostedService<AutoCreateBook>();
 
             #endregion
 
@@ -404,7 +402,7 @@ namespace CDWM_MR
 
             #region 带有接口层的服务注入
 
-                
+
             //获取项目绝对路径，请注意，这个是实现类的dll文件，不是接口 IService.dll ，注入容器当然是Activatore
             try
             {

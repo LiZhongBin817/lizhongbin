@@ -1,57 +1,50 @@
-﻿using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CDWM_MR.Model.Models
+﻿namespace CDWM_MR.Model.Models
 {
     /// <summary>
-    /// 用户接口信息
+    /// 
     /// </summary>
     public class sys_interface_info
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public sys_interface_info()
+        {
+        }
 
         /// <summary>
-        /// ID主键
+        /// 
         /// </summary>
-        [SugarColumn(IsNullable = false, IsPrimaryKey = true, IsIdentity = true)]
-        public int ID { get; set; }
+        public System.Int32 ID { get; set; }
 
         /// <summary>
-        /// 接口地址
+        /// 
         /// </summary>
-        [SugarColumn(IsNullable = false,Length = 30)]
-        public string InterfaceUrl { get; set; }
+        public System.String InterfaceUrl { get; set; }
 
         /// <summary>
-        /// 接口版本
+        /// 
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 5)]
-        public string OperationVersion { get; set; }
+        public System.String OperationVersion { get; set; }
 
         /// <summary>
-        /// 接口名称
+        /// 
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 40)]
-        public string InterfaceName { get; set; } 
+        public System.String InterfaceName { get; set; }
 
         /// <summary>
-        /// 是否为第三方接口0--是，1--否
+        /// 
         /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public short ExternalInterface { get; set; }
+        public System.Int16? ExternalInterface { get; set; }
 
         /// <summary>
-        /// 是否验证权限0--是，1--否
+        /// 
         /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public short Verify { get; set; }
+        public System.Int16? Verify { get; set; }
 
         /// <summary>
-        /// 备注
+        /// 
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 100)]
-        public string Remark { get; set; }
-
+        public System.String Remark { get; set; }
     }
 }
