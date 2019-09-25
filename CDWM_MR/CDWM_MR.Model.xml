@@ -2941,6 +2941,11 @@
             上报人
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_rb_b_faultprocess.readerid">
+            <summary>
+            抄表员id（mr_b_reader：:id）
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_rt_b_recheck">
             <summary>
             VIEW

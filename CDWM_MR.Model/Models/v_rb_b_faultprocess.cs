@@ -108,5 +108,10 @@ namespace CDWM_MR.Model.Models
         /// 上报人
         /// </summary>
         public System.String reportpeople { get; set; }
+
+        /// <summary>
+        /// 抄表员id（mr_b_reader：:id）
+        /// </summary>
+        public System.Int32? readerid { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using CDWM_MR.Common.Helper;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -45,6 +47,7 @@ namespace CDWM_MR.Controllers.v1
             return Status;
         }
         #endregion
+
         #region   获取本周期已经审查的抄表数据接口
         /// <summary>
         /// 获取本周期已经审查的抄表数据接口
@@ -57,7 +60,18 @@ namespace CDWM_MR.Controllers.v1
         [AllowAnonymous]//允许所有都访问
         public async Task<object> GetcheckedReadingWaterDate(string taskperiodname, int taskid)
         {
-            List<v_mr_datainfo> dateinfolist = await _v_mr_datainfoServices.Query(c => c.taskid == taskid && c.taskperiodname == taskperiodname);
+            #region lambda拼接式
+            Expression<Func<v_mr_datainfo, bool>> wherelambda = c => true;
+            if (taskid != 0)
+            {
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.taskid == taskid);
+            }
+            if (!string.IsNullOrEmpty(taskperiodname))
+            {
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.taskperiodname == taskperiodname);
+            }
+            #endregion
+            List<v_mr_datainfo> dateinfolist = await _v_mr_datainfoServices.Query(wherelambda);
             List<object> datelist = new List<object>();
             for (int i = 0; i < dateinfolist.Count(); i++)
             {

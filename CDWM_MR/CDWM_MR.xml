@@ -847,7 +847,7 @@
             <summary>
             获取本周期有异常的数据的接口
             </summary>
-            <param name="readdataid">抄表数据ID</param>
+            <param name="readerid">抄表员ID</param>
             <param name="taskperiodname">任务账单</param>
             <returns></returns>
         </member>

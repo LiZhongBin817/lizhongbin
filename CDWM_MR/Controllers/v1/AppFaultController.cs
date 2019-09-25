@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using CDWM_MR.Common.Helper;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -55,15 +57,26 @@ namespace CDWM_MR.Controllers.v1
         /// <summary>
         /// 获取本周期有异常的数据的接口
         /// </summary>
-        /// <param name="readdataid">抄表数据ID</param>
+        /// <param name="readerid">抄表员ID</param>
         /// <param name="taskperiodname">任务账单</param>
         /// <returns></returns>
         [HttpPost]
         [Route("GetFaultWorkOrder")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<object> GetFaultWorkOrder(int readdataid,string taskperiodname)
+        public async Task<object> GetFaultWorkOrder(int readerid, string taskperiodname)
         {
-            List<v_rb_b_faultprocess> datelist = await _v_rb_b_faultprocessServices.Query(c => c.readdataid == readdataid && c.taskperiodname == taskperiodname);
+            #region lambda拼接式
+            Expression<Func<v_rb_b_faultprocess, bool>> wherelambda = c => true;
+            if (readerid!=0)
+            {
+                wherelambda = PredicateExtensions.And<v_rb_b_faultprocess>(wherelambda, c => c.readerid == readerid);
+            }
+            if (!string.IsNullOrEmpty(taskperiodname))
+            {
+                wherelambda = PredicateExtensions.And<v_rb_b_faultprocess>(wherelambda, c => c.taskperiodname == taskperiodname);
+            }
+            #endregion
+            List<v_rb_b_faultprocess> datelist = await _v_rb_b_faultprocessServices.Query(wherelambda);
             datelist.Select(c => new
             {
                 CustomerNumber = c.autoaccount,//用户家庭编号
