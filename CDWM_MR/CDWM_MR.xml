@@ -285,6 +285,16 @@
             基类控制器
             </summary>
         </member>
+        <member name="M:CDWM_MR.Controllers.CopySee.ShowCopysee(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            实现抄表率分析
+            </summary>
+            <param name="mrreadername">抄表员名称</param>
+            <param name="mrdateTime">抄表的年月</param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.LoginController">
             <summary>
             登陆控制器--无权限控制

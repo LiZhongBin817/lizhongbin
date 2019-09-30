@@ -172,7 +172,7 @@ namespace CDWM_MR.Controllers
             #region 判重
             string operationname = data.OperationName;
             string linkurl = data.LinkUrl;
-            var listQuery = alllist.FindAll(c => c.OperationName == operationname || c.LinkUrl == linkurl);
+            var listQuery = alllist.FindAll(c => c.OperationName == operationname);
             string message = "";
             if (listQuery.Count!=0)
             {
