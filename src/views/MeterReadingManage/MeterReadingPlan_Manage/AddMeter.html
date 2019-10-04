@@ -1,0 +1,56 @@
+﻿<title>添加抄表计划</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-form" layui-filter="AddMeter" id="AddMeter">
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属公司: </label>
+        <div class="layui-input-inline">
+            <input type="text" name="Add_Company" id="Add_Company" autocomplete="off" class="layui-input" placeholder="请输入所属公司" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属年:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Add_Year" id="Add_Year" autocomplete="off" placeholder="请输入所属年" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属月份:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Add_Month" id="Add_Month" autocomplete="off" placeholder="请输入所属月" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">起抄日期:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Add_StartTime" id="Add_StartTime" autocomplete="off" placeholder="请输入起抄日期" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">止抄时间:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Add_EndTime" id="Add_EndTime" autocomplete="off" placeholder="请输入止抄日期" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"></label>
+        <div class="layui-input-inline">
+            <input type="button" lay-submit lay-filter="AddMeter_submit" value="提交" class="layui-btn">
+        </div>
+    </div>
+
+</div>
+
+<script>
+    layui.use(['admin', 'form', 'view', 'MeterReadPlan'], function () {
+        var $ = layui.$
+            , form = layui.form,
+            view = layui.view,
+            admin = layui.admin,
+            MeterReadPlan = layui.MeterReadPlan;
+        form.render();
+
+    });
+</script>
