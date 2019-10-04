@@ -68,6 +68,12 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         public System.Int32 readtype { get { return this._readtype; } set { this._readtype = value; } }
 
+        private System.Int32 _taskid;
+        /// <summary>
+        /// 任务单id(来源于mr_taskinfo)
+        /// </summary>
+        public System.Int32 taskid { get { return this._taskid; } set { this._taskid = value; } }
+
         private System.Int32? _meterstatus;
         /// <summary>
         /// 水表状态,从数据字典中读取字符型
