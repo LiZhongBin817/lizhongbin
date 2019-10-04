@@ -23,7 +23,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
             { field: 'parameterkey', title: 'Code', width: 150 },
             { field: 'parametervalue', title: '参数值', width: 150 },
             { field: 'Remark', title: '描述', width: 150 },
-            { title: '操作', width: 125, toolbar: '#barDemo', align: 'center', fixed: 'right' }
+            { title: '操作', width: 125, toolbar: '#barDemo0', align: 'center', fixed: 'right' }
         ]]
         , page: true
         , limit: 20
@@ -41,7 +41,8 @@ layui.define(['table', 'form', 'view'], function (exports) {
             where: {
                 "parameterNumber": field.parameterNumber,
                 "parameterName": field.parameterName,
-                "parameterType": field.parameterType
+                "parameterType": field.parameterType,
+                "page":1,
             }
         });
     });
