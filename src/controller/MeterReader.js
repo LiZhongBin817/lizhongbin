@@ -16,7 +16,7 @@ layui.define(['table', 'view', 'form'], function (exports) {
     table.render({
         elem: '#MR-Info',
         method: 'post',
-        url: 'http://localhost:8081/ShowMassage',
+        url: 'http://192.168.1.32:8088/ShowMassage',
         cols:
             [[
                 { field: 'ID', title: '序号', width: 80, fixed: 'left' },
@@ -100,7 +100,7 @@ layui.define(['table', 'view', 'form'], function (exports) {
                                 "Remark": field.Remark
                             };
                             admin.req({
-                                url: 'http://localhost:8081/Edit_Mr_B_ReaderData'
+                                url: 'http://192.168.1.32:8088/Edit_Mr_B_ReaderData'
                                 , method: 'post'
                                 , data: {
                                     "JsonData": JSON.stringify(SendData),
@@ -133,7 +133,7 @@ layui.define(['table', 'view', 'form'], function (exports) {
                 btn: ['确定', '取消']
             }, function () {
                 admin.req({
-                    url: 'http://localhost:8081/Del_Mr_B_ReaderData'
+                    url: 'http://192.168.1.32:8088/Del_Mr_B_ReaderData'
                     , method: 'post'
                     , data: {
                         "ID": data.ID
@@ -153,7 +153,7 @@ layui.define(['table', 'view', 'form'], function (exports) {
         //重置密码
         if (event == 'reset') {
             admin.req({
-                url: 'http://localhost:8081/ReSetPwd'
+                url: 'http://192.168.1.32:8088/ReSetPwd'
                 , method: 'post'
                 , data: {
                     "ID": data.ID
@@ -210,7 +210,7 @@ layui.define(['table', 'view', 'form'], function (exports) {
                                 return;
                             }
                             admin.req({
-                                url: 'http://localhost:8081/Add_Mr_B_ReaderData'
+                                url: 'http://192.168.1.32:8088/Add_Mr_B_ReaderData'
                                 , method: 'post'
                                 , data: {
                                     "JsonData": JSON.stringify(SendData)

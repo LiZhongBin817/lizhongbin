@@ -55,7 +55,7 @@
         //渲染autocomplete
         autocomplete.render({
             elem: $('#AddMenuID'),
-            url: 'http://localhost:8081/ShowSelectInfor',//后台地址
+            url: 'http://192.168.1.32:8088/ShowSelectInfor',//后台地址
             method: 'post',
             template_val: '{{d.ID}}',
             cache: true,
@@ -68,7 +68,7 @@
         });
         autocomplete.render({
             elem: $('#AddInterfaceID'),
-            url: 'http://localhost:8081/ShowInterInfor',
+            url: 'http://192.168.1.32:8088/ShowInterInfor',
             method: 'post',
              template_val: '{{d.ID}}',
             cache: true,

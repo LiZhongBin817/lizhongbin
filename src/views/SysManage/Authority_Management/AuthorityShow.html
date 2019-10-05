@@ -70,7 +70,7 @@
         table.render({
             elem: '#power',
             method: 'post',
-            url: 'http://localhost:8081/ShowInfor',//后台地址
+            url: 'http://192.168.1.32:8088/ShowInfor',//后台地址
             page: true,
             cols: [[
                 { field: 'ID', title: 'ID', width: 80, sort: true, fixed: 'left' },
@@ -143,7 +143,7 @@
                         };
                         var jsonData = JSON.stringify(sendData);
                         admin.req({
-                            url: 'http://localhost:8081/ModifyInfor ',
+                            url: 'http://192.168.1.32:8088/ModifyInfor ',
                             type: "post",
                             data: {
                                 "data": jsonData,
@@ -177,7 +177,7 @@
             //使用状态
             else if (layEvent === 'Bidden') {
                 $.ajax({
-                    url: "http://localhost:8081/GetStatus",
+                    url: "http://192.168.1.32:8088/GetStatus",
                     type: "post",
                     data: {
                         "ID": data.ID,
@@ -210,7 +210,7 @@
                         form.on('submit(' + submitID + ')', function (data) {
                             var fields = JSON.stringify(data.field); //获取提交的字段
                             admin.req({
-                                url: 'http://localhost:8081/AddData',
+                                url: 'http://192.168.1.32:8088/AddData',
                                 type: 'post',
                                 data: { "JsonDate": fields },
                                 success: function (data) {

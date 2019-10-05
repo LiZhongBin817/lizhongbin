@@ -90,7 +90,7 @@
             return new Promise((res, rej) => {
                 setTimeout(function () {
                     admin.req({
-                        url: 'http://localhost:8088/GetTrees',
+                        url: 'http://192.168.1.32:8088/GetTrees',
                         type: 'get'
                         , beforeSend: function (XMLHttpRequest) {
                             //注意，layer.msg默认3秒自动关闭，如果数据加载耗时比较长，需要设置time
@@ -120,7 +120,7 @@
             Current_module = obj.param.context;//获取当前模块名字
             CurrentID = obj.param.nodeId;
             admin.req({
-                url: 'http://localhost:8088/ShowInfo',
+                url: 'http://192.168.1.32:8088/ShowInfo',
                 type: 'get',
                 data: {
                     "id": obj.param.nodeId
@@ -179,7 +179,7 @@
                     sendModifiedData = sendModifiedData.substring(0, sendModifiedData.lastIndexOf(','));
                     sendSelectData = sendSelectData.substring(0, sendSelectData.lastIndexOf(','));
                     admin.req({
-                        url: 'http://localhost:8088/AuthorityManagement',
+                        url: 'http://192.168.1.32:8088/AuthorityManagement',
                         type: 'post',
                         data: {
                             "adddata": sendAddData,
@@ -204,7 +204,7 @@
                         var div = layero.contents().find('#layui-Page-Power-Setting');
                         var Odiv = div.find(".Add"), Odiv1 = div.find(".Del"), Odiv2 = div.find(".Modified"), Odiv3 = div.find(".Select");
                         admin.req({
-                            url: 'http://localhost:8088/GetInfo',
+                            url: 'http://192.168.1.32:8088/GetInfo',
                             type: 'get',
                             data: {
                                 "id": CurrentID,
@@ -240,7 +240,7 @@
                     var  message = "是否删除" + Current_module;
                     layer.confirm(message, function (index) {
                     admin.req({
-                        url: 'http://localhost:8088/DeleMenu',
+                        url: 'http://192.168.1.32:8088/DeleMenu',
                         type: 'get',
                         data: { "id": CurrentID, },
                         success: function (obj) {
@@ -276,7 +276,7 @@
                     "Remark": MRemark,
                 }
                 admin.req({
-                    url: 'http://localhost:8088/SaveMenu',
+                    url: 'http://192.168.1.32:8088/SaveMenu',
                     type: 'Post',
                     data: {
                         "json": JSON.stringify(sendData)

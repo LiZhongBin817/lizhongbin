@@ -13,7 +13,7 @@ layui.define(['table', 'form','view'], function (exports) {
     table.render({
         elem: '#Interface',
         method: 'post',
-        url: 'http://localhost:8088/InterfaceInfoShow',
+        url: 'http://192.168.1.32:8088/InterfaceInfoShow',
         cols: [[
             { field: 'InterfaceName', title: '接口名称', width: 200 },
             { field: 'InterfaceUrl', title: '接口地址', width: 200 },
@@ -83,7 +83,7 @@ layui.define(['table', 'form','view'], function (exports) {
                             };
                             console.log(sendData);
                             admin.req({
-                                url: 'http://localhost:8088/ModifyInterface',
+                                url: 'http://192.168.1.32:8088/ModifyInterface',
                                 type: 'post',
                                 data: {
                                     "JsonData": JSON.stringify(sendData),
@@ -136,7 +136,7 @@ layui.define(['table', 'form','view'], function (exports) {
                             var field = obj.field;
                             var load = layer.load(3);
                             admin.req({
-                                url: 'http://localhost:8088/AddInterface',
+                                url: 'http://192.168.1.32:8088/AddInterface',
                                 type:'post',
                                 data: {
                                     "JsonData": JSON.stringify(field)
