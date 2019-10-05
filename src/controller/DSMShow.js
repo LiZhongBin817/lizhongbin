@@ -1,5 +1,5 @@
-/*Title:ÅÉ¹¤µ¥¹ÜÀí
- *Creator:¶¡¿¡½Ü
+ï»¿/*Title:æ´¾å·¥å•ç®¡ç†
+ *Creator:ä¸ä¿Šæ°
  * Date:2019.09.17
  */
 
@@ -13,16 +13,16 @@ layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', '
     table.render({
         elem: '#DSMShow',
         col:[[
-            { field: 'DSMID', title: 'ĞòºÅ', width: 100, sort: true, fixed: 'left' },
-            { field: 'DSMNumber', title: '¹ÊÕÏ±àºÅ', width: 150 },
-            { field: 'DSMType', title: '¹ÊÕÏÀàĞÍ', width: 150 },
-            { field: 'DSMContent', title: '¹ÊÕÏÄÚÈİ', width: 150 },
-            { field: 'DSMTime', title: 'ÉÏ±¨Ê±¼ä', width: 200 },
-            { field: 'DSMReportPerson', title: 'ÉÏ±¨ÈË', width: 150 },
-            { field: 'DSMEnclosure', title: '¸½¼ş', width: 100, event:'Enclosure' },
-            { field: 'DSMStatus', title: '×´Ì¬', width: 100 },
-            { field: 'DSMAddress', title: 'Î»ÖÃĞÅÏ¢', width: 100, event:'Address' },
-            { field: 'DSMOperation', title: '²Ù×÷', width: 150, fixed: 'right', align: 'center', toolbar: '#DSMbarDemo'}
+            { field: 'DSMID', title: 'åºå·', width: 100, sort: true, fixed: 'left' },
+            { field: 'DSMNumber', title: 'æ•…éšœç¼–å·', width: 150 },
+            { field: 'DSMType', title: 'æ•…éšœç±»å‹', width: 150 },
+            { field: 'DSMContent', title: 'æ•…éšœå†…å®¹', width: 150 },
+            { field: 'DSMTime', title: 'ä¸ŠæŠ¥æ—¶é—´', width: 200 },
+            { field: 'DSMReportPerson', title: 'ä¸ŠæŠ¥äºº', width: 150 },
+            { field: 'DSMEnclosure', title: 'é™„ä»¶', width: 100, event:'Enclosure' },
+            { field: 'DSMStatus', title: 'çŠ¶æ€', width: 100 },
+            { field: 'DSMAddress', title: 'ä½ç½®ä¿¡æ¯', width: 100, event:'Address' },
+            { field: 'DSMOperation', title: 'æ“ä½œ', width: 150, fixed: 'right', align: 'center', toolbar: '#DSMbarDemo'}
         ]],
         page: true,
         limit: 10,
@@ -33,12 +33,12 @@ layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', '
     $(function () {
         admin.req({
             type: "post",
-            url: '',//ºóÌ¨µØÖ·
+            url: '',//åå°åœ°å€
             data: {},
             success: function (data) {
-                //»ñÈ¡±í¸ñid
+                //è·å–è¡¨æ ¼id
                 var table = document.getElementById("DSMShow");
-                //Í¨¹ıÑ­»·½«»ñÈ¡µÄÊı¾İ²åÈë±íÖĞ
+                //é€šè¿‡å¾ªç¯å°†è·å–çš„æ•°æ®æ’å…¥è¡¨ä¸­
                 for (var i = 0; i < data.length; i++) {
                     var row = table.insertRow(table.rows.length);
                     var c1 = row.insertCell(0);
@@ -58,11 +58,11 @@ layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', '
                     var c8 = row.insertCell(7);
                     c8.innerHTML = data[i].DSMStatus;
                     var c9 = row.insertCell(8);
-                    c9.innerHTML = "<button class='btn btn-link' event:'Address'>²é¿´</button>";
+                    c9.innerHTML = "<button class='btn btn-link' event:'Address'>æŸ¥çœ‹</button>";
                     var c10 = row.insertCell(9);
                     c10.innerHTML = data[i].DSMOperation;
-                    //Í¼Æ¬Ö®Ç°ÊÇ10ÁĞ£¬ËùÒÔ´Ó11ÁĞ¿ªÊ¼²åÈëÍ¼Æ¬Â·¾¶£¬forÑ­»·´Ó11¿ªÊ¼
-                    //Ñ­»·Í£Ö¹µÄÌõ¼şÊÇ»ñÈ¡µÄÍ¼Æ¬ÊıÁ¿¼ÓÉÏ¹Ì¶¨ÁĞÊı£¬Í¨¹ı±äÁ¿j½«»ñÈ¡µÄÍ¼Æ¬²åÈëµ½Ã¿Ò»ÁĞÖĞ
+                    //å›¾ç‰‡ä¹‹å‰æ˜¯10åˆ—ï¼Œæ‰€ä»¥ä»11åˆ—å¼€å§‹æ’å…¥å›¾ç‰‡è·¯å¾„ï¼Œforå¾ªç¯ä»11å¼€å§‹
+                    //å¾ªç¯åœæ­¢çš„æ¡ä»¶æ˜¯è·å–çš„å›¾ç‰‡æ•°é‡åŠ ä¸Šå›ºå®šåˆ—æ•°ï¼Œé€šè¿‡å˜é‡jå°†è·å–çš„å›¾ç‰‡æ’å…¥åˆ°æ¯ä¸€åˆ—ä¸­
                     var j = 0;
                     for (var x = 11; x < data[i].img.length+10; x++) {
                         var c11 = row.insertCell(x);
@@ -74,7 +74,7 @@ layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', '
         });
     });
 
-    //¼àÌı²éÑ¯
+    //ç›‘å¬æŸ¥è¯¢
     form.on('submit(DSM_polling)', function (obj) {
         var field = obj.field;
         table.reload('DSMShow', {
@@ -91,15 +91,15 @@ layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', '
         })
     });
 
-    //¼àÌı²Ù×÷
+    //ç›‘å¬æ“ä½œ
     table.on('tool(DSM)', function (obj) {
         var data = obj.data,
             event = obj.event,
             tr = obj.tr;
-        //¼àÌı¸½¼ş
+        //ç›‘å¬é™„ä»¶
         if (event =="Enclosure") {
             admin.req({
-                url: '',//ºóÌ¨´«Í¼Æ¬µØÖ·
+                url: '',//åå°ä¼ å›¾ç‰‡åœ°å€
                 type: "post",
                 data: {
 
@@ -109,12 +109,12 @@ layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', '
                 }
             });
             admin.popup({
-                title: '¸½¼şÒ³Ãæ',
+                title: 'é™„ä»¶é¡µé¢',
                 area: ['700px', '500px'],
                 maxmin: true,
                 id: 'enclosure',
                 success: function (layero,index) {
-                    //»ñÈ¡±í¸ñÖĞµÄÁĞ
+                    //è·å–è¡¨æ ¼ä¸­çš„åˆ—
                     
                 }
             });
