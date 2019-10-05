@@ -139,31 +139,6 @@
             区域编号(t_b_regions:regionno)
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.createtime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.createpeople">
-            <summary>
-            创建人
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.updatetime">
-            <summary>
-            更新时间
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.updatepeople">
-            <summary>
-            更新人
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.Remark">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.allotstatus">
             <summary>
             分配状态(0--已分配;1--未分配)
@@ -349,94 +324,44 @@
             ID主键
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.meternum">
-            <summary>
-            水表编号（t_b_watermeters）
-            </summary>
-        </member>
         <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.autoaccount">
             <summary>
-            用水账号--自动生成(t_b_users)
+            自动帐号(系统自动生成)(关联水表用户信息)
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.username">
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.taskid">
             <summary>
-            用户姓名t_b_users
+            任务单id(来源于mr_taskinfo)
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.address">
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.taskperiodname">
             <summary>
-            家庭地址t_b_users
+            任务账期201909冗余
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.telephone">
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.meternum">
             <summary>
-            联系电话t_b_users
+            水表编号,（t_b_watermeters::meternum）
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.meterbookname">
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.readerid">
             <summary>
-            抄表册名称(mr_bookinfo)
+            抄表员id（mr_b_reader：:id）
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.meterbooknumber">
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.inputdata">
             <summary>
-            抄表册编号(mr_bookinfo)
+            人为抄表数据
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.mrreadernumber">
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.ocrdata">
             <summary>
-            抄表员编号(mr_b_reader)
+            图像识别抄表数据
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.mrreadername">
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.uploadgisplace">
             <summary>
-            抄表员姓名(mr_b_reader)
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.areano">
-            <summary>
-            小区编号t_b_areas
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.areaname">
-            <summary>
-            小区名称t_b_areas
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.regionno">
-            <summary>
-            片区编号t_b_regions
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.regionname">
-            <summary>
-            片区名称t_b_regions
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.mrdateTime">
-            <summary>
-            抄表月份(年+月格式201908)
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.lastmonthdata">
-            <summary>
-            上月抄表读数
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.nowmonthdata">
-            <summary>
-            当前月份抄表读数
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.usewaternum">
-            <summary>
-            当前月份用水量
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.omrdatetime">
-            <summary>
-            抄表详细时间
+            上传的GIS信息
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.readDateTime">
@@ -457,6 +382,11 @@
         <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.meterstatus">
             <summary>
             水表状态,其余从数据字典中读取字符型
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.recheckstatus">
+            <summary>
+            状态0--未审;1--已审;2--异常
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.readcheckdata">
@@ -522,11 +452,6 @@
         <member name="P:CDWM_MR.Model.Models.mr_planinfo.finishstatus">
             <summary>
             完成状态0--计划;1--下达;2--完成
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_planinfo.createtime">
-            <summary>
-            创建时间
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.mr_planinfo_history">
@@ -3205,6 +3130,46 @@
         <member name="P:CDWM_MR.Model.Children.List">
             <summary>
             子类集合
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.ViewModels.MeterReadingPlan">
+            <summary>
+            抄表册计划
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.ID">
+            <summary>
+            序号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.Number">
+            <summary>
+            抄表册编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.Name">
+            <summary>
+            抄表册名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.People">
+            <summary>
+            抄表员
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.StartTime">
+            <summary>
+            起抄时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.EndTime">
+            <summary>
+            止抄时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.Status">
+            <summary>
+            任务单完成状态0--计划;1--下达;2--完成
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.ViewModels.v_taskinfo">

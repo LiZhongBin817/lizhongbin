@@ -23,12 +23,20 @@ namespace CDWM_MR.Controllers.v1
         readonly Iv_rb_b_faultprocessServices _v_rb_b_faultprocessServices;
         readonly Irb_b_faultprocessServices _rb_b_faultprocessServices;
         #endregion
+
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="rt_b_faultinfoServices"></param>
+        /// <param name="v_rb_b_faultprocessServices"></param>
+        /// <param name="rb_b_faultprocessServices"></param>
         public AppFaultController(Irt_b_faultinfoServices rt_b_faultinfoServices, Iv_rb_b_faultprocessServices v_rb_b_faultprocessServices, Irb_b_faultprocessServices rb_b_faultprocessServices)
         {
             _rt_b_faultinfoServices = rt_b_faultinfoServices;
             _v_rb_b_faultprocessServices = v_rb_b_faultprocessServices;
             _rb_b_faultprocessServices = rb_b_faultprocessServices;
         }
+
         #region  提交用户故障工单接口
         /// <summary>
         /// 提交用户故障工单接口

@@ -51,33 +51,6 @@ namespace CDWM_MR.Model.Models
         public System.String regionno { get; set; }
 
         /// <summary>
-        /// 创建时间
-        /// </summary>
-        public System.DateTime createtime { get; set; }
-
-        /// <summary>
-        /// 创建人
-        /// </summary>
-        public System.String createpeople { get; set; }
-
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        public System.DateTime? updatetime { get; set; }
-
-        /// <summary>
-        /// 更新人
-        /// </summary>
-        public System.String updatepeople { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public System.String Remark { get; set; }
-
- 
-
-        /// <summary>
         /// 分配状态(0--已分配;1--未分配)
         /// </summary>
         public System.Int32 allotstatus { get; set; }
