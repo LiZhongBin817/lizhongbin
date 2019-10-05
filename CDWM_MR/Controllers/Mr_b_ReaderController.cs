@@ -121,7 +121,7 @@ namespace CDWM_MR.Controllers
             jsonData.lastlogintime = DateTime.Now;
             jsonData.appcount = jsonData.mrreadernumber;
             jsonData.apppassword = MD5Helper.MD5Encrypt32(jsonData.apppassword);
-            jsonData.createpeople = LoginController._UersName;
+            //.createpeople = LoginController._UersName;
             jsonData.createtime = DateTime.Now;
 
             //根据一个账号对应一个用户判重，但是一个用户可以对应多个账号

@@ -389,24 +389,6 @@ namespace CDWM_MR
 
             services.AddSingleton(new Appsettings(Env));
             services.AddSingleton(new LogLock(Env));
-            services.AddScoped<SqlSugar.ISqlSugarClient>(o => { 
-                return new SqlSugar.SqlSugarClient(new SqlSugar.ConnectionConfig()
-                {
-                    ConnectionString = BaseDBConfig.ConnectionString,
-                    DbType = (SqlSugar.DbType)BaseDBConfig.DbType,
-                    IsAutoCloseConnection = true,
-                    IsShardSameThread = true,
-                    ConfigureExternalServices = new SqlSugar.ConfigureExternalServices()
-                    {
-                        //DataInfoCacheService = new HttpRuntimeCache()
-                    },
-                    MoreSettings = new SqlSugar.ConnMoreSettings()
-                    {
-                        //IsWithNoLockQuery = true,
-                        IsAutoRemoveDataCache = true
-                    }
-                });
-            });
             //services.AddSession();
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
