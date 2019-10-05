@@ -13,61 +13,121 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// ID主键
         /// </summary>
-        [SugarColumn(IsNullable = false, IsPrimaryKey = true, IsIdentity = true)]
+        [SugarColumn(IsNullable = false, IsPrimaryKey = true)]
         public int id { get; set; }
 
         /// <summary>
-        /// 自动帐号(系统自动生成)(关联水表用户信息)
+        /// 水表编号（t_b_watermeters）
         /// </summary>
-        [SugarColumn(IsNullable = false, Length = 15, ColumnDescription = "自动帐号(系统自动生成)(关联水表用户信息)")]
-        public System.String autoaccount { get; set; }
-
-        /// <summary>
-        /// 任务单id(来源于mr_taskinfo)
-        /// </summary>
-        [SugarColumn(IsNullable = false, ColumnDescription = "任务单id(来源于mr_taskinfo)")]
-        public int taskid { get; set; }
-
-        /// <summary>
-        /// 任务账期201909冗余
-        /// </summary>
-        [SugarColumn(IsNullable = true, ColumnDescription = "任务账期201909冗余")]
-        public string taskperiodname { get; set; }
-
-        /// <summary>
-        /// 水表编号,（t_b_watermeters::meternum）
-        /// </summary>
-        [SugarColumn(IsNullable = false, Length = 10, ColumnDescription = "水表编号,（t_b_watermeters::meternum）")]
+        [SugarColumn(IsNullable = true,Length = 10,ColumnDescription = "水表编号（t_b_watermeters）")]
         public string meternum { get; set; }
 
         /// <summary>
-        /// 抄表员id（mr_b_reader：:id）
+        /// 用水账号--自动生成(t_b_users)
         /// </summary>
-        [SugarColumn(IsNullable = false, ColumnDescription = "抄表员id（mr_b_reader：:id）")]
-        public int readerid { get; set; }
+        [SugarColumn(IsNullable = true, Length = 15,ColumnDescription = "用水账号--自动生成(t_b_users)")]
+        public string autoaccount { get; set; }
 
         /// <summary>
-        /// 人为抄表数据
+        /// 用户姓名t_b_users
         /// </summary>
-        [SugarColumn(IsNullable = true, DecimalDigits = 10, ColumnDescription = "人为抄表数据")]
-        public decimal inputdata { get; set; }
+        [SugarColumn(IsNullable = true, Length = 200,ColumnDescription = "用户姓名t_b_users")]
+        public string username { get; set; }
 
         /// <summary>
-        /// 图像识别抄表数据
+        /// 家庭地址t_b_users
         /// </summary>
-        [SugarColumn(IsNullable = true, DecimalDigits = 10, ColumnDescription = "图像识别抄表数据Optical Choractor Recognittion光学字符识别")]
-        public decimal ocrdata { get; set; }
+        [SugarColumn(IsNullable = true,Length = 100,ColumnDescription = "家庭地址t_b_users")]
+        public string address { get; set; }
 
         /// <summary>
-        /// 上传的GIS信息
+        /// 联系电话t_b_users
         /// </summary>
-        [SugarColumn(IsNullable = true, Length = 80, ColumnDescription = "上传的GIS信息")]
-        public string uploadgisplace { get; set; }
+        [SugarColumn(IsNullable = true,Length = 50,ColumnDescription = "联系电话t_b_users")]
+        public string telephone { get; set; }
+
+        /// <summary>
+        /// 抄表册名称(mr_bookinfo)
+        /// </summary>
+        [SugarColumn(IsNullable = true, Length = 80,ColumnDescription = "抄表册名称(mr_bookinfo)")]
+        public string meterbookname { get; set; }
+
+        /// <summary>
+        /// 抄表册编号(mr_bookinfo)
+        /// </summary>
+        [SugarColumn(IsNullable = true, Length = 50,ColumnDescription = "抄表册编号(mr_bookinfo)")]
+        public string meterbooknumber { get; set; }
+
+        /// <summary>
+        /// 抄表员编号(mr_b_reader)
+        /// </summary>
+        [SugarColumn(IsNullable = false, Length = 50,ColumnDescription = "抄表员编号(mr_b_reader)")]
+        public string mrreadernumber { get; set; }
+
+        /// <summary>
+        /// 抄表员姓名(mr_b_reader)
+        /// </summary>
+        [SugarColumn(IsNullable = true, Length = 50,ColumnDescription = "抄表员姓名(mr_b_reader)")]
+        public string mrreadername { get; set; }
+
+        /// <summary>
+        /// 小区编号t_b_areas
+        /// </summary>
+        [SugarColumn(IsNullable = true,Length = 10,ColumnDescription = "小区编号t_b_areas")]
+        public System.String areano { get; set; }
+
+        /// <summary>
+        /// 小区名称t_b_areas
+        /// </summary>
+        [SugarColumn(IsNullable = true, Length = 50,ColumnDescription = "小区名称t_b_areas")]
+        public System.String areaname { get; set; }
+
+        /// <summary>
+        /// 片区编号t_b_regions
+        /// </summary>
+        [SugarColumn(IsNullable = true,Length = 10,ColumnDescription = "片区编号t_b_regions")]
+        public System.String regionno { get; set; }
+
+        /// <summary>
+        /// 片区名称t_b_regions
+        /// </summary>
+        [SugarColumn(IsNullable = true, Length = 50,ColumnDescription = "片区名称t_b_regions")]
+        public System.String regionname { get; set; }
+
+        /// <summary>
+        /// 抄表月份(年+月格式201908)
+        /// </summary>
+        [SugarColumn(IsNullable = true,Length = 10,ColumnDescription = "抄表月份(年+月格式201908)")]
+        public string taskperiodname { get; set; }
+
+        /// <summary>
+        /// 上月抄表读数
+        /// </summary>
+        [SugarColumn(IsNullable = true,DecimalDigits = 10,ColumnDescription = "上月抄表读数")]
+        public decimal lastmonthdata { get; set; }
+
+        /// <summary>
+        /// 当前月份抄表读数
+        /// </summary>
+        [SugarColumn(IsNullable = true,DecimalDigits = 10,ColumnDescription = "当前月份抄表读数")]
+        public decimal nowmonthdata { get; set; }
+
+        /// <summary>
+        /// 当前月份用水量
+        /// </summary>
+        [SugarColumn(IsNullable = true,DecimalDigits = 10,ColumnDescription = "当前月份用水量")]
+        public decimal usewaternum { get; set; }
+
+        /// <summary>
+        /// 抄表详细时间
+        /// </summary>
+        [SugarColumn(IsNullable = true,ColumnDescription = " 抄表详细时间")]
+        public DateTime omrdatetime { get; set; }
 
         /// <summary>
         /// 抄表时间
         /// </summary>
-        [SugarColumn(IsNullable = false, ColumnDescription = "重要基础数据")]
+        [SugarColumn(IsNullable = false, ColumnDescription = "抄表时间,重要基础数据")]
         public DateTime readDateTime { get; set; }
 
         /// <summary>
@@ -85,14 +145,8 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 水表状态,其余从数据字典中读取字符型
         /// </summary>
-        [SugarColumn(IsNullable = true, ColumnDescription = "水表状态,从数据字典中读取字符型")]
-        public int meterstatus { get; set; }
-
-        /// <summary>
-        /// 状态0--未审;1--已审;2--异常
-        /// </summary>
-        [SugarColumn(IsNullable = false, ColumnDescription = "状态0--未审;1--已审;2--异常")]
-        public int recheckstatus { get; set; } = 0;
+        [SugarColumn(IsNullable = true,Length = 50,ColumnDescription = "水表状态,从数据字典中读取字符型")]
+        public string meterstatus { get; set; }
 
         /// <summary>
         /// 复审读数(抄表数据审核数据)

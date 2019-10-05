@@ -285,6 +285,28 @@
             基类控制器
             </summary>
         </member>
+        <member name="T:CDWM_MR.Controllers.DetailManageController">
+            <summary>
+            应抄明细管理
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DetailManageController.#ctor(CDWM_MR.IServices.Content.Iv_t_b_users_datainfo_watercarryoverServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="t_B_Users_Datainfo_WatercarryoverServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DetailManageController.ShowDetailInfo(System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            展示应抄明细数据
+            </summary>
+            <param name="readtype"></param>
+            <param name="ReaderName"></param>
+            <param name="bookno"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.LoginController">
             <summary>
             登陆控制器--无权限控制
@@ -482,8 +504,60 @@
         </member>
         <member name="T:CDWM_MR.Controllers.MRManageController">
             <summary>
-            抄表管理
+            抄表数据管理
             </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.#ctor(CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_watercarryover_historyServices,CDWM_MR.IServices.Content.Irt_b_recheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_recheck_recheckhistoryServices,CDWM_MR.IServices.Content.Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices,CDWM_MR.IServices.Content.Imr_datainfo_historyServices,CDWM_MR.IServices.Content.Isys_userinfoServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="mr_DatainfoServices"></param>
+            <param name="b_Watercarryover_HistoryServices"></param>
+            <param name="b_RecheckServices"></param>
+            <param name="b_WatercarryoverServices"></param>
+            <param name="datainfoServices"></param>
+            <param name="recheck_RecheckhistoryServices"></param>
+            <param name="union_Datainfoocrlog_DatainfohistoryocrloghistoryServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.Show_CB_DataInfo(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            显示抄表数据
+            </summary>
+            <param name="username"></param>
+            <param name="account"></param>
+            <param name="meternum"></param>
+            <param name="address"></param>
+            <param name="mrreadername"></param>
+            <param name="bookno"></param>
+            <param name="rtrecheckstatus"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.CarryData">
+            <summary>
+            结转数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.Change(System.String,System.String,System.String)">
+            <summary>
+            字段转换
+            </summary>
+            <param name="JsonData"></param>
+            <param name="taskperiodname"></param>
+            <param name="autoaccount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.SubmitChecked(System.String,System.Decimal,System.Int32,System.String)">
+            <summary>
+            确认审核按钮
+            </summary>
+            <param name="JsonData"></param>
+            <param name="RecheckData"></param>
+            <param name="RecheckStatus"></param>
+            <param name="result"></param>
+            <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.Mr_b_ReaderController">
             <summary>
