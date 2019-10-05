@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\controller",
+    "\\src\\views",
+    "\\src\\views\\SysManage",
+    "\\src\\views\\SysManage\\ParameterSetting"
+  ],
+  "SelectedNode": "\\src\\controller\\dataManage.js",
+  "PreviewInSolutionExplorer": false
+}

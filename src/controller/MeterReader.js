@@ -64,7 +64,8 @@ layui.define(['table', 'view', 'form'], function (exports) {
                 "Number": field.MR_Number,
                 "Name": field.MR_Name,
                 "Telephone": field.MR_Telephone,
-                "Appcount": field.MR_AppCount
+                "Appcount": field.MR_AppCount,
+                "page":1,
             }
         });
 
