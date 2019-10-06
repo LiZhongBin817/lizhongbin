@@ -83,7 +83,7 @@
   <!-- 侧边菜单 -->
   <div class="layui-side layui-side-menu">
     <div class="layui-side-scroll">
-      <script type="text/html" template lay-url="http://192.168.1.32:8088/api/Main/GetMenuData" 
+      <script type="text/html" template lay-url="{{layui.setter.requesturl}}/api/Main/GetMenuData" 
       lay-done="layui.element.render('nav', 'layadmin-system-side-menu');" id="TPL_layout">
       
         <div class="layui-logo" lay-href="">

@@ -55,7 +55,7 @@
         //渲染autocomplete
         autocomplete.render({
             elem: $('#AddMenuID'),
-            url: 'http://192.168.1.32:8088/ShowSelectInfor',//后台地址
+            url: layui.setter.requesturl+'/ShowSelectInfor',//后台地址
             method: 'post',
             template_val: '{{d.ID}}',
             cache: true,
@@ -68,7 +68,7 @@
         });
         autocomplete.render({
             elem: $('#AddInterfaceID'),
-            url: 'http://192.168.1.32:8088/ShowInterInfor',
+            url: layui.setter.requesturl+'/ShowInterInfor',
             method: 'post',
              template_val: '{{d.ID}}',
             cache: true,

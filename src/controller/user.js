@@ -44,7 +44,7 @@ layui.define('form', function(exports){
   //更换图形验证码
   $body.on('click', '#LAY-user-get-vercode', function(){
     var othis = $(this);
-    this.src = 'http://192.168.1.32:8088/api/Login/ShowCode?t='+ new Date().getTime()
+    this.src = 'http://localhost:8088/api/Login/ShowCode?t='+ new Date().getTime()
   });
   
   //对外暴露的接口

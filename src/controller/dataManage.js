@@ -16,7 +16,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
     table.render({
         elem: '#dataManageInfo_Table',
         method: 'post',
-        url: 'http://localhost:8081/Show_CB_DataInfo',
+        url: layui.setter.requesturl+'/Show_CB_DataInfo',
         cols: [[
             { title: '序号', width: 60, type: 'numbers' },
             {
@@ -151,7 +151,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
 
         if (event == "Start_Carry") {
             $.ajax({
-                url: 'http://localhost:8081/CarryData'
+                url: layui.setter.requesturl+'/CarryData'
                 , method: 'get'
                 , beforeSend: function () {
                     //设置2%进度
@@ -198,7 +198,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
 
                         console.log(data.autoaccount);
                         table.render({
-                            url: 'http://localhost:8081/Change',
+                            url: layui.setter.requesturl+'/Change',
                             type: 'get',
                             where: {
                                 'JsonData': data.lastmonthdata+'/'+','+data.nowmonthdata + '/' + ','+data.inputdata + '/',
@@ -235,7 +235,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                             console.log(data);
                             load = layer.load(3);
                             admin.req({
-                                url: 'http://localhost:8081/SubmitChecked',
+                                url: layui.setter.requesturl+'/SubmitChecked',
                                 method: 'post',
                                 data: {
                                     'JsonData': JSON.stringify(data),

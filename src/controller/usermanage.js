@@ -14,7 +14,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
     table.render({
         elem: '#Interface',//渲染指定元素(表格ID)
         method: 'post',
-        url: 'http://192.168.1.32:8088/ShowUserInfoDate',
+        url: layui.setter.requesturl+'/ShowUserInfoDate',
         cols: [[
             { type: 'checkbox', fixed: 'left' },
             { title: '#', width: 70, type: 'numbers' },
@@ -52,7 +52,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
         //编辑按钮
         if (layEvent === 'edit') {
             admin.req({
-                url: 'http://192.168.1.32:8088/ModifyData',
+                url: layui.setter.requesturl+'/ModifyData',
                 type: 'get',
                 data: {
                     "ID": data.ID
@@ -100,7 +100,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                 //var load = layer.load(3);让有一个转转哈哈哈
                                 console.log(field);
                                 admin.req({
-                                    url: 'http://192.168.1.32:8088/ModifyUserInfo',
+                                    url: layui.setter.requesturl+'/ModifyUserInfo',
                                     type: 'post',
                                     data: {
                                         "JsonDate": JSON.stringify(field),
@@ -134,7 +134,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                 btn: ['提交', '取消'],
                 yes: function (layero, index) {
                     admin.req({
-                        url: "http://192.168.1.32:8088/DeleteUser",
+                        url: "layui.setter.requesturl+'/DeleteUser",
                         type: "Get",
                         data: {
                             "ID": Number(data.ID),
@@ -179,7 +179,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
     //监听添加
     form.on('submit(Add)', function (obj) {
         admin.req({
-            url: 'http://192.168.1.32:8088/roleDate',
+            url: layui.setter.requesturl+'/roleDate',
             type: 'get',
             success: function (obj) {
                 console.log(obj);
@@ -222,7 +222,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                 var field = Data.field; //获取提交的字段,如果前台没有写name属性，field将吧包括这个表单元素的值                              
                                 var load = layer.load(3);
                                 admin.req({
-                                    url: 'http://192.168.1.32:8088/AddUser',
+                                    url: layui.setter.requesturl+'/AddUser',
                                     type: 'post',
                                     data: {
                                         "JsonDate": JSON.stringify(field),
@@ -265,7 +265,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
             btn: ['提交', '取消'],
             yes: function (index, layero) {
                 admin.req({
-                    url: "http://192.168.1.32:8088/DeleteUsers",
+                    url: "layui.setter.requesturl+'/DeleteUsers",
                     type: "Get",
                     data: {
                         "ids": IDs,
