@@ -1,20 +1,12 @@
-	//----------mr_planinfo开始----------
-    
-	
-using System;
+﻿using CDWM_MR.IRepository.Base;
 using CDWM_MR.Model.Models;
-using CDWM_MR.IRepository.Base;
-namespace CDWM_MR.IRepository.Content
-{	
-	/// <summary>
-	/// Imr_planinfoRepository
-	/// </summary>	
-	public partial interface Imr_planinfoRepository : IBaseRepository<mr_planinfo>//类名
-    {
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-       
+namespace CDWM_MR.IRepository.Content
+{
+   public partial interface Imr_planinfoRepository:IBaseRepository<mr_planinfo>
+    {
     }
 }
-
-	//----------mr_planinfo结束----------
-	

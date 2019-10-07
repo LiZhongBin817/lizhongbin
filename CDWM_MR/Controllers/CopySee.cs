@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -23,6 +25,7 @@ namespace CDWM_MR.Controllers
         readonly Iv_r_datainfoServices _v_r_datainfoServices;
         readonly Imr_b_readerServices _mr_b_readerServices;
         readonly Imr_datainfo_historyServices _mr_datainfo_historyServices;
+
      
         public CopySee(Iv_r_datainfoServices v_r_datainfo, Imr_b_readerServices mr_b_readerServices, Imr_datainfo_historyServices mr_datainfo_historyServices)
         {
@@ -117,6 +120,7 @@ namespace CDWM_MR.Controllers
         [EnableCors("LimitRequests")]
         public async  Task<TableModel<object>> Serchname()
         {
+
             List<mr_b_reader> name = new List<mr_b_reader>();
              name = await _mr_b_readerServices.Query();
            List<object> dataname = new List<object>();
@@ -134,6 +138,78 @@ namespace CDWM_MR.Controllers
             };
 
         }
+        #region 导出Excel
+        [HttpGet]
+        [Route("OutExcel")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<FileResult> OutExcel(int page = 1, int limit = 5)
+        {
+            PageModel<mr_datainfo_history> user = new PageModel<mr_datainfo_history>();
+            Expression<Func<mr_datainfo_history, bool>> wherelambda = c => true;
+            Hashtable tb = new Hashtable();
+            string dateTime = "";
+            user = await _mr_datainfo_historyServices.QueryPage(wherelambda, page, limit);
+            double allyichao = user.data.FindAll(c => c.readstatus == 1).Count() + user.data.FindAll(a => a.readstatus == 0).Count();
+            double allshichao = user.data.FindAll(c => c.readtype == 1).Count();
+            //暂时没用9.26创建的
+            //  List<mr_b_reader> name = new List<mr_b_reader>();
+            //  name = await _mr_b_readerServices.Query();
+            List<object> datalist = new List<object>();
+            //    List<object> dataname = new List<object>();
+            // for(int i=0;i<name.Count();i++)
+            //  {
+            //      dataname.Add(name[i].mrreadername);
+            //  }
+            int yichao;
+            int yingchao;
+            string chaojianlv;
+            string shichaolv;
+            List<mr_datainfo_history> ExcelList = await _mr_datainfo_historyServices.Query(c => true);
+            var lalala = ExcelList.Select(c => new mr_datainfo_history
+            {
+                mrreadername = c.mrreadername,
+                mrdateTime = c.mrdateTime,
+
+
+
+            }).ToList();
+
+            for (int i = 0; i < user.data.Count(); i++)
+            {
+                var data1 = user.data.FindAll(c => c.mrreadername == user.data[i].mrreadername && c.mrdateTime == dateTime);
+                //if (!(name.Contains(user.data[i].mrreadername)))判重
+
+                 yichao = user.data.FindAll(c => c.readstatus == 1 && c.mrreadername == user.data[i].mrreadername && c.mrdateTime == dateTime).Count();
+                int weichao = user.data.FindAll(c => c.readstatus == 0 && c.mrreadername == user.data[i].mrreadername && c.mrdateTime == dateTime).Count();
+                int shichao = user.data.FindAll(c => c.readtype == 1 && c.mrreadername == user.data[i].mrreadername && c.mrdateTime == dateTime).Count();
+                 yingchao = yichao + weichao;
+                 chaojianlv = (Math.Round(Convert.ToDouble(yingchao) / Convert.ToDouble(yingchao) * 100, 2)).ToString();
+                chaojianlv = chaojianlv + "%";
+                 shichaolv = (Math.Round(Convert.ToDouble(shichao) / 1.0 / Convert.ToDouble(yingchao) * 100, 2) / 1.0).ToString();
+                shichaolv = shichaolv + "%";
+
+                tb.Add("mrreadername", "抄表员");
+                tb.Add("mrdateTime", "抄表月份");
+                tb.Add("yingyao", "已抄表");
+                tb.Add("shaochao", "实抄表");
+                tb.Add("yingchao", "应抄表");
+                tb.Add("chaojianlv", "抄见率");
+                tb.Add("shichaolv", "实抄率");
+
+            }
+
+
+           
+           
+
+            MemoryStream data = OfficeHelper.getExcel<mr_datainfo_history>(lalala, tb);
+            string fileExt = ".xls";
+            var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
+            var memi = provider.Mappings[fileExt];
+            return File(data, memi, "任务单信息.xlsx");
+        }
+        #endregion
 
     }
 }

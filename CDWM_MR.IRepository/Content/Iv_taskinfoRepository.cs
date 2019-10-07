@@ -1,20 +1,12 @@
-	//----------v_taskinfo开始----------
-    
-	
+﻿using CDWM_MR.IRepository.Base;
+using CDWM_MR.Model.ViewModels;
 using System;
-using CDWM_MR.Model.Models;
-using CDWM_MR.IRepository.Base;
-namespace CDWM_MR.IRepository.Content
-{	
-	/// <summary>
-	/// Iv_taskinfoRepository
-	/// </summary>	
-	public partial interface Iv_taskinfoRepository : IBaseRepository<v_taskinfo>//类名
-    {
+using System.Collections.Generic;
+using System.Text;
 
-       
+namespace CDWM_MR.IRepository.Content
+{
+   public interface Iv_taskinfoRepository:IBaseRepository<v_taskinfo>
+    {
     }
 }
-
-	//----------v_taskinfo结束----------
-	

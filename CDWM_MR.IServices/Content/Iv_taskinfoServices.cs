@@ -1,20 +1,14 @@
-	//----------v_taskinfo开始----------
-    
-
+﻿using CDWM_MR.IServices.BASE;
+using CDWM_MR.Model.ViewModels;
 using System;
-using CDWM_MR.Model.Models;
-using CDWM_MR.IServices.BASE;
-namespace CDWM_MR.IServices.Content
-{	
-	/// <summary>
-	/// v_taskinfoServices
-	/// </summary>	
-    public partial interface Iv_taskinfoServices :IBaseServices<v_taskinfo>
-	{
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 
-       
+namespace CDWM_MR.IServices.Content
+{
+   public interface Iv_taskinfoServices:IBaseServices<v_taskinfo>
+    {
+         Task<object> AutoCreat();
     }
 }
-
-	//----------v_taskinfo结束----------
-	
