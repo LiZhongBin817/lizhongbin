@@ -77,7 +77,7 @@ namespace CDWM_MR.Controllers.v1
             }
             #endregion
             List<v_rb_b_faultprocess> datelist = await _v_rb_b_faultprocessServices.Query(wherelambda);
-            datelist.Select(c => new
+            var data= datelist.Select(c => new
             {
                 CustomerNumber = c.autoaccount,//用户家庭编号
                 CustomerMeterNumber = c.meternum,//用户水表编号
@@ -93,7 +93,7 @@ namespace CDWM_MR.Controllers.v1
             {
                 code = 0,
                 msg = "成功",
-                data = datelist
+                data = data
             });
         }
         #endregion

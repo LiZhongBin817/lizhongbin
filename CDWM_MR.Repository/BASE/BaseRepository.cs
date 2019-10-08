@@ -499,7 +499,37 @@ namespace CDWM_MR.Repository.BASE
             }
             return await _db.Queryable(joinExpression).Where(whereLambda).Select(selectExpression).ToListAsync();
         }
-
+        public async Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression)
+        {
+            //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(whereExpression != null, whereExpression).Take(intTop).ToList());
+            return await _entityDb.AsSugarClient().Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
+        }
+        /// <summary>
+        /// 更新其他数据库实体数据
+        /// </summary>
+        /// <param name="entity">博文实体类</param>
+        /// <returns></returns>
+        public async Task<bool> OUpdate(TEntity entity)
+        {
+            ////这种方式会以主键为条件
+            //var i = await Task.Run(() => _db.Updateable(entity).ExecuteCommand());
+            //return i > 0;
+            //这种方式会以主键为条件
+            return await _entityDb.AsSugarClient().Updateable(entity).ExecuteCommandHasChangeAsync();
+        }
+        /// <summary>
+        /// 写入实体数据在其他数据库
+        /// </summary>
+        /// <param name="entity">博文实体类</param>
+        /// <returns></returns>
+        public async Task<int> OAdd(TEntity entity)
+        {
+            //var i = await Task.Run(() => _db.Insertable(entity).ExecuteReturnBigIdentity());
+            ////返回的i是long类型,这里你可以根据你的业务需要进行处理
+            //return (int)i;
+            var insert = _entityDb.AsSugarClient().Insertable(entity);
+            return await insert.ExecuteReturnIdentityAsync();
+        }
     }
 
 }
