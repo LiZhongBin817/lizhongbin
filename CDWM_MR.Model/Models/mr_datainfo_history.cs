@@ -98,7 +98,7 @@ namespace CDWM_MR.Model.Models
         /// 抄表月份(年+月格式201908)
         /// </summary>
         [SugarColumn(IsNullable = true,Length = 10,ColumnDescription = "抄表月份(年+月格式201908)")]
-        public string mrdateTime { get; set; }
+        public string taskperiodname { get; set; }
 
         /// <summary>
         /// 上月抄表读数

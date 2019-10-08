@@ -29,11 +29,6 @@ namespace CDWM_MR.Model
         /// 返回数据
         /// </summary>
         public List<T> data { get; set; }
-
-        public static implicit operator PageModel<T>(PageModel<object> v)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }

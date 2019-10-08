@@ -28,6 +28,7 @@ namespace CDWM_MR.Controllers
     [Produces("application/json")]
     [Route("api/Login")]
     [AllowAnonymous]
+    [EnableCors("AllRequests")]
     public class LoginController : Controller
     {
 
@@ -38,6 +39,9 @@ namespace CDWM_MR.Controllers
         readonly Isys_userinfoServices _SysUserinfo;
         #endregion
 
+        //一个静态属性，用来存放登录用户的账号
+        public static string _UersName { get; set; }
+        
         /// <summary>
         /// 构造函数注入
         /// </summary>
@@ -45,9 +49,9 @@ namespace CDWM_MR.Controllers
         /// <param name="sysManage"></param>
         /// <param name="addredis"></param>
         /// <param name="requirement"></param>
-        public LoginController(Isys_userinfoServices sysuserinfo,IsysManageServices sysManage,IRedisHelper addredis, PermissionRequirement requirement)
+        public LoginController(Isys_userinfoServices sysuserinfo, IsysManageServices sysManage, IRedisHelper addredis, PermissionRequirement requirement)
         {
-            
+
             _redishelper = addredis;
             _requirement = requirement;
             _SysManage = sysManage;
@@ -65,7 +69,7 @@ namespace CDWM_MR.Controllers
             Common.ValidateCode valcode = new Common.ValidateCode();
             string Code;
             byte[] buffer = valcode.GetVerifyCode(out Code);//将验证码画到画布上
-            _redishelper.StringSet("Code", Code,TimeSpan.FromSeconds(180));
+            _redishelper.StringSet("Code", Code, TimeSpan.FromSeconds(180));
             return File(buffer, "image/jpeg");
         }
 
@@ -78,7 +82,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("UserLogin")]
-        [EnableCors("LimitRequests")]
         public async Task<object> UserLogin(string UserName, string PassWord, string VerCode)
         {
             //检验验证码
@@ -103,6 +106,7 @@ namespace CDWM_MR.Controllers
             var user = (await _SysManage.Query(c => c.LoginName == UserName && c.LoginPassWord == md5 && c.UseStatus == 0)).FirstOrDefault();
             if (user != null)
             {
+                _UersName = user.FUserName;
                 //将登陆的用户信息存入Redis缓存
                 await _redishelper.StringSetAsync($"UserInfo{user.id}", user,TimeSpan.FromMinutes(30));
                 var rolestr = await _SysManage.GetuserRole(user.id);//角色的组合

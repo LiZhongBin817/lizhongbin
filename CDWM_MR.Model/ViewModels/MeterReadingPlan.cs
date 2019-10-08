@@ -4,6 +4,9 @@ using System.Text;
 
 namespace CDWM_MR.Model.ViewModels
 {
+    /// <summary>
+    /// 抄表册计划
+    /// </summary>
     public class MeterReadingPlan
     {
         //MRID = c.ID,
@@ -13,37 +16,52 @@ namespace CDWM_MR.Model.ViewModels
         //        MRStartTime = c.taskstarttime,
         //        MREndTime = c.taskendtime,
         //        MRTaskStatus=c.taskstatus
-        //序号
+        /// <summary>
+        /// 序号
+        /// </summary>
         public int ID{
             get;
             set;
         }
-        //抄表册编号
+
+        /// <summary>
+        /// 抄表册编号
+        /// </summary>
         public string Number {
             get;
             set;
         }
-        //抄表册名称
+        /// <summary>
+        /// 抄表册名称
+        /// </summary>
         public string Name {
             get;
             set;
         }
-        //抄表员
+        /// <summary>
+        /// 抄表员
+        /// </summary>
         public string People {
             get;
             set;
         }
-        //起抄时间
+        /// <summary>
+        /// 起抄时间
+        /// </summary>
         public DateTime StartTime {
             get;
             set;
         }
-        //止抄时间
+        /// <summary>
+        /// 止抄时间
+        /// </summary>
         public DateTime EndTime {
             get;
             set;
         }
-        //任务单完成状态0--计划;1--下达;2--完成
+        /// <summary>
+        /// 任务单完成状态0--计划;1--下达;2--完成
+        /// </summary>
         public int Status {
             get;
             set;

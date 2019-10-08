@@ -57,12 +57,12 @@ namespace CDWM_MR.Services.Content
                 taskinfo.dowloadstatus = 0;//下载状态
                 taskinfo.downloadstarttime = DateTime.Now;
                 taskinfo.downloadendtime = DateTime.Now.AddDays(30);
-
                 i++;
                 await mr_taskinfoRepository.Add(taskinfo);
             }
             List<v_taskinfo>tasklist=await taskinfoRepository.Query();
             return tasklist.Count;
+            
 
         }
     }

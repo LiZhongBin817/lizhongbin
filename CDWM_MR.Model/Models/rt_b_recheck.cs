@@ -32,7 +32,7 @@ namespace CDWM_MR.Model.Models
         /// 用户id
         /// </summary>
         [SugarColumn(IsNullable = false,ColumnDescription = "用户id(来源于t_b_users)")]
-        public int userid { get; set; }
+        public string userid { get; set; }
 
         /// <summary>
         /// 任务账期201909
@@ -65,9 +65,9 @@ namespace CDWM_MR.Model.Models
         public DateTime checksuccesstime { get; set; }
 
         /// <summary>
-        /// 审核人（sys_userinfo::ID,0为系统自动）
+        /// 审核人（0为系统自动）
         /// </summary>
-        [SugarColumn(IsNullable = true,Length = 20,ColumnDescription = "审核人（sys_userinfo::ID,0为系统自动）")]
+        [SugarColumn(IsNullable = true,Length = 20,ColumnDescription = "审核人（0为系统自动）")]
         public string checkor { get; set; }
 
         /// <summary>

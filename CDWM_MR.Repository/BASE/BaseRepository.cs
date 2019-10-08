@@ -1,5 +1,6 @@
 ﻿using CDWM_MR.Common.DB;
 using CDWM_MR.IRepository.Base;
+using CDWM_MR.IRepository.UnitOfWork;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using SqlSugar;
@@ -14,7 +15,8 @@ namespace CDWM_MR.Repository.BASE
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, new()
     {
         private DbContext _context;
-        private SqlSugarClient _db;
+        private readonly IUnitOfWork _unitOfWork;
+        private ISqlSugarClient _db;
         private SimpleClient<TEntity> _entityDb;
 
         public DbContext Context
@@ -22,22 +24,29 @@ namespace CDWM_MR.Repository.BASE
             get { return _context; }
             set { _context = value; }
         }
-        internal SqlSugarClient Db
+        internal ISqlSugarClient Db
         {
             get { return _db; }
             private set { _db = value; }
         }
+
         internal SimpleClient<TEntity> EntityDb
         {
             get { return _entityDb; }
             private set { _entityDb = value; }
         }
+
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="unitOfWork"></param>
         public BaseRepository()
         {
-            DbContext.Init(BaseDBConfig.ConnectionString, (DbType)BaseDBConfig.DbType);
             _context = DbContext.GetDbContext();
-            _db = _context.Db;
+            //_unitOfWork = unitOfWork;
+            //_db = unitOfWork.GetDbClient();
             _entityDb = DbContext.GetCustomEntityDB<TEntity>(DbContext.GetConnectionConfig());//获取简单数据库操作对象
+            DbContext.Init(BaseDBConfig.ConnectionString, (DbType)BaseDBConfig.DbType);
         }
 
 

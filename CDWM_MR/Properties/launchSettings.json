@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Blog.Core": {
+    "CDWM_MR": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:8081",

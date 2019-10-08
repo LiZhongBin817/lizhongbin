@@ -13,6 +13,7 @@ using AutoMapper;
 using CDWM_MR.AOP;
 using CDWM_MR.AuthHelper;
 using CDWM_MR.Common;
+using CDWM_MR.Common.DB;
 using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.Common.LogHelper;
 using CDWM_MR.Common.MemoryCache;
@@ -137,7 +138,7 @@ namespace CDWM_MR
                     // 支持多个域名端口，注意端口号后不要带/斜杆：比如localhost:8000/，是错的
                     // 注意，http://127.0.0.1:1818 和 http://localhost:1818 是不一样的，尽量写两个
                     policy
-                    .WithOrigins("http://192.168.1.109:8088", "http://127.0.0.1:1818", "http://localhost:8080", "http://localhost:8021", "http://localhost:8088", "http://localhost:1818","http://localhost:8888","http://localhost:8086", "http://192.168.1.32:8080","http://localhost:1030","http://192.168.1.118:8081")
+                    .WithOrigins("http://192.168.1.109:8088", "http://127.0.0.1:1818", "http://localhost:8080", "http://localhost:8021", "http://localhost:8088", "http://localhost:1818", "http://localhost:8888", "http://localhost:8086", "http://192.168.1.32:8080", "http://localhost:1030", "http://192.168.1.118:8081")
                     .AllowAnyHeader()//Ensures that the policy allows any header.
                     .AllowAnyMethod();
                 });
@@ -310,7 +311,7 @@ namespace CDWM_MR
              {
                  //不使用https
                  o.RequireHttpsMetadata = false;
-                 
+
                  o.TokenValidationParameters = tokenValidationParameters;
                  o.Events = new JwtBearerEvents
                  {
@@ -368,9 +369,8 @@ namespace CDWM_MR
             #endregion
 
             #region TimedJob
-
             //services.AddHostedService<Job1TimedService>();
-            services.AddHostedService<JobWorkTime1>();
+            //services.AddHostedService<JobWorkTime1>();
 
             #endregion
 
@@ -389,6 +389,24 @@ namespace CDWM_MR
 
             services.AddSingleton(new Appsettings(Env));
             services.AddSingleton(new LogLock(Env));
+            services.AddScoped<SqlSugar.ISqlSugarClient>(o => { 
+                return new SqlSugar.SqlSugarClient(new SqlSugar.ConnectionConfig()
+                {
+                    ConnectionString = BaseDBConfig.ConnectionString,
+                    DbType = (SqlSugar.DbType)BaseDBConfig.DbType,
+                    IsAutoCloseConnection = true,
+                    IsShardSameThread = true,
+                    ConfigureExternalServices = new SqlSugar.ConfigureExternalServices()
+                    {
+                        //DataInfoCacheService = new HttpRuntimeCache()
+                    },
+                    MoreSettings = new SqlSugar.ConnMoreSettings()
+                    {
+                        //IsWithNoLockQuery = true,
+                        IsAutoRemoveDataCache = true
+                    }
+                });
+            });
             //services.AddSession();
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
@@ -556,13 +574,11 @@ namespace CDWM_MR
 
             #region CORS
             //跨域第二种方法，使用策略，详细策略信息在ConfigureService中
-            app.UseCors("LimitRequests");//将 CORS 中间件添加到 web 应用程序管线中, 以允许跨域请求。
+            app.UseCors("AllRequests");//将 CORS 中间件添加到 web 应用程序管线中, 以允许跨域请求。
 
 
             #region 跨域第一种版本
             //跨域第一种版本，请要ConfigureService中配置服务 services.AddCors();
-            //    app.UseCors(options => options.WithOrigins("http://localhost:8021").AllowAnyHeader()
-            //.AllowAnyMethod());  
             #endregion
 
             #endregion

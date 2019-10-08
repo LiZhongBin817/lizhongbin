@@ -21,6 +21,12 @@ namespace CDWM_MR.Controllers.v1
         readonly Iv_rt_b_recheckServices _v_rt_b_recheckServices;
         #endregion
 
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="mr_b_readerServices"></param>
+        /// <param name="v_mr_book_reader_lqServices"></param>
+        /// <param name="v_rt_b_recheckServices"></param>
         public AppMeterReaderData(Imr_b_readerServices mr_b_readerServices, Iv_mr_book_reader_lqServices v_mr_book_reader_lqServices, Iv_rt_b_recheckServices v_rt_b_recheckServices)
         {
             _mr_b_readerServices = mr_b_readerServices;
@@ -66,7 +72,6 @@ namespace CDWM_MR.Controllers.v1
             return data;
         }
         #endregion
-
 
         #region  修改抄表员联系电话接口
         /// <summary>
