@@ -14,6 +14,8 @@ namespace CDWM_MR
         /// </summary>
         public static List<string> RolesList { get; set; }
 
+        //一个静态属性，用来存放登录用户的账号
+        public static string UersName { get; set; }
     }
 
     

@@ -48,8 +48,8 @@ namespace CDWM_MR.Repository.BASE
             //_context = DbContext.GetDbContext();
             //_unitOfWork = unitOfWork;
             //_db = unitOfWork.GetDbClient();
-            _entityDb = DbContext.GetCustomEntityDB<TEntity>(DbContext.GetConnectionConfig());//获取简单数据库操作对象
-            DbContext.Init(BaseDBConfig.ConnectionString, (DbType)BaseDBConfig.DbType);
+            //_entityDb = DbContext.GetCustomEntityDB<TEntity>(DbContext.GetConnectionConfig());//获取简单数据库操作对象
+            //DbContext.Init(BaseDBConfig.ConnectionString, (DbType)BaseDBConfig.DbType);
         }
 
 

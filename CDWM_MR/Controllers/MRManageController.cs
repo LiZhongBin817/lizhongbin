@@ -74,7 +74,7 @@ namespace CDWM_MR.Controllers
         public async Task<TableModel<object>> Show_CB_DataInfo(string username, string account, string meternum, string address, string mrreadername, string bookno, int rtrecheckstatus = 3, int page = 1, int limit = 20)
         {
             //跟踪登录用户
-            //string FUserName = LoginController._UersName;
+            string FUserName = Permissions.UersName;
             string last_month = DateTime.Now.AddMonths(-1).Month.ToString();//上个月
             string the_month_before_last = DateTime.Now.AddMonths(-2).Month.ToString();//上上个月
             PageModel<object> pageModel = new PageModel<object>();
@@ -139,7 +139,7 @@ namespace CDWM_MR.Controllers
                 recheckresult = c.recheckresult,
                 checkor = c.checkor,
                 rtrecheckstatus = c.rtrecheckstatus,
-                //FUserName = FUserName,
+                FUserName = FUserName,
                 checksuccesstime = c.checksuccesstime,
                 checktime = c.checktime,
                 readstatus = c.readstatus,
