@@ -119,7 +119,7 @@ namespace CDWM_MR.Repository.BASE
         }
 
         /// <summary>
-        /// 批量插入实体(速度快)
+        /// 批量插入实体(速度快)12
         /// </summary>
         /// <param name="listEntity">实体集合</param>
         /// <returns>影响行数</returns>
