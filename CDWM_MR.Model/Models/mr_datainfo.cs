@@ -49,7 +49,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 人为抄表数据
         /// </summary>
-        [SugarColumn(IsNullable = true, DecimalDigits = 10,ColumnDescription = "人为抄表数据")]
+        [SugarColumn(IsNullable = true, DecimalDigits = 10, ColumnDescription = "人为抄表数据")]
         public decimal inputdata { get; set; }
 
         /// <summary>

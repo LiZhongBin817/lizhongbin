@@ -369,7 +369,7 @@
         </member>
         <member name="T:CDWM_MR.Controllers.MeterReadingController">
             <summary>
-            抄表管理
+            抄表管理(档案管理)
             </summary>
         </member>
         <member name="M:CDWM_MR.Controllers.MeterReadingController.#ctor(CDWM_MR.IServices.Content.It_b_areasServices,CDWM_MR.IServices.Content.It_b_regionsServices)">
@@ -983,7 +983,7 @@
             <summary>
             获取本周期有异常的数据的接口
             </summary>
-            <param name="readdataid">抄表数据ID</param>
+            <param name="readerid">抄表员ID</param>
             <param name="taskperiodname">任务账单</param>
             <returns></returns>
         </member>
@@ -1084,6 +1084,30 @@
             <param name="account">登录账号</param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.v1.AppSoftware">
+            <summary>
+            软件部分
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppSoftware.CheckUpdate(System.String)">
+            <summary>
+            软件检查更新
+            </summary>
+            <param name="OldVersion">旧的版本号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppSoftware.SoftWareUpdate">
+            <summary>
+            软件更新下载
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppSoftware.TechnicalSupport">
+            <summary>
+            技术支持
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.v1.AppUserDate">
              <summary>
             用户数据
@@ -1110,6 +1134,88 @@
             <param name="autoaccount">用户自动编号</param>
             <param name="areano">用户所在小区</param>
             <param name="address">用户所在地址</param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.WatermeterUserManageController">
+            <summary>
+            用户管理(档案管理)
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ShowWaterUserinfo(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            显示用户管理
+            </summary>
+            <param name="account">用户编号</param>
+            <param name="username">用户名称</param>
+            <param name="meternum">表号</param>
+            <param name="optname">抄表员</param>
+            <param name="bookno">抄表册号</param>
+            <param name="regionplace">所属区域</param>
+            <param name="areaname">所属小区</param>
+            <param name="page">页号</param>
+            <param name="limit">页面大小</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ShowEditRegionDate(System.String)">
+            <summary>
+            给编辑界面传区域信息和历史信息
+            </summary>
+            <param name="account">用户编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ShowEditAreasDate(System.String)">
+            <summary>
+            给编辑界面传小区信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.EditUserInfo(System.String)">
+            <summary>
+            编辑用户信息
+            </summary>
+             <param name="JsonDate">户名+电话+小区编号+家庭住址</param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.EditWaterMater(System.String)">
+            <summary>
+            编辑水表信息
+            </summary>
+            <param name="JsonDate">水表信息JsonDate</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.showmeternum">
+            <summary>
+            在新增水表界面打开时给水表序列号赋值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.AddWaterMeter(System.String,System.String)">
+            <summary>
+            新增水表（只有该用户没有历史水表时才显示该功能）
+            </summary>
+            <param name="JsonDate">传来的用户信息</param>
+            <param name="autoaccount">用户自动编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.Adduser(System.String)">
+            <summary>
+            新增用户
+            </summary>
+            <param name="JsonDate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ShowChangemeter(System.String)">
+            <summary>
+            给换表界面显示数据
+            </summary>
+            <param name="account">用户编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.Changemeter(System.String,System.String)">
+            <summary>
+            换表
+            </summary>
+            <param name="Oldmeternum">旧表编号</param>
+            <param name="Newmeternum">新表编号</param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">

@@ -309,5 +309,27 @@ namespace CDWM_MR.Services.BASE
         {
             return await BaseDal.QueryMuch(joinExpression, selectExpression, whereLambda);
         }
+        public async Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression)
+        {
+            return await BaseDal.OQuery(whereExpression);
+        }
+        /// <summary>
+        /// 更新其他数据库实体数据
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task<bool> OUpdate(TEntity entity)
+        {
+            return await BaseDal.OUpdate(entity);
+        }
+        /// <summary>
+        /// 写入实体数据在其他数据库
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task<int> OAdd(TEntity entity)
+        {
+            return await BaseDal.OAdd(entity);
+        }
     }
 }

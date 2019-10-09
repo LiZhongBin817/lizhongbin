@@ -1,4 +1,5 @@
-﻿using CDWM_MR.Common.LogHelper;
+﻿using CDWM_MR.Common;
+using CDWM_MR.Common.LogHelper;
 using CDWM_MR.Log;
 using CDWM_MR.Model.Models;
 using SqlSugar;
@@ -87,15 +88,18 @@ namespace CDWM_MR.Repository
                     IsAutoRemoveDataCache = true
                 }
             });
-            _db.Aop.OnLogExecuting = (sql, pars) => //SQL执行中事件
+            if (Appsettings.app(new string[] { "AppSettings", "SqlAOP", "Enabled" }).ObjToBool())
             {
-                Parallel.For(0, 1, e =>
+                _db.Aop.OnLogExecuting = (sql, pars) => //SQL执行中事件
                 {
-                    MiniProfiler.Current.CustomTiming("SQL：", GetParas(pars) + "【SQL语句】：" + sql);
-                    LogLock.OutSql2Log("SqlLog", new string[] { GetParas(pars), "【SQL语句】：" + sql });
+                    Parallel.For(0, 1, e =>
+                    {
+                        MiniProfiler.Current.CustomTiming("SQL：", GetParas(pars) + "【SQL语句】：" + sql);
+                        LogLock.OutSql2Log("SqlLog", new string[] { GetParas(pars), "【SQL语句】：" + sql });
 
-                });
-            };
+                    });
+                };
+            }
 
         }
 
