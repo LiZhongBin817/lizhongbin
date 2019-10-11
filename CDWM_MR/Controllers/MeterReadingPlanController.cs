@@ -16,7 +16,9 @@ using System.Threading.Tasks;
 
 namespace CDWM_MR.Controllers
 {
-
+    /// <summary>
+    /// 抄表计划
+    /// </summary>
     public class MeterReadingPlanController : ControllerBase
     {
 
@@ -30,6 +32,14 @@ namespace CDWM_MR.Controllers
         #endregion
 
         #region 构造函数
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="imr_PlaninfoServices"></param>
+        /// <param name="imr_Taskinfoservices"></param>
+        /// <param name="imr_B_ReaderServices"></param>
+        /// <param name="imr_B_BookinfoServices"></param>
+        /// <param name="iv_TaskinfoServices"></param>
         public MeterReadingPlanController(Imr_planinfoServices imr_PlaninfoServices, Imr_taskinfoServices imr_Taskinfoservices, Imr_b_readerServices imr_B_ReaderServices, Imr_b_bookinfoServices imr_B_BookinfoServices, Iv_taskinfoServices iv_TaskinfoServices)
         {
             mr_planinfoServices = imr_PlaninfoServices;
@@ -292,7 +302,12 @@ namespace CDWM_MR.Controllers
         #endregion
 
         #region 抄表计划编辑 已完成
-
+        /// <summary>
+        /// 抄表计划编辑 已完成
+        /// </summary>
+        /// <param name="senddata"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("ShowTaskEdit")]
         [AllowAnonymous]
@@ -335,6 +350,10 @@ namespace CDWM_MR.Controllers
 
 
         #region 导出Excel
+        /// <summary>
+        /// 到处EXCEL
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("OutExcel")]
         [AllowAnonymous]

@@ -20,10 +20,16 @@ namespace CDWM_MR.Controllers.v1
         #region  相关变量
         readonly It_b_usersServices _t_b_usersServices;
         #endregion
+
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="t_b_usersServices"></param>
         public AppUserDate(It_b_usersServices t_b_usersServices)
         {
             _t_b_usersServices = t_b_usersServices;
         }
+
         #region  修改用户联系电话接口
         /// <summary>
         /// 

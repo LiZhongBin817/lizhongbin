@@ -499,7 +499,7 @@
             片区名称t_b_regions
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.mrdateTime">
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.taskperiodname">
             <summary>
             抄表月份(年+月格式201908)
             </summary>
@@ -607,11 +607,6 @@
         <member name="P:CDWM_MR.Model.Models.mr_planinfo.finishstatus">
             <summary>
             完成状态0--计划;1--下达;2--完成
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_planinfo.createtime">
-            <summary>
-            创建时间
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.mr_planinfo_history">
@@ -1376,7 +1371,7 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.rt_b_recheck.checkor">
             <summary>
-            审核人（sys_userinfo::ID,0为系统自动）
+            审核人（0为系统自动）
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.rt_b_recheck.createtime">
@@ -2946,6 +2941,76 @@
             
             </summary>
         </member>
+        <member name="M:CDWM_MR.Model.Models.v_datainfo_history_ocrlog_history.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_datainfo_history_ocrlog_history.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_datainfo_history_ocrlog_history.autoaccount">
+            <summary>
+            用水账号--自动生成(t_b_users)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_datainfo_history_ocrlog_history.account">
+            <summary>
+            户号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_datainfo_history_ocrlog_history.taskperiodname">
+            <summary>
+            任务账期201909冗余
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_datainfo_history_ocrlog_history.ocrdata">
+            <summary>
+            识别出来的读数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_datainfo_history_ocrlog_history.photoid">
+            <summary>
+            照片附件id
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_datainfo_ocrlog.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_datainfo_ocrlog.ID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_datainfo_ocrlog.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)(关联水表用户信息)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_datainfo_ocrlog.account">
+            <summary>
+            户号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_datainfo_ocrlog.taskperiodname">
+            <summary>
+            任务账期201909冗余
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_datainfo_ocrlog.ocrdata">
+            <summary>
+            图像识别抄表数据Optical Choractor Recognittion光学字符识别
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_datainfo_ocrlog.photoid">
+            <summary>
+            照片附件id
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_mr_book_reader_lq">
             <summary>
             VIEW
@@ -3001,19 +3066,14 @@
             
             </summary>
         </member>
-        <member name="T:CDWM_MR.Model.Models.v_mr_datainfo">
-            <summary>
-            VIEW
-            </summary>
-        </member>
         <member name="M:CDWM_MR.Model.Models.v_mr_datainfo.#ctor">
             <summary>
-            VIEW
+            抄表数据展示表
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.ID">
             <summary>
-            
+            主键
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.autoaccount">
@@ -3093,17 +3153,17 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.account">
             <summary>
-            
+            用户号
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.username">
             <summary>
-            
+            用户名
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.telephone">
             <summary>
-            
+            电话号码
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.address">
@@ -3138,7 +3198,7 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.mrreadername">
             <summary>
-            
+            抄表员名字
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.areaname">
@@ -3184,6 +3244,16 @@
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.carryime">
             <summary>
             创建时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.lastmonthdata">
+            <summary>
+            上月抄表读数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.nowmonthdata">
+            <summary>
+            当前月份抄表读数
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_rb_b_faultprocess">
@@ -3291,6 +3361,71 @@
             上报人
             </summary>
         </member>
+        <member name="M:CDWM_MR.Model.Models.v_recheck_recheckhistory.#ctor">
+            <summary>
+            审核表，审核历史表结合表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_recheck_recheckhistory.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_recheck_recheckhistory.readdataid">
+            <summary>
+            抄表数据id
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_recheck_recheckhistory.meternum">
+            <summary>
+            水表编号,（t_b_watermeters::meternum）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_recheck_recheckhistory.userid">
+            <summary>
+            用户id(来源于t_b_users)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_recheck_recheckhistory.taskperiodname">
+            <summary>
+            任务账期201909
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_recheck_recheckhistory.recheckstatus">
+            <summary>
+            状态0--通过;1--不通过
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_recheck_recheckhistory.recheckdata">
+            <summary>
+            抄表数据审核数据
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_recheck_recheckhistory.recheckresult">
+            <summary>
+            审核原因或结果
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_recheck_recheckhistory.checksuccesstime">
+            <summary>
+            审核时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_recheck_recheckhistory.checkor">
+            <summary>
+            审核人（sys_userinfo::ID,0为系统自动）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_recheck_recheckhistory.createtime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_recheck_recheckhistory.createpeople">
+            <summary>
+            创建人（来源于sys_userinfo）
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_rt_b_recheck">
             <summary>
             VIEW
@@ -3324,6 +3459,111 @@
         <member name="P:CDWM_MR.Model.Models.v_rt_b_recheck.recheckdata">
             <summary>
             抄表数据审核数据
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.#ctor">
+            <summary>
+            应抄明细查询表
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.account">
+            <summary>
+            户号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.username">
+            <summary>
+            用户名字
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.areaname">
+            <summary>
+            小区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.regionname">
+            <summary>
+            片区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.address">
+            <summary>
+            家庭住址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.bookno">
+            <summary>
+            抄表册编号（t_c_readmeterbook::bookno）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.mrreadername">
+            <summary>
+            抄表员名字
+            </summary>     
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.bookname">
+            <summary>
+            抄表册名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.startnum">
+            <summary>
+            上期止码,本期起码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.inputdata">
+            <summary>
+            人为抄表数据
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.readtype">
+            <summary>
+            抄表状态(0--默认;1--实抄;2--估抄;3--异常),根据gis位置进行判断
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.carrystatus">
+            <summary>
+            状态0--未结转;1--正常;2--异常
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_union_datainfoocrlog_datainfohistoryocrloghistory.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_union_datainfoocrlog_datainfohistoryocrloghistory.ID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_union_datainfoocrlog_datainfohistoryocrloghistory.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)(关联水表用户信息)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_union_datainfoocrlog_datainfohistoryocrloghistory.account">
+            <summary>
+            户号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_union_datainfoocrlog_datainfohistoryocrloghistory.taskperiodname">
+            <summary>
+            任务账期201909冗余
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_union_datainfoocrlog_datainfohistoryocrloghistory.ocrdata">
+            <summary>
+            图像识别抄表数据Optical Choractor Recognittion光学字符识别
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_union_datainfoocrlog_datainfohistoryocrloghistory.photoid">
+            <summary>
+            照片附件id
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_wateruserinfo">
@@ -3625,6 +3865,46 @@
         <member name="P:CDWM_MR.Model.Children.List">
             <summary>
             子类集合
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.ViewModels.MeterReadingPlan">
+            <summary>
+            抄表册计划
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.ID">
+            <summary>
+            序号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.Number">
+            <summary>
+            抄表册编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.Name">
+            <summary>
+            抄表册名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.People">
+            <summary>
+            抄表员
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.StartTime">
+            <summary>
+            起抄时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.EndTime">
+            <summary>
+            止抄时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.MeterReadingPlan.Status">
+            <summary>
+            任务单完成状态0--计划;1--下达;2--完成
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.ViewModels.v_taskinfo">

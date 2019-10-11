@@ -10,11 +10,16 @@ namespace CDWM_MR.Services.Content
 {
     public partial class t_b_usersServices:BaseServices<t_b_users>, It_b_usersServices
     {
-        private readonly It_b_usersRepository Dal;
-        public t_b_usersServices(It_b_usersRepository Dal)
+        readonly It_b_usersRepository dal;
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="dal"></param>
+        public t_b_usersServices(It_b_usersRepository dal)
         {
-            this.Dal = Dal;
-            base.BaseDal = Dal;
+            this.dal = dal;
+            this.BaseDal = dal;
         }
+
     }
 }

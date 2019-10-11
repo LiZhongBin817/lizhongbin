@@ -24,6 +24,11 @@ namespace CDWM_MR.Controllers.v1
         #region  相关变量 
         readonly Iv_taskinfoServices _v_taskinfoServices;
         #endregion
+
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="v_taskinfoServices"></param>
         public AppMeterReadingPlan(Iv_taskinfoServices v_taskinfoServices)
         {
             _v_taskinfoServices = v_taskinfoServices;

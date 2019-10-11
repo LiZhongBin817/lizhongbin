@@ -111,5 +111,8 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = true, Length = 50, ColumnDescription = "备注说明")]
         public string remark { get; set; }
+
+      
+
     }
 }
