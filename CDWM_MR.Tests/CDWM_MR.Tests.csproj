@@ -27,17 +27,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CDWM_MR.Repository\CDWM_MR.Repository.csproj" />
-    <ProjectReference Include="..\CDWM_MR.Services\CDWM_MR.Services.csproj" />
-    <ProjectReference Include="..\CDWM_MR\CDWM_MR.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Controller_Test\" />
     <Folder Include="DependencyInjection\" />
     <Folder Include="Redis_Test\" />
     <Folder Include="Repository_Test\" />
     <Folder Include="Service_Test\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CDWM_MR\CDWM_MR.csproj" />
   </ItemGroup>
 
 </Project>

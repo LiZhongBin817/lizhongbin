@@ -3,8 +3,12 @@ using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
+using CDWM_MR.Tasks.Job;
+using CDWM_MR_Common.Redis;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Quartz;
+using Quartz.Impl;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -24,18 +28,23 @@ namespace CDWM_MR.Controllers
         public readonly Imr_b_readerServices _Imr_b_readerServices;
         public readonly Iv_b_bookuserinfoServices _Iv_b_bookuserinfoServices;
         public readonly It_b_watermetersServices _It_b_watermetersServices;
+        private readonly IRedisHelper _redishelpr;
+        private readonly IBuildBookServices _buildservices;
+
         #region 构造函数注入
-        public BookManageController(Iv_b_bookinfoServices Iv_b_bookinfoService, Imr_book_meterServices Imr_book_meterService, Iv_wateruserinfoServices Iv_wateruserinfoService, Imr_book_readerServices Imr_book_readerService, Imr_b_readerServices Imr_b_readerService, Iv_b_bookuserinfoServices Iv_b_bookuserinfoService, Imr_b_bookinfoServices Imr_b_bookinfoService, It_b_watermetersServices It_b_watermetersService, It_b_regionsServices It_b_regionsService)
+        public BookManageController(IRedisHelper redis, Iv_b_bookinfoServices Iv_b_bookinfoService, Imr_book_meterServices Imr_book_meterService, Iv_wateruserinfoServices Iv_wateruserinfoService, Imr_book_readerServices Imr_book_readerService, Imr_b_readerServices Imr_b_readerService, Iv_b_bookuserinfoServices v_b_bookuserinfoService, Imr_b_bookinfoServices Imr_b_bookinfoService, It_b_watermetersServices It_b_watermetersService, It_b_regionsServices It_b_regionsService, IBuildBookServices buildservices)
         {
             _Iv_b_bookinfoServices = Iv_b_bookinfoService;
             _Imr_book_meterServices = Imr_book_meterService;
             _Iv_wateruserinfoServices = Iv_wateruserinfoService;
             _Imr_book_readerServices = Imr_book_readerService;
             _Imr_b_readerServices = Imr_b_readerService;
-            _Iv_b_bookuserinfoServices = Iv_b_bookuserinfoService;
+            _Iv_b_bookuserinfoServices = v_b_bookuserinfoService;
             _Imr_b_bookinfoServices = Imr_b_bookinfoService;
             _It_b_watermetersServices = It_b_watermetersService;
             _It_b_regionsServices = It_b_regionsService;
+            _redishelpr = redis;
+            _buildservices = buildservices;
         }
         #endregion
 
@@ -107,7 +116,7 @@ namespace CDWM_MR.Controllers
             await _Imr_b_bookinfoServices.Update(c => new mr_b_bookinfo
             {
                 contectusernum = length
-            }, c => c.ID == bookid);
+            }, c => c.id == bookid);
             await _It_b_watermetersServices.OUpdate(c => new t_b_watermeters
             {
                 bookno = bookno
@@ -150,13 +159,16 @@ namespace CDWM_MR.Controllers
             #region 在mr_book_reader这个中间表中添加数据
             await _Imr_b_bookinfoServices.Add(bookinfo);
             LastID = await _Imr_b_bookinfoServices.Query();
-            bookid = LastID[LastID.Count - 1].ID;
+            bookid = LastID[LastID.Count - 1].id;
             mr_book_reader book_reader = new mr_book_reader();
             book_reader.bookid = bookid;
             book_reader.readerid = 0;
             book_reader.createpeople = "李忠斌";
             book_reader.createtime = DateTime.Now;
             await _Imr_book_readerServices.Add(book_reader);
+
+            await _redishelpr.ListLeftPushAsync<string>("CDWM_BuildExcel", bookno);//添加一个任务进入队列
+
             #endregion
             return new MessageModel<object>()
             {
@@ -233,7 +245,7 @@ namespace CDWM_MR.Controllers
             Expression<Func<mr_b_reader, bool>> wherelamda = c => true;
             if (!string.IsNullOrEmpty(readmanid))
             {
-                wherelamda = c => c.ID.ToString() == readmanid;
+                wherelamda = c => c.id.ToString() == readmanid;
             }
             if (!string.IsNullOrEmpty(mrreadernumber))
             {
@@ -389,5 +401,36 @@ namespace CDWM_MR.Controllers
             };
         }
         #endregion
+
+        /// <summary>
+        /// 生成EXCEL文件
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("BuildExcel")]
+        [AllowAnonymous]//允许所有都访问
+        public async Task<string> BuildExcel()
+        {
+            StdSchedulerFactory factory = new StdSchedulerFactory();
+            IScheduler scheduler = await factory.GetScheduler();
+            await scheduler.Start();//启动单元
+            #region 任务一 创建任务单Excel文件
+            //创建作业
+            IJobDetail buildexcel = JobBuilder.Create<BuildBookExcel>()
+                .WithIdentity("BuildBookExcel", "task1")
+                .WithDescription("创建抄表册Excel文件")
+                .Build();
+            buildexcel.JobDataMap.Add("buildService", _buildservices);//为方法传入参数
+            //创建时间策略
+            ITrigger triggerbuildexcel = TriggerBuilder.Create()
+                              .WithIdentity("BuildBookExceltigger", "task1")
+                              .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(10)))
+                             .WithCronSchedule("0 0/2 * * * ?")
+                             .WithDescription("生成抄表册EXCEL文件！")
+                             .Build();
+            await scheduler.ScheduleJob(buildexcel, triggerbuildexcel);
+            return "OK";
+        }
     }
+    #endregion
 }

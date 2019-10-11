@@ -79,7 +79,6 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = true)]
         public DateTime lastlogintime { get; set; }
-        public System.Int32 ID { get; set; }
 
     }
 }

@@ -7,10 +7,7 @@ namespace CDWM_MR.Model.Models
     /// </summary>
     public class mr_b_bookinfo : BaseModel
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public System.Int32 ID { get; set; }
+
         /// <summary>
         /// 抄表册编号
         /// </summary>
@@ -48,15 +45,11 @@ namespace CDWM_MR.Model.Models
         public string regionno { get; set; }
 
         /// <summary>
-        /// 分配状态
-        /// </summary>
-        [SugarColumn(IsNullable = false, ColumnDescription = "分配状态(0--已分配;1--未分配)")]
-        public int allotstatus { get; set; } = 0;
-
-        /// <summary>
-        /// 关联用户抄表数量
+        /// 分配状态(0--已分配;1--未分配)
         /// </summary>
         [SugarColumn(IsNullable = true, ColumnDescription = "关联抄表数量")]
         public int contectusernum { get; set; }
+
+        public System.Int32 allotstatus { get; set; }
     }
 }

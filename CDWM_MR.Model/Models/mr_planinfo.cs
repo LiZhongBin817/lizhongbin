@@ -10,6 +10,13 @@ namespace CDWM_MR.Model.Models
     /// </summary>
     public class mr_planinfo:BaseModel
     {
+
+        /// <summary>
+        /// 抄表计划单编号
+        /// </summary>
+        [SugarColumn(IsNullable = true, Length = 50, ColumnDescription = "抄表计划单ID")]
+        public int ID { get; set; }
+
         /// <summary>
         /// 抄表计划单编号
         /// </summary>
@@ -51,7 +58,10 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = false,ColumnDescription = "完成状态0--计划;1--下达;2--完成")]
         public int finishstatus { get; set; } = 0;
-
-
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+         [SugarColumn(IsNullable = false,ColumnDescription = "计划单创建时间")]
+        public DateTime createtime { get; set; }
     }
 }

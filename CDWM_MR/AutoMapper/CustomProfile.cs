@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CDWM_MR.Model;
+using CDWM_MR.Model.Models;
 
 namespace CDWM_MR.AutoMapper
 {
@@ -12,7 +14,7 @@ namespace CDWM_MR.AutoMapper
         /// </summary>
         public CustomProfile()
         {
-            //CreateMap<BlogArticle, BlogViewModels>();
+            CreateMap<v_bookexcel, bookExcel>();
         }
     }
 }

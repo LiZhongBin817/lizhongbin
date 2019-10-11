@@ -30,6 +30,10 @@ namespace CDWM_MR.Model
         /// </summary>
         public List<T> data { get; set; }
 
+        public static implicit operator PageModel<T>(PageModel<object> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
