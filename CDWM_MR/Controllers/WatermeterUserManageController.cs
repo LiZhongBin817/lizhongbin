@@ -6,7 +6,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CDWM_MR.Common.Helper;
-using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -27,14 +26,22 @@ namespace CDWM_MR.Controllers
     public class WatermeterUserManageController : Controller
     {
         #region  相关变量
-        public readonly Iv_wateruserinfoServices _v_wateruserinfoServices;
-        public readonly It_b_regionsServices _t_b_regionsServices;
-        public readonly It_b_areasServices _t_b_areasServices;
-        public readonly It_b_usersServices _t_b_usersServices;
-        public readonly It_b_watermetersServices _t_b_watermetersServices;
-        public readonly Iv_watermeterinfoServices _v_watermeterinfoServices;
+        private readonly Iv_wateruserinfoServices _v_wateruserinfoServices;
+        private readonly It_b_regionsServices _t_b_regionsServices;
+        private readonly It_b_areasServices _t_b_areasServices;
+        private readonly It_b_usersServices _t_b_usersServices;
+        private readonly It_b_watermetersServices _t_b_watermetersServices;
+        private readonly Iv_watermeterinfoServices _v_watermeterinfoServices;
         #endregion
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v_wateruserinfoServices"></param>
+        /// <param name="t_b_regionsServices"></param>
+        /// <param name="t_b_areasServices"></param>
+        /// <param name="t_b_usersServices"></param>
+        /// <param name="t_b_watermetersServices"></param>
+        /// <param name="v_watermeterinfoServices"></param>
         public WatermeterUserManageController(Iv_wateruserinfoServices v_wateruserinfoServices, It_b_regionsServices t_b_regionsServices, It_b_areasServices t_b_areasServices, It_b_usersServices t_b_usersServices, It_b_watermetersServices t_b_watermetersServices, Iv_watermeterinfoServices v_watermeterinfoServices)
         {
             _v_wateruserinfoServices = v_wateruserinfoServices;

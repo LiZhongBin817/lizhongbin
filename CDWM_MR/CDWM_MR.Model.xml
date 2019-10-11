@@ -4,6 +4,131 @@
         <name>CDWM_MR.Model</name>
     </assembly>
     <members>
+        <member name="P:CDWM_MR.Model.bookExcel.bookname">
+            <summary>
+            表册名
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.useraccount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.carrywatercount">
+            <summary>
+            上期水量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.address">
+            <summary>
+            用水地址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.readperiod">
+            <summary>
+            抄表周期
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.bookno">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.contectusernum">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.starttime">
+            <summary>
+            上期抄表时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.startnum">
+            <summary>
+            上期止码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.treeaverage">
+            <summary>
+            三月均量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.mrreadername">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.mrreadernumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.meterseq">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.watermeternumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.balance">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.telephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.caliber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.bookinfo">
+            <summary>
+            抄表信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.metertypename">
+            <summary>
+            水表类型
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.naturename">
+            <summary>
+            用水类型
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.postname">
+            <summary>
+            安装位置
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.areaname">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.regionname">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.bookExcel.laststate">
+            <summary>
+            上期表况处理
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.MessageModel`1">
             <summary>
             通用返回信息类
@@ -104,11 +229,6 @@
             抄表册信息
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.ID">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.bookno">
             <summary>
             抄表册编号
@@ -139,24 +259,19 @@
             区域编号(t_b_regions:regionno)
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.allotstatus">
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.contectusernum">
             <summary>
             分配状态(0--已分配;1--未分配)
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.contectusernum">
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.allotstatus">
             <summary>
-            关联用户数量
+            
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.mr_b_reader">
             <summary>
             抄表员
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_reader.ID">
-            <summary>
-            ID
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_reader.mrreadernumber">
@@ -1701,42 +1816,47 @@
         </member>
         <member name="T:CDWM_MR.Model.Models.sys_interface_info">
             <summary>
-            用户接口信息
+            
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.sys_interface_info.#ctor">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.sys_interface_info.ID">
             <summary>
-            ID主键
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.sys_interface_info.InterfaceUrl">
             <summary>
-            接口地址
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.sys_interface_info.OperationVersion">
             <summary>
-            接口版本
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.sys_interface_info.InterfaceName">
             <summary>
-            接口名称
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.sys_interface_info.ExternalInterface">
             <summary>
-            是否为第三方接口0--是，1--否
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.sys_interface_info.Verify">
             <summary>
-            是否验证权限0--是，1--否
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.sys_interface_info.Remark">
             <summary>
-            备注
+            
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.sys_menu">
@@ -2564,6 +2684,266 @@
         <member name="P:CDWM_MR.Model.Models.t_b_watermeters.isreg">
             <summary>
             NB表是否注册到iot平台(1:是；2：否)
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.v_bookexcel">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_bookexcel.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.bookname">
+            <summary>
+            抄表册名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.useraccount">
+            <summary>
+            用户编号（冗余）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.readperiod">
+            <summary>
+            抄表周期(11:按月 21:单月 22:双月31:按季度1 32:按季度2 33:按季度3)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.bookno">
+            <summary>
+            抄表册编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.contectusernum">
+            <summary>
+            关联用户数量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.mrreadername">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.mrreadernumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.meterseq">
+            <summary>
+            表册内水表顺序
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.watermeternumber">
+            <summary>
+            水表编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.balance">
+            <summary>
+            帐户余额
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.telephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.naturename">
+            <summary>
+            用水性质名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.caliber">
+            <summary>
+            口径(190808新增)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.metertypename">
+            <summary>
+            分类名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.posname">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.areaname">
+            <summary>
+            小区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookexcel.regionname">
+            <summary>
+            片区名称
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.v_bookinfo">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_bookinfo.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookinfo.bookno">
+            <summary>
+            抄表册编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookinfo.contectusernum">
+            <summary>
+            关联用户数量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookinfo.readmanid">
+            <summary>
+            抄表人(mr_reader：ID)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookinfo.bookname">
+            <summary>
+            抄表册名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookinfo.regionname">
+            <summary>
+            片区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookinfo.ReaderNumber">
+            <summary>
+            抄表员编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookinfo.ReaderName">
+            <summary>
+            抄表员名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_bookinfo.ID">
+            <summary>
+            抄表册ID
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.v_b_bookinfo">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_b_bookinfo.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.ID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.readmanid">
+            <summary>
+            抄表人(mr_reader：ID)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.bookno">
+            <summary>
+            抄表册编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.bookname">
+            <summary>
+            抄表册名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.contectusernum">
+            <summary>
+            关联用户数量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.mrreadername">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.mrreadernumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.regionname">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.v_b_bookuserinfo">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_b_bookuserinfo.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.bookid">
+            <summary>
+            抄表册ID,来源于mr_bookinfo
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.watermeternumber">
+            <summary>
+            水表编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.useraccount">
+            <summary>
+            用户编号（冗余）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.address">
+            <summary>
+            家庭住址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.caliber">
+            <summary>
+            口径(190808新增)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.areano">
+            <summary>
+            所属小区(t_b_areas::areano)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.areaname">
+            <summary>
+            小区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.regionname">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.telephone">
+            <summary>
+            
             </summary>
         </member>
         <member name="M:CDWM_MR.Model.Models.v_datainfo_history_ocrlog_history.#ctor">

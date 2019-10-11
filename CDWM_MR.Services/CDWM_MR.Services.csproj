@@ -15,12 +15,15 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
+    <PackageReference Include="NPOI" Version="2.4.1" />
+    <PackageReference Include="ServiceStack.Text" Version="5.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CDWM_MR.IRepository\CDWM_MR.IRepository.csproj" />
     <ProjectReference Include="..\CDWM_MR.IServices\CDWM_MR.IServices.csproj" />
     <ProjectReference Include="..\CDWM_MR.Model\CDWM_MR.Model.csproj" />
+    <ProjectReference Include="..\CDWM_MR.Repository\CDWM_MR.Repository.csproj" />
   </ItemGroup>
 
 </Project>

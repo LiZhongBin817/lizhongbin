@@ -1,5 +1,4 @@
-﻿using Autofac;
-using CDWM_MR.IServices.Content;
+﻿using CDWM_MR.IServices.Content;
 using CDWM_MR.Services.Content;
 using Quartz;
 using System;

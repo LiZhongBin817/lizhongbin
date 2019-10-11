@@ -5,8 +5,6 @@ using Quartz.Impl;
 using Quartz.Logging;
 using Quartz.Spi;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CDWM_MR.Tasks
@@ -50,19 +48,36 @@ namespace CDWM_MR.Tasks
             _scheduler.JobFactory = this._iocJobfactory;//  替换默认工厂
             await _scheduler.Start();//启动单元
 
+            //#region 任务一 创建任务单Excel文件
+            ////创建作业
+            //IJobDetail buildexcel = JobBuilder.Create<BuildTaskExcel>()
+            //    .WithIdentity("BuildTaskExcel", "task1")
+            //    .WithDescription("创建任务单Excel文件")
+            //    .Build();
+
+            ////创建时间策略
+            //ITrigger triggerbuildexcel = TriggerBuilder.Create()
+            //                  .WithIdentity("BuildTaskExceltigger", "task1")
+            //                  .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(10)))
+            //                 //.StartNow()//StartAt  Cron
+            //                 .WithCronSchedule("0/1 * * * * ?")
+            //                 .WithDescription("生成抄表册EXCEL文件！")
+            //                 .Build();
+            //await scheduler.ScheduleJob(buildexcel, triggerbuildexcel);
+            //#endregion
             #region 任务一 创建任务单Excel文件
             //创建作业
-            IJobDetail buildexcel = JobBuilder.Create<BuildTaskExcel>()
-                .WithIdentity("BuildTaskExcel", "task1")
-                .WithDescription("创建任务单Excel文件")
+            IJobDetail buildexcel = JobBuilder.Create<BuildBookExcel>()
+                .WithIdentity("BuildBookExcel", "task1")
+                .WithDescription("创建抄表册Excel文件")
                 .Build();
 
             //创建时间策略
             ITrigger triggerbuildexcel = TriggerBuilder.Create()
-                              .WithIdentity("BuildTaskExceltigger", "task1")
+                              .WithIdentity("BuildBookExceltigger", "task1")
                               .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(10)))
                              //.StartNow()//StartAt  Cron
-                             .WithCronSchedule("0/1 * * * * ?")
+                             .WithCronSchedule("0 0/2 * * * ?")
                              .WithDescription("生成抄表册EXCEL文件！")
                              .Build();
             await _scheduler.ScheduleJob(buildexcel, triggerbuildexcel);

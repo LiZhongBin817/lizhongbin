@@ -1,4 +1,5 @@
 
+
 /****************************************************************************
 *CLR版本:4.0.30319.42000
 *机器名称:
@@ -13,7 +14,7 @@
 
 *描述
 *
-*============================================================================
+*
 *修改时间:2019/4/13 16:26:09
 * 修改人:ZK
 *版本号:V1.0.0.0
@@ -21,18 +22,17 @@
 *
 ****************************************************************************/
 
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using System.IO;
-using System.Collections;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace CDWM_MR.Common.Helper
 {
-   public class OfficeHelper
+    public class OfficeHelper
     {
         /// <summary>
         /// 导出Excel
@@ -96,8 +96,9 @@ namespace CDWM_MR.Common.Helper
             }
             catch (Exception ee)
             {
-                //log4net.Error("读取Excel中的数据时发生错误，可能Excel数据格式与指定格式不一致。" + ee.Message + "\r\n");
+
                 return null;
+
             }
         }
         /// <summary>

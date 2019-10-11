@@ -6,12 +6,11 @@ using CDWM_MR.Model.ViewModels;
 using CDWM_MR.Services.BASE;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CDWM_MR.Services.Content
 {
-   public class v_taskinfoServices:BaseServices<v_taskinfo>,Iv_taskinfoServices
+    public class v_taskinfoServices : BaseServices<v_taskinfo>, Iv_taskinfoServices
     {
         private readonly Iv_taskinfoRepository dal;
         private readonly IMapper mapper;
@@ -19,7 +18,7 @@ namespace CDWM_MR.Services.Content
         private readonly Imr_planinfoRepository planinfo;
         private readonly Imr_taskinfoRepository mr_taskinfoRepository;
         private readonly Iv_taskinfoRepository taskinfoRepository;
-        public v_taskinfoServices(Iv_taskinfoRepository dal,IMapper map,Imr_b_bookinfoRepository imr_B_BookinfoRepository,Imr_planinfoRepository imr_PlaninfoRepository,Iv_taskinfoRepository iv_TaskinfoRepository,Imr_taskinfoRepository taskinfoRepository)
+        public v_taskinfoServices(Iv_taskinfoRepository dal, IMapper map, Imr_b_bookinfoRepository imr_B_BookinfoRepository, Imr_planinfoRepository imr_PlaninfoRepository, Iv_taskinfoRepository iv_TaskinfoRepository, Imr_taskinfoRepository taskinfoRepository)
         {
             this.dal = dal;
             this.mapper = map;
@@ -43,14 +42,14 @@ namespace CDWM_MR.Services.Content
             foreach (var item in booklist)
             {
                 mr_taskinfo taskinfo = new mr_taskinfo();
-                taskinfo.bookid = item.ID;
+                taskinfo.bookid = item.id;
                 taskinfo.planid = ID;
                 taskinfo.readerid = 1;
                 taskinfo.taskstarttime = DateTime.Now;
                 taskinfo.taskendtime = DateTime.Now.AddDays(30);
-                taskinfo.createpeople =" 1";
+                taskinfo.createpeople = " 1";
                 taskinfo.createtime = DateTime.Now;
-                taskinfo.tasknumber = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString()+i.ToString();
+                taskinfo.tasknumber = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + i.ToString();
                 taskinfo.taskname = "任务单00" + i;
                 taskinfo.taskperiodname = "1";//任务账期
                 taskinfo.taskstatus = 0;//
@@ -60,9 +59,9 @@ namespace CDWM_MR.Services.Content
                 i++;
                 await mr_taskinfoRepository.Add(taskinfo);
             }
-            List<v_taskinfo>tasklist=await taskinfoRepository.Query();
+            List<v_taskinfo> tasklist = await taskinfoRepository.Query();
             return tasklist.Count;
-            
+
 
         }
     }
