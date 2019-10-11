@@ -4,13 +4,11 @@
     "\\json",
     "\\json\\user",
     "\\src",
-    "\\src\\style\\dtree",
-    "\\src\\style\\dtree\\font",
     "\\src\\views",
-    "\\src\\views\\SysManage",
+    "\\src\\views\\mr_bookManage",
     "\\src\\views\\user",
     "\\start"
   ],
-  "SelectedNode": "\\src\\views\\user\\login.html",
+  "SelectedNode": "\\src\\views\\mr_bookManage\\AssoUserDetail.html",
   "PreviewInSolutionExplorer": false
 }
