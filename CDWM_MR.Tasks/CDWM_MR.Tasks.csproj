@@ -9,11 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Quartz" Version="3.0.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CDWM_MR.IServices\CDWM_MR.IServices.csproj" />
+    <ProjectReference Include="..\CDWM_MR.Services\CDWM_MR.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -20,10 +20,13 @@ using CDWM_MR.Common.MemoryCache;
 using CDWM_MR.Filter;
 using CDWM_MR.Hubs;
 using CDWM_MR.IServices;
+using CDWM_MR.IServices.Content;
 using CDWM_MR.Log;
 using CDWM_MR.Middlewares;
 using CDWM_MR.Model;
+using CDWM_MR.Services.Content;
 using CDWM_MR.Tasks;
+using CDWM_MR.Tasks.Job;
 using CDWM_MR_Common.Redis;
 using log4net;
 using log4net.Config;
@@ -40,6 +43,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
+using QuartzDemo.Quarzs;
 using StackExchange.Profiling.Storage;
 using Swashbuckle.AspNetCore.Swagger;
 using static CDWM_MR.SwaggerHelper.CustomApiVersion;
@@ -210,6 +217,13 @@ namespace CDWM_MR
                 #endregion
             });
 
+            #endregion
+
+            #region Quzrtz.Net
+            services.AddSingleton<QuartzManager>();//注入管理类
+            //services.AddTransient<BuildTaskExcel>();//注入方法
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();//注册ISchedulerFactory的实例。
+            services.AddSingleton<IJobFactory, IOCJobFactory>();
             #endregion
 
             #region Authorize 权限认证三步走
@@ -414,7 +428,7 @@ namespace CDWM_MR
             //实例化 AutoFac  容器   
             var builder = new ContainerBuilder();
             //注册要通过反射创建的组件
-            //builder.RegisterType<AdvertisementServices>().As<IAdvertisementServices>();
+            builder.RegisterType<sys_userinfoServices>().As<Isys_userinfoServices>();
             builder.RegisterType<CdwmCacheAOP>();//可以直接替换其他拦截器
             builder.RegisterType<CdwmRedisCacheAOP>();//可以直接替换其他拦截器
             builder.RegisterType<CdwmLogAOP>();//这样可以注入第二个
@@ -507,7 +521,7 @@ namespace CDWM_MR
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
 
             #region ReuestResponseLog
@@ -583,6 +597,20 @@ namespace CDWM_MR
 
             #endregion
 
+            #region Quartze.Net
+            //获取前面注入的Quartz调度类
+            var quartz = app.ApplicationServices.GetRequiredService<QuartzManager>();
+            appLifetime.ApplicationStarted.Register(() =>
+            {
+                quartz.Init().Wait(); //网站启动完成执行
+            });
+
+            appLifetime.ApplicationStopped.Register(() =>
+            {
+                quartz.Stop();  //网站停止完成执行
+
+            });
+            #endregion
 
             // 跳转https
             //app.UseHttpsRedirection();

@@ -1422,7 +1422,7 @@
             <param name="services"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+        <member name="M:CDWM_MR.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.AspNetCore.Hosting.IApplicationLifetime)">
             <summary>
             运行时调用此方法。使用此方法配置HTTP请求管道。
             创建一个HttpContext处理请求

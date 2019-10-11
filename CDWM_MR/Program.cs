@@ -49,7 +49,6 @@ namespace CDWM_MR
                 }
             }
 
-            QuartzManager.Init().GetAwaiter().GetResult();
             // 运行 web 应用程序并阻止调用线程, 直到主机关闭。
             // 创建完 WebHost 之后，便调用它的 Run 方法，而 Run 方法会去调用 WebHost 的 StartAsync 方法
             // 将Initialize方法创建的Application管道传入以供处理消息

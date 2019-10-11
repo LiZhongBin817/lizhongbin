@@ -511,7 +511,11 @@ namespace CDWM_MR.Repository.BASE
             }
             return await _db.Queryable(joinExpression).Where(whereLambda).Select(selectExpression).ToListAsync();
         }
-
+        public async Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression)
+        {
+            //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(whereExpression != null, whereExpression).Take(intTop).ToList());
+            return await _entityDb.AsSugarClient().Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
+        }
         /// <summary>
         /// 更新其他数据库实体数据
         /// </summary>
