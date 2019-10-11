@@ -411,6 +411,7 @@ namespace CDWM_MR.Controllers
         [AllowAnonymous]//允许所有都访问
         public async Task<string> BuildExcel()
         {
+
             StdSchedulerFactory factory = new StdSchedulerFactory();
             IScheduler scheduler = await factory.GetScheduler();
             await scheduler.Start();//启动单元
