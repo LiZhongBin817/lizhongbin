@@ -8,7 +8,7 @@ using System.Text;
 
 namespace CDWM_MR.Services.Content
 {
-   public partial class mr_taskinfoServices:BaseServices<mr_taskinfo>,Imr_taskinfoservices
+   public partial class mr_taskinfoServices:BaseServices<mr_taskinfo>,Imr_taskinfoServices
     {
         private readonly Imr_taskinfoRepository dal;
         public mr_taskinfoServices(Imr_taskinfoRepository dal) {

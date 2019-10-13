@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CDWM_MR.IServices.Content
 {
-    public partial interface Imr_taskinfoservices:IBaseServices<mr_taskinfo>
+    public partial interface Imr_taskinfoServices:IBaseServices<mr_taskinfo>
     {
         Task<object> Gettaskinfo(int? mrid);
     }
