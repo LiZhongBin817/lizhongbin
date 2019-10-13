@@ -97,7 +97,7 @@ namespace CDWM_MR.Controllers
         {
             //将前端传过来的值进行转换
             sys_parameter Jsondata = Common.Helper.JsonHelper.GetObject<sys_parameter>(JsonData);
-            //Jsondata.createpeople = LoginController._UersName;
+            Jsondata.createpeople = Permissions.UersName;
             Jsondata.createtime = DateTime.Now;
 
             //查询参数表中的最后一条数据

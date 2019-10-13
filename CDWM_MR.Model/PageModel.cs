@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CDWM_MR.Model.Models;
 
 namespace CDWM_MR.Model
 {
@@ -29,6 +30,11 @@ namespace CDWM_MR.Model
         /// 返回数据
         /// </summary>
         public List<T> data { get; set; }
+
+        public static implicit operator PageModel<T>(List<v_mr_datainfo> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

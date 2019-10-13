@@ -507,7 +507,7 @@
             抄表数据管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.MRManageController.#ctor(CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_watercarryover_historyServices,CDWM_MR.IServices.Content.Irt_b_recheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_recheck_recheckhistoryServices,CDWM_MR.IServices.Content.Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices,CDWM_MR.IServices.Content.Imr_datainfo_historyServices,CDWM_MR.IServices.Content.Isys_userinfoServices)">
+        <member name="M:CDWM_MR.Controllers.MRManageController.#ctor(CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_watercarryover_historyServices,CDWM_MR.IServices.Content.Irt_b_recheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_recheck_recheckhistoryServices,CDWM_MR.IServices.Content.Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices,CDWM_MR.IServices.Content.Imr_datainfo_historyServices,CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices)">
             <summary>
             构造函数
             </summary>
@@ -557,6 +557,21 @@
             <param name="RecheckData"></param>
             <param name="RecheckStatus"></param>
             <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.ShowMRPath(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            显示抄表路径
+            </summary>
+            <param name="month">抄表月份</param>
+            <param name="name">抄表员姓名</param>
+            <param name="date">抄表日期</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.RenderSelect">
+            <summary>
+            渲染抄表员下拉框
+            </summary>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.Mr_b_ReaderController">
