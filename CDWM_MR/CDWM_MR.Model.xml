@@ -3992,6 +3992,76 @@
             任务单完成状态0--计划;1--下达;2--完成
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.ViewModels.UploadPhotoModel">
+            <summary>
+            接受上传图片
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.photofile">
+            <summary>
+            图片文件类型
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.isreadupdate">
+             <summary>
+            读数是否上传标识符(0--未上传;1--已上传)(APP)
+             </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.photocode">
+            <summary>
+            照片编号(APP)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.photonname">
+            <summary>
+            照片名称(APP)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.phototype">
+            <summary>
+            照片类型(0--其他类型;1--表盘抄表;2--现场表况;3--故障处理后(故障);4--其他照片)(APP)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.billid">
+            <summary>
+            业务编号如抄表关联id,故障关联故障id,0--默认不关联
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.photourl">
+            <summary>
+            服务器存储路径
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.photoext">
+            <summary>
+            文件名后缀
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.taskperiodname">
+            <summary>
+            任务账期(201909)(APP)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.readercode">
+            <summary>
+            抄表员编号(APP)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.metercode">
+            <summary>
+            水表编号(APP)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.usercode">
+            <summary>
+            用户编号(APP)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.phototime">
+            <summary>
+            拍照时间
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.ViewModels.v_taskinfo">
             <summary>
             VIEW

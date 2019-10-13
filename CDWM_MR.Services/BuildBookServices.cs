@@ -7,6 +7,7 @@ using CDWM_MR.Model.Models;
 using CDWM_MR.Services.BASE;
 using CDWM_MR_Common.Redis;
 using Microsoft.AspNetCore.Hosting;
+using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
@@ -24,12 +25,13 @@ namespace CDWM_MR.Services
         readonly IHostingEnvironment env;
         private IMapper _mapper;
 
-        public BuildBookServices(Imr_b_bookinfoRepository mrbbookinfo, Iv_bookexcelRepository Iv_bookexcelService, Irt_b_watercarryover_historyRpository Irt_b_watercarryover_historyService, IRedisHelper redis, IMapper iMapper)
+        public BuildBookServices(Imr_b_bookinfoRepository mrbbookinfo, Iv_bookexcelRepository Iv_bookexcelService, Irt_b_watercarryover_historyRpository Irt_b_watercarryover_historyService, IRedisHelper redis, IMapper iMapper, IHostingEnvironment envhost)
         {
             _Iv_bookexcelServices = Iv_bookexcelService;
             _Irt_b_watercarryover_historyServices = Irt_b_watercarryover_historyService;
             _redishelper = redis;
             _mapper = iMapper;
+            env = envhost;
             base.BaseDal = mrbbookinfo;
         }
 
@@ -98,12 +100,12 @@ namespace CDWM_MR.Services
                 storage.Add(bookexcel);
             }
             var bookName = bookno;
-            var path = bookName + ".xls";
-            var rootPath = "c:/bookExcels/";
+            var path = $"{bookName}.xls";
+            var rootPath = Path.Combine(env.ContentRootPath, "wwwroot", "MR_bookinfo");
             if (System.IO.Directory.Exists(rootPath) == false)
                 System.IO.Directory.CreateDirectory(rootPath);
 
-            var newFile = rootPath + path;
+            var newFile = $"{rootPath}/{path}";
             if (System.IO.File.Exists(newFile))
             {
                 try
@@ -117,7 +119,7 @@ namespace CDWM_MR.Services
             }
             using (var fs = new FileStream(newFile, FileMode.Create, FileAccess.ReadWrite))
             {
-                IWorkbook workbook = new XSSFWorkbook();
+                IWorkbook workbook = new HSSFWorkbook();
                 var sheet = workbook.CreateSheet("orders");
                 var header = sheet.CreateRow(0);
                 header.CreateCell(0).SetCellValue("表册名");

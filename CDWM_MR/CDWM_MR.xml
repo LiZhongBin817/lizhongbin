@@ -1043,6 +1043,7 @@
             <summary>
             接受上传图片
             </summary>
+            <param name="Test"></param>
             <param name="environment"></param>
             <returns></returns>
         </member>
@@ -1169,6 +1170,17 @@
             获取抄表计划接口
             </summary>
             <param name="account">登录账号</param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.v1.AppPhotoController">
+            <summary>
+            图片问题
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppPhotoController.uploadphoto(CDWM_MR.Model.ViewModels.UploadPhotoModel)">
+            <summary>
+            上传图片接口
+            </summary>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppSoftware">
@@ -1520,7 +1532,7 @@
             <param name="services"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.AspNetCore.Hosting.IApplicationLifetime)">
+        <member name="M:CDWM_MR.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
             运行时调用此方法。使用此方法配置HTTP请求管道。
             创建一个HttpContext处理请求

@@ -20,15 +20,15 @@ namespace CDWM_MR.Controllers
     /// </summary>
     public class BookManageController : ControllerBase
     {
-        public readonly Iv_b_bookinfoServices _Iv_b_bookinfoServices;
-        public readonly It_b_regionsServices _It_b_regionsServices;
-        public readonly Imr_b_bookinfoServices _Imr_b_bookinfoServices;
-        public readonly Imr_book_meterServices _Imr_book_meterServices;
-        public readonly Iv_wateruserinfoServices _Iv_wateruserinfoServices;
-        public readonly Imr_book_readerServices _Imr_book_readerServices;
-        public readonly Imr_b_readerServices _Imr_b_readerServices;
-        public readonly Iv_b_bookuserinfoServices _Iv_b_bookuserinfoServices;
-        public readonly It_b_watermetersServices _It_b_watermetersServices;
+        private readonly Iv_b_bookinfoServices _Iv_b_bookinfoServices;
+        private readonly It_b_regionsServices _It_b_regionsServices;
+        private readonly Imr_b_bookinfoServices _Imr_b_bookinfoServices;
+        private readonly Imr_book_meterServices _Imr_book_meterServices;
+        private readonly Iv_wateruserinfoServices _Iv_wateruserinfoServices;
+        private readonly Imr_book_readerServices _Imr_book_readerServices;
+        private readonly Imr_b_readerServices _Imr_b_readerServices;
+        private readonly Iv_b_bookuserinfoServices _Iv_b_bookuserinfoServices;
+        private readonly It_b_watermetersServices _It_b_watermetersServices;
         private readonly IRedisHelper _redishelpr;
         private readonly IBuildBookServices _buildservices;
 

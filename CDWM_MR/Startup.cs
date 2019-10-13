@@ -219,13 +219,6 @@ namespace CDWM_MR
 
             #endregion
 
-            #region Quzrtz.Net
-            services.AddSingleton<QuartzManager>();//注入管理类
-            //services.AddTransient<BuildTaskExcel>();//注入方法
-            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();//注册ISchedulerFactory的实例。
-            services.AddSingleton<IJobFactory, IOCJobFactory>();
-            #endregion
-
             #region Authorize 权限认证三步走
 
             //使用说明：
@@ -403,24 +396,6 @@ namespace CDWM_MR
 
             services.AddSingleton(new Appsettings(Env));
             services.AddSingleton(new LogLock(Env));
-            services.AddScoped<SqlSugar.ISqlSugarClient>(o => { 
-                return new SqlSugar.SqlSugarClient(new SqlSugar.ConnectionConfig()
-                {
-                    ConnectionString = BaseDBConfig.ConnectionString,
-                    DbType = (SqlSugar.DbType)BaseDBConfig.DbType,
-                    IsAutoCloseConnection = true,
-                    IsShardSameThread = true,
-                    ConfigureExternalServices = new SqlSugar.ConfigureExternalServices()
-                    {
-                        //DataInfoCacheService = new HttpRuntimeCache()
-                    },
-                    MoreSettings = new SqlSugar.ConnMoreSettings()
-                    {
-                        //IsWithNoLockQuery = true,
-                        IsAutoRemoveDataCache = true
-                    }
-                });
-            });
             //services.AddSession();
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
@@ -428,7 +403,7 @@ namespace CDWM_MR
             //实例化 AutoFac  容器   
             var builder = new ContainerBuilder();
             //注册要通过反射创建的组件
-            builder.RegisterType<sys_userinfoServices>().As<Isys_userinfoServices>();
+            //builder.RegisterType<sys_userinfoServices>().As<Isys_userinfoServices>();
             builder.RegisterType<CdwmCacheAOP>();//可以直接替换其他拦截器
             builder.RegisterType<CdwmRedisCacheAOP>();//可以直接替换其他拦截器
             builder.RegisterType<CdwmLogAOP>();//这样可以注入第二个
@@ -477,6 +452,16 @@ namespace CDWM_MR
                 var assemblysRepository = Assembly.LoadFrom(repositoryDllFile);
                 builder.RegisterAssemblyTypes(assemblysRepository).AsImplementedInterfaces();
                 #endregion
+
+                #region Quzrtz.Net
+                var quartz = Path.Combine(basePath, "CDWM_MR.Tasks.dll");
+                var assemblysquartze = Assembly.LoadFrom(repositoryDllFile);
+                builder.RegisterAssemblyTypes(assemblysRepository).AsImplementedInterfaces();
+                //services.AddSingleton<QuartzManager>();//注入管理类
+                //services.AddTransient<BuildTaskExcel>();//注入方法
+                //services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();//注册ISchedulerFactory的实例。
+                //services.AddSingleton<IJobFactory, IOCJobFactory>();
+                #endregion
             }
             catch (Exception ex)
             {
@@ -521,7 +506,7 @@ namespace CDWM_MR
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
 
             #region ReuestResponseLog
@@ -595,21 +580,6 @@ namespace CDWM_MR
             //跨域第一种版本，请要ConfigureService中配置服务 services.AddCors();
             #endregion
 
-            #endregion
-
-            #region Quartze.Net
-            //获取前面注入的Quartz调度类
-            var quartz = app.ApplicationServices.GetRequiredService<QuartzManager>();
-            appLifetime.ApplicationStarted.Register(() =>
-            {
-                quartz.Init().Wait(); //网站启动完成执行
-            });
-
-            appLifetime.ApplicationStopped.Register(() =>
-            {
-                quartz.Stop();  //网站停止完成执行
-
-            });
             #endregion
 
             // 跳转https

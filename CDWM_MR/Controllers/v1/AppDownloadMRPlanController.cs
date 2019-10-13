@@ -117,6 +117,7 @@ namespace CDWM_MR.Controllers.v1
         /// <summary>
         /// 接受上传图片
         /// </summary>
+        /// <param name="Test"></param>
         /// <param name="environment"></param>
         /// <returns></returns>
         [HttpPost]
@@ -127,10 +128,11 @@ namespace CDWM_MR.Controllers.v1
             string path = string.Empty;
             string foldername = "images";
             IFormFileCollection files = null;
-
+            string test = "抱歉";
             try
             {
                 files = Request.Form.Files;
+                test = Request.Form["Test"].ObjToString();
             }
             catch (Exception)
             {
@@ -173,7 +175,7 @@ namespace CDWM_MR.Controllers.v1
                     {
                         code = 0,
                         msg = "上传成功",
-                        data = $"文件个数:{files.Count()}",
+                        data = $"文件个数:{files.Count()}{test}",
                     };
                     return data;
                 }
