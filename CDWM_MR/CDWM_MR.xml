@@ -372,6 +372,71 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.#ctor(CDWM_MR.IServices.Content.Iv_b_datasearch_historyServices,CDWM_MR.IServices.Content.Iv_mr_date_readerServices,CDWM_MR.IServices.Content.Iv_b_areas_regionServices,CDWM_MR.IServices.Content.Iv_b_regionServices,CDWM_MR.IServices.Content.Iv_mr_b_readerServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="datainfo_HistoryServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.ShowDataSearchInfo(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            抄表数据查询
+            </summary>
+            <param name="account"></param>
+            <param name="username"></param>
+            <param name="meternum"></param>
+            <param name="telephone"></param>
+            <param name="meterbooknumber"></param>
+            <param name="mrreadername"></param>
+            <param name="ordatatime01"></param>
+            <param name="ordatatime02"></param>
+            <param name="regionname"></param>
+            <param name="areaname"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.renderdataInfo(System.String)">
+            <summary>
+            渲染第二个小区下拉框
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.render_regionInfo">
+            <summary>
+            渲染第一个区域下拉框
+            </summary>
+            <returns></returns> 
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.OutExcelDataSearch">
+            <summary>
+            导出EXcel表格
+            </summary>
+            <returns></returns> 
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.ReadAnalysis(System.String,System.String)">
+            <summary>
+            抄表员量化分析
+            </summary>
+            <param name="readDatetime01"></param>
+            <param name="mrreadername"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns> 
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.OutExcelReadAnalysis">
+            <summary>
+            抄表员量化导出
+            </summary>
+            <returns></returns> 
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.render_ReaderAnalysis">
+            <summary>
+            渲染抄表员的下拉框
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.DetailManageController">
             <summary>
             应抄明细管理
