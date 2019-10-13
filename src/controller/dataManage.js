@@ -107,11 +107,11 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                     if (d.rtrecheckstatus == 0) {
                         return '<a style="text-decoration:none;">无 </a>';
                     }
-                    else if (d.recheckstatus == 2 && d.carrystatus == null && d.rtrecheckstatus != 1) {
+                    else if (d.recheckstatus != 1 && d.carrystatus == null && d.rtrecheckstatus != 1) {
                         return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen">审核</button>';
                     }
-                    else if (d.recheckstatus == 2 && d.carrystatus == null && d.rtrecheckstatus == 1) {
-                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen">再次审核</button>'; '<a style="text-decoration:none;">无 </a>';
+                    else if (d.recheckstatus != 1 && d.carrystatus == null && d.rtrecheckstatus == 1) {
+                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen">再次审核</button>';
                     }
                     else {
                         return '<a style="text-decoration:none;">无 </a>';

@@ -30,7 +30,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function (exports) {
             tokenName: 'Authorization' //自动携带 token 的字段名。可设置 false 不携带。
         }
         //向后台请求的URL地址
-        ,requesturl:'http://localhost:8088'
+        ,requesturl:'http://localhost:8081'
 
         //自定义响应字段
         , response: {
@@ -50,16 +50,17 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function (exports) {
             , '/user/forget' //找回密码
             , '/template/tips/test' //独立页的一个测试 demo
         ]
-
+      
         //扩展的第三方模块
         , extend: [
             'echarts', //echarts 核心包
             'echartsTheme', //echarts 主题
             'dtree',//树形菜单
             'treeTable',//角色管理菜单展示
-            'autocomplete'//自动填充
+            'autocomplete',//自动填充
+            'bMap'//百度地图
         ]
-
+        
         //主题配置
         , theme: {
             //内置主题配色方案
