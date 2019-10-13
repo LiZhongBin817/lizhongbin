@@ -552,7 +552,7 @@
             抄表计划
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.#ctor(CDWM_MR.IServices.Content.Imr_planinfoServices,CDWM_MR.IServices.Content.Imr_taskinfoservices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices)">
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.#ctor(CDWM_MR.IServices.Content.Imr_planinfoServices,CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices)">
             <summary>
             构造函数注入
             </summary>
@@ -1040,7 +1040,7 @@
             APP下载抄表计划
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoservices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
             构造函数注入
             </summary>
