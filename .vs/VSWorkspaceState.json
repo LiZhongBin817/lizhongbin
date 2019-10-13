@@ -3,11 +3,11 @@
     "",
     "\\src",
     "\\src\\controller",
+    "\\src\\controller\\style",
     "\\src\\views",
-    "\\src\\views\\MR_B_BookManage\\mr_b_readerManage",
-    "\\src\\views\\SysManage",
-    "\\src\\views\\SysManage\\RoleManage"
+    "\\src\\views\\iframe",
+    "\\src\\views\\Seecopy"
   ],
-  "SelectedNode": "\\src\\views\\SysManage\\RoleManage\\AddPage.html",
+  "SelectedNode": "\\src\\controller\\Copysee.js",
   "PreviewInSolutionExplorer": false
 }
