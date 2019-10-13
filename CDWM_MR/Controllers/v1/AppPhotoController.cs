@@ -57,7 +57,7 @@ namespace CDWM_MR.Controllers.v1
                 {
                     uploadmodel.photoext = Path.GetExtension(item.FileName);
                     uploadmodel.photourl = $@"{Path.Combine(environment.WebRootPath, "images")}/类型_{uploadmodel.phototype}/{uploadmodel.taskperiodname}/抄表员_{uploadmodel}/任务单id_{uploadmodel.taskid}";
-                    uploadmodel.
+                    //uploadmodel.
                     string file = Path.Combine(uploadmodel.photourl,item.FileName);
                     if (!System.IO.Directory.Exists(uploadmodel.photourl))
                     {

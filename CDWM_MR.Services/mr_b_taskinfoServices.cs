@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CDWM_MR.Services.Content
 {
-    public partial class mr_taskinfoServices:BaseServices<mr_taskinfo>, Imr_taskinfoServices
+    public partial class mr_taskinfoServices:BaseServices<mr_taskinfo>, Imr_taskinfoservices
     {
         /// <summary>
         /// 获取任务编号

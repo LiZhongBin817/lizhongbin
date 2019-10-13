@@ -24,7 +24,7 @@ namespace CDWM_MR.Controllers
 
         #region 相关变量
         readonly Imr_planinfoServices mr_planinfoServices;
-        readonly Imr_taskinfoServices mr_taskinfoServices;
+        readonly Imr_taskinfoservices mr_taskinfoServices;
         readonly Imr_b_readerServices mr_b_readerServices;
         readonly Imr_b_bookinfoServices mr_b_bookinfoServices;
         readonly Iv_taskinfoServices v_taskinfoServices;
@@ -40,7 +40,7 @@ namespace CDWM_MR.Controllers
         /// <param name="imr_B_ReaderServices"></param>
         /// <param name="imr_B_BookinfoServices"></param>
         /// <param name="iv_TaskinfoServices"></param>
-        public MeterReadingPlanController(Imr_planinfoServices imr_PlaninfoServices, Imr_taskinfoServices imr_Taskinfoservices, Imr_b_readerServices imr_B_ReaderServices, Imr_b_bookinfoServices imr_B_BookinfoServices, Iv_taskinfoServices iv_TaskinfoServices)
+        public MeterReadingPlanController(Imr_planinfoServices imr_PlaninfoServices, Imr_taskinfoservices imr_Taskinfoservices, Imr_b_readerServices imr_B_ReaderServices, Imr_b_bookinfoServices imr_B_BookinfoServices, Iv_taskinfoServices iv_TaskinfoServices)
         {
             mr_planinfoServices = imr_PlaninfoServices;
             mr_taskinfoServices = imr_Taskinfoservices;

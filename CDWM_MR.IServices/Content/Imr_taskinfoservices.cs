@@ -9,7 +9,7 @@ namespace CDWM_MR.IServices.Content
 	/// <summary>
 	/// mr_taskinfoServices
 	/// </summary>	
-    public partial interface Imr_taskinfoServices :IBaseServices<mr_taskinfo>
+    public partial interface Imr_taskinfoservices :IBaseServices<mr_taskinfo>
 	{
 
        

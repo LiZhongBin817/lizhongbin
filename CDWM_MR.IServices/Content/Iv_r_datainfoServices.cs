@@ -3,12 +3,10 @@ using CDWM_MR.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CDWM_MR.IServices.Content
 {
-    public partial interface Imr_taskinfoservices:IBaseServices<mr_taskinfo>
+    public partial interface Iv_r_datainfoServices : IBaseServices<v_r_datainfo>
     {
-        Task<object> Gettaskinfo(int? mrid);
     }
 }

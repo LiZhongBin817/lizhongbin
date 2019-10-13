@@ -3471,6 +3471,61 @@
             抄表数据审核数据
             </summary>
         </member>
+        <member name="M:CDWM_MR.Model.Models.v_r_datainfo.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_r_datainfo.ID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_r_datainfo.readerid">
+            <summary>
+            抄表员id（mr_b_reader：:id）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_r_datainfo.mrreadername">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_r_datainfo.readstatus">
+            <summary>
+            0--未抄;1--已抄回;2--已识别;3--已复审;4--已结转;5--已归档;6--其余未定义
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_r_datainfo.taskperiodname">
+            <summary>
+            任务账期201909冗余
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_r_datainfo.readtype">
+            <summary>
+            抄表状态(0--默认;1--实抄;2--估抄;3--异常),根据gis位置进行判断
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_r_datainfo.meterstatus">
+            <summary>
+            水表状态,从数据字典中读取字符型
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_r_datainfo.recheckstatus">
+            <summary>
+            状态0--未审;1--已审;2--异常
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_r_datainfo.uploadtime">
+            <summary>
+            上传数据时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_r_datainfo.contectusernum">
+            <summary>
+            关联用户数量
+            </summary>
+        </member>
         <member name="M:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.#ctor">
             <summary>
             应抄明细查询表
@@ -3997,9 +4052,9 @@
             接受上传图片
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.photofile">
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.taskid">
             <summary>
-            图片文件类型
+            任务单编号
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.isreadupdate">
@@ -4059,7 +4114,32 @@
         </member>
         <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.phototime">
             <summary>
-            拍照时间
+            拍照时间（APP）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.createtime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.createpeople">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.updatetime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.updatepeople">
+            <summary>
+            更新人
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.remark">
+            <summary>
+            备注
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.ViewModels.v_taskinfo">

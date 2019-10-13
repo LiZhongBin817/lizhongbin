@@ -23,7 +23,7 @@ namespace CDWM_MR.Controllers.v1
     public class AppDownloadMRPlanController : ControllerBase
     {
         #region 相关变量
-        readonly Imr_taskinfoServices taskServices;
+        readonly Imr_taskinfoservices taskServices;
         readonly Iv_taskinfoServices vtaskinfo;
         readonly IHostingEnvironment env;
         #endregion
@@ -34,7 +34,7 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="taskservices"></param>
         /// <param name="Taskinfo"></param>
         /// <param name="Env"></param>
-        public AppDownloadMRPlanController(Imr_taskinfoServices taskservices, Iv_taskinfoServices Taskinfo, IHostingEnvironment Env)
+        public AppDownloadMRPlanController(Imr_taskinfoservices taskservices, Iv_taskinfoServices Taskinfo, IHostingEnvironment Env)
         {
             taskServices = taskservices;
             vtaskinfo = Taskinfo;
