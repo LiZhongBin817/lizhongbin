@@ -134,7 +134,10 @@ namespace CDWM_MR.Services
             List<int> roles = new List<int>();
             for (int i = 0; i < Roles.Count(); i++)
             {
-                roles.Add(Convert.ToInt32(Roles[i]));
+                if(Roles[i]!="")
+                {
+                    roles.Add(Convert.ToInt32(Roles[i]));
+                }
             }
             return new TableModel<object>()
             {

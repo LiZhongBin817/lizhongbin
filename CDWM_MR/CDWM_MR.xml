@@ -285,12 +285,55 @@
             基类控制器
             </summary>
         </member>
+        <member name="T:CDWM_MR.Controllers.CopySee">
+            <summary>
+            抄见率分析
+            </summary>
+        </member>
         <member name="M:CDWM_MR.Controllers.CopySee.ShowCopysee(System.String,System.String,System.Int32,System.Int32)">
             <summary>
             实现抄表率分析
             </summary>
             <param name="mrreadername">抄表员名称</param>
-            <param name="mrdateTime">抄表的年月</param>
+            <param name="taskperiodname">抄表的年月</param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.CopySee.Serchname">
+            <summary>
+            给前台下拉框传值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.CopySee.OutExcel1(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            /用于导出Exece文件
+            </summary>
+            <param name="taskperiodname">抄表的月份</param>
+            <param name="mrreadername">抄表人</param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.DetailManageController">
+            <summary>
+            应抄明细管理
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DetailManageController.#ctor(CDWM_MR.IServices.Content.Iv_t_b_users_datainfo_watercarryoverServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="t_B_Users_Datainfo_WatercarryoverServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DetailManageController.ShowDetailInfo(System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            展示应抄明细数据
+            </summary>
+            <param name="readtype"></param>
+            <param name="ReaderName"></param>
+            <param name="bookno"></param>
             <param name="page"></param>
             <param name="limit"></param>
             <returns></returns>
@@ -417,6 +460,21 @@
             <param name="areaname">小区名称</param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.MeterReadingPlanController">
+            <summary>
+            抄表计划
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.#ctor(CDWM_MR.IServices.Content.Imr_planinfoServices,CDWM_MR.IServices.Content.Imr_taskinfoservices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="imr_PlaninfoServices"></param>
+            <param name="imr_Taskinfoservices"></param>
+            <param name="imr_B_ReaderServices"></param>
+            <param name="imr_B_BookinfoServices"></param>
+            <param name="iv_TaskinfoServices"></param>
+        </member>
         <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.AddPlan(System.String)">
             <summary>
             添加计划单 已完成
@@ -461,10 +519,76 @@
             <param name="planid"></param>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.ShowTaskEdit(System.String,System.Int32)">
+            <summary>
+            抄表计划编辑 已完成
+            </summary>
+            <param name="senddata"></param>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.OutExcel">
+            <summary>
+            到处EXCEL
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.MRManageController">
             <summary>
-            抄表管理
+            抄表数据管理
             </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.#ctor(CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_watercarryover_historyServices,CDWM_MR.IServices.Content.Irt_b_recheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_recheck_recheckhistoryServices,CDWM_MR.IServices.Content.Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices,CDWM_MR.IServices.Content.Imr_datainfo_historyServices,CDWM_MR.IServices.Content.Isys_userinfoServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="mr_DatainfoServices"></param>
+            <param name="b_Watercarryover_HistoryServices"></param>
+            <param name="b_RecheckServices"></param>
+            <param name="b_WatercarryoverServices"></param>
+            <param name="datainfoServices"></param>
+            <param name="recheck_RecheckhistoryServices"></param>
+            <param name="union_Datainfoocrlog_DatainfohistoryocrloghistoryServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.Show_CB_DataInfo(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            显示抄表数据
+            </summary>
+            <param name="username"></param>
+            <param name="account"></param>
+            <param name="meternum"></param>
+            <param name="address"></param>
+            <param name="mrreadername"></param>
+            <param name="bookno"></param>
+            <param name="rtrecheckstatus"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.CarryData">
+            <summary>
+            结转数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.Change(System.String,System.String,System.String)">
+            <summary>
+            字段转换
+            </summary>
+            <param name="JsonData"></param>
+            <param name="taskperiodname"></param>
+            <param name="autoaccount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.SubmitChecked(System.String,System.Decimal,System.Int32,System.String)">
+            <summary>
+            确认审核按钮
+            </summary>
+            <param name="JsonData"></param>
+            <param name="RecheckData"></param>
+            <param name="RecheckStatus"></param>
+            <param name="result"></param>
+            <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.Mr_b_ReaderController">
             <summary>
@@ -518,6 +642,11 @@
             <param name="ID"></param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.OprationManageController">
+            <summary>
+            权限管理
+            </summary>
+        </member>
         <member name="M:CDWM_MR.Controllers.OprationManageController.#ctor(CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.IServices.Content.Isys_menuServices,CDWM_MR.IServices.Content.Isys_interface_infoServices)">
             <summary>
             构造函数
@@ -551,6 +680,26 @@
             添加权限
             </summary>
             <param name="JsonDate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.OprationManageController.ShowSelectInfor">
+            <summary>
+            菜单下拉框数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.OprationManageController.ShowInterInfor">
+            <summary>
+            接口下拉框
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.OprationManageController.GetStatus(System.Int32,System.String)">
+            <summary>
+            判断状态
+            </summary>
+            <param name="ID"></param>
+            <param name="status"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.ParameterSettingController">
@@ -801,7 +950,7 @@
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppDownloadMRPlanController">
             <summary>
-            
+            APP下载抄表计划
             </summary>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoservices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
@@ -845,6 +994,14 @@
             <summary>
             故障工单
             </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.#ctor(CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Iv_rb_b_faultprocessServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="rt_b_faultinfoServices"></param>
+            <param name="v_rb_b_faultprocessServices"></param>
+            <param name="rb_b_faultprocessServices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppFaultController.UpdateFaultWorkOrder(System.Collections.Generic.List{CDWM_MR.Model.Models.rt_b_faultinfo})">
             <summary>
@@ -890,6 +1047,14 @@
             抄表员数据统计
             </summary>
         </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppMeterReaderData.#ctor(CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Iv_mr_book_reader_lqServices,CDWM_MR.IServices.Content.Iv_rt_b_recheckServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="mr_b_readerServices"></param>
+            <param name="v_mr_book_reader_lqServices"></param>
+            <param name="v_rt_b_recheckServices"></param>
+        </member>
         <member name="M:CDWM_MR.Controllers.v1.AppMeterReaderData.GetMeterReaderDateSum(System.Int32)">
             <summary>
             抄表员数据统计接口
@@ -909,6 +1074,13 @@
             <summary>
             抄表数据接口
             </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.#ctor(CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_mr_datainfoServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="mr_datainfoServices"></param>
+            <param name="v_mr_datainfoServices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.UpdateUserData(System.Collections.Generic.List{CDWM_MR.Model.Models.mr_datainfo})">
             <summary>
@@ -930,6 +1102,12 @@
             抄表计划
             </summary>
         </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingPlan.#ctor(CDWM_MR.IServices.Content.Iv_taskinfoServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="v_taskinfoServices"></param>
+        </member>
         <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingPlan.GetMeterReadingPlan(System.String)">
             <summary>
             获取抄表计划接口
@@ -941,6 +1119,12 @@
              <summary>
             用户数据
              </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppUserDate.#ctor(CDWM_MR.IServices.Content.It_b_usersServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="t_b_usersServices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppUserDate.ModifyUserPhone(System.String,System.String)">
             <summary>

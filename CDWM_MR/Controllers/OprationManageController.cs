@@ -14,7 +14,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CDWM_MR.Controllers
 {
-    
+    /// <summary>
+    /// 权限管理
+    /// </summary>
     public class OprationManageController : ControllerBase
     {
         #region 相关变量
@@ -172,7 +174,7 @@ namespace CDWM_MR.Controllers
             #region 判重
             string operationname = data.OperationName;
             string linkurl = data.LinkUrl;
-            var listQuery = alllist.FindAll(c => c.OperationName == operationname);
+            var listQuery = alllist.FindAll(c => c.OperationName == operationname && c.LinkUrl == linkurl);
             string message = "";
             if (listQuery.Count!=0)
             {
@@ -195,6 +197,10 @@ namespace CDWM_MR.Controllers
         #endregion
 
         #region 菜单下拉框数据
+        /// <summary>
+        /// 菜单下拉框数据
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("ShowSelectInfor")]
         [AllowAnonymous]
@@ -218,6 +224,10 @@ namespace CDWM_MR.Controllers
         #endregion
 
         #region 接口下拉框
+        /// <summary>
+        /// 接口下拉框
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("ShowInterInfor")]
         [AllowAnonymous]
@@ -241,6 +251,12 @@ namespace CDWM_MR.Controllers
         #endregion
 
         #region 判断状态
+        /// <summary>
+        /// 判断状态
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetStatus")]
         [AllowAnonymous]

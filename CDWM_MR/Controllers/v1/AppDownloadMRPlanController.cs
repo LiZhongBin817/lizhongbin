@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CDWM_MR.Controllers.v1
 {
     /// <summary>
-    /// 
+    /// APP下载抄表计划
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]

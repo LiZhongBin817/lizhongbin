@@ -571,7 +571,7 @@ namespace CDWM_MR.Controllers
             #endregion
             role.RoleNumber = "RN-000"+NewRoleNumber.ToString();
             role.RoleName = RoleName;
-            role.createpeople = "1";
+            //role.createpeople = LoginController._UersName;
             role.createtime = DateTime.Now;
             role.DeleteFlag = 0;
             foreach (var item in data)

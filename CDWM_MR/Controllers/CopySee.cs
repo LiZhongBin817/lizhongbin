@@ -20,16 +20,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CDWM_MR.Controllers
 {
+    /// <summary>
+    /// 抄见率分析
+    /// </summary>
     public class CopySee : Controller
     {
-        readonly Iv_r_datainfoServices _v_r_datainfoServices;
+  
         readonly Imr_b_readerServices _mr_b_readerServices;
         readonly Imr_datainfo_historyServices _mr_datainfo_historyServices;
 
-     
-        public CopySee(Iv_r_datainfoServices v_r_datainfo, Imr_b_readerServices mr_b_readerServices, Imr_datainfo_historyServices mr_datainfo_historyServices)
-        {
-            _v_r_datainfoServices = v_r_datainfo;
+        public CopySee( Imr_b_readerServices mr_b_readerServices, Imr_datainfo_historyServices mr_datainfo_historyServices)
+        {        
             _mr_b_readerServices = mr_b_readerServices;
             _mr_datainfo_historyServices = mr_datainfo_historyServices;
         }
@@ -37,7 +38,7 @@ namespace CDWM_MR.Controllers
         /// 实现抄表率分析
         /// </summary>
         /// <param name="mrreadername">抄表员名称</param>
-        /// <param name="mrdateTime">抄表的年月</param>
+        /// <param name="taskperiodname">抄表的年月</param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -45,81 +46,106 @@ namespace CDWM_MR.Controllers
         [Route("ShowCopysee")]
         [AllowAnonymous]
         [EnableCors("LimitRequests")]
-        public async Task<TableModel<object>> ShowCopysee(string mrreadername, string mrdateTime, int page = 1, int limit = 5)
+        public async Task<TableModel<object>> ShowCopysee(string mrreadername, string taskperiodname, int page = 1, int limit = 5)
         {
             PageModel<mr_datainfo_history> user = new PageModel<mr_datainfo_history>();
+            List<object> datalist = new List<object>();
             Expression<Func<mr_datainfo_history, bool>> wherelambda = c => true;
             string dateTime = "";
-            if (string.IsNullOrEmpty(mrdateTime))
+            if (string.IsNullOrEmpty(taskperiodname))
             {
-                mrdateTime= (DateTime.Now.Year).ToString() + (DateTime.Now.Month).ToString().PadLeft(2, '0');
-                dateTime = mrdateTime;
-                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.mrdateTime == mrdateTime);
+                taskperiodname = (DateTime.Now.Year).ToString() + (DateTime.Now.Month).ToString().PadLeft(2, '0');
+                dateTime = taskperiodname;
+                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.taskperiodname == taskperiodname);
             }
-            if (!string.IsNullOrEmpty(mrdateTime))
-            {
-                dateTime = mrdateTime;
-                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.mrdateTime == mrdateTime);
+                if (!string.IsNullOrEmpty(taskperiodname))
+                {
+                   dateTime = taskperiodname;
+                   wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.taskperiodname == taskperiodname);
+                }
+                if (!string.IsNullOrEmpty(mrreadername))
+                {
+                    wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.mrreadername == mrreadername);
+                }
+                user = await _mr_datainfo_historyServices.QueryPage(wherelambda, page, limit);
+              if(user.data.Count()==0)
+              {
+                return new TableModel<object>()
+                {
+                    code = 0,
+                    msg = "no",
+                    count = 0,
+                  
+                };
             }
-            if (!string.IsNullOrEmpty(mrreadername))
+                double allyingchao = user.data.FindAll(c => c.readstatus == 1).Count() + user.data.FindAll(a => a.readstatus == 0).Count();
+                double allyichao = user.data.FindAll(c => c.readstatus == 1).Count();
+                double allshichao = user.data.FindAll(c => c.readtype == 1).Count();
+                string allchaojianlv = (Math.Round(Convert.ToDouble(allyichao) / Convert.ToDouble(allyingchao) * 100, 2)).ToString();
+                allchaojianlv = allchaojianlv + "%";
+                string allshichaolv = (Math.Round(Convert.ToDouble(allshichao) / 1.0 / Convert.ToDouble(allyingchao) * 100, 2) / 1.0).ToString();
+                allshichaolv = allshichaolv + "%";
+            var datatwo = new
             {
-                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.mrreadername == mrreadername);
-            }
-            user = await _mr_datainfo_historyServices.QueryPage(wherelambda, page, limit);
-            double allyichao= user.data.FindAll(c => c.readstatus == 1).Count() + user.data.FindAll(a => a.readstatus == 0).Count();
-            double allshichao= user.data.FindAll(c => c.readtype == 1).Count();
-            //暂时没用9.26创建的
-          //  List<mr_b_reader> name = new List<mr_b_reader>();
-          //  name = await _mr_b_readerServices.Query();
-            List<object> datalist = new List<object>();
-        //    List<object> dataname = new List<object>();
-         // for(int i=0;i<name.Count();i++)
-          //  {
-          //      dataname.Add(name[i].mrreadername);
-          //  }
-            for (int i = 0; i < user.data.Count(); i++)
-            {
-                var data1 = user.data.FindAll(c => c.mrreadername == user.data[i].mrreadername && c.mrdateTime == dateTime);
-                //if (!(name.Contains(user.data[i].mrreadername)))判重
-             
-                          int yichao = user.data.FindAll(c => c.readstatus == 1&& c.mrreadername == user.data[i].mrreadername && c.mrdateTime == dateTime).Count();
-                           int weichao = user.data.FindAll(c => c.readstatus == 0 && c.mrreadername == user.data[i].mrreadername && c.mrdateTime == dateTime).Count();
-                           int shichao = user.data.FindAll(c => c.readtype == 1 && c.mrreadername == user.data[i].mrreadername && c.mrdateTime == dateTime).Count();
-                             int yingchao = yichao + weichao;
-                           string  chaojianlv = (Math.Round(Convert.ToDouble(yingchao) / Convert.ToDouble(yingchao)*100,2)).ToString();
-                             chaojianlv = chaojianlv + "%";
-                string shichaolv = (Math.Round(Convert.ToDouble(shichao)/1.0 / Convert.ToDouble(yingchao)*100, 2)/1.0).ToString();
-                shichaolv = shichaolv + "%";
-                         var data = new
-                          {
-                               name = user.data[i].mrreadername,
-                              month = dateTime,
-                               yichao = yichao,
-                               weichao = weichao,
-                               shichao = shichao,
-                               yingchao=yingchao,
-                                chaojianlv= chaojianlv,
-                                shichaolv= shichaolv
+                allyingchao = allyingchao,
+                allyichao = allyichao,
+                allshichao = allshichao,
+                allchaojianlv = allchaojianlv,
+                allshichaolv = allshichaolv
 
-
-                            };
-                           datalist.Add(data);
-                
-            }
-            return new TableModel<object>()
-            {
-                code = 0,
-                msg = "ok",
-                count = datalist.Count(),
-                data = datalist
             };
+          
+
+            for (int i = 0; i < user.data.Count(); i++)
+                {
+                    var data1 = user.data.FindAll(c => c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime);
+                    //if (!(name.Contains(user.data[i].mrreadername)))判重
+                    //已抄
+                    int drop = user.data.FindAll(c => c.readstatus == 1 && c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime).Count();
+                   //未抄
+                    int uncopied = user.data.FindAll(c => c.readstatus == 0 && c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime).Count();
+                    int copy = user.data.FindAll(c => c.readtype == 1 && c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime).Count();
+                    int shoudcopy = drop + uncopied;
+                    string droprate = (Math.Round(Convert.ToDouble(drop) / Convert.ToDouble(shoudcopy) * 100, 2)).ToString();
+                    droprate = droprate + "%";
+                    string copyrate = (Math.Round(Convert.ToDouble(copy) / 1.0 / Convert.ToDouble(shoudcopy) * 100, 2) / 1.0).ToString();
+                    copyrate = copyrate + "%";
+                var data = new
+                {
+                    name = user.data[i].mrreadername,
+                    month = dateTime,
+                    drop = drop,
+                    uncopied = uncopied,
+                    copy = copy,
+                    shoudcopy = shoudcopy,
+                    droprate = droprate,
+                    copyrate = copyrate,
+                    datatwo = datatwo   ,
+
+                };
+                datalist.Add(data);
+
+            }
+                return new TableModel<object>()
+                {
+                    code = 0,
+                    msg = "ok",
+                    count = datalist.Count(),
+                    data = datalist
+                };
+            
         }
+        /// <summary>
+        /// 给前台下拉框传值
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("Serchname")]
         [AllowAnonymous]
         [EnableCors("LimitRequests")]
         public async  Task<TableModel<object>> Serchname()
         {
+
 
             List<mr_b_reader> name = new List<mr_b_reader>();
              name = await _mr_b_readerServices.Query();
@@ -138,76 +164,96 @@ namespace CDWM_MR.Controllers
             };
 
         }
+
+
         #region 导出Excel
+        /// <summary>
+        /// /用于导出Exece文件
+        /// </summary>
+        /// <param name="taskperiodname">抄表的月份</param>
+        /// <param name="mrreadername">抄表人</param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         [HttpGet]
-        [Route("OutExcel")]
+        [Route("OutExcel1")]
         [AllowAnonymous]
         [EnableCors("LimitRequests")]
-        public async Task<FileResult> OutExcel(int page = 1, int limit = 5)
+        public async Task<FileResult> OutExcel1(string taskperiodname,string mrreadername, int page = 1, int limit = 5)
         {
             PageModel<mr_datainfo_history> user = new PageModel<mr_datainfo_history>();
             Expression<Func<mr_datainfo_history, bool>> wherelambda = c => true;
             Hashtable tb = new Hashtable();
             string dateTime = "";
-            user = await _mr_datainfo_historyServices.QueryPage(wherelambda, page, limit);
-            double allyichao = user.data.FindAll(c => c.readstatus == 1).Count() + user.data.FindAll(a => a.readstatus == 0).Count();
-            double allshichao = user.data.FindAll(c => c.readtype == 1).Count();
-            //暂时没用9.26创建的
-            //  List<mr_b_reader> name = new List<mr_b_reader>();
-            //  name = await _mr_b_readerServices.Query();
-            List<object> datalist = new List<object>();
-            //    List<object> dataname = new List<object>();
-            // for(int i=0;i<name.Count();i++)
-            //  {
-            //      dataname.Add(name[i].mrreadername);
-            //  }
-            int yichao;
-            int yingchao;
-            string chaojianlv;
-            string shichaolv;
-            List<mr_datainfo_history> ExcelList = await _mr_datainfo_historyServices.Query(c => true);
-            var lalala = ExcelList.Select(c => new mr_datainfo_history
+            if (string.IsNullOrEmpty(taskperiodname))
             {
-                mrreadername = c.mrreadername,
-                mrdateTime = c.mrdateTime,
-
-
-
-            }).ToList();
-
+                taskperiodname = (DateTime.Now.Year).ToString() + (DateTime.Now.Month).ToString().PadLeft(2, '0');
+                dateTime = taskperiodname;
+                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.taskperiodname == taskperiodname);
+            }
+            if (!string.IsNullOrEmpty(taskperiodname))
+            {
+                dateTime = taskperiodname;
+                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.taskperiodname == taskperiodname);
+            }
+            if (!string.IsNullOrEmpty(mrreadername))
+            {
+                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.mrreadername == mrreadername);
+            }
+            user = await _mr_datainfo_historyServices.QueryPage(wherelambda, page, limit);
+           // double allyichao = user.data.FindAll(c => c.readstatus == 1).Count() + user.data.FindAll(a => a.readstatus == 0).Count();
+          //  double allshichao = user.data.FindAll(c => c.readtype == 1).Count();
+          //  List<object> datalist = new List<object>();
+            int drop;
+            int shoudcopy;
+            int copy;
+            int uncopied;
+            string droprate;
+            string copyrate;
+            MemoryStream data = new MemoryStream();
+            List<mr_datainfo_history> ExcelList = await _mr_datainfo_historyServices.Query(wherelambda);
+            tb.Add("mrreadername", "抄表员");
+            tb.Add("taskperiodname", "抄表月份");
+            tb.Add("drop", "已抄表");
+            tb.Add("copy", "实抄表");
+            tb.Add("shoudecopy", "应抄表");
+            tb.Add("droprate", "抄见率");
+            tb.Add("copyrate", "实抄率");
             for (int i = 0; i < user.data.Count(); i++)
             {
-                var data1 = user.data.FindAll(c => c.mrreadername == user.data[i].mrreadername && c.mrdateTime == dateTime);
-                //if (!(name.Contains(user.data[i].mrreadername)))判重
+             
+                var data1 = user.data.FindAll(c => c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime);
+                 drop = user.data.FindAll(c => c.readstatus == 1 && c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime).Count();
+                uncopied = user.data.FindAll(c => c.readstatus == 0 && c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime).Count();
+                 copy = user.data.FindAll(c => c.readtype == 1 && c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime).Count();
+                 shoudcopy = drop + uncopied;
+                droprate = (Math.Round(Convert.ToDouble(shoudcopy) / Convert.ToDouble(shoudcopy) * 100, 2)).ToString();
+                droprate = droprate + "%";
+                 copyrate = (Math.Round(Convert.ToDouble(copy) / 1.0 / Convert.ToDouble(shoudcopy) * 100, 2) / 1.0).ToString();
+                copyrate = copyrate + "%";
 
-                 yichao = user.data.FindAll(c => c.readstatus == 1 && c.mrreadername == user.data[i].mrreadername && c.mrdateTime == dateTime).Count();
-                int weichao = user.data.FindAll(c => c.readstatus == 0 && c.mrreadername == user.data[i].mrreadername && c.mrdateTime == dateTime).Count();
-                int shichao = user.data.FindAll(c => c.readtype == 1 && c.mrreadername == user.data[i].mrreadername && c.mrdateTime == dateTime).Count();
-                 yingchao = yichao + weichao;
-                 chaojianlv = (Math.Round(Convert.ToDouble(yingchao) / Convert.ToDouble(yingchao) * 100, 2)).ToString();
-                chaojianlv = chaojianlv + "%";
-                 shichaolv = (Math.Round(Convert.ToDouble(shichao) / 1.0 / Convert.ToDouble(yingchao) * 100, 2) / 1.0).ToString();
-                shichaolv = shichaolv + "%";
 
-                tb.Add("mrreadername", "抄表员");
-                tb.Add("mrdateTime", "抄表月份");
-                tb.Add("yingyao", "已抄表");
-                tb.Add("shaochao", "实抄表");
-                tb.Add("yingchao", "应抄表");
-                tb.Add("chaojianlv", "抄见率");
-                tb.Add("shichaolv", "实抄率");
+               
+
+                var lalala = ExcelList.Select(c => new AnalysisofMeterReadingRate
+                {
+                    mrreadername = c.mrreadername,
+                    taskperiodname = c.taskperiodname,
+                    drop = drop,
+                    copy = copy,
+                    shoudcopy = shoudcopy,
+                    droprate = droprate,
+                    copyrate = copyrate
+
+                }).ToList();
+                data = OfficeHelper.getExcel<AnalysisofMeterReadingRate>(lalala, tb);
 
             }
-
-
-           
-           
-
-            MemoryStream data = OfficeHelper.getExcel<mr_datainfo_history>(lalala, tb);
+            
             string fileExt = ".xls";
             var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
             var memi = provider.Mappings[fileExt];
-            return File(data, memi, "任务单信息.xlsx");
+            return File(data, memi, "抄表率分析.xlsx");
         }
         #endregion
 

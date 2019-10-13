@@ -39,6 +39,9 @@ namespace CDWM_MR.Controllers
         readonly Isys_userinfoServices _SysUserinfo;
         #endregion
 
+        //一个静态属性，用来存放登录用户的账号
+        //public static string _UersName { get; set; }
+        
         /// <summary>
         /// 构造函数注入
         /// </summary>
@@ -103,6 +106,7 @@ namespace CDWM_MR.Controllers
             var user = (await _SysManage.Query(c => c.LoginName == UserName && c.LoginPassWord == md5 && c.UseStatus == 0)).FirstOrDefault();
             if (user != null)
             {
+                //_UersName = user.FUserName;
                 //将登陆的用户信息存入Redis缓存
                 await _redishelper.StringSetAsync($"UserInfo{user.id}", user,TimeSpan.FromMinutes(30));
                 var rolestr = await _SysManage.GetuserRole(user.id);//角色的组合

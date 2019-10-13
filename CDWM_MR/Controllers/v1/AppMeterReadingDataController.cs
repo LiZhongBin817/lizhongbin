@@ -23,11 +23,18 @@ namespace CDWM_MR.Controllers.v1
         readonly Imr_datainfoServices _mr_datainfoServices;
         readonly Iv_mr_datainfoServices _v_mr_datainfoServices;
         #endregion
+
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="mr_datainfoServices"></param>
+        /// <param name="v_mr_datainfoServices"></param>
         public AppMeterReadingDataController(Imr_datainfoServices mr_datainfoServices, Iv_mr_datainfoServices v_mr_datainfoServices)
         {
             _mr_datainfoServices = mr_datainfoServices;
             _v_mr_datainfoServices = v_mr_datainfoServices;
         }
+
         #region  上传用户抄表数据接口
         /// <summary>
         /// 上传用户抄表数据接口
@@ -45,6 +52,7 @@ namespace CDWM_MR.Controllers.v1
             return Status;
         }
         #endregion
+
         #region   获取本周期已经审查的抄表数据接口
         /// <summary>
         /// 获取本周期已经审查的抄表数据接口
