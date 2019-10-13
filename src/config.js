@@ -41,7 +41,8 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function (exports) {
             }
             , msgName: 'msg' //状态信息的字段名称
             , dataName: 'data' //数据详情的字段名称
-        }
+        },
+        requesturl:'http://localhost:8081'
 
         //独立页面路由，可随意添加（无需写参数）
         , indPage: [
