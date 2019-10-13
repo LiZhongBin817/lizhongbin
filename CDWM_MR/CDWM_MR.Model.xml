@@ -3466,11 +3466,6 @@
             状态0--通过;1--不通过
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.FUserName">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.carrystatus">
             <summary>
             状态0--未结转;1--正常;2--异常

@@ -1,5 +1,5 @@
 ﻿using CDWM_MR.Tasks.Job;
-using CDWM_MR.Tasks.Log;
+//using CDWM_MR.Tasks.Log;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Logging;
@@ -41,7 +41,7 @@ namespace CDWM_MR.Tasks
         public async Task Init()
         {
             #region 日志记录
-            LogProvider.SetCurrentLogProvider(new CustomerLogProvider());
+            //LogProvider.SetCurrentLogProvider(new CustomerLogProvider());
             #endregion
 
             _scheduler = await _schedulerFactory.GetScheduler();
