@@ -4,9 +4,11 @@
     "\\src",
     "\\src\\controller",
     "\\src\\views",
+    "\\src\\views\\DataSearch",
+    "\\src\\views\\ReadAnalysis",
     "\\src\\views\\SysManage",
     "\\src\\views\\SysManage\\ParameterSetting"
   ],
-  "SelectedNode": "\\src\\controller\\dataManage.js",
+  "SelectedNode": "\\src\\views\\ReadAnalysis\\ReadAnalysis.html",
   "PreviewInSolutionExplorer": false
 }
