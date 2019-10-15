@@ -61,6 +61,9 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                     else if (d.readtype == 3) {
                         return '<a style="text-decoration:none;">状态:' + '异常' + '<br>上传读数:' + d.inputdata + '<br>图像识别:' + d.ocrdata + '<br>' + d.recheckresult + ' </a>';
                     }
+                    else {
+                        return '<a style="text-decoration:none;">状态:' + '正常' + '<br>上传读数:' + d.inputdata + '<br>图像识别:' + d.ocrdata + ' </a>';
+                    }
                 }
             },
             {
@@ -102,19 +105,19 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                 }
             },
             {
-                title: '操作', width: 100, align: 'center',
+                title: '操作', width: 180, align: 'center',
                 templet: function (d) {
                     if (d.rtrecheckstatus == 0) {
-                        return '<a style="text-decoration:none;">无 </a>';
+                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="SeeRecheckHistoryData">查看</button>';
                     }
                     else if (d.recheckstatus != 1 && d.carrystatus == null && d.rtrecheckstatus != 1) {
-                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen">审核</button>';
+                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen">审核</button>' +'<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="SeeRecheckHistoryData">查看</button>';
                     }
                     else if (d.recheckstatus != 1 && d.carrystatus == null && d.rtrecheckstatus == 1) {
-                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen">再次审核</button>';
+                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen">再次审核</button>' +'<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="SeeRecheckHistoryData">查看</button>';
                     }
                     else {
-                        return '<a style="text-decoration:none;">无 </a>';
+                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="SeeRecheckHistoryData">查看</button>';
 
                     }
                 }
@@ -187,7 +190,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
         if (event === "dataManageOpen") {                  
             admin.popup({
                 id: 'ReCheckData',
-                area: ['845px', '550px'],
+                area: ['845px', '600px'],
                 title: '审核',
                 success: function (layero, index) {
                     view(this.id).render('DataManage/ReCheckData', data).done(function () {
@@ -262,6 +265,59 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                 }
             });
         }
+        if (event === "SeeRecheckHistoryData") {
+            admin.popup({
+                id: 'RecheckHistoryData',
+                title: '审核历史记录表',
+                area: ['1200px', '500px'],
+                success: function (d) {
+                    view(this.id).render('DataManage/RecheckHistoryData', data).done(function () {
+                        form.render(null, 'RecheckHistoryData');
+                        console.log(data.autoaccount);
+
+                        //表格渲染
+                        table.render({
+                            elem: '#RecheckHistoryDataTable',
+                            url: layui.setter.requesturl + '/ShowHistoryRecheckData',
+                            method: 'post',
+                            where: {
+                                "autoaccount": data.autoaccount
+                            },
+                            cols: [[
+                                { field: 'taskperiodname', title: '月份', width: 120 },
+                                { field: 'inputdata', title: '上传数据', width: 120 },
+                                { field: 'ocrlogdata', title: '图像识别', width: 120 },
+                                { field: 'recheckdata', title: '复审读数', width: 120 },
+                                { field: 'pirctureID', title: '图片', width: 120 },
+                                {
+                                    field: 'recheckstatus', title: '状态', width: 120,
+                                    templet: function (d) {
+                                        console.log(d.recheckstatus);
+                                        var contents = "";
+                                        if (d.recheckstatus == 0) {
+                                            contents = "已审";
+                                        }
+                                        else if (d.recheckstatus == 1) {
+                                            contents = "不通过";
+                                        }
+                                        return contents;
+                                    }
+                                },
+                                { field: 'createtime', title: '时间', width: 180 },
+                                { field: 'remark', title: '备注', width: 250 },
+                            ]]
+                            , page: true
+                            , limit: 5
+                            , limits: [5, 10, 15]
+                            , done: function () {
+                                layer.close(load);
+                            }
+                        });
+                    })
+                }
+            });
+        }
     });
+
     exports('dataManage', {});
 });
