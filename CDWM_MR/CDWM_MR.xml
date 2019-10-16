@@ -1288,6 +1288,16 @@
             图片问题
             </summary>
         </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppPhotoController.#ctor(AutoMapper.IMapper,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="mapper"></param>
+            <param name="mr_datainfoservices"></param>
+            <param name="faultinfo"></param>
+            <param name="faultprocess"></param>
+            <param name="photoservices"></param>
+        </member>
         <member name="M:CDWM_MR.Controllers.v1.AppPhotoController.uploadphoto(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
             上传图片接口

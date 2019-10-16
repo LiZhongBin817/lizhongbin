@@ -4337,6 +4337,11 @@
             读数是否上传标识符(0--未上传;1--已上传)(APP)
              </summary>
         </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.faultid">
+            <summary>
+            故障id
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.photocode">
             <summary>
             照片编号(APP)
@@ -4390,31 +4395,6 @@
         <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.phototime">
             <summary>
             拍照时间（APP）
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.createtime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.createpeople">
-            <summary>
-            创建人
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.updatetime">
-            <summary>
-            更新时间
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.updatepeople">
-            <summary>
-            更新人
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.remark">
-            <summary>
-            备注
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.ViewModels.v_taskinfo">
