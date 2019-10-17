@@ -1,88 +1,120 @@
-/*Title:ÅÉ¹¤µ¥¹ÜÀí
- *Creator:¶¡¿¡½Ü
- * Date:2019.09.17
+ï»¿/*Title:æ´¾å·¥å•ç®¡ç†
+ *Creator:ä¸ä¿Šæ°
+ * Date:2019.09.20
  */
 
-layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', 'index'], function (exports) {
+layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'layedit', 'upload', 'jquery'], function (exports) {
     var form = layui.form,
         table = layui.table,
         admin = layui.admin,
+        laydate = layui.laydate,
         view = layui.view,
-        $=layui.$,
-        laydate = layui.laydate;
+        util = layui.util,
+        upload = layui.upload,
+        $ = layui.$;
+    var StartTime;//å¼€å§‹æ—¶é—´
+    var EndTime;//ç»“æŸæ—¶é—´
+    var ID;//faultinfoçš„ID
+    var Number;//faultinfo ä¸­æ•…éšœç¼–å·
+    var DispatchedWorker;//æ´¾å·¥
+    var LatestTime;//æœ€è¿Ÿå¤„ç†æ—¶é—´
+    var MeterReadingClerkID;//æŠ„è¡¨å‘˜ID
+    var Resdata = new Array();//å­˜å‚¨ç»™å—ç†æ“ä½œç•Œé¢æ•°æ®
+    var DealResdata = new Array();//å­˜å‚¨ç»™æ“ä½œç•Œé¢æ•°æ®
     table.render({
-        elem: '#DSMShow',
-        col:[[
-            { field: 'DSMID', title: 'ĞòºÅ', width: 100, sort: true, fixed: 'left' },
-            { field: 'DSMNumber', title: '¹ÊÕÏ±àºÅ', width: 150 },
-            { field: 'DSMType', title: '¹ÊÕÏÀàĞÍ', width: 150 },
-            { field: 'DSMContent', title: '¹ÊÕÏÄÚÈİ', width: 150 },
-            { field: 'DSMTime', title: 'ÉÏ±¨Ê±¼ä', width: 200 },
-            { field: 'DSMReportPerson', title: 'ÉÏ±¨ÈË', width: 150 },
-            { field: 'DSMEnclosure', title: '¸½¼ş', width: 100, event:'Enclosure' },
-            { field: 'DSMStatus', title: '×´Ì¬', width: 100 },
-            { field: 'DSMAddress', title: 'Î»ÖÃĞÅÏ¢', width: 100, event:'Address' },
-            { field: 'DSMOperation', title: '²Ù×÷', width: 150, fixed: 'right', align: 'center', toolbar: '#DSMbarDemo'}
+        elem: '#DSMShowtable',
+        url: 'http://localhost:8081/ShowFaultTable',
+        method: 'post',
+        cols: [[
+            { field: 'DSMID', title: 'åºå·', width: 100, sort: true, fixed: 'left' },
+            { field: 'DSMNumber', title: 'æ•…éšœç¼–å·', width: 150 },
+            {
+                field: 'DSMType', title: 'æ•…éšœç±»å‹', width: 100,
+                templet: function (d) {
+                    if (d.DSMType == 6) {
+                        return "è¡¨åŸ‹"
+                    }
+                    else if (d.DSMType == 7) {
+                        return "è¡¨å"
+                    }
+                    else if (d.DSMType == 8) {
+                        return "äº•ç›–å"
+                    }
+                    else if (d.DSMType == 10) {
+                        return "æ¼æ°´"
+                    }
+                    else {
+                        return "å…¶ä»–"
+                    }
+                }
+            },
+            { field: 'DSMContent', title: 'æ•…éšœå†…å®¹', width: 150 },
+            {
+                field: 'DSMTime', title: 'ä¸ŠæŠ¥æ—¶é—´', width: 150,
+                templet: function (d) {
+                    return util.toDateString(d.DSMTime);
+                }
+            },
+            { field: 'DSMReportPerson', title: 'ä¸ŠæŠ¥äºº', width: 100 },
+            {
+                field: 'DSMEnclosure', title: 'é™„ä»¶', width: 100, event: 'Enclosure',
+                templet: function (d) {
+                    return '<a  style="color: #c00;text-decoration:underline">' + d.DSMEnclosure + '</a>'
+                }
+            },
+            {
+                field: 'DSMStatus', title: 'çŠ¶æ€', width: 100,
+                templet: function (d) {
+                    if (d.DSMStatus == 0) {
+                        return "æœªå—ç†"
+                    }
+                    else if (d.DSMStatus == 1) {
+                        return "å·²å—ç†"
+                    }
+                    else if (d.DSMStatus == 2) {
+                        return "å·²å¤„ç†"
+                    }
+                    else {
+                        return "å·²å­˜æ¡£"
+                    }
+                }
+            },
+            {
+                field: 'DSMAddress', title: 'ä½ç½®ä¿¡æ¯', width: 100, event: 'Address',
+                templet: function (d) {
+                    return '<a style="color: #c00;text-decoration:underline">' + d.DSMAddress + '</a>'
+                }
+            },
+            {
+                field: 'DSMOperation', title: 'æ“ä½œ', width: 250, fixed: 'right', align: 'center',
+                templet: function (d) {
+                    if (d.DSMStatus == 0) {
+                        return '<a class="layui-btn layui-btn-warm " lay-event="DSMAcceptance">å—ç†</a><a class="layui-btn layui-btn-warm " lay-event="DSMEdit">ç¼–è¾‘</a><a class="layui-btn layui-btn-warm " lay-event="DSMDelte">åˆ é™¤</a>'
+                    }
+                    else if (d.DSMStatus == 1) {
+                        return '<a class="layui-btn layui-btn-warm " lay-event="DSMHandle">å¤„ç†</a><a class="layui-btn layui-btn-warm " lay-event="DSMEdit">ç¼–è¾‘</a><a class="layui-btn layui-btn-warm " lay-event="DSMDelte">åˆ é™¤</a>'
+                    }
+                    else if (d.DSMStatus == 2) {
+                        return '<a class="layui-btn layui-btn-warm " lay-event="DSMHandleinformation">å¤„ç†ä¿¡æ¯</a><a class="layui-btn layui-btn-warm " lay-event="DSMEdit">ç¼–è¾‘</a><a class="layui-btn layui-btn-warm " lay-event="DSMDelte">åˆ é™¤</a>'
+                    }
+                }
+            }
         ]],
         page: true,
         limit: 10,
         limits: [10, 15, 20],
-        
     });
 
-    $(function () {
-        admin.req({
-            type: "post",
-            url: '',//ºóÌ¨µØÖ·
-            data: {},
-            success: function (data) {
-                //»ñÈ¡±í¸ñid
-                var table = document.getElementById("DSMShow");
-                //Í¨¹ıÑ­»·½«»ñÈ¡µÄÊı¾İ²åÈë±íÖĞ
-                for (var i = 0; i < data.length; i++) {
-                    var row = table.insertRow(table.rows.length);
-                    var c1 = row.insertCell(0);
-                    c1.innerHTML = data[i].DSMID;
-                    var c2 = row.insertCell(1);
-                    c2.innerHTML = data[i].DSMNumber;
-                    var c3 = row.insertCell(2);
-                    c3.innerHTML = data[i].DSMType;
-                    var c4 = row.insertCell(3);
-                    c4.innerHTML = data[i].DSMContent;
-                    var c5 = row.insertCell(4);
-                    c5.innerHTML = data[i].DSMTime;
-                    var c6 = row.insertCell(5);
-                    c6.innerHTML = data[i].DSMReportPerson;
-                    var c7 = row.insertCell(6);
-                    c7.innerHTML = "<button class='btn btn-link' event:'Enclosure'></button>";
-                    var c8 = row.insertCell(7);
-                    c8.innerHTML = data[i].DSMStatus;
-                    var c9 = row.insertCell(8);
-                    c9.innerHTML = "<button class='btn btn-link' event:'Address'>²é¿´</button>";
-                    var c10 = row.insertCell(9);
-                    c10.innerHTML = data[i].DSMOperation;
-                    //Í¼Æ¬Ö®Ç°ÊÇ10ÁĞ£¬ËùÒÔ´Ó11ÁĞ¿ªÊ¼²åÈëÍ¼Æ¬Â·¾¶£¬forÑ­»·´Ó11¿ªÊ¼
-                    //Ñ­»·Í£Ö¹µÄÌõ¼şÊÇ»ñÈ¡µÄÍ¼Æ¬ÊıÁ¿¼ÓÉÏ¹Ì¶¨ÁĞÊı£¬Í¨¹ı±äÁ¿j½«»ñÈ¡µÄÍ¼Æ¬²åÈëµ½Ã¿Ò»ÁĞÖĞ
-                    var j = 0;
-                    for (var x = 11; x < data[i].img.length+10; x++) {
-                        var c11 = row.insertCell(x);
-                        c11.innerHTML = data[i].img[j++];
-                        c11.style.display = "none";
-                    }
-                }
-            }
-        });
-    });
-
-    //¼àÌı²éÑ¯
+    //ç›‘å¬æŸ¥è¯¢
     form.on('submit(DSM_polling)', function (obj) {
         var field = obj.field;
-        table.reload('DSMShow', {
+        table.reload('DSMShowtable', {
             where: {
                 "DSMNumber": field.DSMNumber,
                 "DSMType": field.DSMType,
                 "DSMStatus": field.DSMStatus,
-                "DSMTime": field.DSMTime
+                "StartTime": field.StartTime,
+                "EndTime": field.EndTime
             }
             , page: {
                 "curr": 1,
@@ -91,35 +123,252 @@ layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', '
         })
     });
 
-    //¼àÌı²Ù×÷
+    //ç›‘å¬æ“ä½œ
     table.on('tool(DSM)', function (obj) {
         var data = obj.data,
             event = obj.event,
             tr = obj.tr;
-        //¼àÌı¸½¼ş
-        if (event =="Enclosure") {
-            admin.req({
-                url: '',//ºóÌ¨´«Í¼Æ¬µØÖ·
-                type: "post",
-                data: {
+        Resdata.push(data);
+        Resdata.push(util.toDateString(data.DSMTime));//å°†æ—¶é—´æ ¼å¼è§„èŒƒåŒ–
+        ID = obj.data.DSMID;
+        Number = obj.data.DSMNumber;
+        console.log(ID);
+        console.log(Number);
+        admin.req({
+            url: 'http://localhost:8081/ShowDispatchedWorker',
+            type: "post",
+            data: {
+            },
+            success: function (resdata) {
+                //ç›‘å¬é™„ä»¶
+                if (event == "Enclosure") {
+                    admin.req({
+                        url: 'http://localhost:8081/ShowPhoto',//åå°è·å–å›¾ç‰‡
+                        type: "post",
+                        data: {
+                            "id": ID
+                        },
+                        success: function (data) {
+                            admin.popup({
+                                title: "å›¾ç‰‡å¼¹å‡ºå±‚",
+                                area: ['700px', '500px'],
+                                maxmin: true,
+                                id: 'showphoto',
+                                shadeClose: true, //ç‚¹å‡»é®ç½©å…³é—­
+                                content: '<div id="photoForm1"></div>',
+                                success: function (layero, index) {
+                                    view('showphoto').render('DispatchSheetManagement/DSMShowPhoto', Number).done(function () {
+                                        for (var i = 0; i < data.length; i++) {
+                                            $("#imgZmList").append("<li><img src=" + data[i] + "></li>");
+                                        }
+                                        form.render(null, 'DSMShowOperation');
+                                    });
+                                }
+                            });
+                        }
 
-                },
-                success: function (data) {
-                
+                    });
                 }
-            });
-            admin.popup({
-                title: '¸½¼şÒ³Ãæ',
-                area: ['700px', '500px'],
-                maxmin: true,
-                id: 'enclosure',
-                success: function (layero,index) {
-                    //»ñÈ¡±í¸ñÖĞµÄÁĞ
-                    
+                //ç›‘å¬ä½ç½®ä¿¡æ¯
+                else if (event == "Address") {
+                    admin.req({
+                        url: 'http://localhost:8081/ShowAddress',//åå°åœ°å€å›¾ç‰‡
+                        type: "post",
+                        data: {
+                            "id": ID
+                        },
+                        success: function (data) {
+                            var src = data;//åå°srcåœ°å€
+                            admin.popup({
+                                title: "åœ°å€ä¿¡æ¯",
+                                area: ['700px', '500px'],
+                                maxmin: true,
+                                id: 'showaddress',
+                                success: function (layero, index) {
+                                    view('showaddress').render('DispatchSheetManagement/DSMShowAddress', Number).done(function () {
+                                        for (var i = 0; i < data.length; i++) {
+                                            $("#AddressimgZmList").append("<li><img src=" + data[i] + "></li>");
+                                        }
+                                        form.render(null, 'ShowAddress');
+                                    });
+                                }
+                            });
+                        }
+                    });
                 }
-            });
-        }
+                //ç›‘å¬å—ç†æ“ä½œ
+                else if (event == "DSMAcceptance") {
+                    if (Resdata.push(resdata.data)) {
+                        if (resdata.code == 0) {
+                            admin.popup({
+                                title: "å—ç†æ“ä½œ",
+                                area: ['700px', '500px'],
+                                maxmin: true,
+                                id: 'AcceptanceOperation',
+                                success: function (layero, index) {
+                                    view('AcceptanceOperation').render('DispatchSheetManagement/DSMShowAcceptanceOperation', Resdata).done(function () {
+                                        laydate.render({
+                                            elem: '#ShowOperation_endtime',
+                                            min: minDate()
+                                        });
+                                        laydate.render({
+                                            elem: '#ShowOperation_operationtime',
+                                            value: new Date(),
+                                        });
+                                        console.log(Resdata);
+                                        form.render();
+                                        Resdata.splice(0, Resdata.length);//å°†æ•°æ®æ¸…é›¶
+                                        form.on('submit(DSMShowAcceptance_submit)', function (Data) {
+                                            console.log(DispatchedWorker);
+                                            LatestTime = Data.field.ShowOperation_operationtime;//æœ€è¿Ÿå¤„ç†æ—¶é—´
+                                            admin.req({
+                                                url: 'http://localhost:8081/AcceptanceOperation',
+                                                type: "post",
+                                                data: {
+                                                    "id": ID,
+                                                    "Dispatchedworker": DispatchedWorker,
+                                                    "Latesttime": LatestTime
+                                                },
+                                                success: function (RESdata) {
+                                                    if (RESdata.code == 0) {
+                                                        layer.msg("æäº¤æˆåŠŸ");
+                                                    }
+                                                    else {
+                                                        layer.msg("æäº¤å¤±è´¥");
+                                                    }
+                                                }
+                                            });
+                                        });
+
+                                    });
+                                }
+                            });
+                        }
+                    }
+                    //    }//2
+                    //});//1
+                }
+                //ç›‘å¬å¤„ç†æ“ä½œ
+                else if (event == "DSMHandle") {
+                    admin.req({
+                        url: 'http://localhost:8081/ShowProcessingoperationdateinfo',
+                        data: {
+                            "id": ID
+                        },
+                        type: "post",
+                        success: function (sresdata) {
+                            if (sresdata.code == 0) {
+                                DealResdata.push(resdata.data);                               
+                                admin.popup({
+                                    title: "å¤„ç†æ“ä½œ",
+                                    area: ['700px', '500px'],
+                                    maxmin: true,
+                                    id: 'Processingoperation',
+                                    success: function (layero, index) {
+                                        DealResdata.push(sresdata.data);
+                                        view('Processingoperation').render('DispatchSheetManagement/DSMShowProcessingOperation', DealResdata).done(function () {
+                                            console.log(DealResdata);
+                                            laydate.render({
+                                                elem: '#DSMShowProcessingOperationShow_operationtime',
+                                                value: new Date(),
+                                            });
+                                            form.render();
+                                            DealResdata.splice(0, DealResdata.length);
+                                            form.on('submit(DSMShowPO_submit)', function (Data) {
+                                                var str = Data.field.DSMShowProcessingAccessories;
+                                                var isAutoSend = document.getElementsByName('Processed');
+                                                for (var i = 0; i < isAutoSend.length; i++) {
+                                                    if (isAutoSend[i].checked == true) {
+                                                        var res = isAutoSend[i].value;
+                                                    }
+                                                }
+                                                var remark = document.getElementById('Handlingsituation');
+                                                admin.req({
+                                                    url: 'http://localhost:8081/Processingoperations',
+                                                    data:{
+                                                        "s": str,
+                                                        "id": ID,
+                                                        "worker": DispatchedWorker,
+                                                        "result": res,
+                                                        "mark": remark.value
+                                                    },
+                                                    type: "post",
+                                                    success: function (resdata) {
+                                                        if (resdata.code==0) {
+                                                            layer.msg("æäº¤æˆåŠŸ");
+                                                            table.reload('DSMShowtable');
+                                                        } else {
+                                                            layer.msg("æäº¤å¤±è´¥");
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+                else if (event == "DSMHandleinformation") {
+                    admin.req({
+                        url: 'http://localhost:8081/FaultInformationDisplay',
+                        data: {
+                            "id":ID
+                        },
+                        type: "post",
+                        success: function (resdata) {
+                            if (resdata.code==0) {
+                                admin.popup({
+                                    title: "å¤„ç†ä¿¡æ¯",
+                                    area: ['700px', '500px'],
+                                    maxmin: true,
+                                    id: 'Processinformation',
+                                    success: function (layero, index) {
+                                        console.log(resdata.data);
+                                        view('Processinformation').render('DispatchSheetManagement/DSMShowProcessinformation', resdata.data).done(function () {
+                                            form.render();
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        });
     })
-        
-    exports('DSMShow', {})
-})
+
+    //ç›‘å¬å—ç†æ“ä½œä¸­çš„ä¸‹æ‹‰æ¡†
+    form.on('select(DSMShowOperation_select)', function (data) {
+        DispatchedWorker = data.value;
+        console.log(data.value);
+        console.log(DispatchedWorker);
+    });
+    //ç›‘å¬å—ç†æ“ä½œä¸­çš„è¯¥è¡¨æŠ„æˆ·å‘˜
+    form.on('submit(DSMShowReader)', function (obj) {
+        DispatchedWorker = 0;
+    });
+    form.on('select(DSMShowProcessingOperationShow_DealPeople)', function (data) {
+        DispatchedWorker = data.value;
+    })
+
+
+    //æ—¶é—´
+    laydate.render({
+        elem: '#StarTime',
+        min: minDate()
+    });
+    laydate.render({
+        elem: '#EndTime',
+        min: minDate()
+    });
+    // è®¾ç½®æœ€å°å¯é€‰çš„æ—¥æœŸ
+    function minDate() {
+        var now = new Date();
+        return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+    }
+    //æ™®é€šå›¾ç‰‡ä¸Šä¼ 
+    
+    exports('DSMSHOW', {});
+});

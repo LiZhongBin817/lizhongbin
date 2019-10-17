@@ -1,4 +1,4 @@
-﻿/*Title:接口管理
+﻿/*Title:抄表计划管理
  *Creator:丁俊杰
  * Date:2019.09.07
  */
@@ -27,7 +27,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
         page: true,
         cols: [[
             { field: 'ID', title: '序号', width: 100, sort: true, fixed: 'left' },
-            { field: 'Company', title: '所属公司', width: 150 },
+            { field: 'Company', title: '所属公司', width: 200 },
             { field: 'Year', title: '所属年', width: 100 },
             { field: 'Month', title: '所属月份', width: 200 },
             {
@@ -268,7 +268,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
         console.log(TaskID);
         if (Event === 'MRedit') {
             //抄表人员下拉框
-            admin.req({
+            admin.req ({
                 url: 'http://localhost:8081/ShowSelect',
                 type: "post",
                 data: {

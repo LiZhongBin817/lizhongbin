@@ -1,0 +1,86 @@
+﻿<title>受理操作</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-form" layui-filter="DSMShowOperation" id="ShowOperation" name="ShowOperation">
+    <div class="layui-form-item">
+        <label class="layui-form-label">故障编号:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="ShowOperation_number" value="{{d.params[0].DSMNumber}}" disabled="disabled" autocomplete="off" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">故障内容:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="ShowOperation_content" value="{{d.params[0].DSMContent}}" disabled="disabled" autocomplete="off" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">上报时间:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="ShowOperation_time" value="{{d.params[1]}}" disabled="disabled" autocomplete="off" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">派工:</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <select name="ShowOperation_select" id="ShowOperation_select" lay-filter="DSMShowOperation_select">
+                    <option value="">请选择</option>
+                    {{# layui.each(d.params[2],function(index,item){ }}
+                    <option value="{{ item.ID }}">{{ item.Name }}</option>
+                    {{# }); }}
+                </select>
+            </script>
+        </div>
+        <div class="layui-input-inline">
+            <input class="layui-btn" type="button" lay-submit name="DSMShowOperation-btn" id="DSMShowOperation-btn" value="该抄表员" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">最迟处理时间:</label>
+        <div class="layui-inline">
+            <input class="layui-input" type="text" name="ShowOperation_endtime" id="ShowOperation_endtime" autocomplete="off" lay-verify="ShowOperation_endtime" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作员:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="ShowOperation_Operationpeople" disabled="disabled" value="登录管理员" autocomplete="off" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作时间:</label>
+        <div class="layui-inline">
+                <input class="layui-input" type="text" name="ShowOperation_operationtime" id="ShowOperation_operationtime"  disabled="disabled" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"></label>
+        <div class="layui-input-inline">
+            <input type="button" lay-submit lay-filter="DSMShowAcceptance_submit" value="提交" class="layui-btn">
+        </div>
+        <div class="layui-input-inline">
+            <input type="button" lay-submit lay-filter="DSMShowAcceptance_cancel" value="取消" class="layui-btn">
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['admin', 'form', 'view', 'DSMSHOW'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            view = layui.view,
+            admin = layui.admin,
+            DSMSHOW = layui.DSMSHOW;
+        form.render();
+    });
+</script>

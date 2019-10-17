@@ -1,13 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\json",
     "\\src",
     "\\src\\controller",
     "\\src\\views",
+    "\\src\\views\\DispatchSheetManagement",
     "\\src\\views\\MeterReadingManage",
-    "\\src\\views\\MeterReadingManage\\MeterReadingPlan_Manage"
+    "\\src\\views\\MeterReadingManage\\MeterReadingPlan_Manage",
+    "\\src\\views\\SysManage\\Authority_Management",
+    "\\src\\views\\SysManage\\Interface",
+    "\\start"
   ],
-  "SelectedNode": "\\src\\controller\\MeterReadPlan.js",
+  "SelectedNode": "\\src\\views\\MeterReadingManage\\MeterReadingPlan_Manage\\MeterReadPlanPage.html",
   "PreviewInSolutionExplorer": false
 }
