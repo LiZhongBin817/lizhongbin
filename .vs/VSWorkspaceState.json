@@ -1,12 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\dist",
+    "\\dist\\controller",
     "\\src",
     "\\src\\controller",
-    "\\src\\views",
-    "\\src\\views\\SysManage",
-    "\\src\\views\\SysManage\\ParameterSetting"
+    "\\src\\lib",
+    "\\src\\lib\\extend"
   ],
-  "SelectedNode": "\\src\\controller\\dataManage.js",
+  "SelectedNode": "\\src\\controller\\ReadAnalysis.js",
   "PreviewInSolutionExplorer": false
 }
