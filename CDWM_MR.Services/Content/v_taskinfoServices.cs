@@ -40,6 +40,7 @@ namespace CDWM_MR.Services.Content
             List<mr_b_bookinfo> booklist = await book_info.Query();
             List<mr_planinfo> planlist = await planinfo.Query();
             int ID = Convert.ToInt32(planlist[planlist.Count - 1].ID);//v_taskinfo中的planid,每次自动生成最新的
+            await mr_taskinfoRepository.DeleteTable(c=>c.id!=0);
             foreach (var item in booklist)
             {
                 mr_taskinfo taskinfo = new mr_taskinfo();

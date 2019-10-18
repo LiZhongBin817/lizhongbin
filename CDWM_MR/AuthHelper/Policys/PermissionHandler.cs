@@ -47,11 +47,11 @@ namespace CDWM_MR.AuthHelper
             // 将最新的角色和接口列表更新
             var data = await sysrolemenuServices.GetRoleOperation();
             var list = (from item in data
-                        orderby item.ID
+                        orderby item.id
                         select new PermissionItem
                         {
                             Url = item.Operation?.LinkUrl,
-                            Role = Convert.ToInt32(item.Role?.ID),
+                            Role = Convert.ToInt32(item.Role?.id),
                         }).ToList();
 
             requirement.Permissions = list;

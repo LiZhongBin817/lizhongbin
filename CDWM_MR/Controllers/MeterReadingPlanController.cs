@@ -23,7 +23,7 @@ namespace CDWM_MR.Controllers
 
         #region 相关变量
         readonly Imr_planinfoServices mr_planinfoServices;
-        readonly Imr_taskinfoservices mr_taskinfoServices;
+        readonly Imr_taskinfoServices mr_taskinfoServices;
         readonly Imr_b_readerServices mr_b_readerServices;
         readonly Imr_b_bookinfoServices mr_b_bookinfoServices;
         readonly Iv_taskinfoServices v_taskinfoServices;
@@ -31,7 +31,7 @@ namespace CDWM_MR.Controllers
         #endregion
 
         #region 构造函数
-        public MeterReadingPlanController(Imr_planinfoServices imr_PlaninfoServices, Imr_taskinfoservices imr_Taskinfoservices, Imr_b_readerServices imr_B_ReaderServices, Imr_b_bookinfoServices imr_B_BookinfoServices, Iv_taskinfoServices iv_TaskinfoServices)
+        public MeterReadingPlanController(Imr_planinfoServices imr_PlaninfoServices, Imr_taskinfoServices imr_Taskinfoservices, Imr_b_readerServices imr_B_ReaderServices, Imr_b_bookinfoServices imr_B_BookinfoServices, Iv_taskinfoServices iv_TaskinfoServices)
         {
             mr_planinfoServices = imr_PlaninfoServices;
             mr_taskinfoServices = imr_Taskinfoservices;
@@ -58,8 +58,8 @@ namespace CDWM_MR.Controllers
                 int Number = 1;
                 Number = alllist.Count == 0 ? 1 : alllist[alllist.Count - 1].ID + 1;
                 mr_planinfo Data = Common.Helper.JsonHelper.GetObject<mr_planinfo>(data);
-                Data.CreateTime = DateTime.Now;
-                Data.CreatePeople = "1";
+                Data.createtime = DateTime.Now;
+                Data.createpeople = "1";
                 Data.mplannumber = Number.ToString();
                 Data.finishstatus = 0;
                 //判重
@@ -72,9 +72,10 @@ namespace CDWM_MR.Controllers
                         msg = "计划单存在"
                     };
                 }
-                string message = await mr_planinfoServices.Add(Data) > 0 ? "ok" : "error";
+                int Message = await mr_planinfoServices.Add(Data);
+                string message = Message == 0 ? "error" : "ok";
                 return new MessageModel<object>()
-                {
+             {
                     code = 0,
                     msg = message
                 };

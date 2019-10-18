@@ -63,14 +63,14 @@ namespace CDWM_MR.Controllers
 
             Expression<Func<sys_parameter, object>> expression = c => new
             {
-                ID = c.ID,
+                ID = c.id,
                 parametername = c.parametername,
                 parameternumber = c.parameternumber,
                 parametertype = c.parametertype,
                 parametertypename = c.parametertypename,
                 parameterkey = c.parameterkey,
                 parametervalue = c.parametervalue,
-                Remark = c.Remark,
+                Remark = c.remark,
             };
 
             ParameterData = await _Parameter_SettingServices.QueryPage(wherelambda, expression, page, limit, "");
@@ -96,8 +96,8 @@ namespace CDWM_MR.Controllers
         {
             //将前端传过来的值进行转换
             sys_parameter Jsondata = Common.Helper.JsonHelper.GetObject<sys_parameter>(JsonData);
-            Jsondata.CreatePeople = "1";
-            Jsondata.CreateTime = DateTime.Now;
+            Jsondata.createpeople = "1";
+            Jsondata.createtime = DateTime.Now;
 
             //查询参数表中的最后一条数据
             var Data = await _Parameter_SettingServices.Query();
@@ -152,10 +152,10 @@ namespace CDWM_MR.Controllers
                 parametertype=Jsondata.parametertype,
                 parametertypename=Jsondata.parametertypename,
                 parameterkey=Jsondata.parameterkey,
-                UpdatePeople=c.CreatePeople,
-                UpdateTime=DateTime.Now,
-                Remark=Jsondata.Remark,
-            }, c => c.ID ==ID);
+                updatepeople=c.createpeople,
+                updatetime=DateTime.Now,
+                remark=Jsondata.remark,
+            }, c => c.id ==ID);
             return new TableModel<object>()
             {
                 code=0,
