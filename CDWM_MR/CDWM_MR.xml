@@ -372,7 +372,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.DataSearchController.#ctor(CDWM_MR.IServices.Content.Iv_b_datasearch_historyServices,CDWM_MR.IServices.Content.Iv_mr_date_readerServices,CDWM_MR.IServices.Content.Iv_b_areas_regionServices,CDWM_MR.IServices.Content.Iv_b_regionServices,CDWM_MR.IServices.Content.Iv_mr_b_readerServices)">
+        <member name="M:CDWM_MR.Controllers.DataSearchController.#ctor(CDWM_MR.IServices.Content.Iv_b_datasearch_historyServices,CDWM_MR.IServices.Content.Iv_mr_date_readerServices,CDWM_MR.IServices.Content.Iv_b_areas_regionServices,CDWM_MR.IServices.Content.Iv_b_regionServices,CDWM_MR.IServices.Content.Iv_mr_b_readerServices,CDWM_MR.IServices.Content.Iv_reader_analysisServices)">
             <summary>
             构造函数
             </summary>
@@ -435,6 +435,36 @@
             <summary>
             渲染抄表员的下拉框
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.ReadAnalysis_Sum(System.String,System.String)">
+            <summary>
+            抄表员量化汇总分析
+            </summary>
+            <param name="readDatetime01"></param>
+            <param name="mrreadername"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.OutExcelReadAnalysisSum">
+            <summary>
+            抄表员量化汇总导出
+            </summary>
+            <returns></returns> 
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.ReadAnalysis_key">
+            <summary>
+            抄表员键值对集合
+            </summary>
+            <param name="readDatetime01"></param>
+            <param name="mrreadername"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.ReadAnalysis_val">
+            <summary>
+            抄表员与时间的键值对
+            </summary>
+            <param name="readDatetime01"></param>
+            <param name="mrreadername"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.DetailManageController">

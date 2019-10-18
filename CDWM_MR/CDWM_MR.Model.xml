@@ -3651,6 +3651,51 @@
             抄表员id（mr_b_reader：:id）
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.Models.v_reader_analysis">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_reader_analysis.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_reader_analysis.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_reader_analysis.mrreadername">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_reader_analysis.mindatatime">
+            <summary>
+            重要基础数据
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_reader_analysis.maxdatetime">
+            <summary>
+            重要基础数据
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_reader_analysis.meternum">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_reader_analysis.readmetertime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_reader_analysis.readmonth">
+            <summary>
+            任务账期201909冗余
+            </summary>
+        </member>
         <member name="M:CDWM_MR.Model.Models.v_recheck_recheckhistory.#ctor">
             <summary>
             审核表，审核历史表结合表

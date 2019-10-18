@@ -27,6 +27,7 @@ namespace CDWM_MR.Controllers
         readonly Iv_b_regionServices _B_RegionsServices;
         readonly Iv_mr_date_readerServices _Date_ReaderServices;
         readonly Iv_mr_b_readerServices _Mr_B_ReaderServices;
+        readonly Iv_reader_analysisServices _Reader_AnalysisServices;
         #endregion
 
         #region  构造函数
@@ -34,13 +35,14 @@ namespace CDWM_MR.Controllers
         /// 构造函数
         /// </summary>
         /// <param name="datainfo_HistoryServices"></param>
-        public DataSearchController(Iv_b_datasearch_historyServices B_Datasearch_HistoryServices, Iv_mr_date_readerServices Date_ReaderServices, Iv_b_areas_regionServices B_Areas_RegionServices, Iv_b_regionServices B_RegionsServices, Iv_mr_b_readerServices Mr_B_ReaderServices)
+        public DataSearchController(Iv_b_datasearch_historyServices B_Datasearch_HistoryServices, Iv_mr_date_readerServices Date_ReaderServices, Iv_b_areas_regionServices B_Areas_RegionServices, Iv_b_regionServices B_RegionsServices, Iv_mr_b_readerServices Mr_B_ReaderServices, Iv_reader_analysisServices Reader_AnalysisServices)
         {
             _B_Datasearch_HistoryServices = B_Datasearch_HistoryServices;
             _B_Areas_RegionServices = B_Areas_RegionServices;
             _B_RegionsServices = B_RegionsServices;
             _Date_ReaderServices = Date_ReaderServices;
             _Mr_B_ReaderServices = Mr_B_ReaderServices;
+            _Reader_AnalysisServices=Reader_AnalysisServices;
 
         }
         #endregion
@@ -308,22 +310,7 @@ namespace CDWM_MR.Controllers
             {
                 wherelambda = PredicateExtensions.And<v_mr_date_reader>(wherelambda, c => c.mrreadername == mrreadername);
             }
-            #endregion
-
-            #region 拿值
-            Expression<Func<v_mr_date_reader, object>> expression = c => new
-            {
-                id = c.id,
-                maxdatetime = c.maxdatetime,
-                metermonth = c.metermonth,
-                meternum = c.meternum,
-                mindatatime = c.mindatatime,
-                mrreadername = c.mrreadername,
-                readmetertime = c.readmetertime / 3600 + c.readmetertime % 3600 / 3600,
-                readtime = c.readtime
-
-            };
-            #endregion
+            #endregion 
             pageModel = await _Date_ReaderServices.Query(wherelambda);
             var t = pageModel
                  .OrderBy(c => c.readtime)
@@ -335,7 +322,7 @@ namespace CDWM_MR.Controllers
                      meternum = c.meternum,
                      mindatatime = c.mindatatime,
                      mrreadername = c.mrreadername,
-                     readmetertime = c.readmetertime / 3600 + c.readmetertime % 3600 / 3600,
+                     readmetertime = c.readmetertime*1.00 / 3600,
                      readtime = c.readtime
                  });
             return new TableModel<object>
@@ -369,7 +356,7 @@ namespace CDWM_MR.Controllers
                 mindatatime = c.mindatatime,
                 maxdatetime = c.maxdatetime,
                 meternum = c.meternum,
-                readmetertime = c.readmetertime / 3600 + c.readmetertime % 3600 / 3600,
+                readmetertime = c.readmetertime / 3600  ,
                 metermonth = c.metermonth,
 
             }).ToList();
@@ -418,6 +405,190 @@ namespace CDWM_MR.Controllers
                 count = datalist.Count,
                 data = datalist
             };
+        }
+        #endregion
+
+        #region 抄表员量化汇总分析
+        /// <summary>
+        /// 抄表员量化汇总分析
+        /// </summary>
+        /// <param name="readDatetime01"></param>
+        /// <param name="mrreadername"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("ReadAnalysis_Sum")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> ReadAnalysis_Sum(string readDatetime01, string mrreadername)
+        {
+            List<v_reader_analysis> pageModel = new List<v_reader_analysis>();
+            Expression<Func<v_reader_analysis, bool>> wherelambda = c => true;
+            #region lambda拼接
+            if (!string.IsNullOrEmpty(readDatetime01))
+            {
+
+                wherelambda = PredicateExtensions.And<v_reader_analysis>(wherelambda, c => c.readmonth.ToString() == readDatetime01);
+            }
+            if (!string.IsNullOrEmpty(mrreadername))
+            {
+                wherelambda = PredicateExtensions.And<v_reader_analysis>(wherelambda, c => c.mrreadername == mrreadername);
+            }
+            #endregion
+
+            #region 拿值
+            Expression<Func<v_reader_analysis, object>> expression = c => new
+            {
+                id = c.id,
+                maxdatetime = c.maxdatetime,
+                readmonth = c.readmonth,
+                meternum = c.meternum,
+                mindatatime = c.mindatatime,
+                mrreadername = c.mrreadername,
+                readmetertime = c.readmetertime / 3600  ,
+               
+
+            };
+            #endregion
+            pageModel = await _Reader_AnalysisServices.Query(wherelambda);
+            var t = pageModel
+                 .OrderBy(c => c.mindatatime)
+                 .OrderBy(c => c.mrreadername)
+                 .Select(c => new {
+                     id = c.id,
+                     maxdatetime = c.maxdatetime,
+                     readmonth = c.readmonth,
+                     meternum = c.meternum,
+                     mindatatime = c.mindatatime,
+                     mrreadername = c.mrreadername,
+                     readmetertime = c.readmetertime / 3600  ,
+                      
+                 });
+            return new TableModel<object>
+            {
+                code = 0,
+                msg = "OK",
+                count = pageModel.Count,
+                data = t
+            };
+
+        }
+        #endregion
+
+        #region 抄表员量化汇总导出
+        /// <summary>
+        /// 抄表员量化汇总导出
+        /// </summary>
+        /// <returns></returns> 
+        [HttpGet]
+        [Route("OutExcelReadAnalysisSum")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<FileResult> OutExcelReadAnalysisSum()
+        {
+            List<v_reader_analysis> ExcelList = await _Reader_AnalysisServices.Query(c => true);
+            #region  导出赋值
+            var daochu = ExcelList.Select(c => new v_reader_analysis
+            {
+                id = c.id,
+                mrreadername = c.mrreadername, 
+                mindatatime = c.mindatatime,
+                maxdatetime = c.maxdatetime,
+                meternum = c.meternum,
+                readmetertime = c.readmetertime / 3600  ,
+                readmonth = c.readmonth,
+
+            }).ToList();
+            #endregion
+
+            Hashtable tb = new Hashtable();
+            tb.Add("id", "序号");
+            tb.Add("mrreadername", "抄表员姓名"); 
+            tb.Add("mindatatime", "开始时间");
+            tb.Add("maxdatetime", "结束时间");
+            tb.Add("meternum", "抄表个数");
+            tb.Add("readmetertime", "抄表时长");
+            tb.Add("readmonth", "抄表月份");
+            MemoryStream data = OfficeHelper.getExcel<v_reader_analysis>(daochu, tb);
+            string fileExt = ".xls";
+            var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
+            var memi = provider.Mappings[fileExt];
+            return File(data, memi, "抄表员量化汇总分析表.xlsx");
+        }
+        #endregion 
+
+        #region 抄表员与个数的键值对集合
+        /// <summary>
+        /// 抄表员键值对集合
+        /// </summary>
+        /// <param name="readDatetime01"></param>
+        /// <param name="mrreadername"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("ReadAnalysis_key")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> ReadAnalysis_key()
+        { 
+            List<v_reader_analysis> data = new List<v_reader_analysis>();
+            var list01 = await _Reader_AnalysisServices.Query();
+            List<object> datalist01 = new List<object>();//抄表员
+            List<object> datalist02 = new List<object>();// 水表数
+             
+            foreach (var item in list01)
+            {
+                datalist01.Add(item.mrreadername);
+                datalist02.Add(item.meternum);
+            }
+            var data1 = new
+            {
+                datalist01,
+                datalist02,
+            };
+            return new TableModel<object>
+            {
+                code = 0,
+                msg = "OK", 
+                data = data1
+            };
+
+        }
+        #endregion
+
+        #region 抄表员与时间的键值对 
+        /// <summary>
+        /// 抄表员与时间的键值对
+        /// </summary>
+        /// <param name="readDatetime01"></param>
+        /// <param name="mrreadername"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("ReadAnalysis_val")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> ReadAnalysis_val()
+        {
+            List<v_reader_analysis> data = new List<v_reader_analysis>();
+            var list01 = await _Reader_AnalysisServices.Query();
+            List<object> datalist01 = new List<object>();//抄表员
+            List<object> datalist02 = new List<object>();// 水表数
+
+            foreach (var item in list01)
+            {
+                datalist01.Add(item.mrreadername);
+                datalist02.Add(item.readmetertime / 3600);
+            }
+            var data1 = new
+            {
+                datalist01,
+                datalist02,
+            };
+            return new TableModel<object>
+            {
+                code = 0,
+                msg = "OK",
+                data = data1
+            };
+
         }
         #endregion
     }
