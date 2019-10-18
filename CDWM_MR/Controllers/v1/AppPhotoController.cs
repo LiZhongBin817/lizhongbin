@@ -30,6 +30,7 @@ namespace CDWM_MR.Controllers.v1
         private readonly Irt_b_faultinfoServices _faultinfoservices;
         private readonly Irb_b_faultprocessServices _faultprocess;
         private readonly Irt_b_photoattachmentServices _photoservices;
+        private readonly Iv_rt_b_faultinfoServices _vrtbfaultservices;
         #endregion
 
         /// <summary>
@@ -40,13 +41,15 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="faultinfo"></param>
         /// <param name="faultprocess"></param>
         /// <param name="photoservices"></param>
-        public AppPhotoController(IMapper mapper,Imr_datainfoServices mr_datainfoservices, Irt_b_faultinfoServices faultinfo, Irb_b_faultprocessServices faultprocess, Irt_b_photoattachmentServices photoservices)
+        /// <param name="vrtbfaultservices"></param>
+        public AppPhotoController(IMapper mapper,Imr_datainfoServices mr_datainfoservices, Irt_b_faultinfoServices faultinfo, Irb_b_faultprocessServices faultprocess, Irt_b_photoattachmentServices photoservices, Iv_rt_b_faultinfoServices vrtbfaultservices)
         {
             _mapper = mapper;
             _mr_datainfoservices = mr_datainfoservices;
             _faultinfoservices = faultinfo;
             _faultprocess = faultprocess;
             _photoservices = photoservices;
+            _vrtbfaultservices = vrtbfaultservices;
         }
 
         /// <summary>
@@ -72,23 +75,29 @@ namespace CDWM_MR.Controllers.v1
                 for (int i = 0; i < files.Count; i++)
                 {
                     uploadmodel[i].photoext = Path.GetExtension(files[i].FileName);
-                    uploadmodel[i].photourl = $@"{Path.Combine(environment.WebRootPath, "images")}/类型_{uploadmodel[i].phototype}/{uploadmodel[i].taskperiodname}/抄表员_{uploadmodel[i].readercode}/任务单id_{uploadmodel[i].taskid}";
+                    uploadmodel[i].photourl = $@"{Path.Combine(environment.WebRootPath, "images")}\Type_{uploadmodel[i].phototype}\{uploadmodel[i].taskperiodname}\Reader_{uploadmodel[i].readercode}\Taskid_{uploadmodel[i].taskid}";
                     uploadmodel[i].createpeople = "抄表员";//暂时写
                     uploadmodel[i].createtime = DateTime.Now;
                     //uploadmodel.billid
                     //已上传
                     if (uploadmodel[i].isreadupdate == 1)
                     {
+                        string tasknumber = uploadmodel[i].taskperiodname, meternum = uploadmodel[i].metercode;
                         //表盘抄表
                         if (uploadmodel[i].phototype == 1 || uploadmodel[i].phototype == 2)
                         {
-                            var temp = await _mr_datainfoservices.Query(c => c.taskperiodname == uploadmodel[i].taskperiodname && c.meternum == uploadmodel[i].metercode);
+                            var temp = await _mr_datainfoservices.Query(c => c.taskperiodname == tasknumber && c.meternum == meternum);
                             uploadmodel[i].billid = temp.FirstOrDefault().id;//抄表数据id/mr_datainfo
-                        } //现场表况
+                        } //故障照片
                         else if (uploadmodel[i].phototype == 4)
                         {
-                            var temp2 = await _faultinfoservices.Query(c => c.taskperiodname == uploadmodel[i].taskperiodname && c.meternum == uploadmodel[i].metercode);
+                            var temp2 = await _faultinfoservices.Query(c => c.taskperiodname == tasknumber && c.meternum == meternum);
                             uploadmodel[i].billid = temp2.FirstOrDefault().id;//故障信息id/rt_b_faultinfo
+                        }//故障处理照片
+                        else if (uploadmodel[i].phototype == 3)
+                        {
+                            var temp3 = await _vrtbfaultservices.Query(c => c.taskperiodname == tasknumber && c.meternum == meternum && c.faulttype == 1);
+                            uploadmodel[i].billid = temp3.FirstOrDefault().id;
                         }
                         else
                         {

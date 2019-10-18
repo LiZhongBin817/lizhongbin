@@ -75,5 +75,10 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = false,Length = 30,ColumnDescription = "处理人(关联sys_userinfo/mr_b_reader)")]
         public string createperson { get; set; }
+
+        /// <summary>
+        /// 水表编号
+        /// </summary>
+        public string meternum { get; set; }
     }
 }

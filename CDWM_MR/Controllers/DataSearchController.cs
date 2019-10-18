@@ -18,6 +18,9 @@ using NPOI.SS.UserModel;
 
 namespace CDWM_MR.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DataSearchController : ControllerBase
     {
 
@@ -33,7 +36,11 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="datainfo_HistoryServices"></param>
+        /// <param name="B_Datasearch_HistoryServices"></param>
+        /// <param name="Date_ReaderServices"></param>
+        /// <param name="B_Areas_RegionServices"></param>
+        /// <param name="B_RegionsServices"></param>
+        /// <param name="Mr_B_ReaderServices"></param>
         public DataSearchController(Iv_b_datasearch_historyServices B_Datasearch_HistoryServices, Iv_mr_date_readerServices Date_ReaderServices, Iv_b_areas_regionServices B_Areas_RegionServices, Iv_b_regionServices B_RegionsServices, Iv_mr_b_readerServices Mr_B_ReaderServices)
         {
             _B_Datasearch_HistoryServices = B_Datasearch_HistoryServices;
