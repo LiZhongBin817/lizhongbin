@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CDWM_MR.IServices
+namespace CDWM_MR.IServices.Content
 {
    public partial interface Irt_b_photoattachmentServices:IBaseServices<rt_b_photoattachment>
     {

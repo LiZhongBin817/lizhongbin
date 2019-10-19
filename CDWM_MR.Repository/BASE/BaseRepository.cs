@@ -1,5 +1,6 @@
 ﻿using CDWM_MR.Common.DB;
 using CDWM_MR.IRepository.Base;
+using CDWM_MR.IRepository.UnitOfWork;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using SqlSugar;
@@ -14,7 +15,8 @@ namespace CDWM_MR.Repository.BASE
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, new()
     {
         private DbContext _context;
-        private SqlSugarClient _db;
+        private readonly IUnitOfWork _unitOfWork;
+        private ISqlSugarClient _db;
         private SimpleClient<TEntity> _entityDb;
 
         public DbContext Context
@@ -22,22 +24,32 @@ namespace CDWM_MR.Repository.BASE
             get { return _context; }
             set { _context = value; }
         }
-        internal SqlSugarClient Db
+        internal ISqlSugarClient Db
         {
             get { return _db; }
             private set { _db = value; }
         }
+
         internal SimpleClient<TEntity> EntityDb
         {
             get { return _entityDb; }
             private set { _entityDb = value; }
         }
+
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="unitOfWork"></param>
         public BaseRepository()
         {
             DbContext.Init(BaseDBConfig.ConnectionString, (DbType)BaseDBConfig.DbType);
             _context = DbContext.GetDbContext();
             _db = _context.Db;
+            //_context = DbContext.GetDbContext();
+            //_unitOfWork = unitOfWork;
+            //_db = unitOfWork.GetDbClient();
             _entityDb = DbContext.GetCustomEntityDB<TEntity>(DbContext.GetConnectionConfig());//获取简单数据库操作对象
+            //DbContext.Init(BaseDBConfig.ConnectionString, (DbType)BaseDBConfig.DbType);
         }
 
 
@@ -107,7 +119,7 @@ namespace CDWM_MR.Repository.BASE
         }
 
         /// <summary>
-        /// 批量插入实体(速度快)
+        /// 批量插入实体(速度快)12
         /// </summary>
         /// <param name="listEntity">实体集合</param>
         /// <returns>影响行数</returns>
@@ -498,6 +510,37 @@ namespace CDWM_MR.Repository.BASE
                 return await _db.Queryable(joinExpression).Select(selectExpression).ToListAsync();
             }
             return await _db.Queryable(joinExpression).Where(whereLambda).Select(selectExpression).ToListAsync();
+        }
+        public async Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression)
+        {
+            //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(whereExpression != null, whereExpression).Take(intTop).ToList());
+            return await _entityDb.AsSugarClient().Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
+        }
+        /// <summary>
+        /// 更新其他数据库实体数据
+        /// </summary>
+        /// <param name="entity">博文实体类</param>
+        /// <returns></returns>
+        public async Task<bool> OUpdate(TEntity entity)
+        {
+            ////这种方式会以主键为条件
+            //var i = await Task.Run(() => _db.Updateable(entity).ExecuteCommand());
+            //return i > 0;
+            //这种方式会以主键为条件
+            return await _entityDb.AsSugarClient().Updateable(entity).ExecuteCommandHasChangeAsync();
+        }
+        /// <summary>
+        /// 写入实体数据在其他数据库
+        /// </summary>
+        /// <param name="entity">博文实体类</param>
+        /// <returns></returns>
+        public async Task<int> OAdd(TEntity entity)
+        {
+            //var i = await Task.Run(() => _db.Insertable(entity).ExecuteReturnBigIdentity());
+            ////返回的i是long类型,这里你可以根据你的业务需要进行处理
+            //return (int)i;
+            var insert = _entityDb.AsSugarClient().Insertable(entity);
+            return await insert.ExecuteReturnIdentityAsync();
         }
 
     }

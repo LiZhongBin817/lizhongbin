@@ -72,44 +72,44 @@ namespace CDWM_MR.Controllers
             }
             if (!string.IsNullOrEmpty(DSMType))
             {
-                int faulttype = 0;
-                if (DSMType== "表埋")
-                {
-                    faulttype = 6;
-                }
-                else if(DSMType== "表坏")
-                {
-                    faulttype = 7;
-                }
-                else if(DSMType== "漏水")
-                {
-                    faulttype = 10;
-                }
-                else
-                {
-                    faulttype = 11;
-                }
+                int faulttype = Convert.ToInt32(DSMType);
+                //if (DSMType== "表埋")
+                //{
+                //    faulttype = 6;
+                //}
+                //else if(DSMType== "表坏")
+                //{
+                //    faulttype = 7;
+                //}
+                //else if(DSMType== "漏水")
+                //{
+                //    faulttype = 10;
+                //}
+                //else
+                //{
+                //    faulttype = 11;
+                //}
                 wherelambda = PredicateExtensions.And<v_rt_b_faultinfo>(wherelambda, c => c.faulttype == faulttype);
             }
             if (!string.IsNullOrEmpty(DSMStatus))
             {
-                int faultstatus = 0;
-                if (DSMStatus== "未受理")
-                {
-                    faultstatus = 0;
-                }
-                else if (DSMStatus=="已受理")
-                {
-                    faultstatus = 1;
-                }
-                else if(DSMStatus== "已处理")
-                {
-                    faultstatus = 2;
-                }
-                else
-                {
-                    faultstatus = 3;
-                }
+                int faultstatus = Convert.ToInt32(DSMStatus);
+                //if (DSMStatus== "未受理")
+                //{
+                //    faultstatus = 0;
+                //}
+                //else if (DSMStatus=="已受理")
+                //{
+                //    faultstatus = 1;
+                //}
+                //else if(DSMStatus== "已处理")
+                //{
+                //    faultstatus = 2;
+                //}
+                //else
+                //{
+                //    faultstatus = 3;
+                //}
                 wherelambda = PredicateExtensions.And<v_rt_b_faultinfo>(wherelambda,c=>c.faultstatus==faultstatus);
             }
             if (!string.IsNullOrEmpty(StartTime)&&string.IsNullOrEmpty(EndTime))
@@ -239,7 +239,7 @@ namespace CDWM_MR.Controllers
                 data.processdatetime = Latesttime;
                 data.processpreson = worker;
                 data.createperson = "1";
-                data.taskperiodname = "201909";
+                data.taskperiodname = DateTime.Now.Year.ToString()+DateTime.Now.Month.ToString();
                 data.processresult = 1;
                 data.processsource = "后台管理系统";
                 data.createtime = DateTime.Now;
@@ -327,23 +327,45 @@ namespace CDWM_MR.Controllers
         [Route("GetPhoto")]
         [AllowAnonymous]
         [EnableCors("LimitRequests")]
-        public async Task<MessageModel<object>> GetPhoto(string[] str)
+        public async Task<MessageModel<object>> GetPhoto()
          {
-            string[] strArray = str[0].Split(",");
-            string subPath = @"E:\常德水表\现场处理图片";
-            if (false == System.IO.Directory.Exists(subPath))
+            IFormFileCollection files = Request.Form.Files;
+            try
             {
-                System.IO.Directory.CreateDirectory(subPath);//如果没有该文件夹则创建
+                string subPath = @"E:\常德水表\现场处理图片";
+                if (false == System.IO.Directory.Exists(subPath))
+                {
+                    System.IO.Directory.CreateDirectory(subPath);//如果没有该文件夹则创建
+                }
+                string filename;
+                string fileuri;
+                for (int i = 0; i < files.Count; i++)
+                {
+                    filename = "处理照片" + DateTime.Now + Path.GetExtension(files[i].FileName);
+                    fileuri = Path.Combine(subPath, filename);
+                    using (var stream = new FileStream(fileuri, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                    {
+                        await files[i].CopyToAsync(stream);
+                    }
+                }
+
+                return new MessageModel<object>()
+                {
+                    code = 0,
+                    data = null,
+                    msg = "成功"
+                };
             }
-            for (int i = 0; i < strArray.Length; i++)
+            catch (Exception)
             {
+
+                return new MessageModel<object>()
+                {
+                    code=1,
+                    data=null,
+                    msg="失败"
+                };
             }
-            return new MessageModel<object>()
-            {
-                code = 0,
-                data = null,
-                msg = ""
-            };
         }
         #endregion
 
@@ -375,7 +397,7 @@ namespace CDWM_MR.Controllers
                 photo.photourl = subPath;
                 photo.readercode = readerlist[0].mrreadernumber;
                 photo.billid = id;
-                photo.taskperiodname = "201909";//需修改
+                photo.taskperiodname = DateTime.Now.Year.ToString()+DateTime.Now.Month.ToString();
                 photo.updatepeople = worker;
                 photo.updatetime = DateTime.Now;
                 photo.usercode = "1";
@@ -400,7 +422,7 @@ namespace CDWM_MR.Controllers
             data.taskperiodname = lastlist[0].taskperiodname;
             data.createperson = "1";
             data.createtime = DateTime.Now;
-            string String = await _B_FaultprocessServices.Add(data)>0 ? "ok" : "error";
+            string String = await _B_FaultprocessServices.Add(data)>0 ? "ok" : "error";   
             string mes = await _B_FaultinfoServices.Update(c => new rt_b_faultinfo
             {
                 faultstatus = 2
@@ -438,8 +460,46 @@ namespace CDWM_MR.Controllers
         }
         #endregion
 
+        # region 编辑操作
+        [HttpPost]
+        [Route("DSEdits")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<MessageModel<object>> DSEdit(int id,string data)
+        {
+            rt_b_faultinfo faultinfo = Common.Helper.JsonHelper.GetObject<rt_b_faultinfo>(data);
+            string str= await _B_FaultinfoServices.Update(c => new rt_b_faultinfo
+            {
+                readdataid=faultinfo.readdataid,
+                faulttype=faultinfo.faulttype,
+                faultcontent=faultinfo.faultcontent,
+                reporttime=faultinfo.reporttime,
+                reportpeople=faultinfo.reportpeople,
+                faultstatus=faultinfo.faultstatus
+            }, c => c.id == id) == true ? "ok" : "error";
+            return new MessageModel<object>()
+            {
+                code=0,
+                data=null,
+                msg=str
+            };
+        }
+        #endregion
 
-
-
+        #region  删除操作
+        [HttpPost]
+        [Route("DSDelete")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<MessageModel<object>> DSDelete(int id)
+        {
+           string str= await _B_FaultinfoServices.DeleteById(id)==true?"ok":"error";
+            return new MessageModel<object>() {
+                code=0,
+                msg=str,
+                data=null
+            };
+        }
+        #endregion
     }
 }

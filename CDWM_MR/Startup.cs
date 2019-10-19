@@ -13,16 +13,20 @@ using AutoMapper;
 using CDWM_MR.AOP;
 using CDWM_MR.AuthHelper;
 using CDWM_MR.Common;
+using CDWM_MR.Common.DB;
 using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.Common.LogHelper;
 using CDWM_MR.Common.MemoryCache;
 using CDWM_MR.Filter;
 using CDWM_MR.Hubs;
 using CDWM_MR.IServices;
+using CDWM_MR.IServices.Content;
 using CDWM_MR.Log;
 using CDWM_MR.Middlewares;
 using CDWM_MR.Model;
+using CDWM_MR.Services.Content;
 using CDWM_MR.Tasks;
+using CDWM_MR.Tasks.Job;
 using CDWM_MR_Common.Redis;
 using log4net;
 using log4net.Config;
@@ -39,6 +43,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
+using QuartzDemo.Quarzs;
 using StackExchange.Profiling.Storage;
 using Swashbuckle.AspNetCore.Swagger;
 using static CDWM_MR.SwaggerHelper.CustomApiVersion;
@@ -137,7 +145,7 @@ namespace CDWM_MR
                     // 支持多个域名端口，注意端口号后不要带/斜杆：比如localhost:8000/，是错的
                     // 注意，http://127.0.0.1:1818 和 http://localhost:1818 是不一样的，尽量写两个
                     policy
-                    .WithOrigins("http://192.168.1.109:8088", "http://127.0.0.1:1818", "http://localhost:8080", "http://localhost:8021", "http://localhost:8088", "http://localhost:1818","http://localhost:8888","http://localhost:8086", "http://192.168.1.32:8080","http://localhost:1030","http://192.168.1.118:8081")
+                    .WithOrigins("http://192.168.1.109:8088", "http://127.0.0.1:1818", "http://localhost:8080", "http://localhost:8021", "http://localhost:8088", "http://localhost:1818", "http://localhost:8888", "http://localhost:8086", "http://192.168.1.32:8080", "http://localhost:1030", "http://192.168.1.118:8081")
                     .AllowAnyHeader()//Ensures that the policy allows any header.
                     .AllowAnyMethod();
                 });
@@ -310,7 +318,7 @@ namespace CDWM_MR
              {
                  //不使用https
                  o.RequireHttpsMetadata = false;
-                 
+
                  o.TokenValidationParameters = tokenValidationParameters;
                  o.Events = new JwtBearerEvents
                  {
@@ -368,9 +376,8 @@ namespace CDWM_MR
             #endregion
 
             #region TimedJob
-
             //services.AddHostedService<Job1TimedService>();
-            services.AddHostedService<JobWorkTime1>();
+            //services.AddHostedService<JobWorkTime1>();
 
             #endregion
 
@@ -396,7 +403,7 @@ namespace CDWM_MR
             //实例化 AutoFac  容器   
             var builder = new ContainerBuilder();
             //注册要通过反射创建的组件
-            //builder.RegisterType<AdvertisementServices>().As<IAdvertisementServices>();
+            //builder.RegisterType<sys_userinfoServices>().As<Isys_userinfoServices>();
             builder.RegisterType<CdwmCacheAOP>();//可以直接替换其他拦截器
             builder.RegisterType<CdwmRedisCacheAOP>();//可以直接替换其他拦截器
             builder.RegisterType<CdwmLogAOP>();//这样可以注入第二个
@@ -444,6 +451,16 @@ namespace CDWM_MR
                 var repositoryDllFile = Path.Combine(basePath, "CDWM_MR.Repository.dll");
                 var assemblysRepository = Assembly.LoadFrom(repositoryDllFile);
                 builder.RegisterAssemblyTypes(assemblysRepository).AsImplementedInterfaces();
+                #endregion
+
+                #region Quzrtz.Net
+                var quartz = Path.Combine(basePath, "CDWM_MR.Tasks.dll");
+                var assemblysquartze = Assembly.LoadFrom(repositoryDllFile);
+                builder.RegisterAssemblyTypes(assemblysRepository).AsImplementedInterfaces();
+                //services.AddSingleton<QuartzManager>();//注入管理类
+                //services.AddTransient<BuildTaskExcel>();//注入方法
+                //services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();//注册ISchedulerFactory的实例。
+                //services.AddSingleton<IJobFactory, IOCJobFactory>();
                 #endregion
             }
             catch (Exception ex)
@@ -556,17 +573,14 @@ namespace CDWM_MR
 
             #region CORS
             //跨域第二种方法，使用策略，详细策略信息在ConfigureService中
-            app.UseCors("LimitRequests");//将 CORS 中间件添加到 web 应用程序管线中, 以允许跨域请求。
+            app.UseCors("AllRequests");//将 CORS 中间件添加到 web 应用程序管线中, 以允许跨域请求。
 
 
             #region 跨域第一种版本
             //跨域第一种版本，请要ConfigureService中配置服务 services.AddCors();
-            //    app.UseCors(options => options.WithOrigins("http://localhost:8021").AllowAnyHeader()
-            //.AllowAnyMethod());  
             #endregion
 
             #endregion
-
 
             // 跳转https
             //app.UseHttpsRedirection();

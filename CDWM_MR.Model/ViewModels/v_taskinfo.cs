@@ -1,7 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace CDWM_MR.Model.ViewModels
 {
     /// <summary>
@@ -117,6 +113,11 @@ namespace CDWM_MR.Model.ViewModels
         public System.String mrreadernumber { get; set; }
 
         /// <summary>
+        /// 登录账号
+        /// </summary>
+        public string appcount { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         public System.String mrreadername { get; set; }
@@ -130,6 +131,9 @@ namespace CDWM_MR.Model.ViewModels
         /// 所属年
         /// </summary>
         public System.String mplanyear { get; set; }
-
+        /// <summary>
+        /// 抄表周期
+        /// </summary>
+        public int readperiod { get; set; }
     }
 }

@@ -1,23 +1,24 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using CDWM_MR.Common.Helper;
+﻿using CDWM_MR.Common.Helper;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Model.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace CDWM_MR.Controllers
 {
-
+    /// <summary>
+    /// 抄表计划
+    /// </summary>
     public class MeterReadingPlanController : ControllerBase
     {
 
@@ -31,6 +32,14 @@ namespace CDWM_MR.Controllers
         #endregion
 
         #region 构造函数
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="imr_PlaninfoServices"></param>
+        /// <param name="imr_Taskinfoservices"></param>
+        /// <param name="imr_B_ReaderServices"></param>
+        /// <param name="imr_B_BookinfoServices"></param>
+        /// <param name="iv_TaskinfoServices"></param>
         public MeterReadingPlanController(Imr_planinfoServices imr_PlaninfoServices, Imr_taskinfoServices imr_Taskinfoservices, Imr_b_readerServices imr_B_ReaderServices, Imr_b_bookinfoServices imr_B_BookinfoServices, Iv_taskinfoServices iv_TaskinfoServices)
         {
             mr_planinfoServices = imr_PlaninfoServices;
@@ -75,7 +84,7 @@ namespace CDWM_MR.Controllers
                 int Message = await mr_planinfoServices.Add(Data);
                 string message = Message == 0 ? "error" : "ok";
                 return new MessageModel<object>()
-             {
+                {
                     code = 0,
                     msg = message
                 };
@@ -197,7 +206,7 @@ namespace CDWM_MR.Controllers
             List<object> list = new List<object>();
             foreach (var item in alllist)
             {
-                var datalist = new { ID = item.ID, name = item.mrreadername };
+                var datalist = new { ID = item.id, name = item.mrreadername };
                 list.Add(datalist);
             }
             return new MessageModel<object>()
@@ -231,7 +240,7 @@ namespace CDWM_MR.Controllers
             #endregion
             Expression<Func<mr_b_bookinfo, object>> expression = c => new
             {
-                Show_ID = c.ID,
+                Show_ID = c.id,
                 Show_MeterReading = c.bookname,
                 Show_Number = c.bookno,
                 Show_Status = c.allotstatus == 0 ? "已分配" : "未分配"
@@ -266,17 +275,17 @@ namespace CDWM_MR.Controllers
                 allotstatus = status
             }, c => data.Contains(c.bookno)) == true ? "ok" : "error";
             //获取所有分配的抄表册
-            List<mr_b_bookinfo> booklist =await mr_b_bookinfoServices.Query(c => data.Contains(c.bookno));
-            var alllist =await mr_taskinfoServices.Query();
+            List<mr_b_bookinfo> booklist = await mr_b_bookinfoServices.Query(c => data.Contains(c.bookno));
+            var alllist = await mr_taskinfoServices.Query();
             List<mr_taskinfo> tasklist = new List<mr_taskinfo>();
             foreach (var item in booklist)
             {
                 mr_taskinfo taskinfo = new mr_taskinfo();
-                taskinfo.bookid = item.ID;
+                taskinfo.bookid = item.id;
                 taskinfo.planid = planid;
                 taskinfo.readerid = 1;
                 taskinfo.taskname = "任务单" + alllist.Count;
-                taskinfo.tasknumber= (DateTime.Now.Year + DateTime.Now.Month + alllist[alllist.Count-1].ID).ToString();
+                taskinfo.tasknumber = (DateTime.Now.Year + DateTime.Now.Month + alllist[alllist.Count - 1].ID).ToString();
                 taskinfo.createpeople = "1";
                 taskinfo.createtime = DateTime.Now;
                 taskinfo.taskperiodname = "1";
@@ -293,7 +302,12 @@ namespace CDWM_MR.Controllers
         #endregion
 
         #region 抄表计划编辑 已完成
-
+        /// <summary>
+        /// 抄表计划编辑 已完成
+        /// </summary>
+        /// <param name="senddata"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("ShowTaskEdit")]
         [AllowAnonymous]
@@ -336,6 +350,10 @@ namespace CDWM_MR.Controllers
 
 
         #region 导出Excel
+        /// <summary>
+        /// 到处EXCEL
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("OutExcel")]
         [AllowAnonymous]

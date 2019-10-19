@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CDWM_MR.Model
+﻿namespace CDWM_MR.Model
 {
     /// <summary>
     /// 通用返回信息类

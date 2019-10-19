@@ -1,5 +1,6 @@
 ﻿using CDWM_MR.IRepository;
 using CDWM_MR.IServices;
+using CDWM_MR.IServices.Content;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Services.BASE;
 using System;

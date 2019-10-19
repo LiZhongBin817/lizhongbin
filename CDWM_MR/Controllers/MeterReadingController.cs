@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CDWM_MR.Controllers
 {
     /// <summary>
-    /// 抄表管理
+    /// 抄表管理(档案管理)
     /// </summary>
     public class MeterReadingController : Controller
     {

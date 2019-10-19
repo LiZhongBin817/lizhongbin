@@ -21,14 +21,9 @@
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="Moq" Version="4.10.1" />
+    <PackageReference Include="NPOI" Version="2.4.1" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CDWM_MR.Repository\CDWM_MR.Repository.csproj" />
-    <ProjectReference Include="..\CDWM_MR.Services\CDWM_MR.Services.csproj" />
-    <ProjectReference Include="..\CDWM_MR\CDWM_MR.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +32,10 @@
     <Folder Include="Redis_Test\" />
     <Folder Include="Repository_Test\" />
     <Folder Include="Service_Test\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CDWM_MR\CDWM_MR.csproj" />
   </ItemGroup>
 
 </Project>

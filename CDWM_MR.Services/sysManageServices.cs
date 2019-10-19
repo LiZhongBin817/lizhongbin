@@ -134,7 +134,10 @@ namespace CDWM_MR.Services
             List<int> roles = new List<int>();
             for (int i = 0; i < Roles.Count(); i++)
             {
-                roles.Add(Convert.ToInt32(Roles[i]));
+                if(Roles[i]!="")
+                {
+                    roles.Add(Convert.ToInt32(Roles[i]));
+                }
             }
             return new TableModel<object>()
             {
@@ -406,7 +409,7 @@ namespace CDWM_MR.Services
                         role_Menu.MenuID = Convert.ToInt32(item);
                         role_Menu.OperationID = item1.id;
                         role_Menu.createtime = DateTime.Now;
-                        role_Menu.createpeople = "李忠斌";
+                        role_Menu.createpeople = Permissions.UersName;
                         commonData.Add(role_Menu);
                     }
                 }
