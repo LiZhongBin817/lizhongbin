@@ -155,6 +155,8 @@ namespace CDWM_MR.Controllers.v1
             {
                 for (int i = 0; i < FaultHandlinglist.Count; i++)
                 {
+                    FaultHandlinglist[i].createperson = "抄表员";
+                    FaultHandlinglist[i].createtime = DateTime.Now;
                     int a = await _rb_b_faultprocessServices.Add(FaultHandlinglist[i]);
                     string meternum = FaultHandlinglist[i].meternum, tasknumber = FaultHandlinglist[i].taskperiodname;
                     await _rt_b_photoservices.Update(c => new rt_b_photoattachment() { billid = a},c => c.metercode == meternum && c.taskperiodname == tasknumber);//修改图片表billid
