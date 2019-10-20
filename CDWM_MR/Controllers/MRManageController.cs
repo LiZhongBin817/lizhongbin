@@ -184,13 +184,8 @@ namespace CDWM_MR.Controllers
             List<mr_datainfo_history> datainfo_Histories = await _Datainfo_HistoryServices.Query();
             List<mr_datainfo> dataInfo = await _DatainfoServices.Query();
             #endregion
-
-            #region 表对象
-            List<rt_b_watercarryover> Datalist = new List<rt_b_watercarryover>();
-            rt_b_watercarryover addData = new rt_b_watercarryover();
-            List<rt_b_watercarryover> data = new List<rt_b_watercarryover>();
-            #endregion
-
+            List<rt_b_watercarryover> Datalist = new List<rt_b_watercarryover>();           
+            List<rt_b_watercarryover> data = new List<rt_b_watercarryover>();         
             if (checkPassData.Count == 0)//没有审核通过的数据
             {
                 return new TableModel<object>
@@ -202,6 +197,7 @@ namespace CDWM_MR.Controllers
             }
             foreach (var item in checkPassData)
             {
+                rt_b_watercarryover addData = new rt_b_watercarryover();
                 data = carryedData.FindAll(c => c.autoaccount == item.userid && c.taskperiodname == item.taskperiodname);
                 if (data.Count == 0)//判重
                 {
@@ -248,11 +244,17 @@ namespace CDWM_MR.Controllers
                     addData.endid = dataInfo.FindAll(c => c.autoaccount == item.userid && c.taskperiodname == item.taskperiodname)[0].id;
                     addData.endnum = item.recheckdata;
                     addData.carrywatercount = addData.endnum - addData.startnum;
-                    addData.bookkeepingcount = 0;
                     addData.adjustwatercount = 0;
                     addData.createtime = DateTime.Now;
-                    addData.createperson = "1";
-                    addData.carrystatus = 1;
+                    addData.createperson = Permissions.UersName;
+                    if (addData.carrywatercount >= 0)
+                    {
+                        addData.carrystatus = 1;
+                    }
+                    else
+                    {
+                        addData.carrystatus = 2;
+                    }
                     addData.remark = "";
                     Datalist.Add(addData);
                 }
@@ -423,6 +425,11 @@ namespace CDWM_MR.Controllers
             };
         }
 
+        /// <summary>
+        /// 展示审核历史数据
+        /// </summary>
+        /// <param name="autoaccount"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("ShowHistoryRecheckData")]
         [AllowAnonymous]
