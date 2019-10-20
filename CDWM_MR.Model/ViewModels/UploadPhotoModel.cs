@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CDWM_MR.Model.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -8,7 +9,7 @@ namespace CDWM_MR.Model.ViewModels
     /// <summary>
     /// 接受上传图片
     /// </summary>
-    public class UploadPhotoModel
+    public class UploadPhotoModel:BaseModel
     {
         /// <summary>
         /// 任务单编号
@@ -19,6 +20,11 @@ namespace CDWM_MR.Model.ViewModels
         ///读数是否上传标识符(0--未上传;1--已上传)(APP)
         /// </summary>
         public int isreadupdate { get; set; }
+
+        /// <summary>
+        /// 故障id
+        /// </summary>
+        public int faultid { get; set; }
 
         /// <summary>
         /// 照片编号(APP)
@@ -73,32 +79,7 @@ namespace CDWM_MR.Model.ViewModels
         /// <summary>
         /// 拍照时间（APP）
         /// </summary>
-        public DateTime phototime { get; set; } = DateTime.Now;
-
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public System.DateTime createtime { get; set; } = DateTime.Now;
-
-        /// <summary>
-        /// 创建人
-        /// </summary>
-        public string createpeople { get; set; }
-
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        public System.DateTime updatetime { get; set; } = DateTime.Now;
-
-        /// <summary>
-        /// 更新人
-        /// </summary>
-        public string updatepeople { get; set; }
-
-        /// <summary>
-        /// 备注
-        /// </summary>
-        public string remark { get; set; }
+        public DateTime phototime { get; set; }
 
     }
 }

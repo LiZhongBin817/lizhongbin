@@ -438,11 +438,21 @@
             <param name="limit"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.DataSearchController.#ctor(CDWM_MR.IServices.Content.Iv_b_datasearch_historyServices,CDWM_MR.IServices.Content.Iv_mr_date_readerServices,CDWM_MR.IServices.Content.Iv_b_areas_regionServices,CDWM_MR.IServices.Content.Iv_b_regionServices,CDWM_MR.IServices.Content.Iv_mr_b_readerServices)">
+        <member name="T:CDWM_MR.Controllers.DataSearchController">
+            <summary>
+            抄表数据查询/抄表量化分析
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.#ctor(CDWM_MR.IServices.Content.Iv_b_datasearch_historyServices,CDWM_MR.IServices.Content.Iv_mr_date_readerServices,CDWM_MR.IServices.Content.Iv_b_areas_regionServices,CDWM_MR.IServices.Content.Iv_b_regionServices,CDWM_MR.IServices.Content.Iv_mr_b_readerServices,CDWM_MR.IServices.Content.Iv_reader_analysisServices)">
             <summary>
             构造函数
             </summary>
-            <param name="datainfo_HistoryServices"></param>
+            <param name="B_Datasearch_HistoryServices"></param>
+            <param name="Date_ReaderServices"></param>
+            <param name="B_Areas_RegionServices"></param>
+            <param name="B_RegionsServices"></param>
+            <param name="Mr_B_ReaderServices"></param>
+            <param name="Reader_AnalysisServices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.DataSearchController.ShowDataSearchInfo(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
             <summary>
@@ -501,6 +511,36 @@
             <summary>
             渲染抄表员的下拉框
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.ReadAnalysis_Sum(System.String,System.String)">
+            <summary>
+            抄表员量化汇总分析
+            </summary>
+            <param name="readDatetime01"></param>
+            <param name="mrreadername"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.OutExcelReadAnalysisSum">
+            <summary>
+            抄表员量化汇总导出
+            </summary>
+            <returns></returns> 
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.ReadAnalysis_key">
+            <summary>
+            抄表员键值对集合
+            </summary>
+            <param name="readDatetime01"></param>
+            <param name="mrreadername"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DataSearchController.ReadAnalysis_val">
+            <summary>
+            抄表员与时间的键值对
+            </summary>
+            <param name="readDatetime01"></param>
+            <param name="mrreadername"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.DetailManageController">
@@ -1162,7 +1202,7 @@
             APP下载抄表计划
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment,CDWM_MR.IServices.Iv_bookexcelServices)">
             <summary>
             构造函数注入
             </summary>
@@ -1177,24 +1217,24 @@
             <param name="ID"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.downLoadMRinfo(System.String)">
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.downLoadMRinfo(System.Nullable{System.Int32})">
             <summary>
-            抄表册EXCEL文件下载
+            下载抄表信息
             </summary>
-            <param name="bookno">抄表册编号</param>
+            <param name="taskid"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.JudeSuccess(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             下载回调
             </summary>
-            <param name="bookno"></param>
-            <param name="status">下载状态</param>
+            <param name="taskid"></param>
+            <param name="status"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.UploadImg(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
-            接受上传图片
+            接受上传图片(测试)
             </summary>
             <param name="Test"></param>
             <param name="environment"></param>
@@ -1205,13 +1245,16 @@
             故障工单
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.#ctor(CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Iv_rb_b_faultprocessServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.#ctor(CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Iv_rb_b_faultprocessServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices,AutoMapper.IMapper,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices)">
             <summary>
             构造函数注入
             </summary>
             <param name="rt_b_faultinfoServices"></param>
             <param name="v_rb_b_faultprocessServices"></param>
             <param name="rb_b_faultprocessServices"></param>
+            <param name="vrtbfaultservices"></param>
+            <param name="mapper"></param>
+            <param name="photoservices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppFaultController.UpdateFaultWorkOrder(System.Collections.Generic.List{CDWM_MR.Model.Models.rt_b_faultinfo})">
             <summary>
@@ -1233,6 +1276,20 @@
             故障处理接口
             </summary>
             <param name="FaultHandlinglist"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.GetbookFault(System.Nullable{System.Int32})">
+            <summary>
+            获取表册内的故障信息
+            </summary>
+            <param name="taskid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.GetSingleFaultinfo(System.Nullable{System.Int32})">
+            <summary>
+            获取单个故障详细信息
+            </summary>
+            <param name="faultid"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppLoginController">
@@ -1285,12 +1342,13 @@
             抄表数据接口
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.#ctor(CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_mr_datainfoServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.#ctor(CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices)">
             <summary>
             构造函数注入
             </summary>
             <param name="mr_datainfoServices"></param>
             <param name="v_mr_datainfoServices"></param>
+            <param name="rtbphotoservices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.UpdateUserData(System.Collections.Generic.List{CDWM_MR.Model.Models.mr_datainfo})">
             <summary>
@@ -1329,6 +1387,17 @@
             <summary>
             图片问题
             </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppPhotoController.#ctor(AutoMapper.IMapper,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="mapper"></param>
+            <param name="mr_datainfoservices"></param>
+            <param name="faultinfo"></param>
+            <param name="faultprocess"></param>
+            <param name="photoservices"></param>
+            <param name="vrtbfaultservices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppPhotoController.uploadphoto(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
