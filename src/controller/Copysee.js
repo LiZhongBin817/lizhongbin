@@ -62,21 +62,21 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
             elem: "#allcopyseetable",
             data: data2,
             cols: [[
-                { field: 'allyichao', title: '总已抄', width: 180 },
-                { field: 'allshichao', title: '总实抄', width: 180 },
-                { field: 'allyingchao', title: '总应抄', width: 180 },
-                { field: 'allchaojianlv', title: '总抄见率', width: 180 },
-                { field: 'allshichaolv', title: '总实抄率', width: 180 },
+                { field: 'allalreadycopy', title: '总已抄', width: 180 },
+                { field: 'allreallycopy', title: '总实抄', width: 180 },
+                { field: 'allshoudcopy', title: '总应抄', width: 180 },
+                { field: 'allcopyrate', title: '总抄见率', width: 180 },
+                { field: 'allreallyrate', title: '总实抄率', width: 180 },
             ]]
         });
     }
 
     //监听提交
     form.on('submit(Buttonone)', function (obj) {
-        console.log("10001");
+       // console.log("10001");
         var field = obj.field;
         admin.req({
-            url: 'http://localhost:8081/ShowCopysee',
+            url: layui.setter.requesturl +'/ShowCopysee',
             type: 'post',
             data: {
                 "taskperiodname": field.taskperiodname,
@@ -148,13 +148,12 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
             ////console.log(input);
             //$('#jingtai').append(str);
             var tabletwo = {
-                // one: obj.data.copy,
-                
-                allyichao: obj.data[0].datatwo.allyichao,
-                allshichao: obj.data[0].datatwo.allshichao,
-                allyingchao: obj.data[0].datatwo.allyingchao,
-                allchaojianlv: obj.data[0].datatwo.allchaojianlv,
-                allshichaolv: obj.data[0].datatwo.allshichaolv
+                // one: obj.data.copy,  
+               allalreadycopy: obj.data[0].datatwo.allalreadycopy,
+                allreallycopy: obj.data[0].datatwo.allreallycopy,
+                allshoudcopy: obj.data[0].datatwo.allshoudcopy,
+                allcopyrate: obj.data[0].datatwo.allcopyrate,
+                allreallyrate: obj.data[0].datatwo.allreallyrate
             };
             var arrysum = [];
             arrysum.push(tabletwo);
