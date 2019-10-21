@@ -54,7 +54,7 @@ namespace CDWM_MR.Services.Content
                 taskinfo = new mr_taskinfo();
                 taskinfo.bookid = item.id;
                 taskinfo.planid = temp.ID;
-                taskinfo.readerid = item.id;
+                taskinfo.readerid = item.readmanid;
                 taskinfo.taskstarttime = temp.planstarttime;
                 taskinfo.taskendtime = temp.planendtime;
                 taskinfo.createpeople = "0";
@@ -67,7 +67,7 @@ namespace CDWM_MR.Services.Content
                 taskinfo.downloadstarttime = temp.planstarttime;
                 taskinfo.downloadendtime = temp.planendtime;
                 int taskid = await mr_taskinfoRepository.Add(taskinfo);//添加进入taskid
-                await mr_taskinfoRepository.ExecutePro("exec spName @ptaskid", new { ptaskid = taskid });
+                await mr_taskinfoRepository.ExecutePro("call Createdatainfo(@ptaskid)", new { ptaskid = taskid });
                 i++;
             }
             return new {

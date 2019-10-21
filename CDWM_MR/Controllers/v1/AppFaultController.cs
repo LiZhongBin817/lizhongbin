@@ -32,7 +32,7 @@ namespace CDWM_MR.Controllers.v1
         private readonly Irt_b_photoattachmentServices _rt_b_photoservices;
         private readonly Imr_datainfoServices _mrdatainfoservices;
         private readonly IMapper _mapper;
-        #endregion 
+        #endregion
 
         /// <summary>
         /// 构造函数注入
@@ -43,7 +43,8 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="vrtbfaultservices"></param>
         /// <param name="mapper"></param>
         /// <param name="photoservices"></param>
-        public AppFaultController(Irt_b_faultinfoServices rt_b_faultinfoServices, Iv_rb_b_faultprocessServices v_rb_b_faultprocessServices, Irb_b_faultprocessServices rb_b_faultprocessServices, Iv_rt_b_faultinfoServices vrtbfaultservices,IMapper mapper, Irt_b_photoattachmentServices photoservices, Imr_datainfoServices datainfoservices)
+        /// <param name="datainfoservices"></param>
+        public AppFaultController(Irt_b_faultinfoServices rt_b_faultinfoServices, Iv_rb_b_faultprocessServices v_rb_b_faultprocessServices, Irb_b_faultprocessServices rb_b_faultprocessServices, Iv_rt_b_faultinfoServices vrtbfaultservices, IMapper mapper, Irt_b_photoattachmentServices photoservices, Imr_datainfoServices datainfoservices)
         {
             _rt_b_faultinfoServices = rt_b_faultinfoServices;
             _v_rb_b_faultprocessServices = v_rb_b_faultprocessServices;
@@ -62,7 +63,7 @@ namespace CDWM_MR.Controllers.v1
         /// <returns></returns>
         [HttpPost]
         [Route("UpdateFaultWorkOrder")]
-        public async Task<MessageModel<int>> UpdateFaultWorkOrder([FromBody] List<rt_b_faultinfo> faultDate)
+        public async Task<MessageModel<int>> UpdateFaultWorkOrder([FromBody]List<UploadFaultModel> faultDate)
         {
             var data = new MessageModel<int>();
             try
@@ -72,12 +73,17 @@ namespace CDWM_MR.Controllers.v1
                 for (int i = 0; i < faultDate.Count; i++)
                 {
                     faultnumber += (dateist.Count() + 1).ToString().PadLeft(3, '0');
-                    int a = await _rt_b_faultinfoServices.Add(faultDate[i]);
-                    string tasknumber = faultDate[i].taskperiodname,meternum = faultDate[i].meternum;
-                    await _rt_b_photoservices.Update(s => new rt_b_photoattachment() {billid = a },c => c.taskperiodname == tasknumber && c.metercode == meternum && c.phototype == 2);//更新照片表
+                    rt_b_faultinfo changemodel = _mapper.Map<rt_b_faultinfo>(faultDate[i]); 
+                    int a = await _rt_b_faultinfoServices.Add(changemodel);
+                    
+                    if (faultDate[i].isupdateimg == 1)
+                    {
+                        string tasknumber = faultDate[i].taskperiodname, meternum = faultDate[i].meternum;
+                        await _rt_b_photoservices.Update(s => new rt_b_photoattachment() { billid = a }, c => c.taskperiodname == tasknumber && c.metercode == meternum && c.phototype == 4);//更新照片表
+                    }
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 data.code = 1001;
                 data.msg = ex.ObjToString();
@@ -104,7 +110,7 @@ namespace CDWM_MR.Controllers.v1
         {
             #region lambda拼接式
             Expression<Func<v_rb_b_faultprocess, bool>> wherelambda = c => true;
-            if (readerid!=0)
+            if (readerid != 0)
             {
                 wherelambda = PredicateExtensions.And<v_rb_b_faultprocess>(wherelambda, c => c.readerid == readerid);
             }
@@ -114,17 +120,17 @@ namespace CDWM_MR.Controllers.v1
             }
             #endregion
             List<v_rb_b_faultprocess> datelist = await _v_rb_b_faultprocessServices.Query(wherelambda);
-            var data= datelist.Select(c => new
+            var data = datelist.Select(c => new
             {
                 CustomerNumber = c.autoaccount,//用户家庭编号
                 CustomerMeterNumber = c.meternum,//用户水表编号
                 CustomerName = c.username,//用户名字
                 CustomerUseWaterAddress = c.areaname + c.address,//用户用水地址
-                CustomerMeterStatus=c.faulttype,//故障上报
-                AcceptPerson=c.processpreson,//受理人的名字
-                AcceptTime=c.processdatetime,//后台受理时间
-                WorkDisposeName=c.reportpeople,//工单接收人
-                EndDisposeTime=c.reporttime,//最迟处理时间
+                CustomerMeterStatus = c.faulttype,//故障上报
+                AcceptPerson = c.processpreson,//受理人的名字
+                AcceptTime = c.processdatetime,//后台受理时间
+                WorkDisposeName = c.reportpeople,//工单接收人
+                EndDisposeTime = c.reporttime,//最迟处理时间
             });
             return new JsonResult(new
             {
@@ -143,7 +149,7 @@ namespace CDWM_MR.Controllers.v1
         /// <returns></returns>
         [HttpPost]
         [Route("FaultHandling")]
-        public async Task<MessageModel<int>> FaultHandling([FromBody]List<rb_b_faultprocess> FaultHandlinglist)
+        public async Task<MessageModel<int>> FaultHandling([FromBody]List<UploadFaultProcessModel> FaultHandlinglist)
         {
             var data = new MessageModel<int>();
             if (FaultHandlinglist == null || FaultHandlinglist?.Count == 0)
@@ -159,9 +165,13 @@ namespace CDWM_MR.Controllers.v1
                 {
                     FaultHandlinglist[i].createperson = "抄表员";
                     FaultHandlinglist[i].createtime = DateTime.Now;
-                    int a = await _rb_b_faultprocessServices.Add(FaultHandlinglist[i]);
-                    string meternum = FaultHandlinglist[i].meternum, tasknumber = FaultHandlinglist[i].taskperiodname;
-                    await _rt_b_photoservices.Update(c => new rt_b_photoattachment() { billid = a},c => c.metercode == meternum && c.taskperiodname == tasknumber);//修改图片表billid
+                    rb_b_faultprocess changemodel = _mapper.Map<rb_b_faultprocess>(FaultHandlinglist[i]);
+                    int a = await _rb_b_faultprocessServices.Add(changemodel);
+                    if (FaultHandlinglist[i].isupdateimg == 1)
+                    {
+                        string meternum = FaultHandlinglist[i].meternum, tasknumber = FaultHandlinglist[i].taskperiodname;
+                        await _rt_b_photoservices.Update(c => new rt_b_photoattachment() { billid = a }, c => c.metercode == meternum && c.taskperiodname == tasknumber && c.phototype == 3);//修改图片表billid
+                    }
                 }
             }
             catch (Exception ex)
@@ -184,13 +194,19 @@ namespace CDWM_MR.Controllers.v1
         /// 获取表册内的故障信息
         /// </summary>
         /// <param name="taskid"></param>
+        /// <param name="faultstatus">默认值-1</param>
         /// <returns></returns>
         [HttpGet]
         [Route("GetbookFault")]
-        public async Task<MessageModel<List<vfaultinfo>>> GetbookFault(int? taskid)
+        public async Task<MessageModel<List<vfaultinfo>>> GetbookFault(int? taskid,int faultstatus = -1)
         {
             var data = new MessageModel<List<vfaultinfo>>();
-            var temp = await _v_rt_b_faultinfoServices.Query(c => c.taskid == taskid);
+            Expression<Func<v_rt_b_faultinfo, bool>> wherelambda = c => c.taskid == taskid;
+            if (faultstatus != -1)
+            {
+                wherelambda = PredicateExtensions.And<v_rt_b_faultinfo>(wherelambda,c => c.faultstatus == faultstatus);
+            }
+            var temp = await _v_rt_b_faultinfoServices.Query(wherelambda);
             if (temp == null || temp?.Count <= 0)
             {
                 data.code = 1001;

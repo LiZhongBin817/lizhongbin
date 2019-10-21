@@ -90,12 +90,8 @@ namespace CDWM_MR.Controllers.v1
                         }//故障处理照片
                         else if (uploadmodel[i].phototype == 3)
                         {
-                            var temp3 = await _vrtbfaultservices.Query(c => c.taskperiodname == tasknumber && c.meternum == meternum && c.faulttype == 1);
+                            var temp3 = await _faultprocess.Query(c => c.taskperiodname == tasknumber && c.meternum == meternum && c.faulttype == 1);
                             uploadmodel[i].billid = temp3.FirstOrDefault().id;
-                        }
-                        else
-                        {
-                            uploadmodel[i].billid = 0;
                         }
                     }
                     string file = Path.Combine(uploadmodel[i].photourl, files[i].FileName);

@@ -90,13 +90,14 @@ namespace CDWM_MR.Controllers
                     msg = message
                 };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return new MessageModel<object>()
                 {
                     code = 2,
-                    msg = "数据格式不对"
+                    msg = "数据格式不对",
+                    data = ex.ObjToString()
                 };
             }
 

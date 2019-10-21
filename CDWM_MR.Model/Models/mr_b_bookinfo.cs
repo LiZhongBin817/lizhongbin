@@ -18,7 +18,7 @@ namespace CDWM_MR.Model.Models
         /// 抄表人(mr_reader：ID)
         /// </summary>
         [SugarColumn(IsNullable = true, ColumnDescription = "抄表人(mr_reader：ID)")]
-        public System.String readmanid { get; set; }
+        public int readmanid { get; set; }
 
         /// <summary>
         /// 抄表册名称

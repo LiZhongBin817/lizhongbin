@@ -106,7 +106,7 @@ namespace CDWM_MR_Common.Redis.Init
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private static void MuxerConnectionRestored(object sender, ConnectionFailedEventArgs e)
-        {
+        { 
             //log.InfoAsync($"ConnectionRestored: {e.EndPoint}");
         }
 

@@ -1257,8 +1257,9 @@
             <param name="vrtbfaultservices"></param>
             <param name="mapper"></param>
             <param name="photoservices"></param>
+            <param name="datainfoservices"></param>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.UpdateFaultWorkOrder(System.Collections.Generic.List{CDWM_MR.Model.Models.rt_b_faultinfo})">
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.UpdateFaultWorkOrder(System.Collections.Generic.List{CDWM_MR.Model.ViewModels.UploadFaultModel})">
             <summary>
             提交用户故障工单接口
             </summary>
@@ -1273,7 +1274,7 @@
             <param name="taskperiodname">任务账单</param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.FaultHandling(System.Collections.Generic.List{CDWM_MR.Model.Models.rb_b_faultprocess})">
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.FaultHandling(System.Collections.Generic.List{CDWM_MR.Model.ViewModels.UploadFaultProcessModel})">
             <summary>
             故障处理接口
             </summary>

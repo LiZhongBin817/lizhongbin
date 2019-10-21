@@ -551,7 +551,7 @@ namespace CDWM_MR.Repository.BASE
         /// <returns></returns>
         public async Task<int> ExecutePro(string prostr,object obj)
         {
-            return await _db.Ado.GetIntAsync(prostr, new { p = 1 });
+            return await _db.Ado.GetIntAsync(prostr, obj);
         }
 
     }
