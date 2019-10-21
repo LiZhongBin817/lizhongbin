@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CDWM_MR.IRepository\CDWM_MR.IRepository.csproj" />
     <ProjectReference Include="..\CDWM_MR.Model\CDWM_MR.Model.csproj" />
   </ItemGroup>
 

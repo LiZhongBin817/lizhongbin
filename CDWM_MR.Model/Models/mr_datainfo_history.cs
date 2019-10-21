@@ -107,10 +107,10 @@ namespace CDWM_MR.Model.Models
         public decimal lastmonthdata { get; set; }
 
         /// <summary>
-        /// 当前月份抄表读数
+        /// 人为抄表数据
         /// </summary>
-        [SugarColumn(IsNullable = true,DecimalDigits = 10,ColumnDescription = "当前月份抄表读数")]
-        public decimal nowmonthdata { get; set; }
+        [SugarColumn(IsNullable = true, DecimalDigits = 10, ColumnDescription = "人为抄表数据")]
+        public decimal inputdata { get; set; }
 
         /// <summary>
         /// 当前月份用水量

@@ -514,9 +514,9 @@
             上月抄表读数
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.nowmonthdata">
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.inputdata">
             <summary>
-            当前月份抄表读数
+            人为抄表数据
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.usewaternum">
@@ -3904,6 +3904,71 @@
         <member name="P:CDWM_MR.Model.Models.v_union_datainfoocrlog_datainfohistoryocrloghistory.photoid">
             <summary>
             照片附件id
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)(关联水表用户信息)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.meternum">
+            <summary>
+            水表编号,（t_b_watermeters::meternum）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.address">
+            <summary>
+            家庭住址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.lastwaternum">
+            <summary>
+            上月用量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.carrywatercount">
+            <summary>
+            冗余,用水量=本止-上止，本月用量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.taskperiodname">
+            <summary>
+            任务账期201909，抄表月份
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.startnum">
+            <summary>
+            上期止码,本期起码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.endnum">
+            <summary>
+            本期止码,下期起码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.readname">
+            <summary>
+            抄表员姓名
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.bookno">
+            <summary>
+            抄表册编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_user_water_bookinfo.uploadgisplace">
+            <summary>
+            上传的GIS信息
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_watermeterinfo">
