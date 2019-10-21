@@ -514,9 +514,9 @@
             上月抄表读数
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.nowmonthdata">
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.inputdata">
             <summary>
-            当前月份抄表读数
+            人为抄表数据
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.usewaternum">
@@ -3186,6 +3186,97 @@
             状态(1:可用;2:注销)
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "T:CDWM_MR.Model.Models.v_carryoverdatainfo" -->
+        <member name="M:CDWM_MR.Model.Models.v_carryoverdatainfo.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)(关联水表用户信息)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.account">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.address">
+            <summary>
+            家庭住址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.areaname">
+            <summary>
+            小区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.regionname">
+            <summary>
+            片区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.taskperiodname">
+            <summary>
+            任务账期201909
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.carrywatercount">
+            <summary>
+            冗余,用水量=本止-上止
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.bookkeepingcount">
+            <summary>
+            记账用量,冗余
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.meternum">
+            <summary>
+            水表编号,（t_b_watermeters::meternum）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.startnum">
+            <summary>
+            上期止码,本期起码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.starttime">
+            <summary>
+            上期抄表时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.endnum">
+            <summary>
+            本期止码,下期起码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.endtime">
+            <summary>
+            本期抄表时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.naturename">
+            <summary>
+            用水性质名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.adjustwatercount">
+            <summary>
+            调整用量（+ - 带符号）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_carryoverdatainfo.adjustremark">
+            <summary>
+            调整说明
+            </summary>
+        </member>
         <member name="M:CDWM_MR.Model.Models.v_datainfo_history_ocrlog_history.#ctor">
             <summary>
             VIEW
@@ -4219,6 +4310,11 @@
         <member name="P:CDWM_MR.Model.Models.v_union_datainfoocrlog_datainfohistoryocrloghistory.ocrdata">
             <summary>
             图像识别抄表数据Optical Choractor Recognittion光学字符识别
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_union_datainfoocrlog_datainfohistoryocrloghistory.inputdata">
+            <summary>
+            人为抄表数据
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_union_datainfoocrlog_datainfohistoryocrloghistory.photoid">

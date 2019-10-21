@@ -80,7 +80,7 @@ namespace CDWM_MR.Model.Models
         /// 记账用量,冗余
         /// </summary>
         [SugarColumn(IsNullable = true,DecimalDigits = 10,ColumnDescription = "记账用量,冗余")]
-        public decimal bookkeepingcount { get; set; }
+        public decimal? bookkeepingcount { get; set; }
 
         /// <summary>
         /// 调整用量（+-带符号）

@@ -372,6 +372,41 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.#ctor(CDWM_MR.IServices.Content.Iv_carryoverdatainfoServices,CDWM_MR.IServices.Content.Irt_b_wateradjustServices,CDWM_MR.IServices.Content.Irt_b_watercarryovarcheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.It_b_usersServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="carryoverdatainfoServices"></param>
+            <param name="b_WateradjustServices"></param>
+            <param name="b_WatercarryovarcheckServices"></param>
+            <param name="b_WatercarryoverServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.ShowCarriedData(System.Int32,System.Int32)">
+            <summary>
+            结转数据管理数据展示
+            </summary>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.ChangeCarryCounts(System.String[],System.String)">
+            <summary>
+            调整用量
+            </summary>
+            <param name="accounts"></param>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.ReCarryOver(System.String,System.String,System.String,System.String)">
+            <summary>
+            重新结转
+            </summary>
+            <param name="account"></param>
+            <param name="JsonData"></param>
+            <param name="meternum"></param>
+            <param name="taskperiodname"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.CopySee">
             <summary>
             抄见率分析
@@ -795,6 +830,13 @@
             <summary>
             渲染抄表员下拉框
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.ShowHistoryRecheckData(System.String)">
+            <summary>
+            展示审核历史数据
+            </summary>
+            <param name="autoaccount"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.Mr_b_ReaderController">
