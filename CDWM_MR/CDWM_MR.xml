@@ -1160,13 +1160,15 @@
             APP下载抄表计划
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment,CDWM_MR.IServices.Iv_bookexcelServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment,CDWM_MR.IServices.Iv_bookexcelServices,CDWM_MR.IServices.Content.Iv_downloaddatainfoServices)">
             <summary>
             构造函数注入
             </summary>
             <param name="taskservices"></param>
             <param name="Taskinfo"></param>
             <param name="Env"></param>
+            <param name="vbookexcel"></param>
+            <param name="downloaddatainfoservices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.DownLoadMR(System.Nullable{System.Int32})">
             <summary>
@@ -1203,7 +1205,7 @@
             故障工单
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.#ctor(CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Iv_rb_b_faultprocessServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices,AutoMapper.IMapper,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.#ctor(CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Iv_rb_b_faultprocessServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices,AutoMapper.IMapper,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Imr_datainfoServices)">
             <summary>
             构造函数注入
             </summary>

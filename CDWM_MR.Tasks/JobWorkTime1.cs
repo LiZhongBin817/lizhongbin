@@ -31,8 +31,8 @@ namespace CDWM_MR.Tasks
 
             try
             {
-                var model = await taskinfoServices.AutoCreat();
-                Console.WriteLine($"BlogArticle:{model}");
+                //var model = await taskinfoServices.AutoCreat(planid);
+                //Console.WriteLine($"BlogArticle:{model}");
             }
             catch (Exception ex)
             {

@@ -30,6 +30,7 @@ namespace CDWM_MR.Controllers.v1
         readonly Irb_b_faultprocessServices _rb_b_faultprocessServices;
         private readonly Iv_rt_b_faultinfoServices _v_rt_b_faultinfoServices;
         private readonly Irt_b_photoattachmentServices _rt_b_photoservices;
+        private readonly Imr_datainfoServices _mrdatainfoservices;
         private readonly IMapper _mapper;
         #endregion 
 
@@ -42,13 +43,14 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="vrtbfaultservices"></param>
         /// <param name="mapper"></param>
         /// <param name="photoservices"></param>
-        public AppFaultController(Irt_b_faultinfoServices rt_b_faultinfoServices, Iv_rb_b_faultprocessServices v_rb_b_faultprocessServices, Irb_b_faultprocessServices rb_b_faultprocessServices, Iv_rt_b_faultinfoServices vrtbfaultservices,IMapper mapper, Irt_b_photoattachmentServices photoservices)
+        public AppFaultController(Irt_b_faultinfoServices rt_b_faultinfoServices, Iv_rb_b_faultprocessServices v_rb_b_faultprocessServices, Irb_b_faultprocessServices rb_b_faultprocessServices, Iv_rt_b_faultinfoServices vrtbfaultservices,IMapper mapper, Irt_b_photoattachmentServices photoservices, Imr_datainfoServices datainfoservices)
         {
             _rt_b_faultinfoServices = rt_b_faultinfoServices;
             _v_rb_b_faultprocessServices = v_rb_b_faultprocessServices;
             _rb_b_faultprocessServices = rb_b_faultprocessServices;
             _v_rt_b_faultinfoServices = vrtbfaultservices;
             _rt_b_photoservices = photoservices;
+            _mrdatainfoservices = datainfoservices;
             _mapper = mapper;
         }
 
@@ -72,7 +74,7 @@ namespace CDWM_MR.Controllers.v1
                     faultnumber += (dateist.Count() + 1).ToString().PadLeft(3, '0');
                     int a = await _rt_b_faultinfoServices.Add(faultDate[i]);
                     string tasknumber = faultDate[i].taskperiodname,meternum = faultDate[i].meternum;
-                    await _rt_b_photoservices.Update(s => new rt_b_photoattachment() {billid = a },c => c.taskperiodname == tasknumber && c.metercode == meternum && c.phototype == 2);
+                    await _rt_b_photoservices.Update(s => new rt_b_photoattachment() {billid = a },c => c.taskperiodname == tasknumber && c.metercode == meternum && c.phototype == 2);//更新照片表
                 }
             }
             catch (Exception ex) 
@@ -215,10 +217,20 @@ namespace CDWM_MR.Controllers.v1
         /// <returns></returns>
         [HttpGet]
         [Route("GetSingleFaultinfo")]
-        public async Task<MessageModel<string>> GetSingleFaultinfo(int? faultid)
+        public async Task<MessageModel<rt_b_faultinfo>> GetSingleFaultinfo(int? faultid)
         {
-            var data = new MessageModel<string>();
+            var data = new MessageModel<rt_b_faultinfo>();
             var rdata = await _rt_b_faultinfoServices.Query(c => c.id == faultid);
+            if (rdata == null && rdata?.Count <= 0) 
+            {
+                data.code = 0;
+                data.msg = "不存在该故障！";
+                data.data = null;
+                return data;
+            }
+            data.code = 0;
+            data.msg = "成功";
+            data.data = rdata.FirstOrDefault();
             return data;
         }
         #endregion

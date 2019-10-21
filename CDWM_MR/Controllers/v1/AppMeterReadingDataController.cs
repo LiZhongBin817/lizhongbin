@@ -64,9 +64,11 @@ namespace CDWM_MR.Controllers.v1
             {
                 for (int i = 0; i < UserData.Count; i++)
                 {
-                    int id = await _mr_datainfoServices.Add(UserData);
-                    string meternum = UserData[i].meternum, tasknumber = UserData[i].taskperiodname;
-                    await _rt_b_photoservices.Update(s => new rt_b_photoattachment { billid = id},c => c.metercode == meternum && c.taskperiodname == tasknumber && c.phototype == 1);
+                    mr_datainfo updatemodel = UserData[i];
+                    updatemodel.readstatus = 1;
+                    List<string> updatefield = new List<string>() { "uploadgisplace", "readDateTime", "readstatus", "remark", "inputdata", "uploadtime", "readtype" };
+                    await _mr_datainfoServices.Update(updatemodel, updatefield);
+                    
                 }
                 //Status = UserData.Count();
             }

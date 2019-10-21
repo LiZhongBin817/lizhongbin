@@ -12,6 +12,10 @@ namespace CDWM_MR.Model.ViewModels
     public class UploadPhotoModel:BaseModel
     {
         /// <summary>
+        /// 抄表数据id
+        /// </summary>
+        public int readdataid { get; set; }
+        /// <summary>
         /// 任务单编号
         /// </summary>
         public int taskid { get; set; }

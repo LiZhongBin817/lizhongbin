@@ -82,14 +82,8 @@ namespace CDWM_MR.Controllers.v1
                     //已上传
                     if (uploadmodel[i].isreadupdate == 1)
                     {
-                        string tasknumber = uploadmodel[i].taskperiodname, meternum = uploadmodel[i].metercode;
-                        //表盘抄表
-                        if (uploadmodel[i].phototype == 1 || uploadmodel[i].phototype == 2)
-                        {
-                            var temp = await _mr_datainfoservices.Query(c => c.taskperiodname == tasknumber && c.meternum == meternum);
-                            uploadmodel[i].billid = temp.FirstOrDefault().id;//抄表数据id/mr_datainfo
-                        } //故障照片
-                        else if (uploadmodel[i].phototype == 4)
+                        string tasknumber = uploadmodel[i].taskperiodname, meternum = uploadmodel[i].metercode; //故障照片
+                        if (uploadmodel[i].phototype == 4)
                         {
                             var temp2 = await _faultinfoservices.Query(c => c.taskperiodname == tasknumber && c.meternum == meternum);
                             uploadmodel[i].billid = temp2.FirstOrDefault().id;//故障信息id/rt_b_faultinfo

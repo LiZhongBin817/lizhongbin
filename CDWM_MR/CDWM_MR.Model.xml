@@ -3256,6 +3256,141 @@
             照片附件id
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.Models.v_downloaddatainfo">
+            <summary>
+            抄表数据信息下载
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_downloaddatainfo.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.datainfoid">
+            <summary>
+            抄表数据id
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.bookid">
+            <summary>
+            抄表册ID,来源于mr_b_bookinfo::id
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.taskid">
+            <summary>
+            任务单id
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.bookno">
+            <summary>
+            抄表册编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)(关联水表用户信息)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.username">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.meternum">
+            <summary>
+            水表编号,（t_b_watermeters::meternum）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.lastreadtime">
+            <summary>
+            上期抄表时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.lastendnum">
+            <summary>
+            上期止码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.avenum">
+            <summary>
+            三月平均用水量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.lastwaternum">
+            <summary>
+            上期用水量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.balance">
+            <summary>
+            帐户余额
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.telephone">
+            <summary>
+            电话号码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.regionname">
+            <summary>
+            区域名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.areaname">
+            <summary>
+            小区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.address">
+            <summary>
+            家庭住址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.naturename">
+            <summary>
+            用水性质名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.mrreadername">
+            <summary>
+            抄表员名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.meterseq">
+            <summary>
+            表册内水表顺序
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.readinfo">
+            <summary>
+            抄表信息
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.metertypename">
+            <summary>
+            水表类型名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.installaddress">
+            <summary>
+            安装地址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.GISPlace">
+            <summary>
+            GIS位置(190808新增)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.caliber">
+            <summary>
+            口径(190808新增)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.lastmeterstatus">
+            <summary>
+            上期抄表异常
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_mr_book_reader_lq">
             <summary>
             VIEW
@@ -4510,6 +4645,11 @@
         <member name="T:CDWM_MR.Model.ViewModels.UploadPhotoModel">
             <summary>
             接受上传图片
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.readdataid">
+            <summary>
+            抄表数据id
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.ViewModels.UploadPhotoModel.taskid">

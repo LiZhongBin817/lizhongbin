@@ -30,39 +30,51 @@ namespace CDWM_MR.Services.Content
         }
 
         /// <summary>
-        /// 自动生成v_taskinfo表
+        /// 根据id生成v_taskinfo表
         /// </summary>
         /// <returns></returns>
-        public async Task<object> AutoCreat()
+        public async Task<object> AutoCreat(int planid)
         {
             int i = 1;
             List<mr_b_bookinfo> booklist = await book_info.Query();
-            List<mr_planinfo> planlist = await planinfo.Query();
-            int ID = Convert.ToInt32(planlist[planlist.Count - 1].ID);//v_taskinfo中的planid,每次自动生成最新的
+            List<mr_planinfo> planlist = await planinfo.Query(c => c.ID == planid);
+            if (planlist == null || planlist?.Count <= 0)
+            {
+                return new
+                {
+                    code = 1001,
+                    msg = "缺少计划单！",
+                    data = 0
+                };
+            }
+            var temp = planlist[0];
+            mr_taskinfo taskinfo = null;
             foreach (var item in booklist)
             {
-                mr_taskinfo taskinfo = new mr_taskinfo();
+                taskinfo = new mr_taskinfo();
                 taskinfo.bookid = item.id;
-                taskinfo.planid = ID;
-                taskinfo.readerid = 1;
-                taskinfo.taskstarttime = DateTime.Now;
-                taskinfo.taskendtime = DateTime.Now.AddDays(30);
-                taskinfo.createpeople = " 1";
+                taskinfo.planid = temp.ID;
+                taskinfo.readerid = item.id;
+                taskinfo.taskstarttime = temp.planstarttime;
+                taskinfo.taskendtime = temp.planendtime;
+                taskinfo.createpeople = "0";
                 taskinfo.createtime = DateTime.Now;
-                taskinfo.tasknumber = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + i.ToString();
+                taskinfo.tasknumber = temp.mplannumber + i.ToString("0000");
                 taskinfo.taskname = "任务单00" + i;
-                taskinfo.taskperiodname = "1";//任务账期
-                taskinfo.taskstatus = 0;//
-                taskinfo.dowloadstatus = 0;//下载状态
-                taskinfo.downloadstarttime = DateTime.Now;
-                taskinfo.downloadendtime = DateTime.Now.AddDays(30);
+                taskinfo.taskperiodname = $"{temp.mplanyear}{temp.mplanmonth}";//任务账期
+                taskinfo.taskstatus = 0;
+                taskinfo.dowloadstatus = 1;//下载状态
+                taskinfo.downloadstarttime = temp.planstarttime;
+                taskinfo.downloadendtime = temp.planendtime;
+                int taskid = await mr_taskinfoRepository.Add(taskinfo);//添加进入taskid
+                await mr_taskinfoRepository.ExecutePro("exec spName @ptaskid", new { ptaskid = taskid });
                 i++;
-                await mr_taskinfoRepository.Add(taskinfo);
             }
-            List<v_taskinfo> tasklist = await taskinfoRepository.Query();
-            return tasklist.Count;
-
-
+            return new {
+                code = 0,
+                msg = "成功",
+                data = 0
+            };
         }
     }
 }

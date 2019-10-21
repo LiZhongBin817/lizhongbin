@@ -82,6 +82,7 @@ namespace CDWM_MR.Controllers
                     };
                 }
                 int Message = await mr_planinfoServices.Add(Data);
+                await v_taskinfoServices.AutoCreat(Message);//添加任务单
                 string message = Message == 0 ? "error" : "ok";
                 return new MessageModel<object>()
                 {
