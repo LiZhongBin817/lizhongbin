@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
 </script>
 <div id="container" style="height:100%;width:66%;float:left"></div>
-<div class="layui-fuild layui-inline">
+<div class="layui-fluid layui-inline">
     <div class="layui-row">
         <div class="layui-col-md12">
             <div class="layui-card" style="background-color:#FBFBFF;">
@@ -73,7 +73,7 @@
     var index = 0; //记录播放到第几个point
     var followChk, playBtn, pauseBtn, resetBtn; //几个控制按钮
     
-    layui.use(['admin', 'table', 'form', 'view', 'bMap', 'laydate', 'jquery',], function () {
+    layui.use(['admin', 'table', 'form', 'view', 'bMap', 'laydate', 'jquery'], function () {
         var admin = layui.admin
             , table = layui.table
             , form = layui.form
