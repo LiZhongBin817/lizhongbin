@@ -82,6 +82,7 @@ namespace CDWM_MR.Controllers
                     };
                 }
                 int Message = await mr_planinfoServices.Add(Data);
+                await v_taskinfoServices.AutoCreat(Message);//添加任务单
                 string message = Message == 0 ? "error" : "ok";
                 return new MessageModel<object>()
                 {
@@ -89,13 +90,14 @@ namespace CDWM_MR.Controllers
                     msg = message
                 };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return new MessageModel<object>()
                 {
                     code = 2,
-                    msg = "数据格式不对"
+                    msg = "数据格式不对",
+                    data = ex.ObjToString()
                 };
             }
 

@@ -9,6 +9,6 @@ namespace CDWM_MR.IServices.Content
 {
    public interface Iv_taskinfoServices:IBaseServices<v_taskinfo>
     {
-         Task<object> AutoCreat();
+         Task<object> AutoCreat(int planid);
     }
 }

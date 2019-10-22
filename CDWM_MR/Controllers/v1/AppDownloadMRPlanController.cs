@@ -27,6 +27,7 @@ namespace CDWM_MR.Controllers.v1
         readonly Imr_taskinfoServices taskServices;
         readonly Iv_taskinfoServices vtaskinfo;
         private readonly Iv_bookexcelServices _v_bookexcelservices;
+        private readonly Iv_downloaddatainfoServices _v_downloaddatainfoservices;
         readonly IHostingEnvironment env;
         #endregion
 
@@ -36,12 +37,15 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="taskservices"></param>
         /// <param name="Taskinfo"></param>
         /// <param name="Env"></param>
-        public AppDownloadMRPlanController(Imr_taskinfoServices taskservices, Iv_taskinfoServices Taskinfo, IHostingEnvironment Env, Iv_bookexcelServices vbookexcel)
+        /// <param name="vbookexcel"></param>
+        /// <param name="downloaddatainfoservices"></param>
+        public AppDownloadMRPlanController(Imr_taskinfoServices taskservices, Iv_taskinfoServices Taskinfo, IHostingEnvironment Env, Iv_bookexcelServices vbookexcel,Iv_downloaddatainfoServices downloaddatainfoservices)
         {
             taskServices = taskservices;
             vtaskinfo = Taskinfo;
             env = Env;
             _v_bookexcelservices = vbookexcel;
+            _v_downloaddatainfoservices = downloaddatainfoservices;
         }
 
         /// <summary>
@@ -53,8 +57,16 @@ namespace CDWM_MR.Controllers.v1
         [EnableCors("LimitRequests")]
         public async Task<object> DownLoadMR(int? ID)
         {
-            var t = await vtaskinfo.Query(c => c.readerid == ID);
-
+            var t = await vtaskinfo.Query(c => c.readerid == ID && c.dowloadstatus == 1);
+            if (t == null || t?.Count <= 0)
+            {
+                return new {
+                    code =1001,
+                    msg = "无数据！",
+                    data = 0
+                };
+            }
+            
             return new {
                 code = 0,
                 msg = "成功",
@@ -69,9 +81,9 @@ namespace CDWM_MR.Controllers.v1
         /// <returns></returns>
         [HttpGet("{taskid}")]
         [EnableCors("LimitRequests")]
-        public async Task<MessageModel<List<v_bookexcel>>> downLoadMRinfo(int? taskid)
+        public async Task<MessageModel<List<v_downloaddatainfo>>> downLoadMRinfo(int? taskid)
         {
-            var data = new MessageModel<List<v_bookexcel>>();
+            var data = new MessageModel<List<v_downloaddatainfo>>();
             var judedata =await vtaskinfo.Query(c => c.taskid == taskid);
             if (judedata == null) 
             {
@@ -86,7 +98,7 @@ namespace CDWM_MR.Controllers.v1
                 data.msg = "没有到对应的下载日期！";
                 return data;
             }
-            var rdata =await _v_bookexcelservices.Query(c => c.bookno == temp.bookno);
+            var rdata =await _v_downloaddatainfoservices.Query(c => c.bookno == temp.bookno);
             if (rdata.Count <= 0)
             {
                 data.code = 1001;

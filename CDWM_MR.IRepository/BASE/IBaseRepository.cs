@@ -58,5 +58,7 @@ namespace CDWM_MR.IRepository.Base
         Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression);
         Task<bool> OUpdate(TEntity entity);
         Task<int> OAdd(TEntity entity);
+
+        Task<int> ExecutePro(string prostr, object obj);
     }
 }
