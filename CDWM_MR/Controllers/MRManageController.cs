@@ -305,12 +305,12 @@ namespace CDWM_MR.Controllers
                 string[] array2 = array[i].Split('/');
                 if (recheckData.Count != 0)
                 {
-                    recheckdata = (decimal)recheckData[0].recheckdata;
+                    recheckdata = (decimal)recheckData[recheckData.Count-1].recheckdata;
 
                 }
                 if (ocrData.Count != 0)
                 {
-                    ocrdata = (decimal)ocrData[0].ocrdata;
+                    ocrdata = ocrData[0].ocrdata==null?0: (decimal)ocrData[0].ocrdata;
                     photoid = ocrData[0].photoid == null ? 0 : (int)ocrData[0].photoid;
                 }
                 var data = new
@@ -366,9 +366,17 @@ namespace CDWM_MR.Controllers
             b_Recheck.readdataid = mr_Datainfos.ID;
             b_Recheck.meternum = mr_Datainfos.meternum;
             b_Recheck.userid = mr_Datainfos.autoaccount;
-            b_Recheck.taskperiodname = mr_Datainfos.taskperiodname;
+            b_Recheck.taskperiodname = mr_Datainfos.taskperiodname;         
             b_Recheck.recheckstatus = RecheckStatus;
-            b_Recheck.recheckdata = RecheckData;
+            var lastData = _B_Rechecks.FindAll(c => c.userid == mr_Datainfos.autoaccount);
+            if (RecheckData == 0)//使用者没有填写审核数据的时候
+            {
+                b_Recheck.recheckdata = lastData[lastData.Count-1].recheckdata;
+            }
+            else
+            {
+                b_Recheck.recheckdata = RecheckData;
+            }  
             b_Recheck.recheckresult = RecheckResult;
             b_Recheck.checksuccesstime = DateTime.Now;
             b_Recheck.checkor = "1";//代表人工审核的
