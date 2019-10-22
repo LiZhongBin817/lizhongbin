@@ -87,11 +87,17 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
                     var tabletwo = {
                         // one: obj.data.copy,
 
-                        allyichao: d.data[0].datatwo.allyichao,
-                        allshichao: d.data[0].datatwo.allshichao,
-                        allyingchao: d.data[0].datatwo.allyingchao,
-                        allchaojianlv: d.data[0].datatwo.allchaojianlv,
-                        allshichaolv: d.data[0].datatwo.allshichaolv
+                        //allyichao: d.data[0].datatwo.allyichao,
+                        //allshichao: d.data[0].datatwo.allshichao,
+                        //allyingchao: d.data[0].datatwo.allyingchao,
+                        //allchaojianlv: d.data[0].datatwo.allchaojianlv,
+                        //allshichaolv: d.data[0].datatwo.allshichaolv
+
+                         allalreadycopy: obj.data[0].datatwo.allalreadycopy,
+                        allreallycopy: obj.data[0].datatwo.allreallycopy,
+                        allshoudcopy: obj.data[0].datatwo.allshoudcopy,
+                        allcopyrate: obj.data[0].datatwo.allcopyrate,
+                        allreallyrate: obj.data[0].datatwo.allreallyrate
                     };
                     var arrysum = [];
                     arrysum.push(tabletwo);
@@ -149,12 +155,15 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
             //$('#jingtai').append(str);
             var tabletwo = {
                 // one: obj.data.copy,  
-               allalreadycopy: obj.data[0].datatwo.allalreadycopy,
-                allreallycopy: obj.data[0].datatwo.allreallycopy,
-                allshoudcopy: obj.data[0].datatwo.allshoudcopy,
-                allcopyrate: obj.data[0].datatwo.allcopyrate,
-                allreallyrate: obj.data[0].datatwo.allreallyrate
+               //allalreadycopy: obj.data[0].datatwo.allalreadycopy,
+               // allreallycopy: obj.data[0].datatwo.allreallycopy,
+               // allshoudcopy: obj.data[0].datatwo.allshoudcopy,
+               // allcopyrate: obj.data[0].datatwo.allcopyrate,
+                //allreallyrate: obj.data[0].datatwo.allreallyrate
+               
             };
+            console.log(obj.data);
+            console.log("111");
             var arrysum = [];
             arrysum.push(tabletwo);
             pagerender(obj.data, arrysum);
