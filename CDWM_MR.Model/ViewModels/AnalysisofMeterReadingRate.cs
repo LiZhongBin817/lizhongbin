@@ -16,11 +16,14 @@ namespace CDWM_MR.Model
             get;
             set;
         }
+        
+       //已抄
         public int drop
         {
             get;
             set;
         }
+        //实抄
         public int copy {
             get;
             set;
