@@ -29,9 +29,8 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function (exports) {
         , request: {
             tokenName: 'Authorization' //自动携带 token 的字段名。可设置 false 不携带。
         }
-        //向后台请求的URL地址 
-        , requesturl:'http://localhost:8081'
- 
+        //向后台请求的URL地址
+        ,requesturl:'http://localhost:8081'
 
         //自定义响应字段
         , response: {
@@ -43,7 +42,9 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function (exports) {
             , msgName: 'msg' //状态信息的字段名称
             , dataName: 'data' //数据详情的字段名称
         }
-
+        , bMap: {
+            ak: 'D2b4558ebed15e52558c6a766c35ee73'//必须参数，其余参数可不配置
+        }
         //独立页面路由，可随意添加（无需写参数）
         , indPage: [
             '/user/login' //登入页
