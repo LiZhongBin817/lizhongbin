@@ -565,6 +565,35 @@
             <param name="limit"></param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.DosageAnomalyAnalysis">
+            <summary>
+            用量异常分析
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DosageAnomalyAnalysis.ShowDosageAnomalyAnalysis(System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            用量异常分析
+            </summary>
+            <param name="endtime"></param>
+            <param name="mrreader"></param>
+            <param name="bookno"></param>
+            <param name="meternum"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DosageAnomalyAnalysis.Serchmrreader">
+            <summary>
+            给抄表员下拉框赋值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DosageAnomalyAnalysis.Serchbookno">
+            <summary>
+            给抄表册传值
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.LoginController">
             <summary>
             登陆控制器--无权限控制
