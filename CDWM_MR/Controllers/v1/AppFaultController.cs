@@ -19,7 +19,7 @@ namespace CDWM_MR.Controllers.v1
     /// <summary>
     /// 故障工单
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [AllowAnonymous]
     //或者是写[Route("api/[controller]/[action]")]，下面就不要写Route啥的了
     public class AppFaultController : ControllerBase
@@ -62,7 +62,6 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="faultDate"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("UpdateFaultWorkOrder")]
         public async Task<MessageModel<int>> UpdateFaultWorkOrder([FromBody]List<UploadFaultModel> faultDate)
         {
             var data = new MessageModel<int>();
@@ -105,7 +104,6 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="taskperiodname">任务账单</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("GetFaultWorkOrder")]
         public async Task<object> GetFaultWorkOrder(int readerid, string taskperiodname)
         {
             #region lambda拼接式
@@ -148,7 +146,6 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="FaultHandlinglist"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("FaultHandling")]
         public async Task<MessageModel<int>> FaultHandling([FromBody]List<UploadFaultProcessModel> FaultHandlinglist)
         {
             var data = new MessageModel<int>();
@@ -196,9 +193,8 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="taskid"></param>
         /// <param name="faultstatus">默认值-1</param>
         /// <returns></returns>
-        [HttpGet]
-        [Route("GetbookFault")]
-        public async Task<MessageModel<List<vfaultinfo>>> GetbookFault(int? taskid,int faultstatus = -1)
+        [HttpGet("{taskid}/{faultstatus}")]
+        public async Task<MessageModel<List<vfaultinfo>>> GetbookFault(int? taskid,int? faultstatus)
         {
             var data = new MessageModel<List<vfaultinfo>>();
             Expression<Func<v_rt_b_faultinfo, bool>> wherelambda = c => c.taskid == taskid;
@@ -232,7 +228,6 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="faultid"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetSingleFaultinfo")]
         public async Task<MessageModel<rt_b_faultinfo>> GetSingleFaultinfo(int? faultid)
         {
             var data = new MessageModel<rt_b_faultinfo>();

@@ -33,5 +33,15 @@ namespace CDWM_MR.Model.ViewModels
         /// 故障内容
         /// </summary>
         public string faultcontent { get; set; }
+
+        /// <summary>
+        /// 家庭住址
+        /// </summary>
+        public string address { get; set; }
+
+        /// <summary>
+        /// 用户名称
+        /// </summary>
+        public System.String username { get; set; }
     }
 }

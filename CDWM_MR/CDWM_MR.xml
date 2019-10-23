@@ -1281,11 +1281,12 @@
             <param name="FaultHandlinglist"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.GetbookFault(System.Nullable{System.Int32})">
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.GetbookFault(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             获取表册内的故障信息
             </summary>
             <param name="taskid"></param>
+            <param name="faultstatus">默认值-1</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppFaultController.GetSingleFaultinfo(System.Nullable{System.Int32})">
@@ -1460,6 +1461,11 @@
             <param name="areano">用户所在小区</param>
             <param name="address">用户所在地址</param>
             <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.v1.AppWebCommonController">
+            <summary>
+            Web与APP公用参数接口
+            </summary>
         </member>
         <member name="T:CDWM_MR.Controllers.WatermeterUserManageController">
             <summary>
