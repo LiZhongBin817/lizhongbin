@@ -83,16 +83,9 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
                 "mrreadername": field.bookman
             },
             success: function (d) {
-                if (d.msg == "ok") {
+                if (d.msg == "ok" && obj.data.length > 0 ) {
                     var tabletwo = {
                         // one: obj.data.copy,
-
-                        //allyichao: d.data[0].datatwo.allyichao,
-                        //allshichao: d.data[0].datatwo.allshichao,
-                        //allyingchao: d.data[0].datatwo.allyingchao,
-                        //allchaojianlv: d.data[0].datatwo.allchaojianlv,
-                        //allshichaolv: d.data[0].datatwo.allshichaolv
-
                          allalreadycopy: obj.data[0].datatwo.allalreadycopy,
                         allreallycopy: obj.data[0].datatwo.allreallycopy,
                         allshoudcopy: obj.data[0].datatwo.allshoudcopy,
@@ -153,25 +146,38 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
             //}
             ////console.log(input);
             //$('#jingtai').append(str);
-            var tabletwo = {
-                // one: obj.data.copy,  
-               //allalreadycopy: obj.data[0].datatwo.allalreadycopy,
-               // allreallycopy: obj.data[0].datatwo.allreallycopy,
-               // allshoudcopy: obj.data[0].datatwo.allshoudcopy,
-               // allcopyrate: obj.data[0].datatwo.allcopyrate,
-                //allreallyrate: obj.data[0].datatwo.allreallyrate
-               
-            };
-            console.log(obj.data);
-            console.log("111");
-            var arrysum = [];
-            arrysum.push(tabletwo);
-            pagerender(obj.data, arrysum);
-            console.log(obj.data);
-            //console.log(obj.data[1].datatwo);
-            console.log(tabletwo);
-            form.render();
+            if (obj.data!=null) {
+                var tabletwo = {
+                    // one: obj.data.copy,  
+                    allalreadycopy: obj.data[0].datatwo.allalreadycopy,
+                    allreallycopy: obj.data[0].datatwo.allreallycopy,
+                    allshoudcopy: obj.data[0].datatwo.allshoudcopy,
+                    allcopyrate: obj.data[0].datatwo.allcopyrate,
+                    allreallyrate: obj.data[0].datatwo.allreallyrate
+
+                };
+
+
+                console.log(obj.data);
+                console.log("111");
+                var arrysum = [];
+                arrysum.push(tabletwo);
+                pagerender(obj.data, arrysum);
+                console.log(obj.data);
+                //console.log(obj.data[1].datatwo);
+                console.log(tabletwo);
+                form.render();
+            }
+             else {
+            var a = new Array();
+            var b = new Array();
+            layer.msg("无数据");
+                pagerender(a, b);
+                form.render();
+            }
         }
+
+        
     });
 
     //给抄表月份导入日期
