@@ -50,9 +50,16 @@ namespace CDWM_MR.Controllers
             Expression<Func<v_t_b_users_datainfo_watercarryover, bool>> wherelambda = c => true;
             if ((readtype != 4&&readtype!=0))
             {
-                wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.readtype == readtype);
+                if (readtype == 5)//前台传过来的数字5表示抄表状态为正常
+                {
+                    wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.readtype == 0);
+                }
+                else
+                {
+                    wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.readtype == readtype);
+                }       
             }
-            if (readtype==4)
+            if (readtype==4)//表示抄表状态为未抄
             {
                 wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.inputdata==null);
             }
