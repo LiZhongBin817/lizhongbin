@@ -72,7 +72,7 @@
     var timer;     //定时器
     var index = 0; //记录播放到第几个point
     var followChk, playBtn, pauseBtn, resetBtn; //几个控制按钮
-    
+
     layui.use(['admin', 'table', 'form', 'view', 'bMap', 'laydate', 'jquery'], function () {
         var admin = layui.admin
             , table = layui.table
@@ -81,7 +81,7 @@
             , bMap = layui.bMap
             , laydate = layui.laydate
             , $ = layui.jquery;
-
+          var load = layer.load(3);
         SelectRender();
         var uploadGPS = "";
         MapInit();
@@ -109,9 +109,9 @@
         });
         //监听查看按钮
         form.on('submit(See)', function (d) {
+             $("#MeterSum").text("0");
             MapInit();
-            var data = d.field;
-            var load = layer.load(3);
+            var data = d.field;         
             admin.req({
                 url: layui.setter.requesturl + '/ShowMRPath',
                 type: 'get',
@@ -123,43 +123,29 @@
                 },
                 success: function (d) {
                     if (d.msg == "ok") {
-                       
+
                         tableData1 = d.data[0].counts;
                         tableData = d.data;
                         uploadGPS = d.data[0].uploadGPS;
                         GPS(uploadGPS);
-                        
-                        if (tableData1.date ==null) {
+
+                        if (tableData1.date == null) {
                             $("#MeterSum").text(tableData1.SumCounts);
                         }
                         else {
                             $("#MeterSum").text(tableData1.Counts);
-                        }                        
+                        }
                         RenderTable(tableData1.date, tableData1.SumCounts);
-                        table.render({
-                            elem: '#MeterReadingInfo',
-                            data: tableData,
-                            cols: [[
-                                { field: 'account', title: '用户编号', width: 120 },
-                                { field: 'username', title: '用户名称', width: 120 },
-                                { field: 'uploadtime', title: '抄表时间', width: 200 },
-                            ]]
-                            , page: true
-                            , limit: 20
-                            , limits: [5, 10, 15]
-                            , done: function () {
-                                layer.close(load);
-                            }
-                        });
-
+                        DyTable(tableData);
 
                     }
                     else if (d.msg == "NO") {
                         layer.msg("无数据");
                         layer.close(load);
-                        table.reload('MeterCount');
-                        table.reload('MeterReadingInfo');
-                        MapInit();
+                        var array = new Array();//初始化表格
+                        DyTable(array);
+                        RenderTable(array,array);
+                        MapInit();                      
                     }
                 }
             });
@@ -184,6 +170,26 @@
                 $(td[0]).html(data[i]['id']);
                 $(td[1]).html(data[i]['value']);
             }
+        }
+
+        //渲染动态表格
+        function DyTable(tableData) {
+            table.render({
+                elem: '#MeterReadingInfo',
+                data: tableData,
+                cols: [[
+                    { field: 'account', title: '用户编号', width: 120 },
+                    { field: 'username', title: '用户名称', width: 120 },
+                    { field: 'uploadtime', title: '抄表时间', width: 200 },
+                ]]
+                , page: true
+                , limit: 20
+                , limits: [5, 10, 15]
+                , done: function () {
+                    layer.close(load);
+                }
+            });
+
         }
         //PGS轨迹
         function GPS(uploadGPS) {
@@ -256,6 +262,7 @@
                     map.addOverlay(polyline);  // 添加Overlay
                 }
             });
+            layer.close(load);
         }
 
 
@@ -278,7 +285,7 @@
         driving.search(new BMap.Point(uploadGPS[0]), new BMap.Point(uploadGPS[uploadGPS.length - 1]));
         driving.setSearchCompleteCallback(function () {
             console.log(driving);
-           // points = driving.getResults().getPlan(0).getRoute(0).getPath();
+            // points = driving.getResults().getPlan(0).getRoute(0).getPath();
             //画面移动到起点和终点的中间
             centerPoint = new BMap.Point((points[0].lng + points[points.length - 1].lng) / 2, (points[0].lat + points[points.length - 1].lat) / 2);
             map.panTo(centerPoint);
