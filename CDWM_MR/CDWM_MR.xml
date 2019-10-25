@@ -1276,7 +1276,7 @@
             故障工单
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.#ctor(CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Iv_rb_b_faultprocessServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices,AutoMapper.IMapper,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Imr_datainfoServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.#ctor(CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Iv_rb_b_faultprocessServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices,AutoMapper.IMapper,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_photo_faultinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
             构造函数注入
             </summary>
@@ -1287,6 +1287,8 @@
             <param name="mapper"></param>
             <param name="photoservices"></param>
             <param name="datainfoservices"></param>
+            <param name="photofaultinfoservices"></param>
+            <param name="env"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppFaultController.UpdateFaultWorkOrder(System.Collections.Generic.List{CDWM_MR.Model.ViewModels.UploadFaultModel})">
             <summary>
