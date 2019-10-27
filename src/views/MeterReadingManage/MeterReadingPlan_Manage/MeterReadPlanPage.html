@@ -10,7 +10,7 @@
             <script type="text/html" template>
                 <select name="MeterReader" lay-filter="MRPMeterReader" id="MeterReader">
                     {{# layui.each(d.params[1],function(index, item){ }}
-                    <option value="{{ item.ID }}">{{ item.name }}</option>
+                    <option value="{{ item.ID }}" {{# if(d.params[0].MRPeople==item.name){}} selected="selected" {{# } }}>{{item.name}}</option>
                     {{# }); }}
                 </select>
             </script>
@@ -36,7 +36,7 @@
         <label class="layui-form-label">起抄日期:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input type="text" class="layui-input" name="StartTime" id="StartTime" autocomplete="off" value="{{d.params[0].MRStartTime }}" />
+                <input type="text" class="layui-input" name="MRPPStartTime" id="MRPPStartTime" autocomplete="off" value="{{d.params[0].MRStartTime }}" />
             </script>
         </div>
     </div>
@@ -44,7 +44,7 @@
         <label class="layui-form-label">止抄日期:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input type="text" class="layui-input" name="EndTime" id="EndTime" autocomplete="off" value="{{d.params[0].MREndTime }}" />
+                <input type="text" class="layui-input" name="MRPPEndTime" id="MRPPEndTime" autocomplete="off" value="{{d.params[0].MREndTime }}" />
             </script>
         </div>
     </div>
@@ -73,18 +73,15 @@
     </div>
 </div>
 
-
-
-
 <script>
 
-    layui.use(['admin', 'form', 'view', 'MeterReadPlan'], function () {
-        var $ = layui.$
-            , form = layui.form,
+    layui.use(['admin', 'form', 'view', 'MeterReadPlan', 'laydate'], function () {
+        var $ = layui.$,
+            form = layui.form,
             view = layui.view,
             admin = layui.admin,
+            laydate = layui.laydate,
             MeterReadPlan = layui.MeterReadPlan;
         form.render();
-
     });
 </script>

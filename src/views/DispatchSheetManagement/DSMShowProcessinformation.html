@@ -19,7 +19,7 @@
         <label class="layui-form-label">故障类型:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowProcessinformation_type" value="{{d.params[0][0].faulttype}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_type" value="{{d.params[0][0].faulttype==6?"表埋":"d.params[0][0].faulttype==7"?"表坏":"d.params[0][0].faulttype==8"?"井盖坏":"d.params[0][0].faulttype==10"?"漏水":"其他"}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
@@ -89,7 +89,7 @@
         <label class="layui-form-label">处理人:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowPIDealingpeople" value="{{d.params[2][0].processdatetime}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowPIDealingpeople" value="{{d.params[2][0].processpreson}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
@@ -105,7 +105,7 @@
         <label class="layui-form-label">处理状态:</label>
         <div class="layui-inline"`>
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowPIdealstatus" value="{{d.params[2][0].processresult}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowPIdealstatus" value="{{d.params[2][0].processresult==0?"通过":"不通过"}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>

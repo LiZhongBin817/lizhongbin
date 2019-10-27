@@ -19,10 +19,22 @@
                     </script>
                 </div>
             </div>
-            <div class="">
-                <ul id="AddressimgZmList" name="AddressimgZmList">
-                </ul>
-            </div>
         </div>
+
     </div>
 </div>
+<div id="icontainer" style="height:100%;width:100%">
+
+</div>
+<script>
+    layui.use(['admin', 'form', 'view', 'DSMSHOW', 'bMap'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            view = layui.view,
+            admin = layui.admin,
+            bMap = layui.bMap,
+            DSMSHOW = layui.DSMSHOW;
+        form.render();
+       
+    });
+</script>
