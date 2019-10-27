@@ -219,6 +219,16 @@ namespace CDWM_MR
 
             #endregion
 
+            #region Quartz定时任务框架
+            //注入 Quartz调度类
+            services.AddSingleton<QuartzManager>();
+            // 这里使用瞬时依赖注入
+            //services.AddTransient<UserInfoSyncjob>();      
+            //注册ISchedulerFactory的实例。
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+            services.AddSingleton<IJobFactory, IOCJobFactory>();
+            #endregion
+
             #region Authorize 权限认证三步走
 
             //使用说明：
@@ -375,7 +385,7 @@ namespace CDWM_MR
 
             #endregion
 
-            #region TimedJob
+            #region TimedJob(使用Timer定时器完成--建议不要使用)
             //services.AddHostedService<Job1TimedService>();
             //services.AddHostedService<JobWorkTime1>();
 
@@ -501,12 +511,12 @@ namespace CDWM_MR
         }
 
         /// <summary>
-        /// 运行时调用此方法。使用此方法配置HTTP请求管道。
-        /// 创建一个HttpContext处理请求
+        /// 运行时调用此方法。使用此方法配置HTTP请求管道。创建一个Http请求
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        /// <param name="appLifetime"></param>
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
 
             #region ReuestResponseLog
@@ -579,6 +589,23 @@ namespace CDWM_MR
             #region 跨域第一种版本
             //跨域第一种版本，请要ConfigureService中配置服务 services.AddCors();
             #endregion
+
+            #endregion
+
+            #region Quartz定时任务
+            //获取前面注入的Quartz调度类
+            var quartz = app.ApplicationServices.GetRequiredService<QuartzManager>();
+
+            appLifetime.ApplicationStarted.Register(() =>
+            {
+                quartz.Init().Wait(); //网站启动完成执行
+            });
+
+            appLifetime.ApplicationStopped.Register(() =>
+            {
+                quartz.Stop();  //网站停止完成执行
+
+            });
 
             #endregion
 
