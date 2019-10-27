@@ -1439,6 +1439,23 @@
             <param name="environment"></param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.v1.AppSequenceSaveController">
+            <summary>
+            抄表册用户顺序保存
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppSequenceSaveController.#ctor(CDWM_MR.IRepository.Content.Imr_book_meterRepository)">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppSequenceSaveController.SequenceSave(System.Int32,System.Collections.Generic.Dictionary{System.String,System.Int32})">
+            <summary>
+            抄表册用户顺序保存
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.v1.AppSoftware">
             <summary>
             软件部分
