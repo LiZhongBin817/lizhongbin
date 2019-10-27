@@ -142,7 +142,9 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         elem: '#dataAnalysisInfo_Table',
         method: 'post',
         toolbar: true,
-        url: 'http://localhost:8081/ReadAnalysis',
+ 
+        url: layui.setter.requesturl+'/ReadAnalysis',
+ 
         cols: [[
 
             { title: '序号', type: 'numbers', width: 70, totalRowText: '合计' },
@@ -150,7 +152,9 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
             { field: 'readtime', title: '抄表日期', width: 120 },
             { field: 'mindatatime', title: '开始时间', width: 180 },
             { field: 'maxdatetime', title: '结束时间', width: 180 },
-            { field: 'readmetertime', title: '抄表时长', width: 110, totalRow: true },
+ 
+            {  field: 'readmetertime', title: '抄表时长', width: 110, totalRow: true, },
+ 
             { field: 'meternum', title: '抄表个数', width: 110, totalRow: true },
             { field: 'metermonth', title: '抄表月份', width: 110 },
 
@@ -176,11 +180,12 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
                     , anim: othis.data('anim')
                 });
             });
-            for (var i = 0; i < renderdata.length; i++) {
+ 
+            for (var i = 0; i < renderdata.length; i++ ) {
                 singlerender(renderdata[i]);
 
-            }
-            //
+            } 
+ 
         }
     });
 
@@ -198,7 +203,9 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
 
     //下拉框渲染
     admin.req({
-        url: 'http://localhost:8081/render_ReaderAnalysis',
+ 
+        url: layui.setter.requesturl+'/render_ReaderAnalysis',
+ 
         type: "post",
         success: function (result) {
             workData = result.data;
