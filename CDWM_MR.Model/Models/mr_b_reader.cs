@@ -1,5 +1,7 @@
 ﻿using SqlSugar;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace CDWM_MR.Model.Models
 {
@@ -8,6 +10,11 @@ namespace CDWM_MR.Model.Models
     /// </summary>
     public class mr_b_reader : BaseModel
     {
+        /// <summary>
+        /// ID
+        /// </summary>
+        [SugarColumn(IsNullable = false, Length = 50)]
+        public int ID { get; set; }
         /// <summary>
         /// 抄表员编号
         /// </summary>
@@ -80,5 +87,9 @@ namespace CDWM_MR.Model.Models
         [SugarColumn(IsNullable = true)]
         public DateTime lastlogintime { get; set; }
 
+        public static implicit operator mr_b_reader(List<mr_b_reader> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
