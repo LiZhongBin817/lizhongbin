@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -25,6 +26,7 @@ namespace CDWM_MR.Controllers.v1
         #region 相关变量
         readonly Imr_taskinfoServices taskServices;
         readonly Iv_taskinfoServices vtaskinfo;
+        private readonly Iv_bookexcelServices _v_bookexcelservices;
         readonly IHostingEnvironment env;
         #endregion
 
@@ -34,11 +36,12 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="taskservices"></param>
         /// <param name="Taskinfo"></param>
         /// <param name="Env"></param>
-        public AppDownloadMRPlanController(Imr_taskinfoServices taskservices, Iv_taskinfoServices Taskinfo, IHostingEnvironment Env)
+        public AppDownloadMRPlanController(Imr_taskinfoServices taskservices, Iv_taskinfoServices Taskinfo, IHostingEnvironment Env, Iv_bookexcelServices vbookexcel)
         {
             taskServices = taskservices;
             vtaskinfo = Taskinfo;
             env = Env;
+            _v_bookexcelservices = vbookexcel;
         }
 
         /// <summary>
@@ -60,48 +63,74 @@ namespace CDWM_MR.Controllers.v1
         }
 
         /// <summary>
-        /// 抄表册EXCEL文件下载
+        /// 下载抄表信息
         /// </summary>
-        /// <param name="bookno">抄表册编号</param>
+        /// <param name="taskid"></param>
         /// <returns></returns>
-        [HttpGet("{bookno}")]
+        [HttpGet("{taskid}")]
         [EnableCors("LimitRequests")]
-        public IActionResult downLoadMRinfo(string bookno)
+        public async Task<MessageModel<List<v_bookexcel>>> downLoadMRinfo(int? taskid)
         {
-            var path = Path.Combine(env.ContentRootPath, "wwwroot", "MR_bookinfo", $"{bookno}.xls");
-            if (!System.IO.File.Exists(path))
+            var data = new MessageModel<List<v_bookexcel>>();
+            var judedata =await vtaskinfo.Query(c => c.taskid == taskid);
+            if (judedata == null) 
             {
-                return new JsonResult(new {
-                    code = 1001,
-                    msg = "文件不存在",
-                    data = bookno
-                });
+                data.code = 1001;
+                data.msg = "没有对应的任务单！";
+                return data;
             }
+            var temp = judedata.FirstOrDefault();
+            if (DateTime.Now < temp.downloadstarttime) 
+            {
+                data.code = 1001;
+                data.msg = "没有到对应的下载日期！";
+                return data;
+            }
+            var rdata =await _v_bookexcelservices.Query(c => c.bookno == temp.bookno);
+            if (rdata.Count <= 0)
+            {
+                data.code = 1001;
+                data.msg = "此抄表册内没有水表信息或该抄表册不存在！";
+                return data;
+            }
+            data.code = 0;
+            data.msg = "成功！";
+            data.data = rdata;
+            return data;
+            //var path = Path.Combine(env.ContentRootPath, "wwwroot", "MR_bookinfo", $"{bookno}.xls");
+            //if (!System.IO.File.Exists(path))
+            //{
+            //    return new JsonResult(new {
+            //        code = 1001,
+            //        msg = "文件不存在",
+            //        data = bookno
+            //    });
+            //}
 
-            //获取文件的ContentType
-            var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
-            var memi = provider.Mappings[".xls"];
-            return PhysicalFile(path, memi, bookno);
+            ////获取文件的ContentType
+            //var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
+            //var memi = provider.Mappings[".xls"];
+            //return PhysicalFile(path, memi, bookno);
         }
 
         /// <summary>
         /// 下载回调
         /// </summary>
-        /// <param name="bookno"></param>
-        /// <param name="status">下载状态</param>
+        /// <param name="taskid"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
-        [HttpGet("{bookno}/{status}")]
+        [HttpGet("{taskid}/{status}")]
         [EnableCors("LimitRequests")]
-        public async Task<object> JudeSuccess(int? bookno,int? status)
+        public async Task<object> JudeSuccess(int? taskid,int? status)
         {
             if (status == 0)
             {
-                await taskServices.Update(c => new mr_taskinfo() { dowloadstatus = 0 },c => c.bookid == bookno);
+                await taskServices.Update(c => new mr_taskinfo() { dowloadstatus = 0 },c => c.id == taskid);
                 return new
                 {
                     code = 0,
                     msg = "下载完成",
-                    data = bookno
+                    data = taskid
                 };
             }
 
@@ -109,13 +138,13 @@ namespace CDWM_MR.Controllers.v1
             {
                 code = 1001,
                 msg = "下载失败",
-                data = bookno
+                data = taskid
             };
 
         }
 
         /// <summary>
-        /// 接受上传图片
+        /// 接受上传图片(测试)
         /// </summary>
         /// <param name="Test"></param>
         /// <param name="environment"></param>

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CDWM_MR.IServices.Content
 {
-    public partial interface Irt_b_faultinfoServices:IBaseServices<rt_b_faultinfo>
+    public partial interface Iv_reader_analysisServices : IBaseServices<v_reader_analysis>
     {
     }
 }

@@ -122,5 +122,9 @@ namespace CDWM_MR.Model.Models
         /// 故障信息内容
         /// </summary>
         public System.String faultcontent { get; set; }
+        /// <summary>
+        /// 抄表员编号
+        /// </summary>
+        public System.String mrreadernumber { get; set; }
     }
 }

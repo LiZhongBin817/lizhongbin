@@ -17,6 +17,7 @@ namespace CDWM_MR.AutoMapper
         {
             CreateMap<v_bookexcel, bookExcel>();
             CreateMap<UploadPhotoModel, rt_b_photoattachment>();
+            CreateMap<vfaultinfo, v_rt_b_faultinfo>();
         }
     }
 }

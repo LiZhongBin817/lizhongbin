@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CDWM_MR.Model.ViewModels
+namespace CDWM_MR.Model.Models
 {
-   public class v_rt_b_faultinfo
+    /// <summary>
+    /// 故障信息视图
+    /// </summary>
+    public class v_rt_b_faultinfo
     {
-
         /// <summary>
         /// VIEW
         /// </summary>
@@ -25,6 +27,11 @@ namespace CDWM_MR.Model.ViewModels
         public System.Int32 readdataid { get; set; }
 
         /// <summary>
+        /// 任务单id(来源于mr_taskinfo)
+        /// </summary>
+        public System.Int32 taskid { get; set; }
+
+        /// <summary>
         /// 故障编号（自动生成）
         /// </summary>
         public System.String faultnumber { get; set; }
@@ -32,7 +39,7 @@ namespace CDWM_MR.Model.ViewModels
         /// <summary>
         /// 故障类型sys_config
         /// </summary>
-        public System.Int32? faulttype { get; set; }
+        public System.Int32 faulttype { get; set; }
 
         /// <summary>
         /// 
@@ -72,7 +79,7 @@ namespace CDWM_MR.Model.ViewModels
         /// <summary>
         /// 水表状态0--正常(默认)其他状态来源于sys_config
         /// </summary>
-        public System.Int32? meterstatus { get; set; }
+        public System.Int32 meterstatus { get; set; }
 
         /// <summary>
         /// 抄表员ID
@@ -92,17 +99,17 @@ namespace CDWM_MR.Model.ViewModels
         /// <summary>
         /// 
         /// </summary>
+        public System.Int32 v_status { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public System.String username { get; set; }
 
         /// <summary>
         /// 小区名称
         /// </summary>
         public System.String areaname { get; set; }
-
-        /// <summary>
-        /// 附件
-        /// </summary>
-        public System.Int32? v_status { get; set; }
 
         /// <summary>
         /// 家庭住址

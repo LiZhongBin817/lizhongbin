@@ -98,5 +98,10 @@ namespace CDWM_MR.Model.Models
         {
             throw new NotImplementedException();
         }
+
+        public static implicit operator List<object>(rt_b_faultinfo v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
