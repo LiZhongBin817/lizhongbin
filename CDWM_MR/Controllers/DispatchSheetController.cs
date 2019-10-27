@@ -32,6 +32,7 @@ namespace CDWM_MR.Controllers
         readonly Iv_rb_b_faultprocessServices v_rb_b_faultprocessServices;
         readonly Imr_datainfoServices imr_datainfoservices;
         readonly IMapper _mapper;
+
         #endregion
 
         public DispatchSheetController(Irb_b_faultprocessServices B_FaultprocessServices, Irt_b_faultinfoServices B_FaultinfoServices, Irt_b_photoattachmentServices B_PhotoattachmentServices, Iv_rt_b_faultinfoServices iv_Rt_B_FaultinfoServices, Imr_b_readerServices imr_b_ReaderServices, Iv_rb_b_faultprocessServices iv_Rb_B_FaultprocessServices, Imr_datainfoServices imr_Datainfo, IMapper mapper)
@@ -214,12 +215,13 @@ namespace CDWM_MR.Controllers
                 data.faulttype = 0;
                 data.processdatetime = Latesttime;
                 data.processpreson = worker;
-                data.createperson = "1";
+                data.createperson = Permissions.UersName;
                 data.taskperiodname = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString();
-                data.processresult = 1;
+                data.processresult = 0;
                 data.processsource = "后台管理系统";
                 data.createtime = DateTime.Now;
                 data.faultid = id;
+                data.meternum = faultinfo[0].meternum;
                 var list = faultprocess.FindAll(c => c.faultid == id);//判重
                 if (list.Count != 0)
                 {
@@ -398,7 +400,7 @@ namespace CDWM_MR.Controllers
                     data = 0
                 };
             }
-            FaultHandlinglist[0].createperson = "抄表员";
+            FaultHandlinglist[0].createperson = Permissions.UersName;
             FaultHandlinglist[0].createtime = DateTime.Now;
             int a = await _B_FaultprocessServices.Add(FaultHandlinglist[0]);
             string meternum = FaultHandlinglist[0].meternum, tasknumber = FaultHandlinglist[0].taskperiodname;

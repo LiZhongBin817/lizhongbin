@@ -115,5 +115,10 @@ namespace CDWM_MR.Model.Models
         /// 处理时间
         /// </summary>
         public System.DateTime? acceptancetime { get; set; }
+
+        public static implicit operator v_photo_faultinfo(List<v_photo_faultinfo> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
