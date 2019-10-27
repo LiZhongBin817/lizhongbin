@@ -565,6 +565,98 @@
             <param name="limit"></param>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.ShowFaultTable(System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            故障表展示  
+            </summary>
+            <param name="DSMNumber"></param>
+            <param name="DSMType"></param>
+            <param name="DSMStatus"></param>
+            <param name="StartTime"></param>
+            <param name="EndTime"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.ShowPhoto(System.Int32)">
+            <summary>
+            展示附件图片
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.ShowAddress(System.Int32)">
+            <summary>
+            显示地理位置
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.AcceptanceOperation(System.Int32,System.Int32,System.DateTime)">
+            <summary>
+            受理操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.ShowDispatchedWorker">
+            <summary>
+            派工下拉框
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.ShowProcessingoperationdateinfo(System.Int32)">
+            <summary>
+            给处理界面传值
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.GetPhoto(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            接受上传的图片
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.Processingoperations">
+            <summary>
+            处理操作 
+            </summary>
+            <param name="s"></param>
+            <param name="id"></param>
+            <param name="worker"></param>
+            <param name="result"></param>
+            <param name="mark"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.FaultInformationDisplay(System.Int32)">
+            <summary>
+            故障信息展示
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.DSEdit(System.Int32,System.String)">
+            <summary>
+            编辑操作
+            </summary>
+            <param name="id"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.DSDelete(System.Int32)">
+            <summary>
+            删除操作
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.TransferData(System.Int32)">
+            <summary>
+            给处理界面上传图片传输数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.DosageAnomalyAnalysis">
             <summary>
             用量异常分析
@@ -1276,7 +1368,7 @@
             故障工单
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.#ctor(CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Iv_rb_b_faultprocessServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices,AutoMapper.IMapper,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Imr_datainfoServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.#ctor(CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Iv_rb_b_faultprocessServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices,AutoMapper.IMapper,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_photo_faultinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
             构造函数注入
             </summary>
@@ -1287,6 +1379,8 @@
             <param name="mapper"></param>
             <param name="photoservices"></param>
             <param name="datainfoservices"></param>
+            <param name="photofaultinfoservices"></param>
+            <param name="env"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppFaultController.UpdateFaultWorkOrder(System.Collections.Generic.List{CDWM_MR.Model.ViewModels.UploadFaultModel})">
             <summary>

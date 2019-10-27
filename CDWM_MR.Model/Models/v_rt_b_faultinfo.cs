@@ -29,7 +29,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 任务单id(来源于mr_taskinfo)
         /// </summary>
-        public System.Int32? taskid { get; set; }
+        public System.Int32 taskid { get; set; }
 
         /// <summary>
         /// 故障编号（自动生成）
@@ -39,7 +39,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 故障类型sys_config
         /// </summary>
-        public System.Int32? faulttype { get; set; }
+        public System.Int32 faulttype { get; set; }
 
         /// <summary>
         /// 
@@ -79,12 +79,12 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 水表状态0--正常(默认)其他状态来源于sys_config
         /// </summary>
-        public System.Int32? meterstatus { get; set; }
+        public System.Int32 meterstatus { get; set; }
 
         /// <summary>
         /// 抄表员ID
         /// </summary>
-        public System.Int32? readerid { get; set; }
+        public System.Int32 readerid { get; set; }
 
         /// <summary>
         /// 上报人
@@ -99,7 +99,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 
         /// </summary>
-        public System.Int32? v_status { get; set; }
+        public System.Int32 v_status { get; set; }
 
         /// <summary>
         /// 

@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using CDWM_MR.Common;
 using CDWM_MR.Common.Helper;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Model.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -31,6 +34,8 @@ namespace CDWM_MR.Controllers.v1
         private readonly Iv_rt_b_faultinfoServices _v_rt_b_faultinfoServices;
         private readonly Irt_b_photoattachmentServices _rt_b_photoservices;
         private readonly Imr_datainfoServices _mrdatainfoservices;
+        private readonly Iv_photo_faultinfoServices _photofaultinfoservices;
+        private readonly IHostingEnvironment _env;
         private readonly IMapper _mapper;
         #endregion
 
@@ -44,7 +49,9 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="mapper"></param>
         /// <param name="photoservices"></param>
         /// <param name="datainfoservices"></param>
-        public AppFaultController(Irt_b_faultinfoServices rt_b_faultinfoServices, Iv_rb_b_faultprocessServices v_rb_b_faultprocessServices, Irb_b_faultprocessServices rb_b_faultprocessServices, Iv_rt_b_faultinfoServices vrtbfaultservices, IMapper mapper, Irt_b_photoattachmentServices photoservices, Imr_datainfoServices datainfoservices)
+        /// <param name="photofaultinfoservices"></param>
+        /// <param name="env"></param>
+        public AppFaultController(Irt_b_faultinfoServices rt_b_faultinfoServices, Iv_rb_b_faultprocessServices v_rb_b_faultprocessServices, Irb_b_faultprocessServices rb_b_faultprocessServices, Iv_rt_b_faultinfoServices vrtbfaultservices, IMapper mapper, Irt_b_photoattachmentServices photoservices, Imr_datainfoServices datainfoservices, Iv_photo_faultinfoServices photofaultinfoservices, IHostingEnvironment env)
         {
             _rt_b_faultinfoServices = rt_b_faultinfoServices;
             _v_rb_b_faultprocessServices = v_rb_b_faultprocessServices;
@@ -52,6 +59,8 @@ namespace CDWM_MR.Controllers.v1
             _v_rt_b_faultinfoServices = vrtbfaultservices;
             _rt_b_photoservices = photoservices;
             _mrdatainfoservices = datainfoservices;
+            _photofaultinfoservices = photofaultinfoservices;
+            _env = env;
             _mapper = mapper;
         }
 
@@ -228,20 +237,28 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="faultid"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<MessageModel<rt_b_faultinfo>> GetSingleFaultinfo(int? faultid)
+        public async Task<MessageModel<v_photo_faultinfo>> GetSingleFaultinfo(int? faultid)
         {
-            var data = new MessageModel<rt_b_faultinfo>();
-            var rdata = await _rt_b_faultinfoServices.Query(c => c.id == faultid);
-            if (rdata == null && rdata?.Count <= 0) 
+            var data = new MessageModel<v_photo_faultinfo>();
+            var rdata = await _photofaultinfoservices.Query(c => c.faultid == faultid);
+            string file = Path.Combine(_env.WebRootPath,"images");
+            //string urlstr = Request.HttpContext.Connection.R;
+            string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
+            if (rdata == null || rdata?.Count <= 0) 
             {
                 data.code = 0;
                 data.msg = "不存在该故障！";
                 data.data = null;
                 return data;
             }
+            rdata.ForEach(c => {
+                if(!string.IsNullOrEmpty(c.photourl))
+                c.photourl = $@"{ipadress}{c.photourl.Split("wwwroot")[1]}";
+            });//循环修改每一项的值
+            data.data = rdata.FirstOrDefault();
+            data.data.photourl = String.Join(',', rdata.Select(c => c.photourl).ToArray());//简单写法
             data.code = 0;
             data.msg = "成功";
-            data.data = rdata.FirstOrDefault();
             return data;
         }
         #endregion
