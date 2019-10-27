@@ -26,7 +26,7 @@ namespace CDWM_MR.Model.Models
         /// 用户id
         /// </summary>
         [SugarColumn(IsNullable = false, ColumnDescription = "用户id(来源于t_b_users)")]
-        public int userid { get; set; }
+        public string userid { get; set; }
 
         /// <summary>
         /// 水表编号,（t_b_watermeters::meternum）

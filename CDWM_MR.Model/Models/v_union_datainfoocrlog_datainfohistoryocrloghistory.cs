@@ -46,6 +46,12 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         public System.Decimal? ocrdata { get { return this._ocrdata; } set { this._ocrdata = value; } }
 
+        private System.Decimal? _inputdata;
+        /// <summary>
+        /// 人为抄表数据
+        /// </summary>
+        public System.Decimal? inputdata { get { return this._inputdata; } set { this._inputdata = value; } }
+
         private System.Int32? _photoid;
         /// <summary>
         /// 照片附件id

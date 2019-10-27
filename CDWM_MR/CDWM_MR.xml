@@ -372,6 +372,41 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.#ctor(CDWM_MR.IServices.Content.Iv_carryoverdatainfoServices,CDWM_MR.IServices.Content.Irt_b_wateradjustServices,CDWM_MR.IServices.Content.Irt_b_watercarryovarcheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.It_b_usersServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="carryoverdatainfoServices"></param>
+            <param name="b_WateradjustServices"></param>
+            <param name="b_WatercarryovarcheckServices"></param>
+            <param name="b_WatercarryoverServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.ShowCarriedData(System.Int32,System.Int32)">
+            <summary>
+            结转数据管理数据展示
+            </summary>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.ChangeCarryCounts(System.String[],System.String)">
+            <summary>
+            调整用量
+            </summary>
+            <param name="accounts"></param>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.ReCarryOver(System.String,System.String,System.String,System.String)">
+            <summary>
+            重新结转
+            </summary>
+            <param name="account"></param>
+            <param name="JsonData"></param>
+            <param name="meternum"></param>
+            <param name="taskperiodname"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.CopySee">
             <summary>
             抄见率分析
@@ -620,6 +655,35 @@
             给处理界面上传图片传输数据
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.DosageAnomalyAnalysis">
+            <summary>
+            用量异常分析
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DosageAnomalyAnalysis.ShowDosageAnomalyAnalysis(System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            用量异常分析
+            </summary>
+            <param name="endtime"></param>
+            <param name="mrreader"></param>
+            <param name="bookno"></param>
+            <param name="meternum"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DosageAnomalyAnalysis.Serchmrreader">
+            <summary>
+            给抄表员下拉框赋值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.DosageAnomalyAnalysis.Serchbookno">
+            <summary>
+            给抄表册传值
+            </summary>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.LoginController">
@@ -887,6 +951,13 @@
             <summary>
             渲染抄表员下拉框
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MRManageController.ShowHistoryRecheckData(System.String)">
+            <summary>
+            展示审核历史数据
+            </summary>
+            <param name="autoaccount"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.Mr_b_ReaderController">
@@ -1252,13 +1323,15 @@
             APP下载抄表计划
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment,CDWM_MR.IServices.Iv_bookexcelServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment,CDWM_MR.IServices.Iv_bookexcelServices,CDWM_MR.IServices.Content.Iv_downloaddatainfoServices)">
             <summary>
             构造函数注入
             </summary>
             <param name="taskservices"></param>
             <param name="Taskinfo"></param>
             <param name="Env"></param>
+            <param name="vbookexcel"></param>
+            <param name="downloaddatainfoservices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.DownLoadMR(System.Nullable{System.Int32})">
             <summary>
@@ -1295,7 +1368,7 @@
             故障工单
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.#ctor(CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Iv_rb_b_faultprocessServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices,AutoMapper.IMapper,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.#ctor(CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Iv_rb_b_faultprocessServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices,AutoMapper.IMapper,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_photo_faultinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
             构造函数注入
             </summary>
@@ -1305,8 +1378,11 @@
             <param name="vrtbfaultservices"></param>
             <param name="mapper"></param>
             <param name="photoservices"></param>
+            <param name="datainfoservices"></param>
+            <param name="photofaultinfoservices"></param>
+            <param name="env"></param>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.UpdateFaultWorkOrder(System.Collections.Generic.List{CDWM_MR.Model.Models.rt_b_faultinfo})">
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.UpdateFaultWorkOrder(System.Collections.Generic.List{CDWM_MR.Model.ViewModels.UploadFaultModel})">
             <summary>
             提交用户故障工单接口
             </summary>
@@ -1321,18 +1397,19 @@
             <param name="taskperiodname">任务账单</param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.FaultHandling">
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.FaultHandling(System.Collections.Generic.List{CDWM_MR.Model.ViewModels.UploadFaultProcessModel})">
             <summary>
             故障处理接口
             </summary>
             <param name="FaultHandlinglist"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.GetbookFault(System.Nullable{System.Int32})">
+        <member name="M:CDWM_MR.Controllers.v1.AppFaultController.GetbookFault(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             获取表册内的故障信息
             </summary>
             <param name="taskid"></param>
+            <param name="faultstatus">默认值-1</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppFaultController.GetSingleFaultinfo(System.Nullable{System.Int32})">
@@ -1507,6 +1584,11 @@
             <param name="areano">用户所在小区</param>
             <param name="address">用户所在地址</param>
             <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.v1.AppWebCommonController">
+            <summary>
+            Web与APP公用参数接口
+            </summary>
         </member>
         <member name="T:CDWM_MR.Controllers.WatermeterUserManageController">
             <summary>

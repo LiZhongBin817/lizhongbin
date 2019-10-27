@@ -543,6 +543,17 @@ namespace CDWM_MR.Repository.BASE
             return await insert.ExecuteReturnIdentityAsync();
         }
 
+        /// <summary>
+        /// 不根据名称执行存储过程
+        /// </summary>
+        /// <param name="prostr">传入要执行的存储过程字符</param>
+        /// <param name="obj">传入的参数对应的值</param>
+        /// <returns></returns>
+        public async Task<int> ExecutePro(string prostr,object obj)
+        {
+            return await _db.Ado.GetIntAsync(prostr, obj);
+        }
+
     }
 
 }

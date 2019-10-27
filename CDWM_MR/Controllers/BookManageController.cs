@@ -216,7 +216,7 @@ namespace CDWM_MR.Controllers
             }, c => c.bookid == bookid);
             await _Imr_b_bookinfoServices.Update(c => new mr_b_bookinfo
             {
-                readmanid = readerid.ToString()
+                readmanid = readerid
             }, c => c.id == bookid); ;
             return new MessageModel<object>()
             {
