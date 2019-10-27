@@ -244,7 +244,7 @@ namespace CDWM_MR.Controllers.v1
             string file = Path.Combine(_env.WebRootPath,"images");
             //string urlstr = Request.HttpContext.Connection.R;
             string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
-            if (rdata == null && rdata?.Count <= 0) 
+            if (rdata == null || rdata?.Count <= 0) 
             {
                 data.code = 0;
                 data.msg = "不存在该故障！";
@@ -252,14 +252,13 @@ namespace CDWM_MR.Controllers.v1
                 return data;
             }
             rdata.ForEach(c => {
-                c.photourl.Replace(file, ipadress);
-            });
-            var t = rdata.GroupBy(c => c.faultid).Select(c => new { 
-
-            });
+                if(!string.IsNullOrEmpty(c.photourl))
+                c.photourl = $@"{ipadress}{c.photourl.Split("wwwroot")[1]}";
+            });//循环修改每一项的值
+            data.data = rdata.FirstOrDefault();
+            data.data.photourl = String.Join(',', rdata.Select(c => c.photourl).ToArray());//简单写法
             data.code = 0;
             data.msg = "成功";
-            data.data = rdata;
             return data;
         }
         #endregion
