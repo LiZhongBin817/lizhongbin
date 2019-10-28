@@ -23,7 +23,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
     table.render({
         elem: '#MeterReading',
         method: 'post',
-        url: layui.setter.requesturl + '/ShowPlan',//表格渲染后台地址
+        url: layui.setter.requesturl + '/api/MeterReadingPlan/ShowPlan',//表格渲染后台地址
         page: true,
         cols: [[
             { field: 'ID', title: '序号', width: 100, sort: true, fixed: 'left' },
@@ -76,7 +76,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                             console.log(SendData);
                             console.log(jsonData);
                             admin.req({
-                                url: layui.setter.requesturl + '/AddPlan',//后台地址
+                                url: layui.setter.requesturl + '/api/MeterReadingPlan/AddPlan',//后台地址
                                 type: "post",
                                 data: {
                                     "data": jsonData,
@@ -119,7 +119,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                         table.render({
                             elem: '#MaterReaderPlan',
                             method: 'post',
-                            url: layui.setter.requesturl + '/ShowMeterReadingBooks',
+                            url: layui.setter.requesturl + '/api/MeterReadingPlan/ShowMeterReadingBooks',
                             page: true,
                             cols: [[
                                 { field: 'MRID', title: '序号', width: 100, sort: true, fixed: 'left' },
@@ -159,7 +159,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                 btn: ['确认', '取消'],
                 yes: function (layero) {
                     admin.req({
-                        url: layui.setter.requesturl + '/AllocationOfData',
+                        url: layui.setter.requesturl + '/api/MeterReadingPlan/AllocationOfData',
                         type: "post",
                         data: {
                             "data": accounts,
@@ -182,7 +182,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                         table.render({
                             elem: '#DistributionMeterReading',
                             method: "post",
-                            url: layui.setter.requesturl + '/DistributionOfMeterReadingBooks',//后台地址
+                            url: layui.setter.requesturl + '/api/MeterReadingPlan/DistributionOfMeterReadingBooks',//后台地址
                             cols: [[
                                 { type: 'checkbox' },
                                 { field: 'Show_ID', title: 'ID', sort: true },
@@ -270,7 +270,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
             DATA.splice(0, DATA.length);
             DATA.push(data);
             admin.req({
-                url: layui.setter.requesturl + '/ShowSelect',
+                url: layui.setter.requesturl + '/api/MeterReadingPlan/ShowSelect',
                 type: "post",
                 data: {
                 },
@@ -315,7 +315,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                                     };
                                     var jsonData = JSON.stringify(SendData);
                                     admin.req({
-                                        url: layui.setter.requesturl + '/ShowTaskEdit',
+                                        url: layui.setter.requesturl + '/api/MeterReadingPlan/ShowTaskEdit',
                                         type: "post",
                                         data: {
                                             "senddata": jsonData,

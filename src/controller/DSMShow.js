@@ -25,7 +25,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
     var FaultArray = new Array();//传给FaultHanding
     table.render({
         elem: '#DSMShowtable',
-        url: layui.setter.requesturl + '/ShowFaultTable',
+        url: layui.setter.requesturl + '/api/DispatchSheet/ShowFaultTable',
         method: 'post',
         cols: [[
             { field: 'DSMID', title: '序号', width: 100, sort: true, fixed: 'left' },
@@ -138,7 +138,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
         console.log(ID);
         console.log(Number);
         admin.req({
-            url: layui.setter.requesturl +'/ShowDispatchedWorker',
+            url: layui.setter.requesturl +'/api/DispatchSheet/ShowDispatchedWorker',
             type: "post",
             data: {
             },
@@ -146,7 +146,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                 //监听附件
                 if (event == "Enclosure") {
                     admin.req({
-                        url: layui.setter.requesturl + '/ShowPhoto',//后台获取图片
+                        url: layui.setter.requesturl + '/api/DispatchSheet/ShowPhoto',//后台获取图片
                         type: "post",
                         data: {
                             "id": ID
@@ -175,7 +175,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                 //监听位置信息
                 else if (event == "Address") {
                     admin.req({
-                        url: layui.setter.requesturl + '/ShowAddress',//后台地址图片
+                        url: layui.setter.requesturl + '/api/DispatchSheet/ShowAddress',//后台地址图片
                         type: "post",
                         data: {
                             "id": ID
@@ -222,7 +222,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                             console.log(DispatchedWorker);
                                             LatestTime = Data.field.ShowOperation_operationtime;//最迟处理时间
                                             admin.req({
-                                                url: layui.setter.requesturl + '/AcceptanceOperation',
+                                                url: layui.setter.requesturl + '/api/DispatchSheet/AcceptanceOperation',
                                                 type: "post",
                                                 data: {
                                                     "id": ID,
@@ -252,7 +252,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                 else if (event == "DSMHandle") {
                     ID = obj.data.DSMID;
                     admin.req({
-                        url: layui.setter.requesturl + '/ShowProcessingoperationdateinfo',
+                        url: layui.setter.requesturl + '/api/DispatchSheet/ShowProcessingoperationdateinfo',
                         data: {
                             "id": ID
                         },
@@ -302,7 +302,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                 console.log(FaultArray);
                                                 admin.req({
                                                     //dataType:'json',
-                                                    url: layui.setter.requesturl + '/Processingoperations',
+                                                    url: layui.setter.requesturl + '/api/DispatchSheet/Processingoperations',
                                                     data: {
                                                         "FaultHandlinglist": JSON.stringify(FaultArray)
                                                     },
@@ -327,7 +327,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                 //监听处理信息
                 else if (event == "DSMHandleinformation") {
                     admin.req({
-                        url: layui.setter.requesturl + '/FaultInformationDisplay',
+                        url: layui.setter.requesturl + '/api/DispatchSheet/FaultInformationDisplay',
                         data: {
                             "id": ID
                         },
@@ -383,7 +383,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                         "faultstatus": Data.EditStatus
                                     };
                                     admin.req({
-                                        url:layui.setter.requesturl +'/DSEdits',
+                                        url: layui.setter.requesturl +'/api/DispatchSheet/DSEdits',
                                         type: "post",
                                         data: {
                                             "id": ID,
@@ -412,7 +412,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                         btn: ['提交', '取消'],
                         yes: function (layero, index) {
                             admin.req({
-                                url: layui.setter.requesturl + '/DSDelete',
+                                url: layui.setter.requesturl + '/api/DispatchSheet/DSDelete',
                                 data: {
                                     "id":ID
                                 },
