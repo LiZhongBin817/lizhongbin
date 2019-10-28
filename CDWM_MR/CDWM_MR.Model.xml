@@ -229,11 +229,6 @@
             抄表册信息
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.ID">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.bookno">
             <summary>
             抄表册编号
@@ -264,39 +259,14 @@
             区域编号(t_b_regions:regionno)
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.createtime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.createpeople">
-            <summary>
-            创建人
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.updatetime">
-            <summary>
-            更新时间
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.updatepeople">
-            <summary>
-            更新人
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.Remark">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.allotstatus">
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.contectusernum">
             <summary>
             分配状态(0--已分配;1--未分配)
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.contectusernum">
+        <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.allotstatus">
             <summary>
-            关联用户数量
+            
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.mr_b_reader">
