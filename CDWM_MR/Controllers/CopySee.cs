@@ -29,6 +29,11 @@ namespace CDWM_MR.Controllers
         readonly Imr_b_readerServices _mr_b_readerServices;
         readonly Imr_datainfo_historyServices _mr_datainfo_historyServices;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mr_b_readerServices"></param>
+        /// <param name="mr_datainfo_historyServices"></param>
         public CopySee(Imr_b_readerServices mr_b_readerServices, Imr_datainfo_historyServices mr_datainfo_historyServices)
         {
             _mr_b_readerServices = mr_b_readerServices;

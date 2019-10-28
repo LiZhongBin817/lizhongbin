@@ -51,6 +51,8 @@ using System;
 using CDWM_MR.IRepository.Content;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Repository.BASE;
+using CDWM_MR.IRepository.UnitOfWork;
+
 namespace CDWM_MR.Repository.Content
 {	
 	/// <summary>
@@ -59,7 +61,10 @@ namespace CDWM_MR.Repository.Content
 	public partial class <#=tableName#>Repository : BaseRepository<<#=tableName#>>, I<#=tableName#>Repository
     {
 
-       
+       public <#=tableName#>Repository(IUnitOfWork unitOfWork) : base(unitOfWork)
+       {
+          
+       }
     }
 }
 
@@ -92,6 +97,7 @@ using System;
 using CDWM_MR.IRepository.Content;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Repository.BASE;
+using CDWM_MR.IRepository.UnitOfWork;
 
 namespace CDWM_MR.Repository.Content
 {	
@@ -100,7 +106,10 @@ namespace CDWM_MR.Repository.Content
 	/// </summary>	
 	public partial class <#=row["TABLE_Name"].ToString()#>Repository : BaseRepository<<#=row["TABLE_Name"].ToString()#>>, I<#=row["TABLE_Name"].ToString() #>Repository
     {
-
+        public <#=row["TABLE_Name"].ToString()#>Repository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+          
+        }
        
     }
 }

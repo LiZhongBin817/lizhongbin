@@ -81,7 +81,8 @@ namespace CDWM_MR.Controllers.v1
                 for (int i = 0; i < faultDate.Count; i++)
                 {
                     faultnumber += (dateist.Count() + 1).ToString().PadLeft(3, '0');
-                    rt_b_faultinfo changemodel = _mapper.Map<rt_b_faultinfo>(faultDate[i]); 
+                    rt_b_faultinfo changemodel = _mapper.Map<rt_b_faultinfo>(faultDate[i]);
+                    changemodel.faultnumber = faultnumber;
                     int a = await _rt_b_faultinfoServices.Add(changemodel);
                     
                     if (faultDate[i].isupdateimg == 1)
@@ -169,9 +170,9 @@ namespace CDWM_MR.Controllers.v1
             {
                 for (int i = 0; i < FaultHandlinglist.Count; i++)
                 {
-                    FaultHandlinglist[i].createperson = "抄表员";
-                    FaultHandlinglist[i].createtime = DateTime.Now;
                     rb_b_faultprocess changemodel = _mapper.Map<rb_b_faultprocess>(FaultHandlinglist[i]);
+                    changemodel.createtime = DateTime.Now;
+                    changemodel.faulttype = 1;
                     int a = await _rb_b_faultprocessServices.Add(changemodel);
                     if (FaultHandlinglist[i].isupdateimg == 1)
                     {
@@ -236,7 +237,7 @@ namespace CDWM_MR.Controllers.v1
         /// </summary>
         /// <param name="faultid"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("{faultid}")]
         public async Task<MessageModel<v_photo_faultinfo>> GetSingleFaultinfo(int? faultid)
         {
             var data = new MessageModel<v_photo_faultinfo>();
@@ -254,6 +255,7 @@ namespace CDWM_MR.Controllers.v1
             rdata.ForEach(c => {
                 if(!string.IsNullOrEmpty(c.photourl))
                 c.photourl = $@"{ipadress}{c.photourl.Split("wwwroot")[1]}";
+                c.photourl.Replace(@"\",@"/");
             });//循环修改每一项的值
             data.data = rdata.FirstOrDefault();
             data.data.photourl = String.Join(',', rdata.Select(c => c.photourl).ToArray());//简单写法

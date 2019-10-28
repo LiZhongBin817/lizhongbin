@@ -10,7 +10,6 @@ using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
-using CDWM_MR.Model.Models.Entitys;
 using CDWM_MR.Services.Content;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -29,7 +28,12 @@ namespace CDWM_MR.Controllers
         readonly Imr_b_readerServices _mr_b_readerServices;
         readonly Imr_b_bookinfoServices _mr_b_bookinfoServices;
       
-
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="v_user_water_bookinfoServices"></param>
+        /// <param name="mr_b_readerServices"></param>
+        /// <param name="mr_b_bookinfoServices"></param>
         public DosageAnomalyAnalysis(Iv_user_water_bookinfoServices v_user_water_bookinfoServices, Imr_b_readerServices mr_b_readerServices, Imr_b_bookinfoServices mr_b_bookinfoServices)
         {
             _v_user_water_bookinfoServices = v_user_water_bookinfoServices;
@@ -40,8 +44,8 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 用量异常分析
         /// </summary>
-        /// <param name="endtime"></param>
-        /// <param name="mrreader"></param>
+        /// <param name="taskperiodname"></param>
+        /// <param name="readname"></param>
         /// <param name="bookno"></param>
         /// <param name="meternum"></param>
         /// <param name="page"></param>
@@ -57,7 +61,6 @@ namespace CDWM_MR.Controllers
 
             PageModel<v_user_water_bookinfo> user = new PageModel<v_user_water_bookinfo>();
             Expression<Func<v_user_water_bookinfo, bool>> wherelambda = c => true;
-            decimal consumption;
             if (!string.IsNullOrEmpty(taskperiodname))
             {
                 wherelambda = PredicateExtensions.And<v_user_water_bookinfo>(wherelambda, c => c.taskperiodname == taskperiodname);

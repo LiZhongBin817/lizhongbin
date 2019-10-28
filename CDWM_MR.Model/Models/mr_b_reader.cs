@@ -86,10 +86,5 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = true)]
         public DateTime lastlogintime { get; set; }
-
-        public static implicit operator mr_b_reader(List<mr_b_reader> v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

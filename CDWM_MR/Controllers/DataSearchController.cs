@@ -297,9 +297,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <param name="readDatetime01"></param>
         /// <param name="mrreadername"></param>
-        /// <param name="page"></param>
-        /// <param name="limit"></param>
-        /// <returns></returns> 
+        /// <returns></returns>
         [HttpPost]
         [Route("ReadAnalysis")]
         [AllowAnonymous]
@@ -528,8 +526,6 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 抄表员键值对集合
         /// </summary>
-        /// <param name="readDatetime01"></param>
-        /// <param name="mrreadername"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("ReadAnalysis_key")]
@@ -566,8 +562,6 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 抄表员与时间的键值对
         /// </summary>
-        /// <param name="readDatetime01"></param>
-        /// <param name="mrreadername"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("ReadAnalysis_val")]

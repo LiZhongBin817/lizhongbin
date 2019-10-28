@@ -1,4 +1,5 @@
 ﻿using CDWM_MR.IRepository.Content;
+using CDWM_MR.IRepository.UnitOfWork;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Repository.BASE;
 using System;
@@ -9,5 +10,9 @@ namespace CDWM_MR.Repository.Content
 {
     public partial class sys_parameter_settingRepository:BaseRepository<sys_parameter>,Isys_parameter_settingRepository
     {
+        public sys_parameter_settingRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+
+        }
     }
 }

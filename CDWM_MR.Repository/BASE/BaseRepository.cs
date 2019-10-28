@@ -14,37 +14,28 @@ namespace CDWM_MR.Repository.BASE
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, new()
     {
-        private DbContext _context;
+        //private DbContext _context;
         private readonly IUnitOfWork _unitOfWork;
         private ISqlSugarClient _db;
         private SimpleClient<TEntity> _entityDb;
 
-        public DbContext Context
-        {
-            get { return _context; }
-            set { _context = value; }
-        }
         internal ISqlSugarClient Db
         {
             get { return _db; }
             private set { _db = value; }
         }
 
-        internal SimpleClient<TEntity> EntityDb
-        {
-            get { return _entityDb; }
-            private set { _entityDb = value; }
-        }
-
         /// <summary>
         /// 构造函数注入
         /// </summary>
         /// <param name="unitOfWork"></param>
-        public BaseRepository()
+        public BaseRepository(IUnitOfWork unitofwork)
         {
             DbContext.Init(BaseDBConfig.ConnectionString, (DbType)BaseDBConfig.DbType);
-            _context = DbContext.GetDbContext();
-            _db = _context.Db;
+            _unitOfWork = unitofwork;
+            _db = unitofwork.GetDbClient();
+            //_context = DbContext.GetDbContext();
+            //_db = _context.Db;
             //_context = DbContext.GetDbContext();
             //_unitOfWork = unitOfWork;
             //_db = unitOfWork.GetDbClient();

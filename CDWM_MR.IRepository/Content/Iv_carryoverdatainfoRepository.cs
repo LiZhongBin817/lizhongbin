@@ -1,12 +1,20 @@
-﻿using CDWM_MR.IRepository.Base;
-using CDWM_MR.Model.Models;
+	//----------v_carryoverdatainfo开始----------
+    
+	
 using System;
-using System.Collections.Generic;
-using System.Text;
-
+using CDWM_MR.Model.Models;
+using CDWM_MR.IRepository.Base;
 namespace CDWM_MR.IRepository.Content
-{
-    public partial interface Iv_carryoverdatainfoRepository:IBaseRepository<v_carryoverdatainfo>
+{	
+	/// <summary>
+	/// Iv_carryoverdatainfoRepository
+	/// </summary>	
+	public partial interface Iv_carryoverdatainfoRepository : IBaseRepository<v_carryoverdatainfo>//类名
     {
+
+       
     }
 }
+
+	//----------v_carryoverdatainfo结束----------
+	

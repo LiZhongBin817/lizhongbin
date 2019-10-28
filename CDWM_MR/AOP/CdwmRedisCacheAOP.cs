@@ -8,7 +8,7 @@ using CDWM_MR_Common.Redis;
 namespace CDWM_MR.AOP
 {
     /// <summary>
-    /// 面向切面的缓存使用
+    /// 面向切面的缓存使用(Redis缓存使用)
     /// </summary>
     public class CdwmRedisCacheAOP : CacheAOPbase
     {

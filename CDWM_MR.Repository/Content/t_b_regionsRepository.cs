@@ -1,4 +1,5 @@
 ﻿using CDWM_MR.IRepository.Content;
+using CDWM_MR.IRepository.UnitOfWork;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Repository.BASE;
 using System;
@@ -9,6 +10,9 @@ namespace CDWM_MR.Repository.Content
 {
     public partial class t_b_regionsRepository:BaseRepository<t_b_regions>, It_b_regionsRepository
     {
+        public t_b_regionsRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
 
+        }
     }
 }

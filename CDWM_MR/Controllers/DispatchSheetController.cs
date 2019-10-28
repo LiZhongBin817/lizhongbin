@@ -20,7 +20,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CDWM_MR.Controllers
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class DispatchSheetController : ControllerBase
     {
         #region 相关参数
@@ -35,6 +37,17 @@ namespace CDWM_MR.Controllers
 
         #endregion
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="B_FaultprocessServices"></param>
+        /// <param name="B_FaultinfoServices"></param>
+        /// <param name="B_PhotoattachmentServices"></param>
+        /// <param name="iv_Rt_B_FaultinfoServices"></param>
+        /// <param name="imr_b_ReaderServices"></param>
+        /// <param name="iv_Rb_B_FaultprocessServices"></param>
+        /// <param name="imr_Datainfo"></param>
+        /// <param name="mapper"></param>
         public DispatchSheetController(Irb_b_faultprocessServices B_FaultprocessServices, Irt_b_faultinfoServices B_FaultinfoServices, Irt_b_photoattachmentServices B_PhotoattachmentServices, Iv_rt_b_faultinfoServices iv_Rt_B_FaultinfoServices, Imr_b_readerServices imr_b_ReaderServices, Iv_rb_b_faultprocessServices iv_Rb_B_FaultprocessServices, Imr_datainfoServices imr_Datainfo, IMapper mapper)
         {
 
@@ -375,13 +388,8 @@ namespace CDWM_MR.Controllers
 
         #region 处理操作 
         /// <summary>
-        /// 处理操作 
+        /// 处理操作
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="id"></param>
-        /// <param name="worker"></param>
-        /// <param name="result"></param>
-        /// <param name="mark"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("Processingoperations")]
