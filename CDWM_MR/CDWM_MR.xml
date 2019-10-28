@@ -97,11 +97,31 @@
             数据库事务切面
             </summary>
         </member>
+        <member name="M:CDWM_MR.AOP.CdwmTranAOP.#ctor(CDWM_MR.IRepository.UnitOfWork.IUnitOfWork)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="unitOfWork"></param>
+        </member>
         <member name="M:CDWM_MR.AOP.CdwmTranAOP.Intercept(Castle.DynamicProxy.IInvocation)">
             <summary>
             实例化IInterceptor唯一方法
             </summary>
             <param name="invocation"></param>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmTranAOP.IsAsyncMethod(System.Reflection.MethodInfo)">
+            <summary>
+            
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.AOP.CdwmTranAOP.TestActionAsync(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            
+            </summary>
+            <param name="invocation"></param>
+            <returns></returns>
         </member>
         <member name="T:CDWM_MR.AuthHelper.OverWrite.JwtHelper">
             <summary>

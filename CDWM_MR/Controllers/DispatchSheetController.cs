@@ -23,6 +23,10 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 
     /// </summary>
+   
+    [Route("api/DispatchSheet")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class DispatchSheetController : ControllerBase
     {
         #region 相关参数
@@ -75,8 +79,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowFaultTable")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ShowFaultTable(string DSMNumber, string DSMType, string DSMStatus, string StartTime, string EndTime, int page = 1, int limit = 10)
         {
             DateTime startTime = new DateTime();
@@ -147,8 +149,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowPhoto")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> ShowPhoto(int id)
         {
             List<object> alllist = new List<object>();
@@ -178,8 +178,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowAddress")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> ShowAddress(int id)
         {
             List<rt_b_faultinfo> list = await _B_FaultinfoServices.Query(c => c.id == id);
@@ -201,8 +199,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("AcceptanceOperation")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> AcceptanceOperation(int id, int Dispatchedworker, DateTime Latesttime)
         {
             try
@@ -277,8 +273,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowDispatchedWorker")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> ShowDispatchedWorker()
         {
             var alllist = await imr_B_ReaderServices.Query();
@@ -305,8 +299,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowProcessingoperationdateinfo")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> ShowProcessingoperationdateinfo(int id)
         {
             List<v_rb_b_faultprocess> alllist = await v_rb_b_faultprocessServices.Query(c => c.faultid == id);
@@ -326,8 +318,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("GetPhoto")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> GetPhoto([FromServices]IHostingEnvironment environment)
         {
             var data = new MessageModel<string>();
@@ -393,8 +383,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Processingoperations")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> Processingoperations()
         {
             var data = new MessageModel<int>();
@@ -435,8 +423,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("FaultInformationDisplay")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> FaultInformationDisplay(int id)
         {
             List<object> list = new List<object>();
@@ -492,8 +478,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("DSEdits")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> DSEdit(int id, string data)
         {
             rt_b_faultinfo faultinfo = Common.Helper.JsonHelper.GetObject<rt_b_faultinfo>(data);
@@ -523,8 +507,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("DSDelete")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> DSDelete(int id)
         {
             string str = await _B_FaultinfoServices.DeleteById(id) == true ? "ok" : "error";
@@ -545,8 +527,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("TransferData")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> TransferData(int id)
         {
             List<object> list = new List<object>();
