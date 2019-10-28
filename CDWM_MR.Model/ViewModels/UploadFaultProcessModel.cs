@@ -20,11 +20,6 @@ namespace CDWM_MR.Model.ViewModels
         public int faultid { get; set; }
 
         /// <summary>
-        /// 故障类型
-        /// </summary>
-        public int faulttype { get; set; }
-
-        /// <summary>
         /// 受理业务--派工人;处理业务--处理人
         /// </summary>
         public string processpreson { get; set; }
@@ -45,17 +40,7 @@ namespace CDWM_MR.Model.ViewModels
         public int processresult { get; set; }
 
         /// <summary>
-        /// 处理来源:APP、后台管理系统
-        /// </summary>
-        public string processsource { get; set; }
-
-        /// <summary>
-        /// 处理时间
-        /// </summary>
-        public DateTime createtime { get; set; }
-
-        /// <summary>
-        /// 处理人(关联sys_userinfo)
+        /// 数据创建人
         /// </summary>
         public string createperson { get; set; }
 

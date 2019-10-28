@@ -42,6 +42,9 @@ namespace CDWM_MR.Controllers
         /// <param name="datainfoServices"></param>
         /// <param name="recheck_RecheckhistoryServices"></param>
         /// <param name="union_Datainfoocrlog_DatainfohistoryocrloghistoryServices"></param>
+        /// <param name="datainfo_HistoryServices"></param>
+        /// <param name="userinfoServices"></param>
+        /// <param name="b_ReaderServices"></param>
         public MRManageController(Iv_mr_datainfoServices mr_DatainfoServices, Irt_b_watercarryover_historyServices b_Watercarryover_HistoryServices, Irt_b_recheckServices b_RecheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, Imr_datainfoServices datainfoServices, Iv_recheck_recheckhistoryServices recheck_RecheckhistoryServices, Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices union_Datainfoocrlog_DatainfohistoryocrloghistoryServices, Imr_datainfo_historyServices datainfo_HistoryServices, Isys_userinfoServices userinfoServices, Imr_b_readerServices b_ReaderServices)
         {
             _Mr_DatainfoServices = mr_DatainfoServices;
@@ -396,9 +399,11 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 显示抄表路径
         /// </summary>
-        /// <param name="month">抄表月份</param>
-        /// <param name="name">抄表员姓名</param>
-        /// <param name="date">抄表日期</param>
+        /// <param name="month"></param>
+        /// <param name="date"></param>
+        /// <param name="name"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("ShowMRPath")]

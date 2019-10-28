@@ -4,6 +4,9 @@ using System.Text;
 
 namespace CDWM_MR.Model.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class v_t_b_users_datainfo_watercarryover
     {
         /// <summary>

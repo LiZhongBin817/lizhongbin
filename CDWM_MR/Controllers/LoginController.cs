@@ -1,24 +1,19 @@
-﻿using System;
+﻿using CDWM_MR.AuthHelper;
+using CDWM_MR.AuthHelper.OverWrite;
+using CDWM_MR.Common.Helper;
+using CDWM_MR.IServices;
+using CDWM_MR.IServices.Content;
+using CDWM_MR_Common.Redis;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CDWM_MR.AuthHelper;
-using CDWM_MR.AuthHelper.OverWrite;
-using CDWM_MR.Common;
-using CDWM_MR.Common.Helper;
-using CDWM_MR.IServices;
-using CDWM_MR.IServices.Content;
-using CDWM_MR.Model.Models;
-using CDWM_MR_Common.Redis;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CDWM_MR.Controllers
 {
@@ -38,8 +33,8 @@ namespace CDWM_MR.Controllers
         readonly IsysManageServices _SysManage;
         readonly Isys_userinfoServices _SysUserinfo;
         #endregion
-       
-        
+
+
         /// <summary>
         /// 构造函数注入
         /// </summary>
@@ -86,7 +81,8 @@ namespace CDWM_MR.Controllers
             string checkCode = _redishelper.StringGet("Code");
             if (string.IsNullOrEmpty(checkCode))
             {
-                return new JsonResult(new {
+                return new JsonResult(new
+                {
                     code = 1001,
                     msg = "验证码错误！",
                     data = new { }
@@ -94,7 +90,8 @@ namespace CDWM_MR.Controllers
             }
             if (VerCode != checkCode)
             {
-                return new JsonResult(new {
+                return new JsonResult(new
+                {
                     code = 1001,
                     msg = "验证码错误！",
                     data = new { }
@@ -106,7 +103,7 @@ namespace CDWM_MR.Controllers
             {
                 Permissions.UersName = user.FUserName;
                 //将登陆的用户信息存入Redis缓存
-                await _redishelper.StringSetAsync($"UserInfo{user.id}", user,TimeSpan.FromMinutes(30));
+                await _redishelper.StringSetAsync($"UserInfo{user.id}", user, TimeSpan.FromMinutes(30));
                 var rolestr = await _SysManage.GetuserRole(user.id);//角色的组合
                 //如果是基于用户的授权策略，这里要添加用户;如果是基于角色的授权策略，这里要添加角色
                 var claims = new List<Claim> {
@@ -122,7 +119,8 @@ namespace CDWM_MR.Controllers
                 var token = JwtToken.BuildJwtToken(claims.ToArray(), _requirement);
                 return new JsonResult(token);
             }
-            return new JsonResult(new {
+            return new JsonResult(new
+            {
                 code = 1001,
                 msg = "用户名或密码错误！",
                 data = new { }
@@ -141,7 +139,8 @@ namespace CDWM_MR.Controllers
             string jwtStr = string.Empty;
             if (string.IsNullOrEmpty(Token))
             {
-                return new JsonResult(new {
+                return new JsonResult(new
+                {
                     Status = false,
                     message = "Token无效,请重新登陆！"
                 });
@@ -169,7 +168,8 @@ namespace CDWM_MR.Controllers
                 }
             }
 
-            return new JsonResult(new {
+            return new JsonResult(new
+            {
                 Success = false,
                 message = "认证失败"
             });

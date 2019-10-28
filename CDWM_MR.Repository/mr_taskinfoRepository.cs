@@ -1,5 +1,6 @@
 ﻿using CDWM_MR.IRepository;
 using CDWM_MR.IRepository.Content;
+using CDWM_MR.IRepository.UnitOfWork;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Repository.BASE;
 using System;
@@ -11,6 +12,7 @@ namespace CDWM_MR.Repository.Content
 {
     public partial class mr_taskinfoRepository:BaseRepository<mr_taskinfo>, Imr_taskinfoRepository
     {
+
         /// <summary>
         /// 根据抄表员ID查询抄表册
         /// </summary>

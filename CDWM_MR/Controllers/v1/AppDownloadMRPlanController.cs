@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -158,7 +157,6 @@ namespace CDWM_MR.Controllers.v1
         /// <summary>
         /// 接受上传图片(测试)
         /// </summary>
-        /// <param name="Test"></param>
         /// <param name="environment"></param>
         /// <returns></returns>
         [HttpPost]

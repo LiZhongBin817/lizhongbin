@@ -15,7 +15,7 @@ namespace CDWM_MR.Controllers.v1
     /// <summary>
     /// 抄表册用户顺序保存
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class AppSequenceSaveController : ControllerBase
     {
         readonly Imr_book_meterRepository _Book_MeterRepository;
@@ -34,10 +34,9 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="bookid"></param>
         /// <param name="JsonData"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("SequenceSave")]
+        [HttpPost("{bookid}")]
         [AllowAnonymous]//允许所有都访问       
-        public async Task<object> SequenceSave(int bookid, Dictionary<string, int> JsonData)
+        public async Task<object> SequenceSave(int bookid,[FromBody] Dictionary<string, int> JsonData)
         {
             //Dictionary<string, int> keyValues = JsonConvert.DeserializeObject<Dictionary<string, int>>(JsonData);
             List<mr_book_meter> bookInfo = await _Book_MeterRepository.Query(c=>c.bookid==bookid);

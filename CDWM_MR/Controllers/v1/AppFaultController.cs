@@ -170,9 +170,9 @@ namespace CDWM_MR.Controllers.v1
             {
                 for (int i = 0; i < FaultHandlinglist.Count; i++)
                 {
-                    FaultHandlinglist[i].createperson = "抄表员";
-                    FaultHandlinglist[i].createtime = DateTime.Now;
                     rb_b_faultprocess changemodel = _mapper.Map<rb_b_faultprocess>(FaultHandlinglist[i]);
+                    changemodel.createtime = DateTime.Now;
+                    changemodel.faulttype = 1;
                     int a = await _rb_b_faultprocessServices.Add(changemodel);
                     if (FaultHandlinglist[i].isupdateimg == 1)
                     {

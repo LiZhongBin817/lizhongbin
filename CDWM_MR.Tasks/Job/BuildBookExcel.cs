@@ -7,7 +7,7 @@ namespace CDWM_MR.Tasks.Job
     [DisallowConcurrentExecution]//拒绝同一时间重复执行
     public class BuildBookExcel : IJob
     {
-        private IBuildBookServices _IBuildBookServices;
+        //private IBuildBookServices _IBuildBookServices;
 
 
         /// <summary>
@@ -18,10 +18,10 @@ namespace CDWM_MR.Tasks.Job
         public async Task Execute(IJobExecutionContext context)
         {
             JobDataMap dataMap = context.MergedJobDataMap;
-            _IBuildBookServices = dataMap.Get("buildService") as IBuildBookServices;
+            //_IBuildBookServices = dataMap.Get("buildService") as IBuildBookServices;
             await Task.Run(() =>
             {
-                _IBuildBookServices.DoworkAsync();
+                //_IBuildBookServices.DoworkAsync();
             });
 
         }

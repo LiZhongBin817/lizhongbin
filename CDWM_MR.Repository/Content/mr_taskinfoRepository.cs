@@ -1,13 +1,27 @@
-﻿using CDWM_MR.IRepository.Content;
+	//----------mr_taskinfo开始----------
+    
+
+using System;
+using CDWM_MR.IRepository.Content;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Repository.BASE;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using CDWM_MR.IRepository.UnitOfWork;
 
 namespace CDWM_MR.Repository.Content
-{
-    public partial class mr_taskinfoRepository:BaseRepository<mr_taskinfo>,Imr_taskinfoRepository
+{	
+	/// <summary>
+	/// mr_taskinfoRepository
+	/// </summary>	
+	public partial class mr_taskinfoRepository : BaseRepository<mr_taskinfo>, Imr_taskinfoRepository
     {
+        public mr_taskinfoRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+          
+        }
+       
     }
 }
+
+	//----------mr_taskinfo结束----------
+	
+	

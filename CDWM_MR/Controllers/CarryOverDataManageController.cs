@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CDWM_MR.Controllers
 { 
+    /// <summary>
+    /// 
+    /// </summary>
     public class CarryOverDataManageController : ControllerBase
     {
         #region 相关变量
@@ -30,6 +33,7 @@ namespace CDWM_MR.Controllers
         /// <param name="b_WateradjustServices"></param>
         /// <param name="b_WatercarryovarcheckServices"></param>
         /// <param name="b_WatercarryoverServices"></param>
+        /// <param name="b_UsersServices"></param>
         public CarryOverDataManageController(Iv_carryoverdatainfoServices carryoverdatainfoServices, Irt_b_wateradjustServices b_WateradjustServices, Irt_b_watercarryovarcheckServices b_WatercarryovarcheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, It_b_usersServices b_UsersServices)
         {
             _CarryoverdatainfoServices = carryoverdatainfoServices;

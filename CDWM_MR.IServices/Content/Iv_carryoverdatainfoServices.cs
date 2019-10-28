@@ -1,12 +1,20 @@
-﻿using CDWM_MR.IServices.BASE;
-using CDWM_MR.Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+	//----------v_carryoverdatainfo开始----------
+    
 
+using System;
+using CDWM_MR.Model.Models;
+using CDWM_MR.IServices.BASE;
 namespace CDWM_MR.IServices.Content
-{
-    public partial interface Iv_carryoverdatainfoServices:IBaseServices<v_carryoverdatainfo>
-    {
+{	
+	/// <summary>
+	/// v_carryoverdatainfoServices
+	/// </summary>	
+    public partial interface Iv_carryoverdatainfoServices :IBaseServices<v_carryoverdatainfo>
+	{
+
+       
     }
 }
+
+	//----------v_carryoverdatainfo结束----------
+	

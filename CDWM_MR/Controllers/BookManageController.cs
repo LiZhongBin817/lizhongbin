@@ -30,10 +30,22 @@ namespace CDWM_MR.Controllers
         private readonly Iv_b_bookuserinfoServices _Iv_b_bookuserinfoServices;
         private readonly It_b_watermetersServices _It_b_watermetersServices;
         private readonly IRedisHelper _redishelpr;
-        private readonly IBuildBookServices _buildservices;
 
         #region 构造函数注入
-        public BookManageController(IRedisHelper redis, Iv_b_bookinfoServices Iv_b_bookinfoService, Imr_book_meterServices Imr_book_meterService, Iv_wateruserinfoServices Iv_wateruserinfoService, Imr_book_readerServices Imr_book_readerService, Imr_b_readerServices Imr_b_readerService, Iv_b_bookuserinfoServices v_b_bookuserinfoService, Imr_b_bookinfoServices Imr_b_bookinfoService, It_b_watermetersServices It_b_watermetersService, It_b_regionsServices It_b_regionsService, IBuildBookServices buildservices)
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="redis"></param>
+        /// <param name="Iv_b_bookinfoService"></param>
+        /// <param name="Imr_book_meterService"></param>
+        /// <param name="Iv_wateruserinfoService"></param>
+        /// <param name="Imr_book_readerService"></param>
+        /// <param name="Imr_b_readerService"></param>
+        /// <param name="v_b_bookuserinfoService"></param>
+        /// <param name="Imr_b_bookinfoService"></param>
+        /// <param name="It_b_watermetersService"></param>
+        /// <param name="It_b_regionsService"></param>
+        public BookManageController(IRedisHelper redis, Iv_b_bookinfoServices Iv_b_bookinfoService, Imr_book_meterServices Imr_book_meterService, Iv_wateruserinfoServices Iv_wateruserinfoService, Imr_book_readerServices Imr_book_readerService, Imr_b_readerServices Imr_b_readerService, Iv_b_bookuserinfoServices v_b_bookuserinfoService, Imr_b_bookinfoServices Imr_b_bookinfoService, It_b_watermetersServices It_b_watermetersService, It_b_regionsServices It_b_regionsService)
         {
             _Iv_b_bookinfoServices = Iv_b_bookinfoService;
             _Imr_book_meterServices = Imr_book_meterService;
@@ -45,7 +57,6 @@ namespace CDWM_MR.Controllers
             _It_b_watermetersServices = It_b_watermetersService;
             _It_b_regionsServices = It_b_regionsService;
             _redishelpr = redis;
-            _buildservices = buildservices;
         }
         #endregion
 
@@ -205,6 +216,12 @@ namespace CDWM_MR.Controllers
         #endregion
 
         #region 分配抄表员
+        /// <summary>
+        /// 分配抄表员
+        /// </summary>
+        /// <param name="bookid"></param>
+        /// <param name="readerid"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("SelectReader")]
         [AllowAnonymous]//允许所有都访问
@@ -317,7 +334,9 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 显示关联的用户
         /// </summary>
-        /// <param name="bookid">抄表册ID</param>
+        /// <param name="bookid"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("AssoUserShow")]
@@ -371,6 +390,12 @@ namespace CDWM_MR.Controllers
         #endregion
 
         #region  删除抄表册信息
+        /// <summary>
+        /// 删除抄表册信息
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="bookno"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("DeleteBook")]
         [AllowAnonymous]//允许所有都访问
@@ -422,7 +447,7 @@ namespace CDWM_MR.Controllers
                 .WithIdentity("BuildBookExcel", "task1")
                 .WithDescription("创建抄表册Excel文件")
                 .Build();
-            buildexcel.JobDataMap.Add("buildService", _buildservices);//为方法传入参数
+            //buildexcel.JobDataMap.Add("buildService", _buildservices);//为方法传入参数
             //创建时间策略
             ITrigger triggerbuildexcel = TriggerBuilder.Create()
                               .WithIdentity("BuildBookExceltigger", "task1")

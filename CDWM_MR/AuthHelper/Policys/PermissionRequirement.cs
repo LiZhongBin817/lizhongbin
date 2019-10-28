@@ -68,5 +68,11 @@ namespace CDWM_MR.AuthHelper
             Expiration = expiration;
             SigningCredentials = signingCredentials;
         }
+        /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public PermissionRequirement()
+        { 
+        }
     }
 }

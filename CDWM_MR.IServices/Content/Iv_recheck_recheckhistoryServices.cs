@@ -1,12 +1,20 @@
-﻿using CDWM_MR.IServices.BASE;
-using CDWM_MR.Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+	//----------v_recheck_recheckhistory开始----------
+    
 
+using System;
+using CDWM_MR.Model.Models;
+using CDWM_MR.IServices.BASE;
 namespace CDWM_MR.IServices.Content
-{
-    public partial interface Iv_recheck_recheckhistoryServices:IBaseServices<v_recheck_recheckhistory>
-    {
+{	
+	/// <summary>
+	/// v_recheck_recheckhistoryServices
+	/// </summary>	
+    public partial interface Iv_recheck_recheckhistoryServices :IBaseServices<v_recheck_recheckhistory>
+	{
+
+       
     }
 }
+
+	//----------v_recheck_recheckhistory结束----------
+	

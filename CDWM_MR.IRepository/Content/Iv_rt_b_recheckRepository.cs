@@ -1,12 +1,20 @@
-﻿using CDWM_MR.IRepository.Base;
-using CDWM_MR.Model.Models;
+	//----------v_rt_b_recheck开始----------
+    
+	
 using System;
-using System.Collections.Generic;
-using System.Text;
-
+using CDWM_MR.Model.Models;
+using CDWM_MR.IRepository.Base;
 namespace CDWM_MR.IRepository.Content
-{
-    public partial interface Iv_rt_b_recheckRepository:IBaseRepository<v_rt_b_recheck>
+{	
+	/// <summary>
+	/// Iv_rt_b_recheckRepository
+	/// </summary>	
+	public partial interface Iv_rt_b_recheckRepository : IBaseRepository<v_rt_b_recheck>//类名
     {
+
+       
     }
 }
+
+	//----------v_rt_b_recheck结束----------
+	

@@ -1,13 +1,20 @@
-﻿using CDWM_MR.IServices.BASE;
-using CDWM_MR.Model.Models;
+	//----------v_mr_b_reader开始----------
+    
+
 using System;
-using System.Collections.Generic;
-using System.Text;
-
+using CDWM_MR.Model.Models;
+using CDWM_MR.IServices.BASE;
 namespace CDWM_MR.IServices.Content
-{
-    public partial interface Iv_mr_b_readerServices : IBaseServices<v_mr_b_reader>
-    {
+{	
+	/// <summary>
+	/// v_mr_b_readerServices
+	/// </summary>	
+    public partial interface Iv_mr_b_readerServices :IBaseServices<v_mr_b_reader>
+	{
 
+       
     }
 }
+
+	//----------v_mr_b_reader结束----------
+	
