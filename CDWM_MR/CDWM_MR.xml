@@ -443,7 +443,7 @@
         </member>
         <member name="T:CDWM_MR.Controllers.CarryOverDataManageController">
             <summary>
-            
+            结转数据管理
             </summary>
         </member>
         <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.#ctor(CDWM_MR.IServices.Content.Iv_carryoverdatainfoServices,CDWM_MR.IServices.Content.Irt_b_wateradjustServices,CDWM_MR.IServices.Content.Irt_b_watercarryovarcheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.It_b_usersServices)">

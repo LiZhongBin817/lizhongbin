@@ -13,10 +13,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CDWM_MR.Controllers
-{    
+{
     /// <summary>
     /// 参数管理
     /// </summary>
+    [Route("api/ParameterSetting")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class ParameterSettingController : ControllerBase
     {
         #region 相关变量
@@ -38,9 +41,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("ParameterShow")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("ParameterShow")]       
         public async Task<TableModel<object>> ParameterShow(string parameterNumber,string parameterName,int parameterType,int page=1,int limit=10)
         {
             //分页信息
@@ -90,9 +91,7 @@ namespace CDWM_MR.Controllers
         /// <param name="JsonData"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("AddParameter")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("AddParameter")]       
         public async Task<TableModel<object>> AddParameter(string JsonData)
         {
             //将前端传过来的值进行转换
@@ -139,9 +138,7 @@ namespace CDWM_MR.Controllers
        /// <param name="ID"></param>
        /// <returns></returns>
         [HttpGet]
-        [Route("EditParameter")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("EditParameter")]       
         public async Task<TableModel<object>> EditParameter(string JsonData,int ID)
         {
             sys_parameter Jsondata = Common.Helper.JsonHelper.GetObject<sys_parameter>(JsonData);
