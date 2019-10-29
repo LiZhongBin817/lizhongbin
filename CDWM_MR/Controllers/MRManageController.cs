@@ -18,6 +18,9 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 抄表数据管理
     /// </summary>
+    [Route("api/MRManage")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class MRManageController : ControllerBase
     {
         #region 相关变量
@@ -72,9 +75,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Show_CB_DataInfo")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("Show_CB_DataInfo")]      
         public async Task<TableModel<object>> Show_CB_DataInfo(string username, string account, string meternum, string address, string mrreadername, string bookno, int rtrecheckstatus = 3, int page = 1, int limit = 20)
         {
             //跟踪登录用户
@@ -173,9 +174,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("CarryData")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("CarryData")]      
         public async Task<TableModel<object>> CarryData()
         {
             #region 连接数据库查询
@@ -288,9 +287,7 @@ namespace CDWM_MR.Controllers
         /// <param name="autoaccount"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("Change")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("Change")]     
         public async Task<TableModel<object>> Change(string JsonData, string taskperiodname, string autoaccount)
         {
             string Month = (Convert.ToInt32(taskperiodname) - 2).ToString();
@@ -346,9 +343,7 @@ namespace CDWM_MR.Controllers
         /// <param name="result"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("SubmitChecked")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("SubmitChecked")]    
         public async Task<TableModel<object>> SubmitChecked(string JsonData, decimal RecheckData, int RecheckStatus, string result)
         {
             v_mr_datainfo mr_Datainfos = JsonHelper.GetObject<v_mr_datainfo>(JsonData);
@@ -406,9 +401,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("ShowMRPath")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("ShowMRPath")]      
         public async Task<TableModel<object>> ShowMRPath(string month, string date, string name, int page = 1, int limit = 20)
         {
             return await _Mr_DatainfoServices.ShowMRPath(month, date, name, page, limit);
@@ -419,9 +412,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("RenderSelect")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("RenderSelect")]    
         public async Task<TableModel<object>> RenderSelect()
         {
             List<string> readerName = new List<string>();
@@ -444,9 +435,7 @@ namespace CDWM_MR.Controllers
         /// <param name="autoaccount"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ShowHistoryRecheckData")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("ShowHistoryRecheckData")]    
         public async Task<TableModel<object>> ShowHistoryRecheckData(string autoaccount)
         {
             //查出审核历史数据

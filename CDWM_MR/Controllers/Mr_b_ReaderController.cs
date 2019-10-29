@@ -17,6 +17,9 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 抄表员管理
     /// </summary>
+    [Route("api/Mr_b_Reader")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class Mr_b_ReaderController : ControllerBase
     {
         #region 相关变量
@@ -43,9 +46,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ShowMassage")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("ShowMassage")]      
         public async Task<TableModel<object>> ShowMassage(string Number,string Name,string Telephone,string Appcount,int page=1,int limit=10)
         {
             //分页信息
@@ -103,9 +104,7 @@ namespace CDWM_MR.Controllers
         /// <param name="JsonData"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Add_Mr_B_ReaderData")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("Add_Mr_B_ReaderData")]      
         public async Task<TableModel<object>> Add_Mr_B_ReaderData(string JsonData)
         {
             //转换Json数据
@@ -154,9 +153,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        [Route("Edit_Mr_B_ReaderData")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("Edit_Mr_B_ReaderData")]       
         public async Task<TableModel<object>> Edit_Mr_B_ReaderData(string JsonData,int ID)
         {
             mr_b_reader jsonData=Common.Helper.JsonHelper.GetObject<mr_b_reader>(JsonData);      
@@ -188,9 +185,7 @@ namespace CDWM_MR.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Del_Mr_B_ReaderData")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("Del_Mr_B_ReaderData")]      
         public async Task<TableModel<object>> Del_Mr_B_ReaderData(int ID)
         {
             string Msg = await _B_ReaderServices.Update(c => new mr_b_reader
@@ -213,9 +208,7 @@ namespace CDWM_MR.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ReSetPwd")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("ReSetPwd")]  
         public async Task<TableModel<object>> ReSetPwd(int ID)
         {
             string Msg = await _B_ReaderServices.Update(c=>new mr_b_reader

@@ -17,6 +17,9 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 应抄明细管理
     /// </summary>
+    [Route("api/DetailManage")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class DetailManageController : ControllerBase
     {
         readonly Iv_t_b_users_datainfo_watercarryoverServices _T_B_Users_Datainfo_WatercarryoverServices;
@@ -40,9 +43,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ShowDetailInfo")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("ShowDetailInfo")]      
         public async Task<TableModel<object>> ShowDetailInfo(string ReaderName, string bookno, int readtype, int page = 1, int limit = 20)
         {
             PageModel<object> pageModel = new PageModel<object>();
