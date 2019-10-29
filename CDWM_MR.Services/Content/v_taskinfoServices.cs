@@ -13,13 +13,6 @@ namespace CDWM_MR.Services.Content
 	/// </summary>	
 	public partial class v_taskinfoServices : BaseServices<v_taskinfo>, Iv_taskinfoServices
     {
-	
-        private readonly Iv_taskinfoRepository dal;
-        public v_taskinfoServices(Iv_taskinfoRepository dal)
-        {
-            this.dal = dal;
-            base.BaseDal = dal;
-        }
        
     }
 }

@@ -12,13 +12,16 @@ namespace CDWM_MR.Services.Content
 {
     public partial class v_taskinfoServices : BaseServices<v_taskinfo>, Iv_taskinfoServices
     {
+        private readonly Iv_taskinfoRepository dal;
         private readonly IMapper mapper;
         private readonly Imr_b_bookinfoRepository book_info;
         private readonly Imr_planinfoRepository planinfo;
         private readonly Imr_taskinfoRepository mr_taskinfoRepository;
         private readonly Iv_taskinfoRepository taskinfoRepository;
-        public v_taskinfoServices(IMapper map, Imr_b_bookinfoRepository imr_B_BookinfoRepository, Imr_planinfoRepository imr_PlaninfoRepository, Iv_taskinfoRepository iv_TaskinfoRepository, Imr_taskinfoRepository taskinfoRepository)
+        public v_taskinfoServices(Iv_taskinfoRepository dal,IMapper map, Imr_b_bookinfoRepository imr_B_BookinfoRepository, Imr_planinfoRepository imr_PlaninfoRepository, Iv_taskinfoRepository iv_TaskinfoRepository, Imr_taskinfoRepository taskinfoRepository)
         {
+            this.dal = dal;
+            base.BaseDal = dal;
             this.mapper = map;
             this.book_info = imr_B_BookinfoRepository;
             this.planinfo = imr_PlaninfoRepository;
