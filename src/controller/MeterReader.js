@@ -16,7 +16,7 @@ layui.define(['table', 'view', 'form'], function (exports) {
     table.render({
         elem: '#MR-Info',
         method: 'post',
-        url: layui.setter.requesturl+'/ShowMassage',
+        url: layui.setter.requesturl +'/api/Mr_b_Reader/ShowMassage',
         cols:
             [[
                 { field: 'ID', title: '序号', width: 80, fixed: 'left' },
@@ -101,7 +101,7 @@ layui.define(['table', 'view', 'form'], function (exports) {
                                 "Remark": field.Remark
                             };
                             admin.req({
-                                url: layui.setter.requesturl+'/Edit_Mr_B_ReaderData'
+                                url: layui.setter.requesturl +'/api/Mr_b_Reader/Edit_Mr_B_ReaderData'
                                 , method: 'post'
                                 , data: {
                                     "JsonData": JSON.stringify(SendData),
@@ -154,7 +154,7 @@ layui.define(['table', 'view', 'form'], function (exports) {
         //重置密码
         if (event == 'reset') {
             admin.req({
-                url: layui.setter.requesturl+'/ReSetPwd'
+                url: layui.setter.requesturl +'/api/Mr_b_Reader/ReSetPwd'
                 , method: 'post'
                 , data: {
                     "ID": data.ID
@@ -211,7 +211,7 @@ layui.define(['table', 'view', 'form'], function (exports) {
                                 return;
                             }
                             admin.req({
-                                url: layui.setter.requesturl+'/Add_Mr_B_ReaderData'
+                                url: layui.setter.requesturl +'/api/Mr_b_Reader/Add_Mr_B_ReaderData'
                                 , method: 'post'
                                 , data: {
                                     "JsonData": JSON.stringify(SendData)

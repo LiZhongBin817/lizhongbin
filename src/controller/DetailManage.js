@@ -14,7 +14,7 @@ layui.define(['table', 'view', 'form','admin'], function (exports) {
     table.render({
         elem: '#detailManageInfo_Table',
         method: 'post',
-        url: 'http://localhost:8081/ShowDetailInfo',
+        url: layui.setter.requesturl +'/api/DetailManage/ShowDetailInfo',
         cols: [[
             {title:'序号',width:60,type:'numbers',fixed:'left'},
             { field: 'account', title: '户号', width: 110 },

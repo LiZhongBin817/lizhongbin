@@ -17,7 +17,7 @@ layui.define(['table', 'view', 'form', 'admin', 'jquery'], function (exports) {
     //表格渲染
     table.render({
         elem: '#CarryDataShowTable',
-        url: layui.setter.requesturl + '/ShowCarriedData',
+        url: layui.setter.requesturl + '/api/CarryOverDataManage/ShowCarriedData',
         type: 'get',
         cols: [[
             { title: '序号', type: 'numbers', width: 50, fixed: 'left' },
@@ -164,7 +164,7 @@ layui.define(['table', 'view', 'form', 'admin', 'jquery'], function (exports) {
                                 "adjusttime": field.adjustDate,
                             }
                             admin.req({
-                                url: layui.setter.requesturl + '/ChangeCarryCounts',
+                                url: layui.setter.requesturl + '/api/CarryOverDataManage/ChangeCarryCounts',
                                 method: 'post',
                                 data: {
                                     "accounts": data.account,
@@ -211,7 +211,7 @@ layui.define(['table', 'view', 'form', 'admin', 'jquery'], function (exports) {
                                 "finishturnstatus": field.CarryStatus,
                             }
                             admin.req({
-                                url: layui.setter.requesturl + '/ReCarryOver',
+                                url: layui.setter.requesturl + '/api/CarryOverDataManage/ReCarryOver',
                                 method: 'post',
                                 data: {
                                     "account": data.account,
@@ -268,7 +268,7 @@ layui.define(['table', 'view', 'form', 'admin', 'jquery'], function (exports) {
                             "adjusttime": field.adjustDate,
                         }
                         admin.req({
-                            url: layui.setter.requesturl + '/ChangeCarryCounts',
+                            url: layui.setter.requesturl + '/api/CarryOverDataManage/ChangeCarryCounts',
                             method: 'post',
                             data: {
                                 "accounts": huancun,

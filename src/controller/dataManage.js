@@ -16,7 +16,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
     table.render({
         elem: '#dataManageInfo_Table',
         method: 'post',
-        url: layui.setter.requesturl+'/Show_CB_DataInfo',
+        url: layui.setter.requesturl +'/api/MRManage/Show_CB_DataInfo',
         cols: [[
             { title: '序号', width: 60, type: 'numbers' },
             {
@@ -154,7 +154,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
 
         if (event == "Start_Carry") {
             $.ajax({
-                url: layui.setter.requesturl+'/CarryData'
+                url: layui.setter.requesturl +'/api/MRManage/CarryData'
                 , method: 'get'
                 , beforeSend: function () {
                     //设置2%进度
@@ -176,7 +176,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                         layer.msg("审核通过了的已经结转完毕");
                     }
                     else {
-                        layer.msg("无符号结转要求的数据");
+                        layer.msg("无符合结转要求的数据");
                     }
                 }
             });
@@ -201,7 +201,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
 
                         console.log(data.autoaccount);
                         table.render({
-                            url: layui.setter.requesturl+'/Change',
+                            url: layui.setter.requesturl +'/api/MRManage/Change',
                             type: 'get',
                             where: {
                                 'JsonData': data.lastmonthdata+'/'+','+data.nowmonthdata + '/' + ','+data.inputdata + '/',
@@ -238,7 +238,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                             console.log(data);
                             load = layer.load(3);
                             admin.req({
-                                url: layui.setter.requesturl+'/SubmitChecked',
+                                url: layui.setter.requesturl +'/api/MRManage/SubmitChecked',
                                 method: 'post',
                                 data: {
                                     'JsonData': JSON.stringify(data),
@@ -278,7 +278,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                         //表格渲染
                         table.render({
                             elem: '#RecheckHistoryDataTable',
-                            url: layui.setter.requesturl + '/ShowHistoryRecheckData',
+                            url: layui.setter.requesturl + '/api/MRManage/ShowHistoryRecheckData',
                             method: 'post',
                             where: {
                                 "autoaccount": data.autoaccount
