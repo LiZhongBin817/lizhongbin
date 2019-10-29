@@ -8,7 +8,7 @@
         /// <summary>
         /// 操作是否成功
         /// </summary>
-        public int code { get; set; } = 0;
+        public int code { get; set; } = 1001;
         /// <summary>
         /// 返回信息
         /// </summary>
