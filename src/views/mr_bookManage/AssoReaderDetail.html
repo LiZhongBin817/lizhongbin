@@ -1,0 +1,16 @@
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<div class="layui-form" lay-filter="AssoReaderform" id="AssoUserform">
+    <table class="layui-hide" id="AssoReaderTable" lay-filter="test"></table>
+</div>
+<script>
+    layui.use(['admin', 'form','mr_bookManage','view'], function () {
+        var $ = layui.$
+            , form = layui.form,
+            admin = layui.admin,
+            view = layui.view,
+            mr_bookManage = layui.mr_bookManage;
+
+    });
+</script>
