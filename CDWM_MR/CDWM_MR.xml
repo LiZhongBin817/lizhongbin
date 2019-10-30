@@ -1228,7 +1228,7 @@
             用户管理(档案管理)
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.#ctor(CDWM_MR.IServices.Content.Iv_wateruserinfoServices,CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices,CDWM_MR.IServices.Content.It_b_usersServices,CDWM_MR.IServices.Content.It_b_watermetersServices,CDWM_MR.IServices.Content.Iv_watermeterinfoServices)">
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.#ctor(CDWM_MR.IServices.Iv_wateruserinfoServices,CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices,CDWM_MR.IServices.Content.It_b_usersServices,CDWM_MR.IServices.It_b_watermetersServices,CDWM_MR.IServices.Content.Iv_watermeterinfoServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.It_b_watermetertypeServices,CDWM_MR.IServices.It_b_factoryServices,CDWM_MR.IServices.It_b_installposServices,CDWM_MR.IServices.It_b_watermodelServices,CDWM_MR.IServices.It_b_natureServices)">
             <summary>
             
             </summary>
@@ -1238,6 +1238,12 @@
             <param name="t_b_usersServices"></param>
             <param name="t_b_watermetersServices"></param>
             <param name="v_watermeterinfoServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ListData">
+            <summary>
+            拿到下拉框的值
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ShowWaterUserinfo(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
             <summary>
@@ -1280,10 +1286,11 @@
             <param name="JsonDate">水表信息JsonDate</param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.showmeternum">
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.showaddmeterinfo(System.String)">
             <summary>
-            在新增水表界面打开时给水表序列号赋值
+            新增水表时返回的数据
             </summary>
+            <param name="meternum1">水表编号</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.AddWaterMeter(System.String,System.String)">
@@ -1314,6 +1321,19 @@
             </summary>
             <param name="Oldmeternum">旧表编号</param>
             <param name="Newmeternum">新表编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.DelUser(System.String)">
+            <summary>
+            删除用户信息
+            </summary>
+            <param name="autoaccount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.DownloadOrderTemplet">
+            <summary>
+            下载模板
+            </summary>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">

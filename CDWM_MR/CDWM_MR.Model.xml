@@ -2246,6 +2246,26 @@
             状态(1:可用;2:注销)
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_factory.bftid">
+            <summary>
+            厂商代码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_factory.factoryname">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_installpos.bipid">
+            <summary>
+            位置编码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_installpos.posname">
+            <summary>
+            名称
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.t_b_nature">
             <summary>
             26. 用水性质 t_b_nature
@@ -2439,6 +2459,16 @@
         <member name="P:CDWM_MR.Model.Models.t_b_users.batchno">
             <summary>
             报装批号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_users.mrreader">
+            <summary>
+            抄表员
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_users.usemetertype">
+            <summary>
+            用水类型
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.t_b_watermeters">
@@ -2684,6 +2714,86 @@
         <member name="P:CDWM_MR.Model.Models.t_b_watermeters.isreg">
             <summary>
             NB表是否注册到iot平台(1:是；2：否)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermeters.GISPlace">
+            <summary>
+            GIS位置
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermeters.updatemetertime">
+            <summary>
+            更换水表时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermeters.caliber">
+            <summary>
+            口径
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermeters.lastwaternum">
+            <summary>
+            截止用水量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermetertype.bmtid">
+            <summary>
+            分类编码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermetertype.metertypename">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermetertype.bmttype">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermodel.modelname">
+            <summary>
+            型号名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermodel.dn">
+            <summary>
+            口径
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermodel.bmttype">
+            <summary>
+            分类类别
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermodel.watertype">
+            <summary>
+            用水类型
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermodel.minjl">
+            <summary>
+            最小计量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermodel.maxjl">
+            <summary>
+            最大计量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermodel.maxrange">
+            <summary>
+            最大量程
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermodel.valve">
+            <summary>
+            是否带阀门
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermodel.bwmstate">
+            <summary>
+            状态
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_bookexcel">
@@ -3586,9 +3696,24 @@
             VIEW
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.updatemetertime">
+            <summary>
+            更换水表时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.delflag">
+            <summary>
+            使用标记 (0:否；1:是)
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.meternum">
             <summary>
             水表自动表号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.posname">
+            <summary>
+            安装位置
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.account">
@@ -3644,6 +3769,11 @@
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.lastwaternum">
             <summary>
             截止用水量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.installpos">
+            <summary>
+            安装位置
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_wateruserinfo">
@@ -3940,6 +4070,46 @@
         <member name="P:CDWM_MR.Model.TableModel`1.data">
             <summary>
             返回数据集
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.UserFromExcel.account">
+            <summary>
+            用户编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.UserFromExcel.username">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.UserFromExcel.address">
+            <summary>
+            用户地址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.UserFromExcel.areano">
+            <summary>
+            所属小区
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.UserFromExcel.usemetertype">
+            <summary>
+            用水类型
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.UserFromExcel.telephone">
+            <summary>
+            用户电话
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.UserFromExcel.GISPlace">
+            <summary>
+            GIS位置
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.UserFromExcel.sex">
+            <summary>
+            性别
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Children">

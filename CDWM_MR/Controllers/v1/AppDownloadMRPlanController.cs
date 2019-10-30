@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using CDWM_MR.IServices.Content;
+﻿using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +6,10 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CDWM_MR.Controllers.v1
 {
@@ -52,7 +51,8 @@ namespace CDWM_MR.Controllers.v1
         {
             var t = await vtaskinfo.Query(c => c.readerid == ID);
 
-            return new {
+            return new
+            {
                 code = 0,
                 msg = "成功",
                 data = t
@@ -71,7 +71,8 @@ namespace CDWM_MR.Controllers.v1
             var path = Path.Combine(env.ContentRootPath, "wwwroot", "MR_bookinfo", $"{bookno}.xls");
             if (!System.IO.File.Exists(path))
             {
-                return new JsonResult(new {
+                return new JsonResult(new
+                {
                     code = 1001,
                     msg = "文件不存在",
                     data = bookno
@@ -92,11 +93,11 @@ namespace CDWM_MR.Controllers.v1
         /// <returns></returns>
         [HttpGet("{bookno}/{status}")]
         [EnableCors("LimitRequests")]
-        public async Task<object> JudeSuccess(int? bookno,int? status)
+        public async Task<object> JudeSuccess(int? bookno, int? status)
         {
             if (status == 0)
             {
-                await taskServices.Update(c => new mr_taskinfo() { dowloadstatus = 0 },c => c.bookid == bookno);
+                await taskServices.Update(c => new mr_taskinfo() { dowloadstatus = 0 }, c => c.bookid == bookno);
                 return new
                 {
                     code = 0,
@@ -160,10 +161,10 @@ namespace CDWM_MR.Controllers.v1
                 {
                     foreach (var item in files)
                     {
-                        string strpath = Path.Combine(foldername,item.FileName);
+                        string strpath = Path.Combine(foldername, item.FileName);
                         path = Path.Combine(environment.WebRootPath, strpath);
 
-                        using (var stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                        using (var stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read))
                         {
                             await item.CopyToAsync(stream);
                         }
