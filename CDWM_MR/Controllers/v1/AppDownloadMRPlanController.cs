@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using CDWM_MR.IServices.Content;
+﻿using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +6,10 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CDWM_MR.Controllers.v1
 {
@@ -25,8 +24,6 @@ namespace CDWM_MR.Controllers.v1
         #region 相关变量
         readonly Imr_taskinfoServices taskServices;
         readonly Iv_taskinfoServices vtaskinfo;
-        private readonly Iv_bookexcelServices _v_bookexcelservices;
-        private readonly Iv_downloaddatainfoServices _v_downloaddatainfoservices;
         readonly IHostingEnvironment env;
         #endregion
 
@@ -36,15 +33,11 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="taskservices"></param>
         /// <param name="Taskinfo"></param>
         /// <param name="Env"></param>
-        /// <param name="vbookexcel"></param>
-        /// <param name="downloaddatainfoservices"></param>
-        public AppDownloadMRPlanController(Imr_taskinfoServices taskservices, Iv_taskinfoServices Taskinfo, IHostingEnvironment Env, Iv_bookexcelServices vbookexcel,Iv_downloaddatainfoServices downloaddatainfoservices)
+        public AppDownloadMRPlanController(Imr_taskinfoServices taskservices, Iv_taskinfoServices Taskinfo, IHostingEnvironment Env)
         {
             taskServices = taskservices;
             vtaskinfo = Taskinfo;
             env = Env;
-            _v_bookexcelservices = vbookexcel;
-            _v_downloaddatainfoservices = downloaddatainfoservices;
         }
 
         /// <summary>
@@ -56,17 +49,10 @@ namespace CDWM_MR.Controllers.v1
         [EnableCors("LimitRequests")]
         public async Task<object> DownLoadMR(int? ID)
         {
-            var t = await vtaskinfo.Query(c => c.readerid == ID && c.dowloadstatus == 1);
-            if (t == null || t?.Count <= 0)
+            var t = await vtaskinfo.Query(c => c.readerid == ID);
+
+            return new
             {
-                return new {
-                    code =1001,
-                    msg = "无数据！",
-                    data = 0
-                };
-            }
-            
-            return new {
                 code = 0,
                 msg = "成功",
                 data = t
@@ -74,74 +60,49 @@ namespace CDWM_MR.Controllers.v1
         }
 
         /// <summary>
-        /// 下载抄表信息
+        /// 抄表册EXCEL文件下载
         /// </summary>
-        /// <param name="taskid"></param>
+        /// <param name="bookno">抄表册编号</param>
         /// <returns></returns>
-        [HttpGet("{taskid}")]
+        [HttpGet("{bookno}")]
         [EnableCors("LimitRequests")]
-        public async Task<MessageModel<List<v_downloaddatainfo>>> downLoadMRinfo(int? taskid)
+        public IActionResult downLoadMRinfo(string bookno)
         {
-            var data = new MessageModel<List<v_downloaddatainfo>>();
-            var judedata =await vtaskinfo.Query(c => c.taskid == taskid);
-            if (judedata == null) 
+            var path = Path.Combine(env.ContentRootPath, "wwwroot", "MR_bookinfo", $"{bookno}.xls");
+            if (!System.IO.File.Exists(path))
             {
-                data.code = 1001;
-                data.msg = "没有对应的任务单！";
-                return data;
+                return new JsonResult(new
+                {
+                    code = 1001,
+                    msg = "文件不存在",
+                    data = bookno
+                });
             }
-            var temp = judedata.FirstOrDefault();
-            if (DateTime.Now < temp.downloadstarttime) 
-            {
-                data.code = 1001;
-                data.msg = "没有到对应的下载日期！";
-                return data;
-            }
-            var rdata =await _v_downloaddatainfoservices.Query(c => c.bookno == temp.bookno);
-            if (rdata.Count <= 0)
-            {
-                data.code = 1001;
-                data.msg = "此抄表册内没有水表信息或该抄表册不存在！";
-                return data;
-            }
-            data.code = 0;
-            data.msg = "成功！";
-            data.data = rdata;
-            return data;
-            //var path = Path.Combine(env.ContentRootPath, "wwwroot", "MR_bookinfo", $"{bookno}.xls");
-            //if (!System.IO.File.Exists(path))
-            //{
-            //    return new JsonResult(new {
-            //        code = 1001,
-            //        msg = "文件不存在",
-            //        data = bookno
-            //    });
-            //}
 
-            ////获取文件的ContentType
-            //var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
-            //var memi = provider.Mappings[".xls"];
-            //return PhysicalFile(path, memi, bookno);
+            //获取文件的ContentType
+            var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
+            var memi = provider.Mappings[".xls"];
+            return PhysicalFile(path, memi, bookno);
         }
 
         /// <summary>
         /// 下载回调
         /// </summary>
-        /// <param name="taskid"></param>
-        /// <param name="status"></param>
+        /// <param name="bookno"></param>
+        /// <param name="status">下载状态</param>
         /// <returns></returns>
-        [HttpGet("{taskid}/{status}")]
+        [HttpGet("{bookno}/{status}")]
         [EnableCors("LimitRequests")]
-        public async Task<object> JudeSuccess(int? taskid,int? status)
+        public async Task<object> JudeSuccess(int? bookno, int? status)
         {
             if (status == 0)
             {
-                await taskServices.Update(c => new mr_taskinfo() { dowloadstatus = 0 },c => c.id == taskid);
+                await taskServices.Update(c => new mr_taskinfo() { dowloadstatus = 0 }, c => c.bookid == bookno);
                 return new
                 {
                     code = 0,
                     msg = "下载完成",
-                    data = taskid
+                    data = bookno
                 };
             }
 
@@ -149,13 +110,13 @@ namespace CDWM_MR.Controllers.v1
             {
                 code = 1001,
                 msg = "下载失败",
-                data = taskid
+                data = bookno
             };
 
         }
 
         /// <summary>
-        /// 接受上传图片(测试)
+        /// 接受上传图片
         /// </summary>
         /// <param name="environment"></param>
         /// <returns></returns>
@@ -167,11 +128,10 @@ namespace CDWM_MR.Controllers.v1
             string path = string.Empty;
             string foldername = "images";
             IFormFileCollection files = null;
-            string test = "抱歉";
+
             try
             {
                 files = Request.Form.Files;
-                test = Request.Form["Test"].ObjToString();
             }
             catch (Exception)
             {
@@ -201,10 +161,10 @@ namespace CDWM_MR.Controllers.v1
                 {
                     foreach (var item in files)
                     {
-                        string strpath = Path.Combine(foldername,item.FileName);
+                        string strpath = Path.Combine(foldername, item.FileName);
                         path = Path.Combine(environment.WebRootPath, strpath);
 
-                        using (var stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                        using (var stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read))
                         {
                             await item.CopyToAsync(stream);
                         }
@@ -214,7 +174,7 @@ namespace CDWM_MR.Controllers.v1
                     {
                         code = 0,
                         msg = "上传成功",
-                        data = $"文件个数:{files.Count()}{test}",
+                        data = $"文件个数:{files.Count()}",
                     };
                     return data;
                 }

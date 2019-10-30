@@ -1,7 +1,4 @@
 ﻿using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CDWM_MR.Model.Models
 {
@@ -132,5 +129,13 @@ namespace CDWM_MR.Model.Models
         /// 报装批号
         /// </summary>
         public System.String batchno { get; set; }
+        /// <summary>
+        /// 抄表员
+        /// </summary>
+        public System.String mrreader { get; set; }
+        /// <summary>
+        /// 用水类型
+        /// </summary>
+        public System.String usemetertype { get; set; }
     }
 }

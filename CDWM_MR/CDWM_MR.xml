@@ -1425,15 +1425,13 @@
             APP下载抄表计划
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment,CDWM_MR.IServices.Content.Iv_bookexcelServices,CDWM_MR.IServices.Content.Iv_downloaddatainfoServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
             构造函数注入
             </summary>
             <param name="taskservices"></param>
             <param name="Taskinfo"></param>
             <param name="Env"></param>
-            <param name="vbookexcel"></param>
-            <param name="downloaddatainfoservices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.DownLoadMR(System.Nullable{System.Int32})">
             <summary>
@@ -1442,24 +1440,24 @@
             <param name="ID"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.downLoadMRinfo(System.Nullable{System.Int32})">
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.downLoadMRinfo(System.String)">
             <summary>
-            下载抄表信息
+            抄表册EXCEL文件下载
             </summary>
-            <param name="taskid"></param>
+            <param name="bookno">抄表册编号</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.JudeSuccess(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             下载回调
             </summary>
-            <param name="taskid"></param>
-            <param name="status"></param>
+            <param name="bookno"></param>
+            <param name="status">下载状态</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.UploadImg(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
-            接受上传图片(测试)
+            接受上传图片
             </summary>
             <param name="environment"></param>
             <returns></returns>
@@ -1714,7 +1712,7 @@
             用户管理(档案管理)
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.#ctor(CDWM_MR.IServices.Content.Iv_wateruserinfoServices,CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices,CDWM_MR.IServices.Content.It_b_usersServices,CDWM_MR.IServices.Content.It_b_watermetersServices,CDWM_MR.IServices.Content.Iv_watermeterinfoServices)">
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.#ctor(CDWM_MR.IServices.Content.Iv_wateruserinfoServices,CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices,CDWM_MR.IServices.Content.It_b_usersServices,CDWM_MR.IServices.Content.It_b_watermetersServices,CDWM_MR.IServices.Content.Iv_watermeterinfoServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.It_b_watermetertypeServices,CDWM_MR.IServices.It_b_factoryServices,CDWM_MR.IServices.It_b_installposServices,CDWM_MR.IServices.It_b_watermodelServices,CDWM_MR.IServices.It_b_natureServices)">
             <summary>
             
             </summary>
@@ -1724,6 +1722,12 @@
             <param name="t_b_usersServices"></param>
             <param name="t_b_watermetersServices"></param>
             <param name="v_watermeterinfoServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ListData">
+            <summary>
+            拿到下拉框的值
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ShowWaterUserinfo(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
             <summary>
@@ -1766,10 +1770,11 @@
             <param name="JsonDate">水表信息JsonDate</param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.showmeternum">
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.showaddmeterinfo(System.String)">
             <summary>
-            在新增水表界面打开时给水表序列号赋值
+            新增水表时返回的数据
             </summary>
+            <param name="meternum1">水表编号</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.AddWaterMeter(System.String,System.String)">
@@ -1800,6 +1805,26 @@
             </summary>
             <param name="Oldmeternum">旧表编号</param>
             <param name="Newmeternum">新表编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.DelUser(System.String)">
+            <summary>
+            删除用户信息
+            </summary>
+            <param name="autoaccount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.DownloadOrderTemplet">
+            <summary>
+            下载模板
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.PutExcel(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            导入EXCEL
+            </summary>
+            <param name="workbookFile"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">

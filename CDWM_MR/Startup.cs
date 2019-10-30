@@ -354,7 +354,7 @@ namespace CDWM_MR
                 ValidateAudience = true,
                 ValidAudience = audienceConfig["Audience"],//订阅人
                 ValidateLifetime = true,
-                ClockSkew = TimeSpan.FromSeconds(30),
+                ClockSkew = TimeSpan.FromSeconds(60*60),
                 RequireExpirationTime = true,
             };
 
