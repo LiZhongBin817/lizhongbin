@@ -1,5 +1,6 @@
 ﻿using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
+using CDWM_MR.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -148,9 +149,8 @@ namespace CDWM_MR.AuthHelper
                 if (!questUrl.Equals(requirement.LoginPath.ToLower(), StringComparison.Ordinal) && (!httpContext.Request.Method.Equals("POST") || !httpContext.Request.HasFormContentType))
                 {
                     //自定义返回数据
-                    var payload = JsonConvert.SerializeObject(new { Code = "401", Message = "很抱歉，您无权访问该接口!" });
-                    httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    filterContext.Result = new JsonResult(payload);
+                    httpContext.Response.StatusCode = StatusCodes.Status200OK;
+                    filterContext.Result = new JsonResult(new MessageModel<string> { code = 1001, msg = "很抱歉，您的Token验证码已经失效了!", data = "Error" });
                 }
             }
 
