@@ -1,9 +1,7 @@
 ﻿using CDWM_MR.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CDWM_MR.IRepository.Base
@@ -58,5 +56,7 @@ namespace CDWM_MR.IRepository.Base
         Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression);
         Task<bool> OUpdate(TEntity entity);
         Task<int> OAdd(TEntity entity);
+
+        Task<int> ExecutePro(string prostr, object obj);
     }
 }

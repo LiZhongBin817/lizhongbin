@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CDWM_MR.Model.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class v_mr_datainfo
     {
         /// <summary>
@@ -205,12 +208,6 @@ namespace CDWM_MR.Model.Models
         /// 状态0--通过;1--不通过
         /// </summary>
         public System.Int32? rtrecheckstatus { get { return this._rtrecheckstatus; } set { this._rtrecheckstatus = value; } }
-
-        private System.String _FUserName;
-        /// <summary>
-        /// 
-        /// </summary>
-        public System.String FUserName { get { return this._FUserName; } set { this._FUserName = value; } }
 
         private System.Int32? _carrystatus;
         /// <summary>

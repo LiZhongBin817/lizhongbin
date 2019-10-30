@@ -29,12 +29,12 @@ namespace CDWM_MR.Controllers
     public class WatermeterUserManageController : Controller
     {
         #region  相关变量
-        private readonly IServices.Iv_wateruserinfoServices _v_wateruserinfoServices;
+        private readonly Iv_wateruserinfoServices _v_wateruserinfoServices;
         private readonly It_b_watermodelServices _t_b_watermodelServices;
         private readonly It_b_regionsServices _t_b_regionsServices;
         private readonly It_b_areasServices _t_b_areasServices;
         private readonly It_b_usersServices _t_b_usersServices;
-        private readonly IServices.It_b_watermetersServices _t_b_watermetersServices;
+        private readonly It_b_watermetersServices _t_b_watermetersServices;
         private readonly Iv_watermeterinfoServices _v_watermeterinfoServices;
         private readonly Imr_b_bookinfoServices _mr_b_bookinfoServices;
         private readonly Imr_b_readerServices _mr_b_readerServices;
@@ -52,7 +52,7 @@ namespace CDWM_MR.Controllers
         /// <param name="t_b_usersServices"></param>
         /// <param name="t_b_watermetersServices"></param>
         /// <param name="v_watermeterinfoServices"></param>
-        public WatermeterUserManageController(IServices.Iv_wateruserinfoServices v_wateruserinfoServices, It_b_regionsServices t_b_regionsServices, It_b_areasServices t_b_areasServices, It_b_usersServices t_b_usersServices, IServices.It_b_watermetersServices t_b_watermetersServices, Iv_watermeterinfoServices v_watermeterinfoServices, Imr_b_bookinfoServices mr_b_bookinfoService, Imr_b_readerServices mr_b_readerService, It_b_watermetertypeServices t_b_watermetertypeService, It_b_factoryServices t_b_factoryService, It_b_installposServices t_b_installposService, It_b_watermodelServices t_b_watermodelService, It_b_natureServices t_b_natureService)
+        public WatermeterUserManageController(Iv_wateruserinfoServices v_wateruserinfoServices, It_b_regionsServices t_b_regionsServices, It_b_areasServices t_b_areasServices, It_b_usersServices t_b_usersServices, It_b_watermetersServices t_b_watermetersServices, Iv_watermeterinfoServices v_watermeterinfoServices, Imr_b_bookinfoServices mr_b_bookinfoService, Imr_b_readerServices mr_b_readerService, It_b_watermetertypeServices t_b_watermetertypeService, It_b_factoryServices t_b_factoryService, It_b_installposServices t_b_installposService, It_b_watermodelServices t_b_watermodelService, It_b_natureServices t_b_natureService)
         {
             _v_wateruserinfoServices = v_wateruserinfoServices;
             _t_b_regionsServices = t_b_regionsServices;
@@ -85,8 +85,8 @@ namespace CDWM_MR.Controllers
             List<t_b_watermodel> watermodellist = new List<t_b_watermodel>();//存储用户型号的集合拿最大量程
             List<object> DataList = new List<object>();//存储返回的数据
             factorylist = await _t_b_factoryServices.OQuery(c => true);
-            installposlist = await _t_b_installposServices.OQuery(c => true);
             watermetertypelist = await _t_b_watermetertypeServices.OQuery(c => true);
+            installposlist = await _t_b_installposServices.OQuery(c => true);           
             watermodellist = await _t_b_watermodelServices.OQuery(c => true);
             DataList.Add(factorylist);
             DataList.Add(installposlist);
@@ -438,15 +438,21 @@ namespace CDWM_MR.Controllers
             List<v_wateruserinfo> waterinfolist = await _v_wateruserinfoServices.Query(c => c.account == account);
             //取到所有编号
             List<string> NumberList = new List<string>();
+            List<t_b_watermodel> watermodellist = new List<t_b_watermodel>();//存储用户型号的集合拿最大量程
+            List<t_b_installpos> installposlist = new List<t_b_installpos>();//存储安装位置的集合   
+            installposlist = await _t_b_installposServices.OQuery(c => true);
+            watermodellist = await _t_b_watermodelServices.OQuery(c => true);
             for (int i = 0; i < waterinfolist.Count(); i++)
             {
                 NumberList.Add(waterinfolist[i].meternum);
             }
             List<t_b_watermeters> watermaterlist = await _t_b_watermetersServices.OQuery(c => NumberList.Contains(c.meternum));
-            List<t_b_watermeters> showwatermater = new List<t_b_watermeters>();
+            List<object> showwatermater = new List<object>();
             //添加旧表
             showwatermater.Add(watermaterlist.Find(c => c.meterstate == 1));//刚显示 的时候表还没换，所以旧表的状态显示正常
             showwatermater.Add(watermaterlist[watermaterlist.Count() - 1]);//新表为最后一个表
+            showwatermater.Add(installposlist);
+            showwatermater.Add(watermodellist);
             return new TableModel<object>()
             {
                 code = 0,
@@ -461,7 +467,7 @@ namespace CDWM_MR.Controllers
         /// <param name="Oldmeternum">旧表编号</param>
         /// <param name="Newmeternum">新表编号</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         [Route("Changemeter")]      
         public async Task<TableModel<object>> Changemeter(string Oldmeternum, string Newmeternum)
         {

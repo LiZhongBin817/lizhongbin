@@ -409,7 +409,7 @@ namespace CDWM_MR.Services
                         role_Menu.MenuID = Convert.ToInt32(item);
                         role_Menu.OperationID = item1.id;
                         role_Menu.createtime = DateTime.Now;
-                        role_Menu.createpeople = "李忠斌";
+                        role_Menu.createpeople = Permissions.UersName;
                         commonData.Add(role_Menu);
                     }
                 }

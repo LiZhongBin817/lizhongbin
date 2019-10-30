@@ -17,6 +17,9 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 权限管理
     /// </summary>
+    [Route("api/MeterReadingPlan")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class OprationManageController : ControllerBase
     {
         #region 相关变量
@@ -55,8 +58,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowInfor")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ShowInfor(string OperationName, int InterfaceID, string LinkUrl, int MenuID, int page = 1, int limit = 10)
         {
             PageModel<object> datainfor = new PageModel<object>();
@@ -109,8 +110,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ModifyInfor")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> ModifyInfor(string data, int ID)
         {
             sys_operation Data = Common.Helper.JsonHelper.GetObject<sys_operation>(data);          
@@ -156,8 +155,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("AddData")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> AddData(string JsonDate)
         {
             string[] jsondata = JsonDate.Split('"',';','{',':',',');
@@ -203,8 +200,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowSelectInfor")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> ShowSelectInfor()
         {
             var allist=await isys_MenuServices.Query();
@@ -230,8 +225,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowInterInfor")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> ShowInterInfor()
         {
             var allist = await isys_Interface_InfoServices.Query();
@@ -259,8 +252,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("GetStatus")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> GetStatus(int ID, string status)
         {
             int s= status == "使用" ? 0 : 1;

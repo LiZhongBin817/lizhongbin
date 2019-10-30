@@ -94,7 +94,7 @@ namespace CDWM_MR.Common.Helper
                 //ms = null;
                 //fs = null;
             }
-            catch (Exception ee)
+            catch
             {
 
                 return null;
@@ -146,7 +146,7 @@ namespace CDWM_MR.Common.Helper
                 }
                 return lists;
             }
-            catch (Exception ee)
+            catch
             {
                 //myLog.Error("读取Excel中的数据时发生错误，可能Excel数据格式与指定格式不一致。" + ee.Message + "\r\n");
                 return null;

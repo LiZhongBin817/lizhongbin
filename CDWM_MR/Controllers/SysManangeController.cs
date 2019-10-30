@@ -513,7 +513,7 @@ namespace CDWM_MR.Controllers
                     data = new { addstr = addlist, delstr = dellist, modifstr = modlist, seestr = seelist }
                 };
             }
-            catch (Exception ex)
+            catch
             {
 
                 return new TableModel<object>

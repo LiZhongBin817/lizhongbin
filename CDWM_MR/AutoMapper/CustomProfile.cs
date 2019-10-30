@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
+using CDWM_MR.Model.ViewModels;
 
 namespace CDWM_MR.AutoMapper
 {
@@ -15,6 +16,10 @@ namespace CDWM_MR.AutoMapper
         public CustomProfile()
         {
             CreateMap<v_bookexcel, bookExcel>();
+            CreateMap<UploadPhotoModel, rt_b_photoattachment>();
+            CreateMap<vfaultinfo, v_rt_b_faultinfo>();
+            CreateMap<UploadFaultModel, rt_b_faultinfo>();
+            CreateMap<UploadFaultProcessModel, rb_b_faultprocess>();
         }
     }
 }

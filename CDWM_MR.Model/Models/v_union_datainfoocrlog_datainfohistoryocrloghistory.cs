@@ -4,6 +4,9 @@ using System.Text;
 
 namespace CDWM_MR.Model.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class v_union_datainfoocrlog_datainfohistoryocrloghistory
     {
         /// <summary>
@@ -45,6 +48,12 @@ namespace CDWM_MR.Model.Models
         /// 图像识别抄表数据Optical Choractor Recognittion光学字符识别
         /// </summary>
         public System.Decimal? ocrdata { get { return this._ocrdata; } set { this._ocrdata = value; } }
+
+        private System.Decimal? _inputdata;
+        /// <summary>
+        /// 人为抄表数据
+        /// </summary>
+        public System.Decimal? inputdata { get { return this._inputdata; } set { this._inputdata = value; } }
 
         private System.Int32? _photoid;
         /// <summary>

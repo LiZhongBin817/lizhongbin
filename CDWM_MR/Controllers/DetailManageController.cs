@@ -17,6 +17,9 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 应抄明细管理
     /// </summary>
+    [Route("api/DetailManage")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class DetailManageController : ControllerBase
     {
         readonly Iv_t_b_users_datainfo_watercarryoverServices _T_B_Users_Datainfo_WatercarryoverServices;
@@ -40,9 +43,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ShowDetailInfo")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("ShowDetailInfo")]      
         public async Task<TableModel<object>> ShowDetailInfo(string ReaderName, string bookno, int readtype, int page = 1, int limit = 20)
         {
             PageModel<object> pageModel = new PageModel<object>();
@@ -50,9 +51,16 @@ namespace CDWM_MR.Controllers
             Expression<Func<v_t_b_users_datainfo_watercarryover, bool>> wherelambda = c => true;
             if ((readtype != 4&&readtype!=0))
             {
-                wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.readtype == readtype);
+                if (readtype == 5)//前台传过来的数字5表示抄表状态为正常
+                {
+                    wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.readtype == 0);
+                }
+                else
+                {
+                    wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.readtype == readtype);
+                }       
             }
-            if (readtype==4)
+            if (readtype==4)//表示抄表状态为未抄
             {
                 wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.inputdata==null);
             }

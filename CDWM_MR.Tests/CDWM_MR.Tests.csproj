@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controller_Test\" />
     <Folder Include="DependencyInjection\" />
     <Folder Include="Redis_Test\" />
     <Folder Include="Repository_Test\" />

@@ -1,12 +1,20 @@
-﻿using CDWM_MR.IServices.BASE;
-using CDWM_MR.Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+	//----------v_wateruserinfo开始----------
+    
 
+using System;
+using CDWM_MR.Model.Models;
+using CDWM_MR.IServices.BASE;
 namespace CDWM_MR.IServices.Content
-{
-    public partial interface Iv_wateruserinfoServices:IBaseServices<v_wateruserinfo>
-    {
+{	
+	/// <summary>
+	/// v_wateruserinfoServices
+	/// </summary>	
+    public partial interface Iv_wateruserinfoServices :IBaseServices<v_wateruserinfo>
+	{
+
+       
     }
 }
+
+	//----------v_wateruserinfo结束----------
+	

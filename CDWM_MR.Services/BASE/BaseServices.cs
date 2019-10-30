@@ -331,5 +331,16 @@ namespace CDWM_MR.Services.BASE
         {
             return await BaseDal.OAdd(entity);
         }
+
+        /// <summary>
+        /// 不根据名称执行存储过程
+        /// </summary>
+        /// <param name="prostr"></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public async Task<int> ExecutePro(string prostr, object obj)
+        {
+            return await BaseDal.ExecutePro(prostr, obj);
+        }
     }
 }

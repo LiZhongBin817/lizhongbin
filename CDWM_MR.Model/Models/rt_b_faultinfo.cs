@@ -93,6 +93,5 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = false,ColumnDescription = "处理状态0--未受理;1--已受理;2--已处理;3--已存档(已审核)")]
         public int faultstatus { get; set; }
-
     }
 }

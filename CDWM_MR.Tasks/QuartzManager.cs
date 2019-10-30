@@ -1,5 +1,5 @@
 ﻿using CDWM_MR.Tasks.Job;
-using CDWM_MR.Tasks.Log;
+//using CDWM_MR.Tasks.Log;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Logging;
@@ -41,30 +41,12 @@ namespace CDWM_MR.Tasks
         public async Task Init()
         {
             #region 日志记录
-            LogProvider.SetCurrentLogProvider(new CustomerLogProvider());
+            //LogProvider.SetCurrentLogProvider(new CustomerLogProvider());
             #endregion
 
             _scheduler = await _schedulerFactory.GetScheduler();
             _scheduler.JobFactory = this._iocJobfactory;//  替换默认工厂
             await _scheduler.Start();//启动单元
-
-            //#region 任务一 创建任务单Excel文件
-            ////创建作业
-            //IJobDetail buildexcel = JobBuilder.Create<BuildTaskExcel>()
-            //    .WithIdentity("BuildTaskExcel", "task1")
-            //    .WithDescription("创建任务单Excel文件")
-            //    .Build();
-
-            ////创建时间策略
-            //ITrigger triggerbuildexcel = TriggerBuilder.Create()
-            //                  .WithIdentity("BuildTaskExceltigger", "task1")
-            //                  .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(10)))
-            //                 //.StartNow()//StartAt  Cron
-            //                 .WithCronSchedule("0/1 * * * * ?")
-            //                 .WithDescription("生成抄表册EXCEL文件！")
-            //                 .Build();
-            //await scheduler.ScheduleJob(buildexcel, triggerbuildexcel);
-            //#endregion
             #region 任务一 创建任务单Excel文件
             //创建作业
             IJobDetail buildexcel = JobBuilder.Create<BuildBookExcel>()

@@ -70,7 +70,7 @@ namespace CDWM_MR.AuthHelper
                     if (await handlers.GetHandlerAsync(httpContext, scheme.Name) is IAuthenticationRequestHandler handler && await handler.HandleRequestAsync())
                     {
                         //自定义返回数据
-                        var payload = JsonConvert.SerializeObject(new { Code = "401", Message = "很抱歉，您无权访问该接口!" });
+                        var payload = JsonConvert.SerializeObject(new { code = "401", Message = "很抱歉，您无权访问该接口!" });
                         httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
                         filterContext.Result = new JsonResult(payload);
                         context.Succeed(requirement);

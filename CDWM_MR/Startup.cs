@@ -47,6 +47,7 @@ using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
 using QuartzDemo.Quarzs;
+using StackExchange.Profiling;
 using StackExchange.Profiling.Storage;
 using Swashbuckle.AspNetCore.Swagger;
 using static CDWM_MR.SwaggerHelper.CustomApiVersion;
@@ -73,7 +74,7 @@ namespace CDWM_MR
         {
             Configuration = configuration;
             Env = env;
-            //log4net
+
             Repository = LogManager.CreateRepository(Configuration["Logging:Log4Net:Name"]);
             //指定配置文件，如果这里你遇到问题，应该是使用了InProcess模式，请查看CDWM_MR.csproj,并删之
             var contentPath = env.ContentRootPath;
@@ -94,7 +95,7 @@ namespace CDWM_MR
         private const string ApiName = "CDWM_MR";
 
         /// <summary>
-        /// 运行时调用此方法。使用此方法向容器中添加服务。
+        /// 运行时调用此方法。使用此方法向容器中添加服务。（一定要注意服务注入的先后顺序）
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
@@ -114,9 +115,48 @@ namespace CDWM_MR
             services.AddSingleton<ILoggerHelper, LogHelper>();
             #endregion
 
+            #region 全局工具类注入
+            services.AddSingleton(new Appsettings(Env));
+            services.AddSingleton(new LogLock(Env));
+            #endregion
+
             #region 初始化DB
             services.AddScoped<CDWM_MR.Model.Seed.DBSeed>();
             services.AddScoped<CDWM_MR.Model.Seed.MyContext>();
+            #endregion
+             
+            #region 数据库操作容器注入
+            #region SqlSugarClient注入
+            services.AddScoped<SqlSugar.ISqlSugarClient>(o =>
+            {
+                SqlSugar.SqlSugarClient _db = new SqlSugar.SqlSugarClient(new SqlSugar.ConnectionConfig()
+                {
+                    ConnectionString = BaseDBConfig.ConnectionString,//必填, 数据库连接字符串
+                    DbType = (SqlSugar.DbType)BaseDBConfig.DbType,//必填, 数据库类型
+                    IsAutoCloseConnection = true,//默认false, 时候知道关闭数据库连接, 设置为true无需使用using或者Close操作
+                    IsShardSameThread = true,//共享线程
+                    InitKeyType = SqlSugar.InitKeyType.SystemTable//默认SystemTable, 字段信息读取, 如：该属性是不是主键，标识列等等信息
+                });
+                if (Appsettings.app(new string[] { "AppSettings", "SqlAOP", "Enabled" }).ObjToBool())
+                {
+                    _db.Aop.OnLogExecuting = (sql, pars) => //SQL执行中事件
+                    {
+                        string key = "【SQL参数】：";
+                        foreach (var param in pars)
+                        {
+                            key += $"{param.ParameterName}:{param.Value}\n";
+                        }
+                        Parallel.For(0, 1, e =>
+                        {
+                            MiniProfiler.Current.CustomTiming("SQL：", key + "【SQL语句】：" + sql);
+                            LogLock.OutSql2Log("SqlLog", new string[] { key, "【SQL语句】：" + sql });
+
+                        });
+                    };
+                }
+                return _db;
+            });
+            #endregion
             #endregion
 
             #region Automapper
@@ -219,10 +259,13 @@ namespace CDWM_MR
 
             #endregion
 
-            #region Quzrtz.Net
-            services.AddSingleton<QuartzManager>();//注入管理类
-            //services.AddTransient<BuildTaskExcel>();//注入方法
-            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();//注册ISchedulerFactory的实例。
+            #region Quartz定时任务框架
+            //注入 Quartz调度类
+            services.AddSingleton<QuartzManager>();
+            // 这里使用瞬时依赖注入
+            //services.AddTransient<UserInfoSyncjob>();      
+            //注册ISchedulerFactory的实例。
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             services.AddSingleton<IJobFactory, IOCJobFactory>();
             #endregion
 
@@ -311,7 +354,7 @@ namespace CDWM_MR
                 ValidateAudience = true,
                 ValidAudience = audienceConfig["Audience"],//订阅人
                 ValidateLifetime = true,
-                ClockSkew = TimeSpan.FromSeconds(30),
+                ClockSkew = TimeSpan.FromSeconds(60*60),
                 RequireExpirationTime = true,
             };
 
@@ -382,7 +425,7 @@ namespace CDWM_MR
 
             #endregion
 
-            #region TimedJob
+            #region TimedJob(使用Timer定时器完成--建议不要使用)
             //services.AddHostedService<Job1TimedService>();
             //services.AddHostedService<JobWorkTime1>();
 
@@ -399,28 +442,7 @@ namespace CDWM_MR
             #region SignalR 通讯
             services.AddSignalR();
             #endregion
-
-
-            services.AddSingleton(new Appsettings(Env));
-            services.AddSingleton(new LogLock(Env));
-            services.AddScoped<SqlSugar.ISqlSugarClient>(o => { 
-                return new SqlSugar.SqlSugarClient(new SqlSugar.ConnectionConfig()
-                {
-                    ConnectionString = BaseDBConfig.ConnectionString,
-                    DbType = (SqlSugar.DbType)BaseDBConfig.DbType,
-                    IsAutoCloseConnection = true,
-                    IsShardSameThread = true,
-                    ConfigureExternalServices = new SqlSugar.ConfigureExternalServices()
-                    {
-                        //DataInfoCacheService = new HttpRuntimeCache()
-                    },
-                    MoreSettings = new SqlSugar.ConnMoreSettings()
-                    {
-                        //IsWithNoLockQuery = true,
-                        IsAutoRemoveDataCache = true
-                    }
-                });
-            });
+            
             //services.AddSession();
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
@@ -428,7 +450,7 @@ namespace CDWM_MR
             //实例化 AutoFac  容器   
             var builder = new ContainerBuilder();
             //注册要通过反射创建的组件
-            builder.RegisterType<sys_userinfoServices>().As<Isys_userinfoServices>();
+            //builder.RegisterType<sys_userinfoServices>().As<Isys_userinfoServices>();
             builder.RegisterType<CdwmCacheAOP>();//可以直接替换其他拦截器
             builder.RegisterType<CdwmRedisCacheAOP>();//可以直接替换其他拦截器
             builder.RegisterType<CdwmLogAOP>();//这样可以注入第二个
@@ -477,6 +499,16 @@ namespace CDWM_MR
                 var assemblysRepository = Assembly.LoadFrom(repositoryDllFile);
                 builder.RegisterAssemblyTypes(assemblysRepository).AsImplementedInterfaces();
                 #endregion
+
+                #region Quzrtz.Net
+                var quartz = Path.Combine(basePath, "CDWM_MR.Tasks.dll");
+                var assemblysquartze = Assembly.LoadFrom(repositoryDllFile);
+                builder.RegisterAssemblyTypes(assemblysRepository).AsImplementedInterfaces();
+                //services.AddSingleton<QuartzManager>();//注入管理类
+                //services.AddTransient<BuildTaskExcel>();//注入方法
+                //services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();//注册ISchedulerFactory的实例。
+                //services.AddSingleton<IJobFactory, IOCJobFactory>();
+                #endregion
             }
             catch (Exception ex)
             {
@@ -516,11 +548,11 @@ namespace CDWM_MR
         }
 
         /// <summary>
-        /// 运行时调用此方法。使用此方法配置HTTP请求管道。
-        /// 创建一个HttpContext处理请求
+        /// 运行时调用此方法。使用此方法配置HTTP请求管道。创建一个Http请求
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
+        /// <param name="appLifetime"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
 
@@ -597,9 +629,10 @@ namespace CDWM_MR
 
             #endregion
 
-            #region Quartze.Net
+            #region Quartz定时任务
             //获取前面注入的Quartz调度类
             var quartz = app.ApplicationServices.GetRequiredService<QuartzManager>();
+
             appLifetime.ApplicationStarted.Register(() =>
             {
                 quartz.Init().Wait(); //网站启动完成执行
@@ -610,6 +643,7 @@ namespace CDWM_MR
                 quartz.Stop();  //网站停止完成执行
 
             });
+
             #endregion
 
             // 跳转https

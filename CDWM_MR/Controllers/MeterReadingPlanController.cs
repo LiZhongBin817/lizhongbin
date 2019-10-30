@@ -19,6 +19,9 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 抄表计划
     /// </summary>
+    [Route("api/MeterReadingPlan")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class MeterReadingPlanController : ControllerBase
     {
 
@@ -57,8 +60,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("AddPlan")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> AddPlan(string data)
         {
             try
@@ -82,6 +83,7 @@ namespace CDWM_MR.Controllers
                     };
                 }
                 int Message = await mr_planinfoServices.Add(Data);
+                await v_taskinfoServices.AutoCreat(Message);//添加任务单
                 string message = Message == 0 ? "error" : "ok";
                 return new MessageModel<object>()
                 {
@@ -89,13 +91,14 @@ namespace CDWM_MR.Controllers
                     msg = message
                 };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return new MessageModel<object>()
                 {
                     code = 2,
-                    msg = "数据格式不对"
+                    msg = "数据格式不对",
+                    data = ex.ObjToString()
                 };
             }
 
@@ -109,8 +112,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowPlan")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ShowPlan(int page = 1, int limit = 10)
         {
             PageModel<object> datainfor = new PageModel<object>();
@@ -147,8 +148,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowMeterReadingBooks")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ShowMeterReadingBooks(string bookno, string bookname, string reader, int page = 1, int limit = 10)
         {
             PageModel<object> datainfor = new PageModel<object>();
@@ -177,8 +176,8 @@ namespace CDWM_MR.Controllers
                 MREndTime = c.taskendtime,
                 MRMonth = c.mplanmonth,
                 MRTaskStatus = c.taskstatus == 0 ? "已下载" : "未下载"
-
             };
+
             datainfor = await v_taskinfoServices.QueryPage(wherelambda, expression, page, limit, "");
 
             return new TableModel<object>()
@@ -198,8 +197,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowSelect")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> ShowSelect()
         {
             var alllist = await mr_b_readerServices.Query();
@@ -225,8 +222,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("DistributionOfMeterReadingBooks")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> DistributionOfMeterReadingBooks(int status, int page = 1, int limit = 10)
         {
             PageModel<object> datainfor = new PageModel<object>();
@@ -266,8 +261,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("AllocationOfData")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> AllocationOfData(int planid, string[] data, int status = 0)
         {
             var msg = await mr_b_bookinfoServices.Update(c => new mr_b_bookinfo
@@ -310,8 +303,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowTaskEdit")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<MessageModel<object>> ShowTaskEdit(string senddata, int ID)
         {
             string message = "";
@@ -356,8 +347,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("OutExcel")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<FileResult> OutExcel()
         {
             List<v_taskinfo> ExcelList = await v_taskinfoServices.Query(c => true);

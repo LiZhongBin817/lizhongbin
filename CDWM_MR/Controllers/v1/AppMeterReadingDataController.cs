@@ -24,6 +24,7 @@ namespace CDWM_MR.Controllers.v1
         #region  相关变量
         readonly Imr_datainfoServices _mr_datainfoServices;
         readonly Iv_mr_datainfoServices _v_mr_datainfoServices;
+        private readonly Irt_b_photoattachmentServices _rt_b_photoservices;
         #endregion
 
         /// <summary>
@@ -31,10 +32,12 @@ namespace CDWM_MR.Controllers.v1
         /// </summary>
         /// <param name="mr_datainfoServices"></param>
         /// <param name="v_mr_datainfoServices"></param>
-        public AppMeterReadingDataController(Imr_datainfoServices mr_datainfoServices, Iv_mr_datainfoServices v_mr_datainfoServices)
+        /// <param name="rtbphotoservices"></param>
+        public AppMeterReadingDataController(Imr_datainfoServices mr_datainfoServices, Iv_mr_datainfoServices v_mr_datainfoServices, Irt_b_photoattachmentServices rtbphotoservices)
         {
             _mr_datainfoServices = mr_datainfoServices;
             _v_mr_datainfoServices = v_mr_datainfoServices;
+            _rt_b_photoservices = rtbphotoservices;
         }
 
         #region  上传用户抄表数据接口
@@ -46,12 +49,40 @@ namespace CDWM_MR.Controllers.v1
         [HttpPost]
         [Route("UpdateUserData")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<int> UpdateUserData([FromBody]List<mr_datainfo> UserData)
+        public async Task<MessageModel<int>> UpdateUserData([FromBody]List<mr_datainfo> UserData)
         {
-            int Status = 0;
-            await _mr_datainfoServices.Add(UserData);
-            Status = UserData.Count();
-            return Status;
+            var data = new MessageModel<int>();
+            //int Status = 0;
+            if (UserData == null || UserData?.Count == 0)
+            {
+                data.code = 1001;
+                data.msg = "无上传数据！";
+                data.data = 0;
+                return data;
+            }
+            try
+            {
+                for (int i = 0; i < UserData.Count; i++)
+                {
+                    mr_datainfo updatemodel = UserData[i];
+                    updatemodel.readstatus = 1;
+                    List<string> updatefield = new List<string>() { "uploadgisplace", "readDateTime", "readstatus", "remark", "inputdata", "uploadtime", "readtype" };
+                    await _mr_datainfoServices.Update(updatemodel, updatefield);
+                    
+                }
+                //Status = UserData.Count();
+            }
+            catch(Exception ex)
+            {
+                data.code = 1001;
+                data.msg = ex.ObjToString();
+                data.data = 0;
+                return data;
+            }
+            data.code = 0;
+            data.msg = "成功";
+            data.data = UserData.Count();
+            return data;
         }
         #endregion
 

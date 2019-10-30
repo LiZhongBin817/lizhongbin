@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper;
+using CDWM_MR.Common;
 using CDWM_MR.Common.Helper;
 using CDWM_MR.IServices.Content;
+using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
+using CDWM_MR.Model.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -16,14 +22,21 @@ namespace CDWM_MR.Controllers.v1
     /// <summary>
     /// 故障工单
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
+    [AllowAnonymous]
     //或者是写[Route("api/[controller]/[action]")]，下面就不要写Route啥的了
-    public class AppFaultController : Controller
+    public class AppFaultController : ControllerBase
     {
         #region 相关变量
         readonly Irt_b_faultinfoServices _rt_b_faultinfoServices;
         readonly Iv_rb_b_faultprocessServices _v_rb_b_faultprocessServices;
         readonly Irb_b_faultprocessServices _rb_b_faultprocessServices;
+        private readonly Iv_rt_b_faultinfoServices _v_rt_b_faultinfoServices;
+        private readonly Irt_b_photoattachmentServices _rt_b_photoservices;
+        private readonly Imr_datainfoServices _mrdatainfoservices;
+        private readonly Iv_photo_faultinfoServices _photofaultinfoservices;
+        private readonly IHostingEnvironment _env;
+        private readonly IMapper _mapper;
         #endregion
 
         /// <summary>
@@ -32,11 +45,23 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="rt_b_faultinfoServices"></param>
         /// <param name="v_rb_b_faultprocessServices"></param>
         /// <param name="rb_b_faultprocessServices"></param>
-        public AppFaultController(Irt_b_faultinfoServices rt_b_faultinfoServices, Iv_rb_b_faultprocessServices v_rb_b_faultprocessServices, Irb_b_faultprocessServices rb_b_faultprocessServices)
+        /// <param name="vrtbfaultservices"></param>
+        /// <param name="mapper"></param>
+        /// <param name="photoservices"></param>
+        /// <param name="datainfoservices"></param>
+        /// <param name="photofaultinfoservices"></param>
+        /// <param name="env"></param>
+        public AppFaultController(Irt_b_faultinfoServices rt_b_faultinfoServices, Iv_rb_b_faultprocessServices v_rb_b_faultprocessServices, Irb_b_faultprocessServices rb_b_faultprocessServices, Iv_rt_b_faultinfoServices vrtbfaultservices, IMapper mapper, Irt_b_photoattachmentServices photoservices, Imr_datainfoServices datainfoservices, Iv_photo_faultinfoServices photofaultinfoservices, IHostingEnvironment env)
         {
             _rt_b_faultinfoServices = rt_b_faultinfoServices;
             _v_rb_b_faultprocessServices = v_rb_b_faultprocessServices;
             _rb_b_faultprocessServices = rb_b_faultprocessServices;
+            _v_rt_b_faultinfoServices = vrtbfaultservices;
+            _rt_b_photoservices = photoservices;
+            _mrdatainfoservices = datainfoservices;
+            _photofaultinfoservices = photofaultinfoservices;
+            _env = env;
+            _mapper = mapper;
         }
 
         #region  提交用户故障工单接口
@@ -46,18 +71,38 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="faultDate"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("UpdateFaultWorkOrder")]
-        [AllowAnonymous]//允许所有都访问
-        public async Task<int> UpdateFaultWorkOrder([FromBody] List<rt_b_faultinfo> faultDate)
+        public async Task<MessageModel<int>> UpdateFaultWorkOrder([FromBody]List<UploadFaultModel> faultDate)
         {
-            int Status = 0;
-            string faultnumber = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0');
-            List<rt_b_faultinfo> dateist = await _rt_b_faultinfoServices.Query(c => c.faultnumber.Contains(faultnumber));
-            faultnumber += (dateist.Count() + 1).ToString().PadLeft(3, '0');
-            faultDate.ForEach(c => c.faultnumber = faultnumber);
-            await _rt_b_faultinfoServices.Add(faultDate);
-            Status = 1;
-            return Status;
+            var data = new MessageModel<int>();
+            try
+            {
+                string faultnumber = $"{DateTime.Now.Year.ToString()}{DateTime.Now.Month.ToString().PadLeft(2, '0')}{DateTime.Now.Day.ToString().PadLeft(2, '0')}";
+                List<rt_b_faultinfo> dateist = await _rt_b_faultinfoServices.Query(c => c.faultnumber.Contains(faultnumber));
+                for (int i = 0; i < faultDate.Count; i++)
+                {
+                    faultnumber += (dateist.Count() + 1).ToString().PadLeft(3, '0');
+                    rt_b_faultinfo changemodel = _mapper.Map<rt_b_faultinfo>(faultDate[i]);
+                    changemodel.faultnumber = faultnumber;
+                    int a = await _rt_b_faultinfoServices.Add(changemodel);
+                    
+                    if (faultDate[i].isupdateimg == 1)
+                    {
+                        string tasknumber = faultDate[i].taskperiodname, meternum = faultDate[i].meternum;
+                        await _rt_b_photoservices.Update(s => new rt_b_photoattachment() { billid = a }, c => c.taskperiodname == tasknumber && c.metercode == meternum && c.phototype == 4);//更新照片表
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                data.code = 1001;
+                data.msg = ex.ObjToString();
+                data.data = 0;
+                return data;
+            }
+            data.code = 0;
+            data.msg = "成功！";
+            data.data = faultDate.Count;
+            return data;
         }
         #endregion
 
@@ -69,13 +114,11 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="taskperiodname">任务账单</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("GetFaultWorkOrder")]
-        [AllowAnonymous]//允许所有都访问
         public async Task<object> GetFaultWorkOrder(int readerid, string taskperiodname)
         {
             #region lambda拼接式
             Expression<Func<v_rb_b_faultprocess, bool>> wherelambda = c => true;
-            if (readerid!=0)
+            if (readerid != 0)
             {
                 wherelambda = PredicateExtensions.And<v_rb_b_faultprocess>(wherelambda, c => c.readerid == readerid);
             }
@@ -85,17 +128,17 @@ namespace CDWM_MR.Controllers.v1
             }
             #endregion
             List<v_rb_b_faultprocess> datelist = await _v_rb_b_faultprocessServices.Query(wherelambda);
-            var data= datelist.Select(c => new
+            var data = datelist.Select(c => new
             {
                 CustomerNumber = c.autoaccount,//用户家庭编号
                 CustomerMeterNumber = c.meternum,//用户水表编号
                 CustomerName = c.username,//用户名字
                 CustomerUseWaterAddress = c.areaname + c.address,//用户用水地址
-                CustomerMeterStatus=c.faulttype,//故障上报
-                AcceptPerson=c.processpreson,//受理人的名字
-                AcceptTime=c.processdatetime,//后台受理时间
-                WorkDisposeName=c.reportpeople,//工单接收人
-                EndDisposeTime=c.reporttime,//最迟处理时间
+                CustomerMeterStatus = c.faulttype,//故障上报
+                AcceptPerson = c.processpreson,//受理人的名字
+                AcceptTime = c.processdatetime,//后台受理时间
+                WorkDisposeName = c.reportpeople,//工单接收人
+                EndDisposeTime = c.reporttime,//最迟处理时间
             });
             return new JsonResult(new
             {
@@ -113,15 +156,114 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="FaultHandlinglist"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("FaultHandling")]
-        [AllowAnonymous]//允许所有都访问
-        public async Task<object> FaultHandling([FromBody]List<rb_b_faultprocess> FaultHandlinglist)
+        public async Task<MessageModel<int>> FaultHandling([FromBody]List<UploadFaultProcessModel> FaultHandlinglist)
         {
-            int Status = 0;
-            await _rb_b_faultprocessServices.Add(FaultHandlinglist);
-            Status = 1;
-            return Status;
+            var data = new MessageModel<int>();
+            if (FaultHandlinglist == null || FaultHandlinglist?.Count == 0)
+            {
+                data.code = 1001;
+                data.msg = "无上传数据！";
+                data.data = 0;
+                return data;
+            }
+            try
+            {
+                for (int i = 0; i < FaultHandlinglist.Count; i++)
+                {
+                    rb_b_faultprocess changemodel = _mapper.Map<rb_b_faultprocess>(FaultHandlinglist[i]);
+                    changemodel.createtime = DateTime.Now;
+                    changemodel.faulttype = 1;
+                    int a = await _rb_b_faultprocessServices.Add(changemodel);
+                    if (FaultHandlinglist[i].isupdateimg == 1)
+                    {
+                        string meternum = FaultHandlinglist[i].meternum, tasknumber = FaultHandlinglist[i].taskperiodname;
+                        await _rt_b_photoservices.Update(c => new rt_b_photoattachment() { billid = a }, c => c.metercode == meternum && c.taskperiodname == tasknumber && c.phototype == 3);//修改图片表billid
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                data.code = 1001;
+                data.msg = ex.ObjToString();
+                data.data = 0;
+                return data;
+            }
+            data.code = 0;
+            data.msg = "成功";
+            data.data = FaultHandlinglist.Count;
+            return data;
         }
         #endregion
+
+
+        #region 获取表册内的故障信息
+        /// <summary>
+        /// 获取表册内的故障信息
+        /// </summary>
+        /// <param name="taskid"></param>
+        /// <param name="faultstatus">默认值-1</param>
+        /// <returns></returns>
+        [HttpGet("{taskid}/{faultstatus}")]
+        public async Task<MessageModel<List<vfaultinfo>>> GetbookFault(int? taskid,int? faultstatus)
+        {
+            var data = new MessageModel<List<vfaultinfo>>();
+            Expression<Func<v_rt_b_faultinfo, bool>> wherelambda = c => c.taskid == taskid;
+            if (faultstatus != -1)
+            {
+                wherelambda = PredicateExtensions.And<v_rt_b_faultinfo>(wherelambda,c => c.faultstatus == faultstatus);
+            }
+            var temp = await _v_rt_b_faultinfoServices.Query(wherelambda);
+            if (temp == null || temp?.Count <= 0)
+            {
+                data.code = 1001;
+                data.msg = "没有对应的故障信息！";
+                return data;
+            }
+            List<vfaultinfo> rlist = new List<vfaultinfo>();
+            foreach (var item in temp)
+            {
+                rlist.Add(_mapper.Map<vfaultinfo>(item));
+            }
+            data.code = 0;
+            data.msg = "成功！";
+            data.data = rlist;
+            return data;
+        }
+        #endregion
+
+        #region 获取单个故障详细信息
+        /// <summary>
+        /// 获取单个故障详细信息
+        /// </summary>
+        /// <param name="faultid"></param>
+        /// <returns></returns>
+        [HttpGet("{faultid}")]
+        public async Task<MessageModel<v_photo_faultinfo>> GetSingleFaultinfo(int? faultid)
+        {
+            var data = new MessageModel<v_photo_faultinfo>();
+            var rdata = await _photofaultinfoservices.Query(c => c.faultid == faultid);
+            string file = Path.Combine(_env.WebRootPath,"images");
+            //string urlstr = Request.HttpContext.Connection.R;
+            string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
+            if (rdata == null || rdata?.Count <= 0) 
+            {
+                data.code = 0;
+                data.msg = "不存在该故障！";
+                data.data = null;
+                return data;
+            }
+            rdata.ForEach(c => {
+                if(!string.IsNullOrEmpty(c.photourl))
+                c.photourl = $@"{ipadress}{c.photourl.Split("wwwroot")[1]}";
+                c.photourl.Replace(@"\",@"/");
+            });//循环修改每一项的值
+            data.data = rdata.FirstOrDefault();
+            data.data.photourl = String.Join(',', rdata.Select(c => c.photourl).ToArray());//简单写法
+            data.code = 0;
+            data.msg = "成功";
+            return data;
+        }
+        #endregion
+
     }
 }

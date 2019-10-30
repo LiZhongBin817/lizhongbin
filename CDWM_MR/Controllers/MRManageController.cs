@@ -18,6 +18,9 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 抄表数据管理
     /// </summary>
+    [Route("api/MRManage")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class MRManageController : ControllerBase
     {
         #region 相关变量
@@ -29,7 +32,7 @@ namespace CDWM_MR.Controllers
         readonly Iv_recheck_recheckhistoryServices _Recheck_RecheckhistoryServices;
         readonly Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices _Union_Datainfoocrlog_DatainfohistoryocrloghistoryServices;
         readonly Imr_datainfo_historyServices _Datainfo_HistoryServices;
-
+        readonly Imr_b_readerServices _B_ReaderServices;
         #endregion
 
         /// <summary>
@@ -42,7 +45,10 @@ namespace CDWM_MR.Controllers
         /// <param name="datainfoServices"></param>
         /// <param name="recheck_RecheckhistoryServices"></param>
         /// <param name="union_Datainfoocrlog_DatainfohistoryocrloghistoryServices"></param>
-        public MRManageController(Iv_mr_datainfoServices mr_DatainfoServices, Irt_b_watercarryover_historyServices b_Watercarryover_HistoryServices, Irt_b_recheckServices b_RecheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, Imr_datainfoServices datainfoServices, Iv_recheck_recheckhistoryServices recheck_RecheckhistoryServices, Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices union_Datainfoocrlog_DatainfohistoryocrloghistoryServices, Imr_datainfo_historyServices datainfo_HistoryServices, Isys_userinfoServices userinfoServices)
+        /// <param name="datainfo_HistoryServices"></param>
+        /// <param name="userinfoServices"></param>
+        /// <param name="b_ReaderServices"></param>
+        public MRManageController(Iv_mr_datainfoServices mr_DatainfoServices, Irt_b_watercarryover_historyServices b_Watercarryover_HistoryServices, Irt_b_recheckServices b_RecheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, Imr_datainfoServices datainfoServices, Iv_recheck_recheckhistoryServices recheck_RecheckhistoryServices, Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices union_Datainfoocrlog_DatainfohistoryocrloghistoryServices, Imr_datainfo_historyServices datainfo_HistoryServices, Isys_userinfoServices userinfoServices, Imr_b_readerServices b_ReaderServices)
         {
             _Mr_DatainfoServices = mr_DatainfoServices;
             _B_Watercarryover_HistoryServices = b_Watercarryover_HistoryServices;
@@ -52,6 +58,7 @@ namespace CDWM_MR.Controllers
             _Recheck_RecheckhistoryServices = recheck_RecheckhistoryServices;
             _Union_Datainfoocrlog_DatainfohistoryocrloghistoryServices = union_Datainfoocrlog_DatainfohistoryocrloghistoryServices;
             _Datainfo_HistoryServices = datainfo_HistoryServices;
+            _B_ReaderServices = b_ReaderServices;
         }
 
         /// <summary>
@@ -68,9 +75,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Show_CB_DataInfo")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("Show_CB_DataInfo")]      
         public async Task<TableModel<object>> Show_CB_DataInfo(string username, string account, string meternum, string address, string mrreadername, string bookno, int rtrecheckstatus = 3, int page = 1, int limit = 20)
         {
             //跟踪登录用户
@@ -145,8 +150,8 @@ namespace CDWM_MR.Controllers
                 readstatus = c.readstatus,
                 carrystatus = c.carrystatus,
                 carryime = c.carryime,
-                lastmonthdata = c.lastmonthdata,
-                nowmonthdata = c.nowmonthdata,
+                lastmonthdata = c.lastmonthdata == null ? 0 : c.lastmonthdata,
+                nowmonthdata = c.nowmonthdata == null ? 0 : c.nowmonthdata,
                 last_month = last_month,
                 the_month_before_last = the_month_before_last
 
@@ -169,9 +174,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("CarryData")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("CarryData")]      
         public async Task<TableModel<object>> CarryData()
         {
             #region 连接数据库查询
@@ -183,13 +186,8 @@ namespace CDWM_MR.Controllers
             List<mr_datainfo_history> datainfo_Histories = await _Datainfo_HistoryServices.Query();
             List<mr_datainfo> dataInfo = await _DatainfoServices.Query();
             #endregion
-
-            #region 表对象
-            List<rt_b_watercarryover> Datalist = new List<rt_b_watercarryover>();
-            rt_b_watercarryover addData = new rt_b_watercarryover();
-            List<rt_b_watercarryover> data = new List<rt_b_watercarryover>();
-            #endregion
-
+            List<rt_b_watercarryover> Datalist = new List<rt_b_watercarryover>();           
+            List<rt_b_watercarryover> data = new List<rt_b_watercarryover>();         
             if (checkPassData.Count == 0)//没有审核通过的数据
             {
                 return new TableModel<object>
@@ -201,6 +199,7 @@ namespace CDWM_MR.Controllers
             }
             foreach (var item in checkPassData)
             {
+                rt_b_watercarryover addData = new rt_b_watercarryover();
                 data = carryedData.FindAll(c => c.autoaccount == item.userid && c.taskperiodname == item.taskperiodname);
                 if (data.Count == 0)//判重
                 {
@@ -211,7 +210,7 @@ namespace CDWM_MR.Controllers
                     if (item.taskperiodname == DateTime.Now.Year.ToString() + "01")
                     {
                         string datetime = item.taskperiodname.Insert(4, "-");
-                        string ReadTime = (DateTime.Parse(datetime).AddMonths(-1)).ToString().Substring(0,7).Replace("/", "");
+                        string ReadTime = (DateTime.Parse(datetime).AddMonths(-1)).ToString().Substring(0, 7).Replace("/", "");
                         rtRecheckData = rt_B_Rechecks.FindAll(c => c.userid == item.userid && c.taskperiodname == ReadTime);
                         datainfoHistory_Data = datainfo_Histories.FindAll(c => c.autoaccount == item.userid && c.taskperiodname == ReadTime);
                     }
@@ -247,11 +246,17 @@ namespace CDWM_MR.Controllers
                     addData.endid = dataInfo.FindAll(c => c.autoaccount == item.userid && c.taskperiodname == item.taskperiodname)[0].id;
                     addData.endnum = item.recheckdata;
                     addData.carrywatercount = addData.endnum - addData.startnum;
-                    addData.bookkeepingcount = 0;
                     addData.adjustwatercount = 0;
                     addData.createtime = DateTime.Now;
-                    addData.createperson = "1";
-                    addData.carrystatus = 1;
+                    addData.createperson = Permissions.UersName;
+                    if (addData.carrywatercount >= 0)
+                    {
+                        addData.carrystatus = 1;
+                    }
+                    else
+                    {
+                        addData.carrystatus = 2;
+                    }
                     addData.remark = "";
                     Datalist.Add(addData);
                 }
@@ -282,9 +287,7 @@ namespace CDWM_MR.Controllers
         /// <param name="autoaccount"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("Change")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("Change")]     
         public async Task<TableModel<object>> Change(string JsonData, string taskperiodname, string autoaccount)
         {
             string Month = (Convert.ToInt32(taskperiodname) - 2).ToString();
@@ -302,13 +305,13 @@ namespace CDWM_MR.Controllers
                 string[] array2 = array[i].Split('/');
                 if (recheckData.Count != 0)
                 {
-                    recheckdata = (decimal)recheckData[0].recheckdata;
+                    recheckdata = (decimal)recheckData[recheckData.Count-1].recheckdata;
 
                 }
                 if (ocrData.Count != 0)
                 {
-                    ocrdata = (decimal)ocrData[0].ocrdata;
-                    photoid = (int)ocrData[0].photoid;
+                    ocrdata = ocrData[0].ocrdata==null?0: (decimal)ocrData[0].ocrdata;
+                    photoid = ocrData[0].photoid == null ? 0 : (int)ocrData[0].photoid;
                 }
                 var data = new
                 {
@@ -340,16 +343,14 @@ namespace CDWM_MR.Controllers
         /// <param name="result"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("SubmitChecked")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("SubmitChecked")]    
         public async Task<TableModel<object>> SubmitChecked(string JsonData, decimal RecheckData, int RecheckStatus, string result)
         {
             v_mr_datainfo mr_Datainfos = JsonHelper.GetObject<v_mr_datainfo>(JsonData);
             //查询审核表的所有数据
             List<rt_b_recheck> _B_Rechecks = await _B_RecheckServices.Query();
             List<string> AutoAccount = new List<string>();
-            List<rt_b_recheck> AddData = new List<rt_b_recheck>();           
+            List<rt_b_recheck> AddData = new List<rt_b_recheck>();
             //声明一个审核表的一个对象用于插入或者修改
             rt_b_recheck b_Recheck = new rt_b_recheck();
 
@@ -359,53 +360,28 @@ namespace CDWM_MR.Controllers
             {
                 AutoAccount.Add(item.userid);
             }
-            #region 初次人工审核
-            if (!AutoAccount.Contains(mr_Datainfos.autoaccount))
-            {
-                b_Recheck.readdataid = mr_Datainfos.ID;
-                b_Recheck.meternum = mr_Datainfos.meternum;
-                b_Recheck.userid = mr_Datainfos.autoaccount;
-                b_Recheck.taskperiodname = mr_Datainfos.taskperiodname;
-                b_Recheck.recheckstatus = RecheckStatus;
-                b_Recheck.recheckdata = RecheckData;
-                b_Recheck.recheckresult = RecheckResult;
-                b_Recheck.checksuccesstime = DateTime.Now;
-                b_Recheck.checkor = "1";//代表人工审核的
-                b_Recheck.createtime = DateTime.Now;
-                b_Recheck.createpeople = mr_Datainfos.FUserName;
-                AddData.Add(b_Recheck);
-                int b = await _B_RecheckServices.Add(AddData);
-            }
-            #endregion
 
-            #region 再次审核的修改
+            b_Recheck.readdataid = mr_Datainfos.ID;
+            b_Recheck.meternum = mr_Datainfos.meternum;
+            b_Recheck.userid = mr_Datainfos.autoaccount;
+            b_Recheck.taskperiodname = mr_Datainfos.taskperiodname;         
+            b_Recheck.recheckstatus = RecheckStatus;
+            var lastData = _B_Rechecks.FindAll(c => c.userid == mr_Datainfos.autoaccount);
+            if (RecheckData == 0)//使用者没有填写审核数据的时候
+            {
+                b_Recheck.recheckdata = lastData[lastData.Count-1].recheckdata;
+            }
             else
             {
-                //用户没有编辑数据单元格
-                if (RecheckData == 0)
-                {
-                    bool a = await _B_RecheckServices.Update(c => new rt_b_recheck
-                    {
-                        recheckstatus = RecheckStatus,     
-                        recheckresult = RecheckResult,
-                        checksuccesstime = DateTime.Now,
-
-                    }, c => c.userid == mr_Datainfos.autoaccount);
-                }
-                else//用户修改了数据单元格
-                {
-                    bool a = await _B_RecheckServices.Update(c => new rt_b_recheck
-                    {
-                        recheckstatus = RecheckStatus,
-                        recheckdata = RecheckData,
-                        recheckresult = RecheckResult,
-                        checksuccesstime = DateTime.Now,
-
-                    }, c => c.userid == mr_Datainfos.autoaccount);
-                }
-               
-            }
-            #endregion
+                b_Recheck.recheckdata = RecheckData;
+            }  
+            b_Recheck.recheckresult = RecheckResult;
+            b_Recheck.checksuccesstime = DateTime.Now;
+            b_Recheck.checkor = "1";//代表人工审核的
+            b_Recheck.createtime = DateTime.Now;
+            b_Recheck.createpeople = Permissions.UersName;
+            AddData.Add(b_Recheck);
+            int b = await _B_RecheckServices.Add(AddData);
             return new TableModel<object>
             {
                 code = 0,
@@ -414,5 +390,87 @@ namespace CDWM_MR.Controllers
             };
         }
 
+
+        /// <summary>
+        /// 显示抄表路径
+        /// </summary>
+        /// <param name="month"></param>
+        /// <param name="date"></param>
+        /// <param name="name"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("ShowMRPath")]      
+        public async Task<TableModel<object>> ShowMRPath(string month, string date, string name, int page = 1, int limit = 20)
+        {
+            return await _Mr_DatainfoServices.ShowMRPath(month, date, name, page, limit);
+        }
+
+        /// <summary>
+        /// 渲染抄表员下拉框
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("RenderSelect")]    
+        public async Task<TableModel<object>> RenderSelect()
+        {
+            List<string> readerName = new List<string>();
+            var readerData = await _B_ReaderServices.Query();
+            foreach (var item in readerData)
+            {
+                readerName.Add(item.mrreadername);
+            }
+            return new TableModel<object>
+            {
+                code = 0,
+                msg = "ok",
+                data = readerName
+            };
+        }
+
+        /// <summary>
+        /// 展示审核历史数据
+        /// </summary>
+        /// <param name="autoaccount"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("ShowHistoryRecheckData")]    
+        public async Task<TableModel<object>> ShowHistoryRecheckData(string autoaccount)
+        {
+            //查出审核历史数据
+            List<v_recheck_recheckhistory> recheck_Recheckhistories = await _Recheck_RecheckhistoryServices.Query(c=>c.userid== autoaccount);
+            //查询拿到审核历史记录的图片和图片识别的读数
+            List<v_union_datainfoocrlog_datainfohistoryocrloghistory> ocrlogData = await _Union_Datainfoocrlog_DatainfohistoryocrloghistoryServices.Query(c=>c.autoaccount== autoaccount);
+            List<object> returnData = new List<object>();
+            foreach (var item in recheck_Recheckhistories)
+            {
+                var ocrlogDataAndinputdata = ocrlogData.FindAll(c=>c.taskperiodname==item.taskperiodname);
+                var data = new
+                {
+
+                    taskperiodname = item.taskperiodname,
+                    recheckdata=item.recheckdata,
+                    recheckstatus=item.recheckstatus,
+                    createtime=item.createtime,
+                    remark=item.recheckresult,
+                    inputdata= ocrlogDataAndinputdata[0].inputdata,
+                    ocrlogdata= ocrlogDataAndinputdata[0].ocrdata,
+                    pirctureID= ocrlogDataAndinputdata[0].photoid
+
+                };
+                returnData.Add(data);
+
+            }
+            return new TableModel<object>
+            {
+                code = 0,
+                msg = "ok",
+                data = returnData,
+                count= returnData.Count
+
+
+            };
+        }
     }
 }
