@@ -1,13 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\json",
     "\\src",
-    "\\src\\controller",
-    "\\src\\views",
-    "\\src\\views\\watermeterManage",
-    "\\start"
+    "\\src\\controller"
   ],
-  "SelectedNode": "\\src\\controller\\watermeterManage.js",
+  "SelectedNode": "\\src\\controller\\DetailManage.js",
   "PreviewInSolutionExplorer": false
 }
