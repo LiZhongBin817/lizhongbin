@@ -23,12 +23,12 @@ namespace CDWM_MR.Controllers.v1
         [HttpGet]
         [Route("CheckUpdate")]
         [AllowAnonymous]//允许所有都访问
-        public string CheckUpdate(string OldVersion)
+        public string CheckUpdate(int OldVersion)
         {
-            string Newversion = Common.Appsettings.app(new string[] { "Version" });
-            if(OldVersion!= Newversion)
+            string Newversion = Common.Appsettings.app(new string[] { "APKSetting", "VersionCode" });
+            if(OldVersion<Convert.ToInt32( Newversion))
             {
-                return "你当前版本为" + OldVersion + "，需要更新到" + Newversion + "版本！！！";
+                return "您的版本过低！请更新版本！"+"旧版本号是"+ OldVersion +",最新版本号是"+ Newversion ;
             }
             return "当前版本已为最新版本";
         }
@@ -40,12 +40,27 @@ namespace CDWM_MR.Controllers.v1
         [HttpGet]
         [Route("SoftWareUpdate")]
         [AllowAnonymous]//允许所有都访问
-        public string SoftWareUpdate()
-        {
-            string Status = "下载失败";
-
-            Status = "下载成功";
-            return Status;
+        public object SoftWareUpdate()
+        {           
+            string VersionCode = Common.Appsettings.app(new string[] { "APKSetting" , "VersionCode" });
+            string VersionName= Common.Appsettings.app(new string[] { "APKSetting", "VersionName" });
+            string APKName = Common.Appsettings.app(new string[] { "APKSetting", "APKName" });
+            string Dowloadurl= Common.Appsettings.app(new string[] { "APKSetting", "Dowloadurl" });
+            string UpdateInfo= Common.Appsettings.app(new string[] { "APKSetting", "UpdateInfo" });
+            var data =new
+            {
+                VersionCode= VersionCode,
+                VersionName= VersionName,
+                APKName= APKName,
+                Dowloadurl= Dowloadurl,
+                UpdateInfo= UpdateInfo,
+            };
+            return new JsonResult(new {
+                code=0,
+                msg="下载成功",
+                data= data
+            });
+            
         }
 
         /// <summary>
@@ -55,9 +70,16 @@ namespace CDWM_MR.Controllers.v1
         [HttpGet]
         [Route("TechnicalSupport")]
         [AllowAnonymous]//允许所有都访问
-        public string TechnicalSupport()
+        public object TechnicalSupport()
         {
-            var temp = Common.Appsettings.app(new string[] { "TechnicalSupport" });
+            
+            var TechnicalSupport = Common.Appsettings.app(new string[] { "AppAboutus", "TechnicalSupport" });
+            var Servicestelephone = Common.Appsettings.app(new string[] { "AppAboutus", "Servicestelephone" });
+            var temp = new
+            {
+                TechnicalSupport = TechnicalSupport,
+                Servicestelephone = Servicestelephone,
+            };
             return temp;
         }
     }

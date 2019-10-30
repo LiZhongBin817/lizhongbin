@@ -1655,7 +1655,7 @@
             软件部分
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppSoftware.CheckUpdate(System.String)">
+        <member name="M:CDWM_MR.Controllers.v1.AppSoftware.CheckUpdate(System.Int32)">
             <summary>
             软件检查更新
             </summary>
