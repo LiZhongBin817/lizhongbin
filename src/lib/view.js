@@ -102,7 +102,11 @@ layui.define(['laytpl', 'layer'], function(exports){
         else if(res[response.statusName] == statusCode.logout){
           view.exit();
         }
-        
+        //自定义错误状态,状态码1001
+        else if(res[response.statusName] === statusCode.customerror){
+          layer.msg("错误信息:"+res.msg);
+        }
+
         //其它异常
         else {
           var error = [
