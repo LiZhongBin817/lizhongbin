@@ -59,6 +59,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\v2\" />
+    <Folder Include="wwwroot\APK\" />
   </ItemGroup>
 
   <ItemGroup>
