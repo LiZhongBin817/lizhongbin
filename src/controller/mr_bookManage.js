@@ -1,4 +1,6 @@
-﻿layui.define(['table', 'form', 'view', 'admin'], function (exports) {
+﻿//抄表册管理
+//李黎东
+layui.define(['table', 'form', 'view', 'admin'], function (exports) {
     var table = layui.table,
         admin = layui.admin,
         form = layui.form,

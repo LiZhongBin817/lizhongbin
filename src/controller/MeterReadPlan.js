@@ -23,7 +23,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
     table.render({
         elem: '#MeterReading',
         method: 'post',
-        url: layui.setter.requesturl+'/ShowPlan',//表格渲染后台地址
+        url: layui.setter.requesturl +'/api/SysManange/ShowPlan',//表格渲染后台地址
         page: true,
         cols: [[
             { field: 'ID', title: '序号', width: 100, sort: true, fixed: 'left' },
@@ -76,7 +76,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                             console.log(SendData);
                             console.log(jsonData);
                             admin.req({
-                                url: layui.setter.requesturl+'/AddPlan',//后台地址
+                                url: layui.setter.requesturl +'/api/SysManange/AddPlan',//后台地址
                                 type: "post",
                                 data: {
                                     "data": jsonData,
@@ -118,7 +118,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                         table.render({
                             elem: '#MaterReaderPlan',
                             method: 'post',
-                            url: layui.setter.requesturl+'/ShowMeterReadingBooks',
+                            url: layui.setter.requesturl +'/api/SysManange/ShowMeterReadingBooks',
                             page: true,
                             cols: [[
                                 { field: 'MRID', title: '序号', width:100, sort: true, fixed: 'left' },
@@ -158,7 +158,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                 btn: ['确认', '取消'],
                 yes: function (layero) {
                     admin.req({
-                        url: layui.setter.requesturl+'/AllocationOfData',
+                        url: layui.setter.requesturl +'/api/SysManange/AllocationOfData',
                         type: "post",
                         data: {
                             "data":accounts,
@@ -181,7 +181,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                         table.render({
                             elem: '#DistributionMeterReading',
                             method: "post",
-                            url: layui.setter.requesturl+'/DistributionOfMeterReadingBooks',//后台地址
+                            url: layui.setter.requesturl +'/api/SysManange/DistributionOfMeterReadingBooks',//后台地址
                             cols: [[
                                 { type: 'checkbox' },
                                 { field: 'Show_ID', title: 'ID',  sort: true },
@@ -269,7 +269,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
         if (Event === 'MRedit') {
             //抄表人员下拉框
             admin.req({
-                url: layui.setter.requesturl+'/ShowSelect',
+                url: layui.setter.requesturl +'/api/SysManange/ShowSelect',
                 type: "post",
                 data: {
                 },
@@ -301,7 +301,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                                     var jsonData = JSON.stringify(SendData);
                                     console.log(jsonData);
                                     admin.req({
-                                        url: layui.setter.requesturl+'/ShowTaskEdit',
+                                        url: layui.setter.requesturl +'/api/SysManange/ShowTaskEdit',
                                         type: "post",
                                         data: {
                                             "senddata": jsonData,
