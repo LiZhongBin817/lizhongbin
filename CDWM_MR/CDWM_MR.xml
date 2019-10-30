@@ -1336,6 +1336,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.PutExcel(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            导入EXCEL
+            </summary>
+            <param name="workbookFile"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">
             <summary>
             Summary:全局路由权限公约

@@ -20,6 +20,9 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 系统管理
     /// </summary>
+    [Route("api/SysManange")]
+    [EnableCors("LimitRequests")]
+    [AllowAnonymous]
     public class SysManangeController : Controller
     {
         #region 相关变量
@@ -66,9 +69,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit">每页显示数量</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ShowUserInfoDate")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("ShowUserInfoDate")]       
         public async Task<TableModel<object>> ShowUserInfoDate(string FUserName, string LoginName, int page = 1, int limit = 5)
         {
             PageModel<object> user = new PageModel<object>();
@@ -114,8 +115,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("roleDate")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("roleDate")]       
         public async Task<TableModel<List<sys_role>>> roleDate()
         {
             //用户角色表
@@ -135,8 +135,7 @@ namespace CDWM_MR.Controllers
         /// <param name="roleid">用户角色ID</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("AddUser")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("AddUser")]     
         public async Task<TableModel<object>> AddUser(string JsonDate, int[] roleid)
         {
             await _sysManageServices.AddUserinfo(JsonDate, roleid);
@@ -157,8 +156,7 @@ namespace CDWM_MR.Controllers
         /// <param name="ID">用户ID</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("DeleteUser")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("DeleteUser")]      
         public async Task<TableModel<object>> DeleteUser(int ID)
         {
             sys_userinfo user = await _sysuserinfoservices.QueryById(ID);
@@ -179,8 +177,7 @@ namespace CDWM_MR.Controllers
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("DeleteUsers")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("DeleteUsers")]      
         public async Task<TableModel<object>> DeleteUsers(string ids)
         {
             object[] IDs = ids.Split(',');
@@ -208,7 +205,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("ModifyData")]
-        [AllowAnonymous]//允许所有都访问
+        
         public async Task<TableModel<object>> ModifyData(int ID)
         {
             return await _sysManageServices.Modify(ID);
@@ -222,7 +219,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ModifyUserInfo")]
-        [AllowAnonymous]//允许所有都访问 
+       
         public async Task<TableModel<object>> ModifyUserInfo(string JsonDate, int[] roleid)
         {
             await _sysManageServices.ModifyInfo(JsonDate, roleid);
@@ -249,9 +246,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("InterfaceInfoShow")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("InterfaceInfoShow")]        
         public async Task<TableModel<object>> InterfaceInfoShow(string InterfaceUrl, string InterfaceName, int page = 1, int limit = 10)
         {
             PageModel<object> Interface = new PageModel<object>();
@@ -294,8 +289,7 @@ namespace CDWM_MR.Controllers
         /// <param name="JsonData">前台传来的Json对象</param>
         /// <returns>总数目</returns>
         [HttpPost]
-        [Route("AddInterface")]
-        [AllowAnonymous]
+        [Route("AddInterface")]      
         public async Task<MessageModel<object>> AddInterface(string JsonData)
         {
            sys_interface_info Jsondata = Common.Helper.JsonHelper.GetObject<sys_interface_info>(JsonData);
@@ -333,8 +327,7 @@ namespace CDWM_MR.Controllers
         /// <param name="ID">编辑的ID</param>
         /// <returns>返回是否成功</returns>
         [HttpPost]
-        [Route("ModifyInterface")]
-        [AllowAnonymous]//允许所有都访问 
+        [Route("ModifyInterface")]       
         public async Task<MessageModel<object>> ModifyInterface(string JsonData,int ID)
         {
             sys_interface_info Jsondata = Common.Helper.JsonHelper.GetObject<sys_interface_info>(JsonData);
@@ -372,9 +365,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetTrees")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("GetTrees")]        
         public async Task<TableModel<object>> GetTrees()
         {
             var data=await _sysManageServices.GetTree(0);
@@ -394,9 +385,7 @@ namespace CDWM_MR.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("ShowInfo")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("ShowInfo")]       
         public async Task<TableModel<object>> ShowInfo(int id)
         {
             var data = await _sysManageServices.GetMenuInfo(id);
@@ -416,9 +405,7 @@ namespace CDWM_MR.Controllers
         /// <param name="json"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("SaveMenu")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("SaveMenu")]       
         public async Task<TableModel<object>> SaveMenu(string json)
         {
             if (await _sysManageServices.AddMenu(json))
@@ -448,9 +435,7 @@ namespace CDWM_MR.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("DeleMenu")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("DeleMenu")]        
         public async Task<TableModel<object>> DeleMenu(int id)
         {
             if (await _sysManageServices.DelMenu(id))
@@ -482,9 +467,7 @@ namespace CDWM_MR.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("AuthorityManagement")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("AuthorityManagement")]       
         public async Task<TableModel<object>> AuthorityManagement(string adddata,string deldata,string modifdata,string seedata,int id)
         {
             if (await _sysManageServices.Power(adddata,deldata,modifdata,seedata,id))
@@ -513,9 +496,7 @@ namespace CDWM_MR.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetInfo")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("GetInfo")]       
         public async Task<TableModel<object>> GetInfo(int id)
         {
             try
@@ -557,9 +538,7 @@ namespace CDWM_MR.Controllers
         /// <param name="RoleName">角色名称</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("AddRole")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("AddRole")]      
         public async Task<MessageModel<object>> AddRole( string RoleName)
         {
             sys_role role = new sys_role();
@@ -607,9 +586,7 @@ namespace CDWM_MR.Controllers
         /// <param name="RoleName">删除的角色名称</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("DeleteRole")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("DeleteRole")]        
         public async Task<MessageModel<object>> DeleteRole(string RoleName)
         {
             //寻找到RoleName相等的数据对应的ID
@@ -652,9 +629,7 @@ namespace CDWM_MR.Controllers
         /// <param name="NewRoleName">新角色名称</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("EditRole")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("EditRole")]      
         public async Task<MessageModel<object>> EditRole(string RoleName, string NewRoleName)
         {
             //查找到角色表中的所有数据
@@ -687,9 +662,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("ShowRole")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("ShowRole")]       
         public async Task<TableModel<object>> ShowRole()
         {
             //查询角色表中的所有数据
@@ -727,9 +700,7 @@ namespace CDWM_MR.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetMenuID")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("GetMenuID")]      
         public async Task<TableModel<object>> GetMenuID(int id)
         {
             return await _sysManageServices.GetMenuID(id);
@@ -742,9 +713,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetMenu")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("GetMenu")]       
         public async Task<TableModel<object>> GetMenu()
         {
             return await _sysManageServices.GetMenu();
@@ -759,9 +728,7 @@ namespace CDWM_MR.Controllers
         /// <param name="MenuID"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("Jude")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("Jude")]        
         public async Task<TableModel<object>> Jude(int RoleID, int MenuID)
         {
             return await _sysManageServices.Jude(RoleID, MenuID);
@@ -776,9 +743,7 @@ namespace CDWM_MR.Controllers
         /// <param name="MenuID"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("SaveOperation")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("SaveOperation")]      
         public async Task<TableModel<object>> SaveOperation(int RoleID, string MenuID)
         {
             return await _sysManageServices.SaveOperation(RoleID, MenuID);
@@ -793,9 +758,7 @@ namespace CDWM_MR.Controllers
         /// <param name="menuID"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetOperation")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("GetOperation")]        
         public async Task<TableModel<object>> GetOperation(int RoleID, int menuID)
         {
             return await _sysManageServices.GetOperation(RoleID, menuID);
@@ -811,9 +774,7 @@ namespace CDWM_MR.Controllers
         /// <param name="OperationID"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("EditOperations")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("EditOperations")]        
         public async Task<TableModel<sys_operation>> EditOperations(int RoleID, int MenuID, string OperationID)
         {
             return await _sysManageServices.EditOperations(RoleID, MenuID, OperationID);
