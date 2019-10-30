@@ -15,7 +15,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
     //渲染抄表册的表格
     table.render({
         elem: '#Book',
-        url: 'http://localhost:8081/t_b_bookinfoShow',
+        url: layui.setter.requesturl + '/api/BookManage/t_b_bookinfoShow',
         method: 'Post',
         cols: [[
             { title: '序号', type: 'numbers' },
@@ -39,7 +39,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
                     }
                 }
             },
-            { title: '操作', minWidth: 400, toolbar: '#barDemo', align: 'center', fixed: 'right' }
+            { title: '操作', minWidth: 420, toolbar: '#barDemo', align: 'center', fixed: 'right' }
         ]],
         page: true,
         limit: 10,
@@ -53,7 +53,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
     form.on('submit(polling)', function (obj) {
         var field = obj.field;
         table.reload('Book', {
-            url: 'http://localhost:8081/t_b_bookinfoShow',
+            url: layui.setter.requesturl + '/api/BookManage/t_b_bookinfoShow',
             method: 'post',
             where: {
                 "bookno": field.bookno,
@@ -64,7 +64,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
     //监听用户信息查询
     form.on('submit(DiPolling)', function (obj) {
         table.reload('DistributeUserTable', {
-            url: 'http://localhost:8081/AllUserInfoShow',
+            url: layui.setter.requesturl + '/api/BookManage/AllUserInfoShow',
             method: 'post',
             where: {
                 "areaname": obj.field.areaname,
@@ -76,7 +76,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
     //监听抄表员查询
     form.on('submit(DiReaderPolling)', function (obj) {
         table.reload('DistributeReaderTable', {
-            url: 'http://localhost:8081/waterrederinfo',
+            url: layui.setter.requesturl + '/api/BookManage/waterrederinfo',
             method: 'post',
             where: {
                 "mrreadernumber": obj.field.mrreadernumber,
@@ -87,7 +87,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
     //监听添加抄表册界面中的提交
     form.on('submit(Book-add-submit)', function (obj) {
         admin.req({
-            url: 'http://localhost:8081/AddBook',
+            url: layui.setter.requesturl + '/api/BookManage/AddBook',
             type: 'post',
             data: {
                 "bookno": obj.field.bookno,
@@ -112,7 +112,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
         //监听添加用户至抄表册
         form.on('submit(AddToBook)', function (obj1) {
             admin.req({
-                url: 'http://localhost:8081/SelectUser',
+                url: layui.setter.requesturl + '/api/BookManage/SelectUser',
                 data: {
                     "account": account,
                     "meternum": meternum,
@@ -138,7 +138,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
         //监听添加抄表员到抄表册，需要拿到bookno的值，所以写在里面
         form.on('submit(AddReaderToBook)', function (obj2) {
             admin.req({
-                url: 'http://localhost:8081/SelectReader',
+                url: layui.setter.requesturl + '/api/BookManage/SelectReader',
                 type: 'post',
                 data: {
                     "readerid": ReaderID,
@@ -166,7 +166,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
                         form.render(null, 'AssoUserform');
                         table.render({//渲染关联用户界面的表格
                             elem: '#AssoUserTable',
-                            url: 'http://localhost:8081/AssoUserShow',
+                            url: layui.setter.requesturl + '/api/BookManage/AssoUserShow',
                             where: {
                                 "bookid": obj.data.ID
                             },
@@ -193,7 +193,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
         //显示关联抄表员信息
         if (layEvent == "ShowAssoReader") {
             admin.req({
-                url: 'http://localhost:8081/waterrederinfo',
+                url: layui.setter.requesturl + '/api/BookManage/waterrederinfo',
                 type: 'Post',
                 data: {
                     "readmanid": obj.data.readmanid
@@ -232,7 +232,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
                         //渲染所有用户信息的表格
                         table.render({//渲染关联用户界面的表格
                             elem: '#DistributeUserTable',
-                            url: 'http://localhost:8081/AllUserInfoShow',
+                            url: layui.setter.requesturl + '/api/BookManage/AllUserInfoShow',
                             method: 'post',
                             cols: [[
                                 { title: '#', type: 'checkbox' },
@@ -279,7 +279,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
                         //渲染所有用户信息的表格
                         table.render({//渲染关联用户界面的表格
                             elem: '#DistributeReaderTable',
-                            url: 'http://localhost:8081/waterrederinfo',
+                            url: layui.setter.requesturl + '/api/BookManage/waterrederinfo',
                             method: 'post',
                             cols: [[
                                 { title: '#', type: 'radio' },
@@ -296,11 +296,11 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
             });
         }
         //监听编辑按钮
-        if (layEvent == "edit") {
+        if (layEvent == "editBook") {
             editdata[0] = obj.data;
             var load4 = layer.load(3);
             admin.req({
-                url: 'http://localhost:8081/RegionShow',
+                url: layui.setter.requesturl + '/api/BookManage/RegionShow',
                 type: 'post',
                 success: function (DataObj) {
                     editdata[1] = DataObj.data;
@@ -314,7 +314,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
                                 form.render(null, 'Bookeditform')
                                 form.on('submit(Book-edit-submit)', function (BookeditObj) {
                                     admin.req({
-                                        url: 'http://localhost:8081/EditBook',
+                                        url: layui.setter.requesturl + '/api/BookManage/EditBook',
                                         data: {
                                             "ID": obj.data.ID,
                                             "bookname": BookeditObj.field.bookname,
@@ -339,12 +339,12 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
             });
         }
         //监听删除按钮
-        if (layEvent == "delete") {
+        if (layEvent == "deleteBook") {
             layer.confirm('删除后将无法恢复，请确认？', {
                 btn: ['确认', '取消'] //按钮
             }, function () {
                 admin.req({
-                    url: 'http://localhost:8081/DeleteBook',
+                    url: layui.setter.requesturl + '/api/BookManage/DeleteBook',
                     type: 'post',
                     data: {
                         "ID": obj.data.ID,
@@ -366,7 +366,6 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
 
         }
     });
-
     //监听关联用户信息左边的复选框
     table.on('checkbox(test1)', function (obj) {
         if (obj.checked == true) {
@@ -416,7 +415,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
     table.on('toolbar(test)', function (obj) {
         if (obj.event == "AddBook") {
             admin.req({
-                url: 'http://localhost:8081/RegionShow',
+                url: layui.setter.requesturl + '/api/BookManage/RegionShow',
                 type: 'post',
                 success: function (DataObj) {
                     view.popup({
@@ -434,7 +433,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
         }
         if (obj.event == "CreatExcel") {
             $.ajax({
-                url: 'http://localhost:8081/BuildExcel',
+                url: layui.setter.requesturl + '/api/BookManage/BuildExcel',
                 type: 'Get',
                 data: {
 

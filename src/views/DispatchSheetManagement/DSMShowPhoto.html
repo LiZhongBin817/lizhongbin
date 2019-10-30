@@ -1,0 +1,27 @@
+﻿<title>显示附件图片</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-form" layui-filter="ShowPhoto" id="ShowPhoto">
+    <div class="layui-card">
+        <div class="layui-card-header layui-bg-green">
+            <div class="layui-inline">
+                <label class="layui-inline-label" >附件页面</label>
+            </div>
+        </div>
+        <div class="layui-card-body">
+            <div class="layui-inline">
+                <label class="layui-inline-label">故障编号</label>
+                <div class="layui-inline">
+                    <script type="text/html" template>
+                        <input class="layui-input" type="text" name="DSMSPNumber" autocomplete="off" value="{{d.params}}">
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div  id="DSMShowShowPhoto">
+   
+</div>

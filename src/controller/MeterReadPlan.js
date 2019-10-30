@@ -1,13 +1,13 @@
-﻿/*Title:接口管理
+﻿/*Title:抄表计划管理
  *Creator:丁俊杰
  * Date:2019.09.07
  */
-layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'carousel', 'index', 'layedit'], function (exports) {
+layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'carousel', 'index', 'layedit'], function (exports) {
     var form = layui.form,
         table = layui.table,
         admin = layui.admin,
         view = layui.view,
-        util=layui.util,
+        util = layui.util,
         $ = layui.$,
         laydate = layui.laydate;
 
@@ -23,7 +23,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
     table.render({
         elem: '#MeterReading',
         method: 'post',
-        url: layui.setter.requesturl +'/api/SysManange/ShowPlan',//表格渲染后台地址
+        url: layui.setter.requesturl + '/api/MeterReadingPlan/ShowPlan',//表格渲染后台地址
         page: true,
         cols: [[
             { field: 'ID', title: '序号', width: 100, sort: true, fixed: 'left' },
@@ -76,7 +76,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                             console.log(SendData);
                             console.log(jsonData);
                             admin.req({
-                                url: layui.setter.requesturl +'/api/SysManange/AddPlan',//后台地址
+                                url: layui.setter.requesturl + '/api/MeterReadingPlan/AddPlan',//后台地址
                                 type: "post",
                                 data: {
                                     "data": jsonData,
@@ -88,6 +88,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                                     }
                                     else if (data.code == 0) {
                                         layer.msg("添加成功");
+                                        table.reload('MeterReading');
                                     }
                                     else {
                                         layer.msg("请按正确格式输入日期：如 2019-09-09");
@@ -118,16 +119,16 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                         table.render({
                             elem: '#MaterReaderPlan',
                             method: 'post',
-                            url: layui.setter.requesturl +'/api/SysManange/ShowMeterReadingBooks',
+                            url: layui.setter.requesturl + '/api/MeterReadingPlan/ShowMeterReadingBooks',
                             page: true,
                             cols: [[
-                                { field: 'MRID', title: '序号', width:100, sort: true, fixed: 'left' },
+                                { field: 'MRID', title: '序号', width: 100, sort: true, fixed: 'left' },
                                 { field: 'MRNumber', title: '抄表册编号', width: 150 },
                                 { field: 'MRName', title: '抄表册名称', width: 150 },
                                 { field: 'MRPeople', title: '抄表员', width: 100 },
                                 { field: 'MRMonth', title: '所属月份', width: 100 },
                                 {
-                                    field: 'MRStartTime', title: '起抄时间', width: 150 ,
+                                    field: 'MRStartTime', title: '起抄时间', width: 150,
                                     templet: function (d) {
                                         return util.toDateString(d.MRStartTime);
                                     }
@@ -138,7 +139,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                                         return util.toDateString(d.MREndTime);
                                     }
                                 },
-                                { field: 'MRTaskStatus', title: '任务状态', width: 100},
+                                { field: 'MRTaskStatus', title: '任务状态', width: 100 },
                                 { title: '编辑', width: 150, toolbar: '#MRbarDemo', align: 'center', fixed: 'right' }
                             ]],
                             limit: 10,
@@ -158,10 +159,10 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                 btn: ['确认', '取消'],
                 yes: function (layero) {
                     admin.req({
-                        url: layui.setter.requesturl +'/api/SysManange/AllocationOfData',
+                        url: layui.setter.requesturl + '/api/MeterReadingPlan/AllocationOfData',
                         type: "post",
                         data: {
-                            "data":accounts,
+                            "data": accounts,
                             "planid": planid
                         },
                         success: function (data) {
@@ -181,10 +182,10 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                         table.render({
                             elem: '#DistributionMeterReading',
                             method: "post",
-                            url: layui.setter.requesturl +'/api/SysManange/DistributionOfMeterReadingBooks',//后台地址
+                            url: layui.setter.requesturl + '/api/MeterReadingPlan/DistributionOfMeterReadingBooks',//后台地址
                             cols: [[
                                 { type: 'checkbox' },
-                                { field: 'Show_ID', title: 'ID',  sort: true },
+                                { field: 'Show_ID', title: 'ID', sort: true },
                                 { field: 'Show_Number', title: '抄表册编号' },
                                 { field: 'Show_MeterReading', title: '抄表册名称' },
                                 { field: 'Show_Status', title: '分配状态' }
@@ -211,7 +212,7 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                                                 }
                                                 accounts.push(table_data[i].Show_Number);
                                             }
-                                        }                                       
+                                        }
                                     }
                                     else {
                                         //单选去勾
@@ -231,14 +232,14 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                                                     }
                                                 }
                                             }
-                                            
+
                                         }
                                     }
                                 });
                                 //.假设你的表格指定的 id="DistributionMeterReading"，找到框架渲染的表格
                                 var tbl = $('#DistributionMeterReading').next('.layui-table-view');
                                 // 渲染选择框
-                                for (var i in table_data) {                                    
+                                for (var i in table_data) {
                                     for (var j in accounts) {
                                         if (table_data[i].Show_Number == accounts[j]) {
                                             tbl.find('table>tbody>tr').eq(i).find('td').eq(0).find('input[type=checkbox]').prop('checked', true);
@@ -263,13 +264,13 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
         var data = obj.data,
             $ = layui.$,
             Event = obj.event;
-        DATA.push(data);
         TaskID = data.MRID;
-        console.log(TaskID);
         if (Event === 'MRedit') {
             //抄表人员下拉框
+            DATA.splice(0, DATA.length);
+            DATA.push(data);
             admin.req({
-                url: layui.setter.requesturl +'/api/SysManange/ShowSelect',
+                url: layui.setter.requesturl + '/api/MeterReadingPlan/ShowSelect',
                 type: "post",
                 data: {
                 },
@@ -285,6 +286,20 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                         id: 'edit1',
                         success: function (layero, index) {
                             view('edit1').render('MeterReadingManage/MeterReadingPlan_Manage/MeterReadPlanPage', DATA).done(function () {
+                                console.log(DATA);
+                                //时间
+                                laydate.render({
+                                    elem: '#MRPPStartTime' //指定元素
+                                });
+                                laydate.render({
+                                    elem: '#MRPPEndTime',
+                                });
+                                laydate.render({
+                                    elem: '#StartDownLoadTime',
+                                });
+                                laydate.render({
+                                    elem: '#EndDownLoadTime',
+                                });
                                 form.render(null, 'MeterReadPlanPage');
                                 //监听提交
                                 form.on('submit(MRPP_submit)', function (Data) {
@@ -293,15 +308,14 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
                                         "mrreadername": selectreader,
                                         "bookname": fields.MeterReadBook,
                                         "mplanmonth": fields.MonthMonth,
-                                        "taskstarttime": fields.StartTime,
-                                        "taskendtime": fields.EndTime,
+                                        "taskstarttime": fields.MRPPStartTime,
+                                        "taskendtime": fields.MRPPEndTime,
                                         "downloadstarttime": fields.StartDownLoadTime,
                                         "downloadendtime": fields.EndDownLoadTime
                                     };
                                     var jsonData = JSON.stringify(SendData);
-                                    console.log(jsonData);
                                     admin.req({
-                                        url: layui.setter.requesturl +'/api/SysManange/ShowTaskEdit',
+                                        url: layui.setter.requesturl + '/api/MeterReadingPlan/ShowTaskEdit',
                                         type: "post",
                                         data: {
                                             "senddata": jsonData,
@@ -361,6 +375,17 @@ layui.define(['form','util', 'table', 'admin', 'view', 'layer', 'laydate', 'caro
     form.on('select(MRPMeterReader)', function (data) {
         selectreader = data.value;
     });
+
+    // 设置最小可选的日期
+    function minDate() {
+        var now = new Date();
+        return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+    }
+    //设置最大可选时间
+    function maxDate() {
+        var now = new Date();
+        return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+    }
 
     exports('MeterReadPlan', {})
 });

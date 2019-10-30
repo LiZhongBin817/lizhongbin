@@ -1,0 +1,87 @@
+﻿<title>用量异常分析</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<div class="layui-col-md12">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item" id="wx">
+                <div class="layui-inline">
+                    <label class="layui-form-label">年月选择器</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="taskperiodname" class="layui-input" id="taskperiodname" placeholder="请选择年月" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">抄表员</label>
+                    <div class="layui-input-inline">
+                        <select name="mrreaderman" lay-filter="" id="mrreaderman">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">抄表册</label>
+                    <div class="layui-input-inline">
+                        <select name="bookno" lay-filter="" id="bookno">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">用户编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="autoaccount" class="layui-input" id="autoaccount" autocomplete="off">
+                    </div>
+                </div>
+
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">水量差预警(吨)>=</label>
+                    <div class="layui-input-inline">
+                        <input type="text" value="10" name="waterdifference" class="layui-input" id="waterdifference" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">水量差比列预警(%)>=</label>
+                    <div class="layui-input-inline">
+                        <input type="text" value="80" name="waterdifferencerate" class="layui-input" id="waterdifferencerate" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="Button">
+                        查询
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="layui-card-body" layui-form>
+            <table class="layui-hide" id="DosageAnomalyAnalysis" lay-filter="DosageAnomalyAnalysis"></table>          
+        </div>
+
+
+    </div>
+
+</div>
+<script type="text/html" id="BarDemo">
+    <a class="layui-btn" id="detail01" lay-event="detail">地理位置查看</a>
+</script>
+<script>
+    layui.use('DosageAnomalyAnalysis', layui.factory('DosageAnomalyAnalysis')).use(['admin', 'DosageAnomalyAnalysis','laydate', 'table', 'view', 'form' ], function () {
+        var admin = layui.admin,
+            view = layui.view,
+            table = layui.table,
+            laydate = layui.laydate,
+            form = layui.form,
+            DosageAnomalyAnalysis=layui.DosageAnomalyAnalysis;
+            form.render();
+
+        });
+</script>

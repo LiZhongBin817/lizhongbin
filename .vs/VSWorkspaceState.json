@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\controller"
+    "\\src\\controller",
+    "\\src\\views",
+    "\\src\\views\\watermeterManage"
   ],
-  "SelectedNode": "\\src\\controller\\DetailManage.js",
+  "SelectedNode": "\\src\\controller\\watermeterManage.js",
   "PreviewInSolutionExplorer": false
 }

@@ -1,88 +1,123 @@
-﻿/*Title:派工单管理
+/*Title:派工单管理
  *Creator:丁俊杰
- * Date:2019.09.17
+ * Date:2019.09.20
  */
 
-layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', 'index'], function (exports) {
+layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'layedit', 'upload', 'jquery','bMap'], function (exports) {
     var form = layui.form,
         table = layui.table,
         admin = layui.admin,
+        laydate = layui.laydate,
         view = layui.view,
-        $=layui.$,
-        laydate = layui.laydate;
+        util = layui.util,
+        upload = layui.upload,
+        bMap=layui.bMap,
+        $ = layui.$;
+    var StartTime;//开始时间
+    var EndTime;//结束时间
+    var ID;//faultinfo的ID
+    var Number;//faultinfo 中故障编号
+    var DispatchedWorker;//派工
+    var LatestTime;//最迟处理时间
+    var MeterReadingClerkID;//抄表员ID
+    var Resdata = new Array();//存储给受理操作界面数据
+    var DealResdata = new Array();//存储给操作界面数据
+    var FaultArray = new Array();//传给FaultHanding
     table.render({
-        elem: '#DSMShow',
-        col:[[
+        elem: '#DSMShowtable',
+        url: layui.setter.requesturl + '/api/DispatchSheet/ShowFaultTable',
+        method: 'post',
+        cols: [[
             { field: 'DSMID', title: '序号', width: 100, sort: true, fixed: 'left' },
             { field: 'DSMNumber', title: '故障编号', width: 150 },
-            { field: 'DSMType', title: '故障类型', width: 150 },
+            {
+                field: 'DSMType', title: '故障类型', width: 100,
+                templet: function (d) {
+                    if (d.DSMType == 6) {
+                        return "表埋"
+                    }
+                    else if (d.DSMType == 7) {
+                        return "表坏"
+                    }
+                    else if (d.DSMType == 8) {
+                        return "井盖坏"
+                    }
+                    else if (d.DSMType == 10) {
+                        return "漏水"
+                    }
+                    else {
+                        return "其他"
+                    }
+                }
+            },
             { field: 'DSMContent', title: '故障内容', width: 150 },
-            { field: 'DSMTime', title: '上报时间', width: 200 },
-            { field: 'DSMReportPerson', title: '上报人', width: 150 },
-            { field: 'DSMEnclosure', title: '附件', width: 100, event:'Enclosure' },
-            { field: 'DSMStatus', title: '状态', width: 100 },
-            { field: 'DSMAddress', title: '位置信息', width: 100, event:'Address' },
-            { field: 'DSMOperation', title: '操作', width: 150, fixed: 'right', align: 'center', toolbar: '#DSMbarDemo'}
+            {
+                field: 'DSMTime', title: '上报时间', width: 150,
+                templet: function (d) {
+                    return util.toDateString(d.DSMTime);
+                }
+            },
+            { field: 'DSMReportPerson', title: '上报人', width: 100 },
+            {
+                field: 'DSMEnclosure', title: '附件', width: 100, event: 'Enclosure',
+                templet: function (d) {
+                    return '<a  style="color: #c00;text-decoration:underline">' + d.DSMEnclosure + '</a>'
+                }
+            },
+            {
+                field: 'DSMStatus', title: '状态', width: 100,
+                templet: function (d) {
+                    if (d.DSMStatus == 0) {
+                        return "未受理"
+                    }
+                    else if (d.DSMStatus == 1) {
+                        return "已受理"
+                    }
+                    else if (d.DSMStatus == 2) {
+                        return "已处理"
+                    }
+                    else {
+                        return "已存档"
+                    }
+                }
+            },
+            {
+                field: 'DSMAddress', title: '位置信息', width: 100, event: 'Address',
+                templet: function (d) {
+                    return '<a style="color: #c00;text-decoration:underline">' + d.DSMAddress + '</a>'
+                }
+            },
+            {
+                field: 'DSMOperation', title: '操作', width: 250, fixed: 'right', align: 'center',
+                templet: function (d) {
+                    if (d.DSMStatus == 0) {
+                        return '<a class="layui-btn layui-btn-warm " lay-event="DSMAcceptance">受理</a><a class="layui-btn layui-btn-warm " lay-event="DSMEdit">编辑</a><a class="layui-btn layui-btn-warm " lay-event="DSMDelte">删除</a>'
+                    }
+                    else if (d.DSMStatus == 1) {
+                        return '<a class="layui-btn layui-btn-warm " lay-event="DSMHandle">处理</a><a class="layui-btn layui-btn-warm " lay-event="DSMEdit">编辑</a><a class="layui-btn layui-btn-warm " lay-event="DSMDelte">删除</a>'
+                    }
+                    else if (d.DSMStatus == 2) {
+                        return '<a class="layui-btn layui-btn-warm " lay-event="DSMHandleinformation">处理信息</a><a class="layui-btn layui-btn-warm " lay-event="DSMEdit">编辑</a><a class="layui-btn layui-btn-warm " lay-event="DSMDelte">删除</a>'
+                    }
+                }
+            }
         ]],
         page: true,
         limit: 10,
         limits: [10, 15, 20],
-        
-    });
-
-    $(function () {
-        admin.req({
-            type: "post",
-            url: '',//后台地址
-            data: {},
-            success: function (data) {
-                //获取表格id
-                var table = document.getElementById("DSMShow");
-                //通过循环将获取的数据插入表中
-                for (var i = 0; i < data.length; i++) {
-                    var row = table.insertRow(table.rows.length);
-                    var c1 = row.insertCell(0);
-                    c1.innerHTML = data[i].DSMID;
-                    var c2 = row.insertCell(1);
-                    c2.innerHTML = data[i].DSMNumber;
-                    var c3 = row.insertCell(2);
-                    c3.innerHTML = data[i].DSMType;
-                    var c4 = row.insertCell(3);
-                    c4.innerHTML = data[i].DSMContent;
-                    var c5 = row.insertCell(4);
-                    c5.innerHTML = data[i].DSMTime;
-                    var c6 = row.insertCell(5);
-                    c6.innerHTML = data[i].DSMReportPerson;
-                    var c7 = row.insertCell(6);
-                    c7.innerHTML = "<button class='btn btn-link' event:'Enclosure'></button>";
-                    var c8 = row.insertCell(7);
-                    c8.innerHTML = data[i].DSMStatus;
-                    var c9 = row.insertCell(8);
-                    c9.innerHTML = "<button class='btn btn-link' event:'Address'>查看</button>";
-                    var c10 = row.insertCell(9);
-                    c10.innerHTML = data[i].DSMOperation;
-                    //图片之前是10列，所以从11列开始插入图片路径，for循环从11开始
-                    //循环停止的条件是获取的图片数量加上固定列数，通过变量j将获取的图片插入到每一列中
-                    var j = 0;
-                    for (var x = 11; x < data[i].img.length+10; x++) {
-                        var c11 = row.insertCell(x);
-                        c11.innerHTML = data[i].img[j++];
-                        c11.style.display = "none";
-                    }
-                }
-            }
-        });
     });
 
     //监听查询
     form.on('submit(DSM_polling)', function (obj) {
         var field = obj.field;
-        table.reload('DSMShow', {
+        console.log(field);
+        table.reload('DSMShowtable', {
             where: {
                 "DSMNumber": field.DSMNumber,
                 "DSMType": field.DSMType,
                 "DSMStatus": field.DSMStatus,
-                "DSMTime": field.DSMTime
+                "StartTime": field.StarTime,
+                "EndTime": field.EndTime
             }
             , page: {
                 "curr": 1,
@@ -96,30 +131,387 @@ layui.define(['form', 'table', 'admin', 'view', 'laydate', 'layer', 'laypage', '
         var data = obj.data,
             event = obj.event,
             tr = obj.tr;
-        //监听附件
-        if (event =="Enclosure") {
-            admin.req({
-                url: '',//后台传图片地址
-                type: "post",
-                data: {
+        Resdata.push(data);
+        Resdata.push(util.toDateString(data.DSMTime));//将时间格式规范化
+        ID = obj.data.DSMID;
+        Number = obj.data.DSMNumber;
+        console.log(ID);
+        console.log(Number);
+        admin.req({
+            url: layui.setter.requesturl +'/api/DispatchSheet/ShowDispatchedWorker',
+            type: "post",
+            data: {
+            },
+            success: function (resdata) {
+                //监听附件
+                if (event == "Enclosure") {
+                    admin.req({
+                        url: layui.setter.requesturl + '/api/DispatchSheet/ShowPhoto',//后台获取图片
+                        type: "post",
+                        data: {
+                            "id": ID
+                        },
+                        success: function (resdata) {
+                            admin.popup({
+                                title: "图片弹出层",
+                                area: ['700px', '500px'],
+                                maxmin: true,
+                                id: 'showphoto',
+                                shadeClose: true, //点击遮罩关闭
+                               // content: '<div id="photoForm1"></div>',
+                                success: function (layero, index) {
+                                    view('showphoto').render('DispatchSheetManagement/DSMShowPhoto', Number).done(function () {
+                                        for (var i = 0; i < resdata.data.length; i++) {
+                                            $("#DSMShowShowPhoto").append('<img src="'+ resdata.data[i] +'" height="200px"/>');
+                                        }
+                                        form.render(null, 'DSMShowOperation');
+                                    });
+                                }
+                            });
+                        }
 
-                },
-                success: function (data) {
-                
+                    });
                 }
-            });
-            admin.popup({
-                title: '附件页面',
-                area: ['700px', '500px'],
-                maxmin: true,
-                id: 'enclosure',
-                success: function (layero,index) {
-                    //获取表格中的列
-                    
+                //监听位置信息
+                else if (event == "Address") {
+                    admin.req({
+                        url: layui.setter.requesturl + '/api/DispatchSheet/ShowAddress',//后台地址图片
+                        type: "post",
+                        data: {
+                            "id": ID
+                        },
+                        success: function (data) {
+                            admin.popup({
+                                title: "地址信息",
+                                area: ['1000px', '700px'],
+                                maxmin: true,
+                                id: 'showaddress',
+                                success: function (layero, index) {
+                                    view('showaddress').render('DispatchSheetManagement/DSMShowAddress', Number).done(function () {
+                                        GPS(data.data);
+                                        form.render(null, 'ShowAddress');
+                                    });
+                                }
+                            });
+                        }
+                    });
                 }
-            });
-        }
+                //监听受理操作
+                else if (event == "DSMAcceptance") {
+                    if (Resdata.push(resdata.data)) {
+                        if (resdata.code == 0) {
+                            admin.popup({
+                                title: "受理操作",
+                                area: ['700px', '500px'],
+                                maxmin: true,
+                                id: 'AcceptanceOperation',
+                                success: function (layero, index) {
+                                    view('AcceptanceOperation').render('DispatchSheetManagement/DSMShowAcceptanceOperation', Resdata).done(function () {
+                                        laydate.render({
+                                            elem: '#ShowOperation_endtime',
+                                            min: minDate()
+                                        });
+                                        laydate.render({
+                                            elem: '#ShowOperation_operationtime',
+                                            value: new Date(),
+                                        });
+                                        console.log(Resdata);
+                                        form.render();
+                                        Resdata.splice(0, Resdata.length);//将数据清零
+                                        form.on('submit(DSMShowAcceptance_submit)', function (Data) {
+                                            console.log(DispatchedWorker);
+                                            LatestTime = Data.field.ShowOperation_operationtime;//最迟处理时间
+                                            admin.req({
+                                                url: layui.setter.requesturl + '/api/DispatchSheet/AcceptanceOperation',
+                                                type: "post",
+                                                data: {
+                                                    "id": ID,
+                                                    "Dispatchedworker": DispatchedWorker,
+                                                    "Latesttime": LatestTime
+                                                },
+                                                success: function (RESdata) {
+                                                    if (RESdata.code == 0) {
+                                                        layer.msg("提交成功");
+                                                        table.reload('DSMShowtable');
+                                                    }
+                                                    else {
+                                                        layer.msg("提交失败");
+                                                    }
+                                                }
+                                            });
+                                        });
+
+                                    });
+                                }
+                            });
+                        }
+                    }
+
+                }
+                //监听处理操作
+                else if (event == "DSMHandle") {
+                    ID = obj.data.DSMID;
+                    admin.req({
+                        url: layui.setter.requesturl + '/api/DispatchSheet/ShowProcessingoperationdateinfo',
+                        data: {
+                            "id": ID
+                        },
+                        type: "post",
+                        success: function (sresdata) {
+                            if (sresdata.code == 0) {
+                                DealResdata.push(resdata.data);
+                                admin.popup({
+                                    title: "处理操作",
+                                    area: ['700px', '500px'],
+                                    maxmin: true,
+                                    id: 'Processingoperation',
+                                    success: function (layero, index) {
+                                        DealResdata.push(sresdata.data);
+                                        view('Processingoperation').render('DispatchSheetManagement/DSMShowProcessingOperation', DealResdata).done(function () {
+                                            laydate.render({
+                                                elem: '#DSMShowProcessingOperationShow_operationtime',
+                                                value: new Date(),
+                                            });
+                                            form.render();
+                                            DealResdata.splice(0, DealResdata.length);
+                                            $('#DSMShowPO_submit').click(function () {
+                                               // var str = Data.field.DSMShowProcessingAccessories;//图片文件名
+                                                var isAutoSend = document.getElementsByName('Processed');
+                                                for (var i = 0; i < isAutoSend.length; i++) {
+                                                    if (isAutoSend[i].checked == true) {
+                                                        var res = isAutoSend[i].value;
+                                                    }
+                                                }
+                                                var files = document.getElementById('DSMShowOpdemo1');
+                                                console.log(files);
+                                                var remark = document.getElementById('Handlingsituation');
+                                                console.log(sresdata.data);
+                                                var senddata = {
+                                                    "taskperiodname": sresdata.data[0].taskperiodname,
+                                                    "faultid": sresdata.data[0].faultid,
+                                                    "faulttype": 1,
+                                                    "processpreson": DispatchedWorker,
+                                                    "processdatetime": sresdata.data[0].processdatetime,
+                                                    "processmark": remark.value,
+                                                    "processresult": 0,
+                                                    "processsource": "后台管理系统",
+                                                    "meternum": sresdata.data[0].meternum
+                                                };
+                                                console.log(JSON.stringify(senddata));
+                                                FaultArray.push(senddata);
+                                                console.log(FaultArray);
+                                                admin.req({
+                                                    //dataType:'json',
+                                                    url: layui.setter.requesturl + '/api/DispatchSheet/Processingoperations',
+                                                    data: {
+                                                        "FaultHandlinglist": JSON.stringify(FaultArray)
+                                                    },
+                                                    type: "post",
+                                                    success: function (resdata) {
+                                                        if (resdata.code == 0) {
+                                                            layer.msg("提交成功");
+                                                            table.reload('DSMShowtable');
+                                                        } else {
+                                                            layer.msg("提交失败");
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+                //监听处理信息
+                else if (event == "DSMHandleinformation") {
+                    admin.req({
+                        url: layui.setter.requesturl + '/api/DispatchSheet/FaultInformationDisplay',
+                        data: {
+                            "id": ID
+                        },
+                        type: "post",
+                        success: function (resdata) {
+                            if (resdata.code == 0) {
+                                admin.popup({
+                                    title: "处理信息",
+                                    area: ['700px', '500px'],
+                                    maxmin: true,
+                                    id: 'Processinformation',
+                                    success: function (layero, index) {
+                                        console.log(resdata.data);
+                                        view('Processinformation').render('DispatchSheetManagement/DSMShowProcessinformation', resdata.data).done(function () {
+                                            for (var i = 0; i < resdata.data[3].length; i++) {
+                                                console.log(resdata.data[3][0]);
+                                                $("#DSMSHOWPIphotoshow").append('<img src="' + resdata.data[3][i] + '" height="200px"/>');
+                                            }
+                                            for (var j = 0; j < resdata.data[4].length; j++) {
+                                                console.log(resdata.data[4][j]);
+                                                $("#DSMShowPIpictureshow").append('<img src="' + resdata.data[4][j] + '" height="200px"/>');
+                                            }
+                                            form.render();
+
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+                //监听编辑  
+                else if (event == "DSMEdit") {
+                    admin.popup({
+                        title: "编辑页面",
+                        area: ['700px', '500px'],
+                        maxmin: true,
+                        id: 'Editpage',
+                        success: function (layero, index) {
+                            view('Editpage').render('DispatchSheetManagement/DSMShowEditPage', obj.data).done(function () {
+                                laydate.render({
+                                    elem: '#EditReporttime',
+                                    max: maxDate()
+                                });
+                                form.render();
+                                form.on('submit(Edit_submit)', function (Data) {
+                                    var senddata = {
+                                        "readdataid": Data.EditNumber,
+                                        "faulttype": Data.EditType,
+                                        "faultcontent": Data.EditContent,
+                                        "reporttime": Data.EditReporttime,
+                                        "reportpeople": Data.EditReporter,
+                                        "faultstatus": Data.EditStatus
+                                    };
+                                    admin.req({
+                                        url: layui.setter.requesturl +'/api/DispatchSheet/DSEdits',
+                                        type: "post",
+                                        data: {
+                                            "id": ID,
+                                            "data": JSON.stringify(senddata)
+                                        },
+                                        success: function (resdata) {
+                                            if (resdata.code == 0) {
+                                                layer.msg("提交成功");
+                                            }
+                                            else {
+                                                layer.msg("提交失败");
+                                            }
+                                        }
+                                    });
+                                });
+                            });
+                        }
+                    });
+                }
+                //监听删除
+                else if (event == "DSMDelte") {
+                    admin.popup({
+                        title: "删除",
+                        content: "确定删除该数据吗！！！",
+                        maxmin: true,
+                        btn: ['提交', '取消'],
+                        yes: function (layero, index) {
+                            admin.req({
+                                url: layui.setter.requesturl + '/api/DispatchSheet/DSDelete',
+                                data: {
+                                    "id":ID
+                                },
+                                type: "post",
+                                success: function (resdata) {
+                                    if (resdata.code==0) {
+                                        layer.msg("删除成功");
+                                    }
+                                    else {
+                                        layer.msg("删除失败");
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
     })
-        
-    exports('DSMShow', {})
-})
+
+    //监听受理操作中的下拉框
+    form.on('select(DSMShowOperation_select)', function (data) {
+        DispatchedWorker = data.value;
+        console.log(data.value);
+        console.log(DispatchedWorker);
+    });
+    //监听受理操作中的该表抄户员
+    form.on('submit(DSMShowReader)', function (obj) {
+        DispatchedWorker = 0;
+    });
+    form.on('select(DSMShowProcessingOperationShow_DealPeople)', function (data) {
+        DispatchedWorker = data.value;
+    })
+
+    //时间
+    laydate.render({
+        elem: '#StarTime',
+    });
+    laydate.render({
+        elem: '#EndTime',
+    });
+   
+    // 设置最小可选的日期
+    function minDate() {
+        var now = new Date();
+        return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+    }
+    //设置最大可选时间
+    function maxDate() {
+        var now = new Date();
+        return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+    }
+    //普通图片上传
+
+    //PGS轨迹
+    function GPS(uploadGPS) {
+        //百度地图渲染
+        bMap.render({
+            ak: 'D2b4558ebed15e52558c6a766c35ee73'//一旦设置了全局，此（发起请求的相关）参数就会失效。
+            , https: true
+            , done: function () {//这种方式回调函数叫做
+                var points = [];
+                var data = [];
+                console.log(uploadGPS.length);
+                for (var i = 0; i < uploadGPS.length; i++) {
+                    var obj = uploadGPS[i];
+                    var ll = obj.split(",");
+                    var arr = [ll[0], ll[1]];
+                    data[data.length] = arr;
+                }            
+                for (var i = 0; i < data.length; i++) {
+                    points.push(new BMap.Point(data[i][0], data[i][1]));
+                }
+                var options = {
+                    size: BMAP_POINT_SIZE_SMALL,
+                    shape: BMAP_POINT_SHAPE_STAR,
+                    color: '#0f0'
+                }
+                map = new BMap.Map("icontainer");
+                map.centerAndZoom("常德", 12);
+                map.enableScrollWheelZoom(true);//开启鼠标滚轮缩放
+                map.addControl(new BMap.NavigationControl());
+                map.addControl(new BMap.ScaleControl());
+                map.addControl(new BMap.OverviewMapControl({ isOpen: true }));
+                var polyline = new BMap.Polyline(points, options);
+                map.addOverlay(polyline);  // 添加Overlay
+                console.log(points.length);
+                //添加海量点
+                for (var i = 0, pointslen = points.length; i < pointslen; i++) {
+                    var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
+                    var marker = new BMap.Marker(point); //将点转化成标注点
+                    map.addOverlay(marker);  //将标注点添加到地图上
+
+                    //通过drivingroute获取一条路线的point
+                }
+            }
+
+        });
+    }
+  
+    exports('DSMSHOW', {});
+});

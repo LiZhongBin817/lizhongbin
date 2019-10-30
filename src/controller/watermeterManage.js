@@ -181,8 +181,8 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
     //监听换表操作的提交按钮
     form.on('submit(Change_Sub)', function (obj) {
         admin.req({
-            url: 'post',
-            type: layui.setter.requesturl + '/api/WatermeterUserManage/Changemeter',
+            url: layui.setter.requesturl + '/api/WatermeterUserManage/Changemeter',
+            type: 'get',
             data: {
                 "Oldmeternum": obj.field.Oldmeternum,
                 "Newmeternum": obj.field.meternum
@@ -337,7 +337,7 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
                                             admin.popup({
                                                 title: '换表界面',
                                                 id: 'ChangeTable',
-                                                area: ['800px', '700px'],
+                                                area: ['1000px', '700px'],
                                                 success: function (layero, index) {
                                                     for (var i = 0; i < CTobj.data.length; i++) {
                                                         console.log(CTobj.data[i].updatemetertime);
@@ -352,27 +352,27 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
                                                         var installselected = '';
                                                         var Oldinstallpos = '';
                                                         var installpos = '';
-                                                        for (var i = 0; i < metermodel.length; i++) {
-                                                            if (metermodel[i].bmlid == CTobj.data[0].metermodel) {
+                                                        for (var i = 0; i < CTobj.data[3].length; i++) {
+                                                            if (CTobj.data[3][i].bmlid == CTobj.data[0].metermodel) {
                                                                 Oldselected = "selected";
                                                             }
-                                                            if (metermodel[i].bmlid == CTobj.data[1].metermodel) {
+                                                            if (CTobj.data[3][i].bmlid == CTobj.data[1].metermodel) {
                                                                 selected = "selected";
                                                             }
-                                                            Oldmaxrange += '<option value=' + metermodel[i].bmlid + ' ' + Oldselected + '>' + metermodel[i].maxrange + '</option>'
-                                                            maxrange += '<option value=' + metermodel[i].bmlid + ' ' + selected + '>' + metermodel[i].maxrange + '</option>'
+                                                            Oldmaxrange += '<option value=' + CTobj.data[3][i].bmlid + ' ' + Oldselected + '>' + CTobj.data[3][i].maxrange + '</option>'
+                                                            maxrange += '<option value=' + CTobj.data[3][i].bmlid + ' ' + selected + '>' + CTobj.data[3][i].maxrange + '</option>'
                                                         }
                                                         $('#Oldmetermodel').append(Oldmaxrange);
                                                         $('#metermodel').append(maxrange);
-                                                        for (var i = 0; i < installposlist.length; i++) {
-                                                            if (installposlist.bipid == CTobj.data[0].installpos) {
+                                                        for (var i = 0; i < CTobj.data[2].length; i++) {
+                                                            if (CTobj.data[2].bipid == CTobj.data[0].installpos) {
                                                                 Oldinstallselected = "selected";
                                                             }
-                                                            if (installposlist.bipid == CTobj.data[1].installpos) {
+                                                            if (CTobj.data[2].bipid == CTobj.data[1].installpos) {
                                                                 installselected = "selected";
                                                             }
-                                                            Oldinstallpos += '<option value=' + installposlist[i].bipid + ' ' + Oldinstallselected + '>' + installposlist[i].posname + '</option>'
-                                                            installpos += '<option value=' + installposlist[i].bipid + ' ' + installselected + '>' + installposlist[i].posname + '</option>'
+                                                            Oldinstallpos += '<option value=' + CTobj.data[2][i].bipid + ' ' + Oldinstallselected + '>' + CTobj.data[2][i].posname + '</option>'
+                                                            installpos += '<option value=' + CTobj.data[2][i].bipid + ' ' + installselected + '>' + CTobj.data[2][i].posname + '</option>'
                                                         }
                                                         $('#Oldinstallpos').append(Oldinstallpos);
                                                         $('#installpos').append(installpos);

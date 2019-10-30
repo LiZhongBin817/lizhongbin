@@ -4,7 +4,6 @@
 </script>
 
 <script type="text/html" id="DSMbarDemo">
-    <a class="layui-btn layui-btn-warm " lay-event="DSMAcceptance">受理</a>
     <a class="layui-btn layui-btn-warm " lay-event="DSMEdit">编辑</a>
     <a class="layui-btn layui-btn-warm " lay-event="DSMDelte">删除</a>
 </script>
@@ -16,30 +15,31 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">编号:</label>
                     <div class="layui-inline">
-                        <input class="layui-input" type="text" name="DSMNumber" autocomplete="off" placeholder="请输入编号       "/>
+                        <input class="layui-input" type="text" name="DSMNumber" autocomplete="off" placeholder="请输入编号       " />
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">状态:</label>
                     <div class="layui-input-block">
-                        <select>
+                        <select name="DSMStatus" id="DSMStatus" lay-filter="DSMSHOW_Status">
                             <option value="">请选择</option>
-                            <option value="1">未受损</option>
-                            <option value="2">已受理</option>
-                            <option value="3">已处理</option>
-                            <option value="4">已存档</option>
+                            <option value="0">未受理</option>
+                            <option value="1">已受理</option>
+                            <option value="2">已处理</option>
+                            <option value="3">已存档</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">故障类型:</label>
                     <div class="layui-input-block">
-                        <select>
+                        <select name="DSMType" id="DSMType" lay-filter="DSMSHOW_Type">
                             <option value="">请选择</option>
-                            <option value="1">表埋</option>
-                            <option value="2">表坏</option>
-                            <option value="3">漏水</option>
-                            <option value="4">其他</option>
+                            <option value="6">表埋</option>
+                            <option value="7">表坏</option>
+                            <option value="8">井盖坏</option>
+                            <option value="10">漏水</option>
+                            <option value="11">其他</option>
                         </select>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                     <div class="layui-input-inline">
                         <input type="text" name="StarTime" id="StarTime" lay-verify="StarTime" placeholder="开始时间" autocomplete="off" class="layui-input">
                     </div>
-                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline">-</div>
                     <div class="layui-input-inline">
                         <input type="text" name="EndTime" id="EndTime" lay-verify="EndTime" placeholder="完成时间" autocomplete="off" class="layui-input">
                     </div>
@@ -60,8 +60,18 @@
                 </div>
             </div>
             <div class="layui-card-body">
-                <table class="layui-hide" id="DSMShow" lay-filter="DSM" ></table>
+                <table class="layui-hide" id="DSMShowtable" lay-filter="DSM" ></table>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+      layui.use('DSMSHOW', layui.factory('DSMSHOW')).use(['admin', 'DSMSHOW', 'table', 'view', 'form', 'layer', 'index'], function () {
+        var admin = layui.admin,
+            view = layui.view,
+            table = layui.table,
+            form = layui.form;
+        form.render();
+    })
+    </script>>

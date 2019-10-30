@@ -52,7 +52,7 @@
             RoleName = obj.attr('name');
             roleID = obj.attr('id');
             admin.req({
-                url: layui.setter.requesturl+'/GetMenuID'
+                url: layui.setter.requesturl+'/api/SysManange/GetMenuID'
                 , type: 'Get'
                 , data: {
                     "id": roleID
@@ -81,7 +81,7 @@
                         //获取提交的字段
                         var field = data.field;
                         admin.req({
-                            url: "layui.setter.requesturl+'/AddRole"
+                            url: layui.setter.requesturl+'/api/SysManange/AddRole'
                             , type: 'Get'
                             , data: {
                                 "RoleNumber": data.field.RoleNumber,
@@ -130,7 +130,7 @@
                         form.on('submit(' + submitID + ')', function (data) {
                             var field = data.field;
                             admin.req({
-                                url: "layui.setter.requesturl+'/EditRole"
+                                url: layui.setter.requesturl+'/api/SysManange/EditRole'
                                 , type: 'Get'
                                 , data: {
                                     "RoleName": RoleName,
@@ -178,7 +178,7 @@
                 }, function () {
                     layer.close('dialog');
                     admin.req({
-                        url: layui.setter.requesturl+'/DeleteRole'
+                        url: layui.setter.requesturl+'/api/SysManange/DeleteRole'
                         , type: 'Get'
                         , data: {
                             "RoleName": RoleName
@@ -216,7 +216,7 @@
             }
             else {
                 admin.req({
-                    url: layui.setter.requesturl+'/SaveOperation'
+                    url: layui.setter.requesturl+'/api/SysManange/SaveOperation'
                     , type: 'Get'
                     , data: {
                         "RoleID": roleID,
@@ -244,7 +244,7 @@
         })
         function Refresh() {//刷新角色列表
             admin.req({
-                url: layui.setter.requesturl+'/ShowRole'
+                url: layui.setter.requesturl+'/api/SysManange/ShowRole'
                 , type: 'Get'
                 , data: {
                 }
@@ -268,7 +268,7 @@
         $(function () {
             Refresh();
             admin.req({
-                url: layui.setter.requesturl+'/GetMenu'
+                url: layui.setter.requesturl+'/api/SysManange/GetMenu'
                 , type: 'Get'
                 , success: function (data) {
                     layer.close(loadingFlag);
@@ -383,7 +383,7 @@
             else {
                 //判断复选框的值
                 admin.req({
-                    url: layui.setter.requesturl+'/Jude'
+                    url: layui.setter.requesturl+'/api/SysManange/Jude'
                     , type: 'Get'
                     , data: {
                         "RoleID": roleID,
@@ -413,7 +413,7 @@
                                     }
                                     sendData = sendData.substring(0, sendData.length_1);
                                     admin.req({
-                                        url: layui.setter.requesturl+'/EditOperations'
+                                        url: layui.setter.requesturl+'/api/SysManange/EditOperations'
                                         , type: 'Get'
                                         , data: {
                                             "RoleID": roleID,
@@ -436,7 +436,7 @@
                                         var div = layero.contents().find('#PowerBox');
                                         //渲染页面
                                         admin.req({
-                                            url: layui.setter.requesturl+'/GetOperation'
+                                            url: layui.setter.requesturl+'/api/SysManange/GetOperation'
                                             , type: 'Get'
                                             , data: {
                                                 "RoleID": roleID,
@@ -505,8 +505,10 @@
                 });
             }
         }
-        $(document).on('click', ".operation", function () {
+
+       $(document).on('click', ".operation", function () {
             Operation($(this).attr('id'));
         });
+
     });
 </script>
