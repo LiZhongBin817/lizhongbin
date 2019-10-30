@@ -13,7 +13,7 @@ layui.define(['table', 'form','view'], function (exports) {
     table.render({
         elem: '#Interface',
         method: 'post',
-        url: 'http://localhost:8081/InterfaceInfoShow',
+        url: layui.setter.requesturl+'/InterfaceInfoShow',
         cols: [[
             { field: 'InterfaceName', title: '接口名称', width: 200 },
             { field: 'InterfaceUrl', title: '接口地址', width: 200 },
@@ -61,6 +61,7 @@ layui.define(['table', 'form','view'], function (exports) {
         var layEvent = obj.event;    
         //编辑按钮
         if (layEvent === 'edit') {
+            console.log("编辑");
             admin.popup({              
                 title: '接口编辑弹窗',               
                 id: 'InterFaceEdit',
@@ -82,7 +83,7 @@ layui.define(['table', 'form','view'], function (exports) {
                             };
                             console.log(sendData);
                             admin.req({
-                                url: 'http://localhost:8081/ModifyInterface',
+                                url: layui.setter.requesturl+'/ModifyInterface',
                                 type: 'post',
                                 data: {
                                     "JsonData": JSON.stringify(sendData),
@@ -135,7 +136,7 @@ layui.define(['table', 'form','view'], function (exports) {
                             var field = obj.field;
                             var load = layer.load(3);
                             admin.req({
-                                url: 'http://localhost:8081/AddInterface',
+                                url: layui.setter.requesturl+'/AddInterface',
                                 type:'post',
                                 data: {
                                     "JsonData": JSON.stringify(field)

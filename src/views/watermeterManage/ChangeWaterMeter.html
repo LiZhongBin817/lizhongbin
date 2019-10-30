@@ -1,0 +1,165 @@
+﻿
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<div class="layui-fluid">
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto" id="watermeteruserAddform" lay-filter="Adduserinfoform">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">旧表信息</label>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">表号</label>
+                    </div>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Oldmeternum" id="Oldmeternum" autocomplete="off" type="text" value="{{d.params[0].meternum}}">
+                        </script>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">口径</label>
+                    </div>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Oldcaliber" id="Oldcaliber" autocomplete="off" type="text" value="{{d.params[0].caliber}}">
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">初始读数</label>
+                    </div>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Oldbwcode" id="Oldbwcode" autocomplete="off" type="text" value="{{d.params[0].bwcode}}">
+                        </script>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">最大量程</label>
+                    </div>
+                    <div class="layui-inline">
+                        <select id="Oldmetermodel" name="Oldmetermodel" lay-search>
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">安装位置</label>
+                    <div class="layui-input-block">
+                        <select name="Oldinstallpos" lay-search id="Oldinstallpos">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">GIS位置</label>
+                    <div class="layui-input-block">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="OldGISPlace1" id="OldGISPlace1" autocomplete="off" type="text" value="{{d.params[0].GISPlace}}">
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">GIS修正</label>
+                    <div class="layui-input-block">
+                        <input class="layui-input" name="OldGISPlace" id="OldGISPlace" autocomplete="off" type="text">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">截止底数</label>
+                    </div>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Oldlastwaternum" id="Oldlastwaternum" autocomplete="off" type="text" value="{{d.params[0].lastwaternum}}">
+                        </script>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">更换日期</label>
+                    </div>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Oldupdatemetertime" id="Oldupdatemetertime" autocomplete="off" type="text" value="{{d.params[0].updatemetertime}}                             ">
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">更换原因</label>
+                    <div class="layui-input-block">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Oldremark" id="Oldremark" autocomplete="off" type="text" value="{{d.params[0].remark}}">
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">新表信息</label>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">表号</label>
+                    </div>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="meternum" id="meternum" autocomplete="off" type="text" value="{{d.params[1].meternum}}">
+                        </script>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">口径</label>
+                    </div>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="caliber" id="caliber" autocomplete="off" type="text" value="{{d.params[1].caliber}}">
+                        </script>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">初始读数</label>
+                        </div>
+                        <div class="layui-inline">
+                            <script type="text/html" template>
+                                <input class="layui-input" name="bwcode" id="bwcode" autocomplete="off" type="text" value="{{d.params[1].bwcode}}">
+                            </script>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">最大量程</label>
+                        </div>
+                        <div class="layui-inline">
+                            <script type="text/html" template>
+                                <select id="metermodel" name="metermodel" lay-search>
+                                </select>
+                            </script>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">安装位置</label>
+                        <div class="layui-input-block">
+                            <select name="installpos" lay-search id="installpos">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="Change_Sub">
+                        提交
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use('watermeterManage', layui.factory('watermeterManage')).use(['admin', 'watermeterManage', 'table', 'view', 'form', 'laydate'], function () {
+        var admin = layui.admin,
+            view = layui.view,
+            table = layui.table,
+            form = layui.form;
+
+        form.render();
+    })</script>

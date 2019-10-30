@@ -295,13 +295,13 @@
         }
         //监听编辑按钮
         if (layEvent == "edit") {
-            editdata[0] = obj.data;           
+            editdata[0] = obj.data;
             var load4 = layer.load(3);
             admin.req({
                 url: 'http://localhost:8081/RegionShow',
                 type: 'post',
                 success: function (DataObj) {
-                    editdata[1] = DataObj.data;                    
+                    editdata[1] = DataObj.data;
                     admin.popup({
                         title: '抄表册编辑按钮',
                         id: 'BookEdit',
@@ -314,7 +314,7 @@
                                     admin.req({
                                         url: 'http://localhost:8081/EditBook',
                                         data: {
-                                            "ID": obj.data.ID,                                         
+                                            "ID": obj.data.ID,
                                             "bookname": BookeditObj.field.bookname,
                                             "regionno": BookeditObj.field.regionno
                                         },
@@ -341,30 +341,30 @@
             layer.confirm('删除后将无法恢复，请确认？', {
                 btn: ['确认', '取消'] //按钮
             }, function () {
-                    admin.req({
-                        url: 'http://localhost:8081/DeleteBook',
-                        type: 'post',
-                        data: {
-                            "ID": obj.data.ID,
-                            "bookno": obj.data.bookno
-                        },
-                        success: function (msg) {
-                            if (msg.msg == "ok") {
-                                layer.msg("操作成功");
-                                table.reload('Book');
-                            }
-                            else {
-                                layer.msg("操作失败");
-                            }
+                admin.req({
+                    url: 'http://localhost:8081/DeleteBook',
+                    type: 'post',
+                    data: {
+                        "ID": obj.data.ID,
+                        "bookno": obj.data.bookno
+                    },
+                    success: function (msg) {
+                        if (msg.msg == "ok") {
+                            layer.msg("操作成功");
+                            table.reload('Book');
                         }
-                    });
-                }, function () {
-                   
+                        else {
+                            layer.msg("操作失败");
+                        }
+                    }
                 });
-                  
+            }, function () {
+
+            });
+
         }
     });
-    
+
     //监听关联用户信息左边的复选框
     table.on('checkbox(test1)', function (obj) {
         if (obj.checked == true) {

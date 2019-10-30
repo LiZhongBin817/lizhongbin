@@ -158,7 +158,7 @@ layui.extend({
         admin.pageType = 'alone';
       });
     } else { //后台框架页面
-      
+        console.log(setter.interceptor);
       //强制拦截未登入
       if(setter.interceptor){
         var local = layui.data(setter.tableName);

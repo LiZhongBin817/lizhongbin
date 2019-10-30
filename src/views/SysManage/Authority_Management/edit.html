@@ -1,0 +1,48 @@
+﻿<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-form" lay-filter="layui-Page-Edit" id="layui-Page-Edit">
+    <div class="layui-form-item">
+        <label class="layui-form-label">权限名:</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="OperationName"  autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">菜单ID:</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="MenuID" disabled="disabled" autocomplete="off"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">接口ID:</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="InterfaceID" disabled="disabled"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">URL地址:</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="LinkUrl" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">权限种类:</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="OperationType" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit lay-filter="LAY-Edit-submit" id="LAY-Edit-submit" value="确认">
+    </div>
+</div>
+<script>
+    layui.use(['admin','table','form','view','jquery',/*'Operation',*/'autocomplete'], function () {
+        var $ = layui.$
+            , admin = layui.admin
+            , table = layui.table
+            ,view=layui.view
+            , form = layui.form;
+    });
+</script>

@@ -1,0 +1,45 @@
+﻿<title>分配抄表册</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<div class="layui-fiuld ">
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-form layui-card-header  layuiadmin-card-header-auto" lay_fiter="DMR_form" id="DMR_form">
+                <div class="layui-inline">
+                    <label class="layui-form-label">分配状态:</label>
+                    <div class="layui-input-block">
+                        <select name="DistributionStatus" id="DistributionStatus" lay-filter="DMR_DistributionStatus">
+                            <option value="0">请选择</option>
+                            <option value="1">已分配</option>
+                            <option value="2">未分配</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="DMR_polling">
+                        查询
+                    </button>
+                </div>
+            </div>
+            <div class="layui-card-body">
+                <table class="layui-hide" id="DistributionMeterReading" lay-filter="DMR"></table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    layui.use('MeterReadPlan', layui.factory('MeterReadPlan')).use(['admin', 'MeterReadPlan', 'table', 'view', 'form', 'layer', 'laydate', 'carousel', 'index', 'layedit'], function () {
+        var admin = layui.admin,
+            view = layui.view,
+            table = layui.table,
+            form = layui.form;
+        form.render();
+
+    })
+</script>
+

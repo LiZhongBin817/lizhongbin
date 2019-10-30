@@ -2,13 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\json",
-    "\\json\\user",
     "\\src",
+    "\\src\\controller",
     "\\src\\views",
-    "\\src\\views\\mr_bookManage",
-    "\\src\\views\\user",
+    "\\src\\views\\watermeterManage",
     "\\start"
   ],
-  "SelectedNode": "\\src\\views\\mr_bookManage\\AssoUserDetail.html",
+  "SelectedNode": "\\src\\controller\\watermeterManage.js",
   "PreviewInSolutionExplorer": false
 }

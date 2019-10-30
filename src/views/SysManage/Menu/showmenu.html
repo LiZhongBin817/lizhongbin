@@ -1,4 +1,6 @@
-﻿<script type="text/html" template>
+﻿<title>菜单管理</title>
+
+<script type="text/html" template>
     <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
     <link href="{{layui.setter.base}}style/dtree/dtree.css?v={{ layui.admin.v }}-1" media="all" rel="stylesheet" />
     <link href="{{layui.setter.base}}style/dtree/font/dtreefont.css?v={{ layui.admin.v }}-1" media="all" rel="stylesheet" />
@@ -88,7 +90,7 @@
             return new Promise((res, rej) => {
                 setTimeout(function () {
                     admin.req({
-                        url: 'http://localhost:8081/GetTrees',
+                        url: layui.setter.requesturl+'/GetTrees',
                         type: 'get'
                         , beforeSend: function (XMLHttpRequest) {
                             //注意，layer.msg默认3秒自动关闭，如果数据加载耗时比较长，需要设置time
@@ -118,7 +120,7 @@
             Current_module = obj.param.context;//获取当前模块名字
             CurrentID = obj.param.nodeId;
             admin.req({
-                url: 'http://localhost:8081/ShowInfo',
+                url: layui.setter.requesturl+'/ShowInfo',
                 type: 'get',
                 data: {
                     "id": obj.param.nodeId
@@ -130,20 +132,14 @@
                     var Remark = data.data[0].Remark;//详细描述
                     var Address = data.data[0].MenuUrl;//URL地址
                     var ParentID = data.data[0].ParentID;
-                    console.log(LastMenu);
-                    console.log(Order);
-                    console.log(Remark);
-                    console.log(Address);
-                    console.log(ParentID);
                     var textarea = document.getElementsByTagName("textarea");
                     textarea.value = Remark;
                     var input = document.getElementsByTagName("input");
-                    input[5].value = "系统管理";
-                    input[6].value = LastMenu;
+                    input[5].value = "菜单管理";
+                    ParentID == 0? input[6].value = "菜单管理":input[6].value = LastMenu;                    
                     input[7].value = Current_module;
                     input[8].value = Order;
                     input[9].value = Address;
-                    console.log(ParentID);
                     var btn = document.getElementById("Pcontrol");
                     btn.style.display = ParentID != 0 ? "block" : "none";
                 }
@@ -183,7 +179,7 @@
                     sendModifiedData = sendModifiedData.substring(0, sendModifiedData.lastIndexOf(','));
                     sendSelectData = sendSelectData.substring(0, sendSelectData.lastIndexOf(','));
                     admin.req({
-                        url: 'http://localhost:8081/AuthorityManagement',
+                        url: layui.setter.requesturl+'/AuthorityManagement',
                         type: 'post',
                         data: {
                             "adddata": sendAddData,
@@ -208,7 +204,7 @@
                         var div = layero.contents().find('#layui-Page-Power-Setting');
                         var Odiv = div.find(".Add"), Odiv1 = div.find(".Del"), Odiv2 = div.find(".Modified"), Odiv3 = div.find(".Select");
                         admin.req({
-                            url: 'http://localhost:8081/GetInfo',
+                            url: layui.setter.requesturl+'/GetInfo',
                             type: 'get',
                             data: {
                                 "id": CurrentID,
@@ -244,7 +240,7 @@
                     var  message = "是否删除" + Current_module;
                     layer.confirm(message, function (index) {
                     admin.req({
-                        url: 'http://localhost:8081/DeleMenu',
+                        url: layui.setter.requesturl+'/DeleMenu',
                         type: 'get',
                         data: { "id": CurrentID, },
                         success: function (obj) {
@@ -280,7 +276,7 @@
                     "Remark": MRemark,
                 }
                 admin.req({
-                    url: 'http://localhost:8081/SaveMenu',
+                    url: layui.setter.requesturl+'/SaveMenu',
                     type: 'Post',
                     data: {
                         "json": JSON.stringify(sendData)
