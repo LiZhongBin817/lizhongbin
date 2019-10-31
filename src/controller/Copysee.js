@@ -76,7 +76,7 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
        // console.log("10001");
         var field = obj.field;
         admin.req({
-            url: layui.setter.requesturl +'/ShowCopysee',
+            url: layui.setter.requesturl +'/api/ShowCopysee',
             type: 'post',
             data: {
                 "taskperiodname": field.taskperiodname,
@@ -112,14 +112,14 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
     // 导出
    
     $('#Buttontow').on('click', function () {      
-            window.location.href = layui.setter.requesturl + "/OutExcel1?taskperiodname=" + $('#wx').find("#taskperiodname").val() + "&mrreadername=" + $('#wx').find("#bookman").val();
+        window.location.href = layui.setter.requesturl + "/api/OutExcel1?taskperiodname=" + $('#wx').find("#taskperiodname").val() + "&mrreadername=" + $('#wx').find("#bookman").val();
     });
     
     
 
     //给抄表员下拉框给值
     admin.req({
-        url: layui.setter.requesturl+'/Serchname',
+        url: layui.setter.requesturl +'/api/Serchname',
         type: 'post',
         data: {
         },
@@ -135,7 +135,7 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
 
     //给静态表格值
     admin.req({
-        url: layui.setter.requesturl + '/ShowCopysee',
+        url: layui.setter.requesturl + '/api/ShowCopysee',
         type: 'post',
         data: {
         },
