@@ -52,6 +52,13 @@ namespace CDWM_MR.Controllers
         /// <param name="t_b_usersServices"></param>
         /// <param name="t_b_watermetersServices"></param>
         /// <param name="v_watermeterinfoServices"></param>
+        /// <param name="mr_b_bookinfoService"></param>
+        /// <param name="mr_b_readerService"></param>
+        /// <param name="t_b_watermetertypeService"></param>
+        /// <param name="t_b_factoryService"></param>
+        /// <param name="t_b_installposService"></param>
+        /// <param name="t_b_watermodelService"></param>
+        /// <param name="t_b_natureService"></param>
         public WatermeterUserManageController(Iv_wateruserinfoServices v_wateruserinfoServices, It_b_regionsServices t_b_regionsServices, It_b_areasServices t_b_areasServices, It_b_usersServices t_b_usersServices, It_b_watermetersServices t_b_watermetersServices, Iv_watermeterinfoServices v_watermeterinfoServices, Imr_b_bookinfoServices mr_b_bookinfoService, Imr_b_readerServices mr_b_readerService, It_b_watermetertypeServices t_b_watermetertypeService, It_b_factoryServices t_b_factoryService, It_b_installposServices t_b_installposService, It_b_watermodelServices t_b_watermodelService, It_b_natureServices t_b_natureService)
         {
             _v_wateruserinfoServices = v_wateruserinfoServices;
@@ -161,6 +168,11 @@ namespace CDWM_MR.Controllers
                 data = showdate.data
             };
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("SelectValue")]       
         public async Task<TableModel<object>> SelectValue()
@@ -401,6 +413,11 @@ namespace CDWM_MR.Controllers
                 data = null
             };
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("AdduserDataShow")]      
         public async Task<TableModel<object>> AdduserDataShow()
@@ -531,7 +548,7 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 导入EXCEL
         /// </summary>
-        /// <param name="workbookFile"></param>
+        /// <param name="environment"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("PutExcel")]

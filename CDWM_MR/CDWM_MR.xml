@@ -1425,13 +1425,15 @@
             APP下载抄表计划
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.#ctor(CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,Microsoft.AspNetCore.Hosting.IHostingEnvironment,CDWM_MR.IServices.Content.Iv_bookexcelServices,CDWM_MR.IServices.Content.Iv_downloaddatainfoServices)">
             <summary>
             构造函数注入
             </summary>
             <param name="taskservices"></param>
             <param name="Taskinfo"></param>
             <param name="Env"></param>
+            <param name="vbookexcel"></param>
+            <param name="downloaddatainfoservices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.DownLoadMR(System.Nullable{System.Int32})">
             <summary>
@@ -1440,25 +1442,26 @@
             <param name="ID"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.downLoadMRinfo(System.String)">
+        <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.downLoadMRinfo(System.Nullable{System.Int32})">
             <summary>
-            抄表册EXCEL文件下载
+            下载抄表信息
             </summary>
-            <param name="bookno">抄表册编号</param>
+            <param name="taskid"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.JudeSuccess(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             下载回调
             </summary>
-            <param name="bookno"></param>
-            <param name="status">下载状态</param>
+            <param name="taskid"></param>
+            <param name="status"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppDownloadMRPlanController.UploadImg(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
-            接受上传图片
+            接受上传图片(测试)
             </summary>
+            <param name="Test"></param>
             <param name="environment"></param>
             <returns></returns>
         </member>

@@ -12,7 +12,7 @@
         /// <summary>
         /// 返回信息
         /// </summary>
-        public string msg { get; set; } = "服务器异常";
+        public string msg { get; set; } = "服务器正常";
         /// <summary>
         /// 返回数据集合
         /// </summary>

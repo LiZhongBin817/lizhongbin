@@ -29,7 +29,7 @@ namespace CDWM_MR.AuthHelper
         /// <summary>
         /// 请求路径
         /// </summary>
-        public string LoginPath { get; set; } = "/Api/Login";
+        public string LoginPath { get; set; } = "/api/Login";
         /// <summary>
         /// 发行人
         /// </summary>

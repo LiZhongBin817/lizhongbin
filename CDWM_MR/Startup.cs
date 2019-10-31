@@ -326,7 +326,7 @@ namespace CDWM_MR
                 audienceConfig["Issuer"],//发行人
                 audienceConfig["Audience"],//听众
                 signingCredentials,//签名凭据
-                expiration: TimeSpan.FromSeconds(30)//接口的过期时间
+                expiration: TimeSpan.FromSeconds(60*60)//接口的过期时间
                 );
             #endregion
 
@@ -338,7 +338,6 @@ namespace CDWM_MR
             });
 
             #endregion
-
 
             #endregion
 
@@ -354,7 +353,7 @@ namespace CDWM_MR
                 ValidateAudience = true,
                 ValidAudience = audienceConfig["Audience"],//订阅人
                 ValidateLifetime = true,
-                ClockSkew = TimeSpan.FromSeconds(60*60),
+                ClockSkew = TimeSpan.FromSeconds(300),
                 RequireExpirationTime = true,
             };
 
