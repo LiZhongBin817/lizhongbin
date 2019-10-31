@@ -1,0 +1,68 @@
+﻿<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all" />
+</script>
+<div class="layui-form" id="editparameter" lay-filter="editparameter" style="padding: 15px 0 0 0">
+    <div class="layui-form-item">
+        <label class="layui-form-label">参数名称</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input class="layui-input" name="parameterName" id="parameterName" autocomplete="off" value="{{d.params.parametername}}" lay-verify="required" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">参数类型</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input class="layui-input" name="parameterType" id="parameterType" autocomplete="off" value="{{d.params.parametertype}}" lay-verify="required" />
+            </script>
+
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">&nbsp;&nbsp;&nbsp;&nbsp;参数类型名称</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input class="layui-input" name="parameterTypeName" id="parameterTypeName" autocomplete="off" value="{{d.params.parametertypename}}" lay-verify="required" />
+            </script>
+
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">Code</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input class="layui-input" name="parameterKey" id="parameterKey" autocomplete="off" lay-verify="required" value="{{d.params.parameterkey}}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">参数值</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input class="layui-input" name="parameterValue" id="parameterValue" autocomplete="off" value="{{d.params.parametervalue}} " lay-verify="required" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <textarea name="Remark" class="layui-textarea" id="Remark">{{d.params.Remark}}</textarea>
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-inline">
+            <input type="button" id="Edit-Submit" lay-submit lay-filter="Edit-Submit" class="layui-btn" value="提交" style="float:right" />
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['admin', 'form','view'], function () {
+        var $ = layui.$
+            , form = layui.form
+            ,view=layui.view;
+
+    });
+</script>

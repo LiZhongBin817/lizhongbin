@@ -27,7 +27,7 @@
           </div>
           <div class="layui-col-xs5">
             <div style="margin-left: 10px;">
-              <img src="http://localhost:8081/api/Login/ShowCode" class="layadmin-user-login-codeimg" id="LAY-user-get-vercode">
+              <img src="" class="layadmin-user-login-codeimg" id="LAY-user-get-vercode">
             </div>
           </div>
         </div>
@@ -68,15 +68,19 @@ layui.use(['admin', 'form', 'user'], function(){
   ,form = layui.form
   ,router = layui.router()
   ,search = router.search;
-
+ 
   form.render();
+  
+  !function(){
+    document.getElementById("LAY-user-get-vercode").src = layui.setter.requesturl + '/api/Login/ShowCode';
+  }();
 
   //提交
   form.on('submit(LAY-user-login-submit)', function(obj){
   
     //请求登入接口
-    admin.req({
-      url: 'http://localhost:8081/api/Login/UserLogin' //实际使用请改成服务端真实接口
+    $.ajax({
+      url: layui.setter.requesturl + '/api/Login/UserLogin' //实际使用请改成服务端真实接口
       ,type:'Get'
       ,data: {
         "UserName":obj.field.username,
@@ -84,9 +88,6 @@ layui.use(['admin', 'form', 'user'], function(){
         "VerCode":obj.field.vercode
       }
       ,success:function(res){
-        layer.msg(res.msg);
-      }
-      ,done: function(res){
         //请求成功后，写入 access_token
         layui.data(setter.tableName, {
           key: setter.request.tokenName

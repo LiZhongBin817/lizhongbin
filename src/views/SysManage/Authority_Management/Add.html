@@ -1,0 +1,83 @@
+﻿<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<script type="text/html" template>
+    <link href="{{layui.setter.base}}style/autocomplete.css?v={{ layui.admin.v }}-1" media="all" rel="stylesheet" />
+</script>
+
+<div class="layui-form" lay-filter="layui-Page-Add" id="layui-Page-Add">
+    <div class="layui-form-item">
+        <label class="layui-form-label">权限名：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" layui-autocomplete id="OperationName" name="OperationName" placeholder="请输入权限名称" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">菜单ID：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="AddMenuID" name="AddMenuID" placeholder="请输入菜单ID" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">接口ID：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="AddInterfaceID" name="AddInterfaceID" placeholder="请输入菜单ID" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">URL地址：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="LinkUrl" name="LinkUrl" placeholder="请输入URL地址" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">权限种类：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="OperationType" name="OperationType" placeholder="请输入权限种类" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit lay-filter="LAY-Add-submit" id="LAY-Add-submit" value="确认">
+    </div>
+</div>
+<script>
+    layui.config({
+        base: '../../../../start/autocomplete/'  // 自己autocomplete文件路径
+
+    });
+    layui.use(['admin', 'table', 'form', 'view', 'jquery', 'autocomplete'], function () {
+        var $ = layui.$
+            , admin = layui.admin
+            , table = layui.table
+            , view = layui.view
+            , autocomplete = layui.autocomplete
+            , form = layui.form;
+        //渲染autocomplete
+        autocomplete.render({
+            elem: $('#AddMenuID'),
+            url: layui.setter.requesturl+'/ShowSelectInfor',//后台地址
+            method: 'post',
+            template_val: '{{d.ID}}',
+            cache: true,
+            response: {code: 'code', data: 'data'},
+            template_txt: '{{d.ID}} <span class=\'layui-badge layui-bg-gray\'>{{d.Name}}</span>',
+            onselect: function (resp) {
+                console.log(resp);
+                $('input[name=AddMenuID]').val(resp.ID+'-'+ resp.Name);
+            }
+        });
+        autocomplete.render({
+            elem: $('#AddInterfaceID'),
+            url: layui.setter.requesturl+'/ShowInterInfor',
+            method: 'post',
+             template_val: '{{d.ID}}',
+            cache: true,
+            response: { code: 'code', data: 'data' },
+            template_txt: '{{d.ID}} <span class=\'layui-badge layui-bg-gray\'>{{d.Name}}</span>',
+            onselect: function (resp) {
+                console.log(resp);
+                $('input[name=AddInterfaceID]').val(resp.ID+'-'+ resp.Name);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,62 @@
+﻿<title>参数设置</title>
+
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card" style="background-color:#ECF5FF">
+                <div class="layui-card-header layui-form layuiadmin-card-header-auto">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">参数编号</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="parameterNumber" id="parameterNumber" autocomplete="off" placeholder="请输入参数编号" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">参数名称</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="parameterName" id="parameterName" autocomplete="off" placeholder="请输入参数名称" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">参数类型</label>
+                            <div class="layui-inline">
+                                <input class="layui-input" name="parameterType" id="parameterType" autocomplete="off" placeholder="请输入参数类型" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="search">查询</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table id="parameterdata" name="parameterdata" class="layui-hide" lay-filter="Parameter"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="barDemo0">
+    <a class="layui-btn layui-btn-radius layui-btn-sm" lay-event="EditParameter">编辑</a>
+</script>
+<script type="text/html" id="toolbarDemo1">
+    <div class="layui-btn-container">
+        <button class="layui-btn  layui-btn-sm" lay-event="AddParameter"><i class="layui-icon">&#xe608;</i>添加参数</button>
+    </div>
+</script>
+<script>
+    layui.use('Parameter', layui.factory('Parameter')).use(['admin', 'Parameter', 'table', 'form', 'view'], function () {
+        var admin = layui.admin
+            , table = layui.table
+            , form = layui.form
+            , view = layui.view
+
+
+    });
+</script>

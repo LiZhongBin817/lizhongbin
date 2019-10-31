@@ -1,0 +1,67 @@
+﻿<title>审核</title>
+
+<script type="text/html" template>
+    <link  rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all"/>
+</script>
+
+<div class="layui-fiuld">
+    <div class="layui-row">
+        <div class="layui-col">
+            <div class="layui-card layui-form" id="CheckForm">
+                <div class="layui-card-header layuiadmin-card-header-auto">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">户号:</label>
+                        <div class="layui-inline">
+                            <script type="text/html" template>
+                                <label class="layui-form-label" style="width:auto">{{d.params.account}}--{{d.params.username}}</label>                                
+                            </script>
+                        </div>                    
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">表号:</label>
+                        <div class="layui-inline">
+                            <script type="text/html" template>
+                                <label class="layui-form-label" style="width:auto">{{d.params.meternum}}--{{d.params.metername}}--{{d.params.regionname}}--{{d.params.areaname}}</label>                 
+                            </script>
+                        </div>                                            
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table id="rechecktable" lay-filter="rechecktable"></table>
+                    <div>
+                        <script type="text/html" template>
+                            <textarea id="Remark" class="layui-textarea">{{d.params.recheckresult}}</textarea>
+                        </script>                     
+                        <div>
+                            <div class="layui-inline">
+                                <input  type="radio" value="0" title="通过" name="Pass"/>
+                                <input  type="radio" value="1" title="不通过" name="Pass" checked/>
+                            </div>
+                            <div class="layui-inline">
+                                <select name="checked" id="checked" lay-filter="checked">
+                                    <option value="需要到现场核查">需要到现场核查</option>
+                                    <option value="不需要到现场核查">不需要到现场核查</option>
+                                </select>
+                            </div>
+                            <div class="layui-inline" style="align-content:center">
+                                <button class="layui-btn layui-btn-normal" id="SubmitChecked" name="SubmitChecked" lay-submit lay-filter="SubmitChecked">确认审核</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['admin', 'table', 'form', 'view','jquery'], function () {
+           var admin = layui.admin
+            , table = layui.table
+            , form = layui.form
+               , view = layui.view
+               , $ = layui.$;
+        form.render();
+        
+    });
+</script>
