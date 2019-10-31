@@ -20,8 +20,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace CDWM_MR.Controllers
 {
     /// <summary>
-   /// 用量异常分析
+    /// 用量异常分析
     /// </summary>
+    [Route("api/DosageAnomalyAnalysis")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
+
     public class DosageAnomalyAnalysis : ControllerBase
     {
         readonly Iv_user_water_bookinfoServices _v_user_water_bookinfoServices;
@@ -53,8 +57,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowDosageAnomalyAnalysis")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+       
         public async Task<TableModel<object>> ShowDosageAnomalyAnalysis(string taskperiodname, string readname, string bookno,string meternum, int page = 1, int limit = 5)
         {
             
@@ -136,8 +139,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Serchmrreader")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+      
         public async Task<TableModel<object>> Serchmrreader()
         {
 
@@ -166,8 +168,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Serchbookno")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+       
         public async Task<TableModel<object>> Serchbookno()
         {
             List<mr_b_bookinfo> booknober = new List<mr_b_bookinfo>();

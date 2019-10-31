@@ -23,6 +23,9 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 抄见率分析
     /// </summary>
+    [Route("api/CopySee")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class CopySee : Controller
     {
 
@@ -49,8 +52,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowCopysee")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ShowCopysee(string mrreadername, string taskperiodname, int page = 1, int limit = 5)
         {
             PageModel<mr_datainfo_history> user = new PageModel<mr_datainfo_history>();
@@ -146,8 +147,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Serchname")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+      
         public async Task<TableModel<object>> Serchname()
         {
 
@@ -182,8 +182,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("OutExcel1")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+       
         public async Task<FileResult> OutExcel1(string taskperiodname, string mrreadername, int page = 1, int limit = 5)
         {
             PageModel<mr_datainfo_history> user = new PageModel<mr_datainfo_history>();
