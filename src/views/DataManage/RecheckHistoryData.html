@@ -1,0 +1,41 @@
+﻿<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card layui-form" id="RecheckHistoryData">
+                <div class="layui-card-header  layuiadmin-card-header-auto" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label">户号:</label>
+                        <div class="layui-inline">
+                            <script type="text/html" template>
+                                <label class="layui-form-label" style="width:auto">{{d.params.account}}--{{d.params.username}}</label>
+                            </script>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">表号:</label>
+                        <div class="layui-inline">
+                            <script type="text/html" template>
+                                <label class="layui-form-label" style="width:auto">{{d.params.meternum}}--{{d.params.metername}}--{{d.params.regionname}}--{{d.params.areaname}}</label>
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table id="RecheckHistoryDataTable" name="RecheckHistoryDataTable" lay-filter="RecheckHistoryDataTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['admin', 'table', 'form', 'view'], function () {
+        var admin = layui.admin
+            , table = layui.table
+            , form = layui.form
+            , view = layui.view;
+        form.render();
+    });
+</script>

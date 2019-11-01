@@ -1,0 +1,134 @@
+﻿<title>故障处理信息</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-form" lay-fiter="DSMShowProcessinformation" id="DSMShowProcessinformation">
+    <div class="layui-form-item" style="background-color:#009688">
+        <label class="layui-form-label">故障信息:</label>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">故障编号:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_number" value="{{d.params[0][0].faultnumber}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">故障类型:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_type" value="{{d.params[0][0].faulttype==6?"表埋":"d.params[0][0].faulttype==7"?"表坏":"d.params[0][0].faulttype==8"?"井盖坏":"d.params[0][0].faulttype==10"?"漏水":"其他"}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">故障内容:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_content" value="{{d.params[0][0].faultcontent}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">上报人:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_reporter" value="{{d.params[0][0].reportpeople}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">上报时间:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_reporttime" value="{{d.params[0][0].reporttime}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">故障附件展示:</label>
+        <div class="layui-inline" id="DSMSHOWPIphotoshow">
+
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="background-color:#009688">
+        <label class="layui-form-label">受理信息:</label>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">派工:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_Dispatchedworker" value="{{d.params[1][0].processpreson}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">受理时间:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessinfomation_Acceptancetime" value="{{d.params[1][0].createtime}}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">最迟处理时间:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_lasttime" value="{{d.params[1][0].processdatetime}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="background-color:#009688">
+        <label class="layui-form-label">处理信息:</label>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理人:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowPIDealingpeople" value="{{d.params[2][0].processpreson}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理时间:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowPIprocessingtime" value="{{d.params[2][0].createtime}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理状态:</label>
+        <div class="layui-inline"`>
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowPIdealstatus" value="{{d.params[2][0].processresult==0?"通过":"不通过"}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理内容:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowPIdealcontent" value="{{d.params[2][0].processmark}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理来源:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowPISourceoftreatment" value="{{d.params[2][0].processsource}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理的图片:</label>
+        <div class="layui-inline" id="DSMShowPIpictureshow">
+
+        </div>
+    </div>
+</div>

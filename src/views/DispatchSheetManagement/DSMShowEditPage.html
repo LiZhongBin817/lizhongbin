@@ -1,0 +1,60 @@
+﻿<title>编辑</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<div class="layui-form" layui-filter="DSMShowEditPage" id="DSMShowEditPage">
+    <div class="layui-form-item">
+        <label  class="layui-form-label">故障编号:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="EditNumber" id="EditNumber" value="{{d.params.DSMNumber}}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">故障类型:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>              
+                <input class="layui-input" type="text" name="EditType" id="EditType" value="{{ d.params.DSMType==6?"表埋":"d.params.DSMType==7"?"表坏":"d.params.DSMType==8"?"井盖坏":"d.params.DSMType==10"?"漏水":"其他" }}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">故障内容:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="EditContent" id="EditContent" value="{{d.params.DSMContent}}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">上报时间:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="EditReporttime" id="EditReporttime" value="{{d.params.DSMTime}}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">上报人:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="EditReporter" id="EditReporter" value="{{d.params.DSMReportPerson}}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="EditStatus" id="EditStatus" value="{{d.params.DSMStatus==0?"未受理":"d.params.DSMStatus==1"?"已受理":"d.params.DSMStatus==2"?"已处理":"已存档"}}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"></label>
+        <div class="layui-inline">
+            <input lay-submit id="Edit_submit" lay-filter="Edit_submit" value="提交" class="layui-btn"/>
+        </div>
+    </div>
+</div>

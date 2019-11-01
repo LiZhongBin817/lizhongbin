@@ -43,12 +43,11 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-warm " lay-event="distributeUser">分配用户</a>
     <a class="layui-btn layui-btn-warm " lay-event="distributeReader">分配抄表员</a>
-    <a class="layui-btn layui-btn-warm " lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-warm " lay-event="delete">删除</a>
+    <a class="layui-btn layui-btn-warm " lay-event="editBook">编辑</a>
+    <a class="layui-btn layui-btn-warm " lay-event="deleteBook">删除</a>
 </script>
 <script type="text/html" id="toolbarDemo">
-    <a class="layui-btn layui-btn-warm " lay-event="AddBook">新增抄表册</a>
-    <a class="layui-btn layui-btn-warm " lay-event="CreatExcel">开启自动生成Excel</a>
+    <a class="layui-btn layui-btn-warm " lay-event="AddBook">新增抄表册</a>  
 </script>
 <script>
     layui.use('mr_bookManage', layui.factory('mr_bookManage')).use(['admin', 'mr_bookManage', 'table', 'view'], function () {

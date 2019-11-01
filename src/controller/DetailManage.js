@@ -14,7 +14,7 @@ layui.define(['table', 'view', 'form','admin'], function (exports) {
     table.render({
         elem: '#detailManageInfo_Table',
         method: 'post',
-        url: 'http://localhost:8081/ShowDetailInfo',
+        url: layui.setter.requesturl +'/api/DetailManage/ShowDetailInfo',
         cols: [[
             {title:'序号',width:60,type:'numbers',fixed:'left'},
             { field: 'account', title: '户号', width: 110 },
@@ -30,21 +30,21 @@ layui.define(['table', 'view', 'form','admin'], function (exports) {
                 field: 'readtype', title: '抄表状态', width: 110, fixed: 'right',
                 templet: function (d) {
                     var intValue = "";
-                    if (d.readtype == null)
-                    {
+                    if (d.readtype == null) {
                         intValue = "未抄";
                     }
-                    else if (d.readtype == 1)
-                    {
+                    else if (d.readtype == 1) {
                         intValue = "已抄";
                     }
-                    else if (d.readtype == 2)
-                    {
+                    else if (d.readtype == 2) {
                         intValue = "估抄";
                     }
-                    else
-                    {
+                    else if (d.readtype == 3) {
                         intValue = "异常";
+                    }
+                    else {
+
+                        intValue = "正常";
                     }
                     return intValue;
                 },

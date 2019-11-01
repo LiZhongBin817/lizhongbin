@@ -13,7 +13,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
     table.render({
         elem: '#parameterdata'
         , method: 'Get'
-        , url: layui.setter.requesturl+'/ParameterShow'
+        , url: layui.setter.requesturl +'/api/ParameterSetting/ParameterShow'
         , cols: [[
             { field: 'ID', title: 'ID', width: 50, fixed: 'left' },
             { field: 'parameternumber', title: '参数编号', width: 150 },
@@ -67,7 +67,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                             var field = obj.field;
                             var load = layer.load(3);
                             admin.req({
-                                url: layui.setter.requesturl+'/AddParameter'
+                                url: layui.setter.requesturl +'/api/ParameterSetting/AddParameter'
                                 , method: 'Get'
                                 , data: {
                                     "JsonData": JSON.stringify(field)
@@ -125,7 +125,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                             };
                             console.log(data.ID);
                             admin.req({
-                                url: layui.setter.requesturl+'/EditParameter'
+                                url: layui.setter.requesturl +'/api/ParameterSetting/EditParameter'
                                 , method: 'Get'
                                 , data: {
                                     "JsonData": JSON.stringify(SendData),
