@@ -983,7 +983,7 @@
             抄表数据管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.MRManageController.#ctor(CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_watercarryover_historyServices,CDWM_MR.IServices.Content.Irt_b_recheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_recheck_recheckhistoryServices,CDWM_MR.IServices.Content.Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices,CDWM_MR.IServices.Content.Imr_datainfo_historyServices,CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices)">
+        <member name="M:CDWM_MR.Controllers.MRManageController.#ctor(CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_watercarryover_historyServices,CDWM_MR.IServices.Content.Irt_b_recheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_recheck_recheckhistoryServices,CDWM_MR.IServices.Content.Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices,CDWM_MR.IServices.Content.Imr_datainfo_historyServices,CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices)">
             <summary>
             构造函数
             </summary>
