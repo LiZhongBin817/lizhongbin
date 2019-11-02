@@ -4341,6 +4341,31 @@
             家庭住址
             </summary>
         </member>
+        <member name="M:CDWM_MR.Model.Models.v_rt_b_photoattachment_rt_b_photoattachment_histoty.#ctor">
+            <summary>
+            图片表(图片历史表)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_rt_b_photoattachment_rt_b_photoattachment_histoty.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_rt_b_photoattachment_rt_b_photoattachment_histoty.usercode">
+            <summary>
+            用户编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_rt_b_photoattachment_rt_b_photoattachment_histoty.taskperiodname">
+            <summary>
+            任务账期(201909)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_rt_b_photoattachment_rt_b_photoattachment_histoty.photourl">
+            <summary>
+            服务器存储路径
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_rt_b_recheck">
             <summary>
             VIEW
