@@ -9,7 +9,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
         $ = layui.$,
         ReaderID = "",//选择的抄表员ID
         meternum = new Array(),//选中的用户水表编号
-        account = new Array(),
+        autoaccount = new Array(),
         table_data = new Array(),//存储当前页面的数据，用于实现页面跳转后复选框勾选保留
         editdata = new Array();//存储编辑界面的需要传输的数据，[0]存储所有的区域信息，[1]存储当前的区域信息
     //渲染抄表册的表格
@@ -114,7 +114,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
             admin.req({
                 url: layui.setter.requesturl + '/api/BookManage/SelectUser',
                 data: {
-                    "account": account,
+                    "autoaccount": autoaccount,
                     "meternum": meternum,
                     "bookid": obj.data.ID,
                     "bookno": obj.data.bookno
@@ -124,8 +124,8 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
                     if (msg.msg == "ok") {
                         layer.msg("操作完成");
                         table.reload('Book');
-                        for (var i = 0; i < account.length; i++) {//因为数组设置的是全局变量，需要在添加完成之后进行数组清空
-                            account.splice(i, 1);
+                        for (var i = 0; i < autoaccount.length; i++) {//因为数组设置的是全局变量，需要在添加完成之后进行数组清空
+                            autoaccount.splice(i, 1);
                             meternum.splice(i, 1);
                         }
                     }
@@ -236,7 +236,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
                             method: 'post',
                             cols: [[
                                 { title: '#', type: 'checkbox' },
-                                { field: 'account', title: '用户编号', width: 140 },
+                                { field: 'autoaccount', title: '用户编号', width: 140 },
                                 { field: 'username', title: '用户名称', width: 140 },
                                 { field: 'address', title: '用户地址', minWidth: 120 },
                                 { field: 'meternum', title: '水表编号', width: 120 },
@@ -254,8 +254,8 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
                                 var tbl = $('#DistributeUserTable').next('.layui-table-view');
                                 // 渲染选择框
                                 for (var i in table_data) {
-                                    for (var j in account) {
-                                        if (table_data[i].account == account[j]) {
+                                    for (var j in autoaccount) {
+                                        if (table_data[i].autoaccount == autoaccount[j]) {
                                             tbl.find('table>tbody>tr').eq(i).find('td').eq(0).find('input[type=checkbox]').prop('checked', true);
                                         }
                                     }
@@ -370,18 +370,18 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
     table.on('checkbox(test1)', function (obj) {
         if (obj.checked == true) {
             if (obj.type == 'one') {
-                account.push(obj.data.account);
+                autoaccount.push(obj.data.autoaccount);
                 meternum.push(obj.data.meternum);
             }
             else {
                 for (var i = 0; i < table_data.length; i++) {
                     for (var j = 0; j < selectuser.length; j++) {
-                        if (account[j] == table_data[i].account) {//这个不写会有重复数据
-                            account.splice(j, 1);
+                        if (autoaccount[j] == table_data[i].autoaccount) {//这个不写会有重复数据
+                            autoaccount.splice(j, 1);
                             meternum.splice(j, 1);
                         }
                     }
-                    account.push(table_data[i].account);
+                    autoaccount.push(table_data[i].autoaccount);
                     meternum.push(table_data[i].meternum);
                 }
             }
@@ -389,27 +389,25 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
         else {
             //单选去勾
             if (obj.type == 'one') {
-                for (var i = 0; i < account.length; i++) {
-                    if (account[i] == obj.data.account) {
-                        account.splice(i, 1);
+                for (var i = 0; i < autoaccount.length; i++) {
+                    if (autoaccount[i] == obj.data.autoaccount) {
+                        autoaccount.splice(i, 1);
                         meternum.splice(i, 1);
                     }
                 }
             }
             //多选去勾
             else {
-                for (var i = 0; i < account.length; i++) {
+                for (var i = 0; i < autoaccount.length; i++) {
                     for (var j = 0; j < table_data.length; j++) {
-                        if (account[i] == table_data[j].account) {
-                            account.splice(i, 1);
+                        if (autoaccount[i] == table_data[j].autoaccount) {
+                            autoaccount.splice(i, 1);
                             meternum.splice(i, 1);
                         }
                     }
                 }
             }
-        }
-        console.log(account);
-        console.log(meternum);
+        }     
     });
     //监听表头的操作
     table.on('toolbar(test)', function (obj) {
