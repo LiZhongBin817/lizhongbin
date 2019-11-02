@@ -217,8 +217,11 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                                 {
                                     field: 'pircture', title: '图片', width: 165,
                                     templet: function (d) {
-                                        if (true) {
-                                            return '<a href="http://www.baidu.com">' + d.pircture+'</a>';
+                                        if (d.pircture != "") {
+                                            return `<a  lay-event="seephoto">点击查看图片</a>`;
+                                        }
+                                        else {
+                                            return '<a>' + "暂无图片" + '</a>';
                                         }
                                     }
                                    
