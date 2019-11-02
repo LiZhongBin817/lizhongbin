@@ -1461,7 +1461,6 @@
             <summary>
             接受上传图片(测试)
             </summary>
-            <param name="Test"></param>
             <param name="environment"></param>
             <returns></returns>
         </member>
@@ -1645,7 +1644,7 @@
             构造函数
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppSequenceSaveController.SequenceSave(System.Int32,System.Collections.Generic.Dictionary{System.String,System.Int32})">
+        <member name="M:CDWM_MR.Controllers.v1.AppSequenceSaveController.SequenceSave(System.Int32,System.String)">
             <summary>
             抄表册用户顺序保存
             </summary>
@@ -1657,13 +1656,6 @@
             <summary>
             软件部分
             </summary>
-        </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppSoftware.CheckUpdate(System.Int32)">
-            <summary>
-            软件检查更新
-            </summary>
-            <param name="OldVersion">旧的版本号</param>
-            <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppSoftware.SoftWareUpdate">
             <summary>
@@ -1725,6 +1717,13 @@
             <param name="t_b_usersServices"></param>
             <param name="t_b_watermetersServices"></param>
             <param name="v_watermeterinfoServices"></param>
+            <param name="mr_b_bookinfoService"></param>
+            <param name="mr_b_readerService"></param>
+            <param name="t_b_watermetertypeService"></param>
+            <param name="t_b_factoryService"></param>
+            <param name="t_b_installposService"></param>
+            <param name="t_b_watermodelService"></param>
+            <param name="t_b_natureService"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ListData">
             <summary>
@@ -1745,6 +1744,12 @@
             <param name="areaname">所属小区</param>
             <param name="page">页号</param>
             <param name="limit">页面大小</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.SelectValue">
+            <summary>
+            
+            </summary>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ShowEditRegionDate(System.String)">
@@ -1795,6 +1800,12 @@
             <param name="JsonDate"></param>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.AdduserDataShow">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ShowChangemeter(System.String)">
             <summary>
             给换表界面显示数据
@@ -1827,7 +1838,7 @@
             <summary>
             导入EXCEL
             </summary>
-            <param name="workbookFile"></param>
+            <param name="environment"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Filter.GlobalRouteAuthorizeConvention">

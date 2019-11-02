@@ -36,17 +36,17 @@ namespace CDWM_MR.Controllers.v1
         /// <returns></returns>
         [HttpPost("{bookid}")]
         [AllowAnonymous]//允许所有都访问       
-        public async Task<object> SequenceSave(int bookid,[FromBody] Dictionary<string, int> JsonData)
+        public async Task<object> SequenceSave(int bookid,[FromBody] string JsonData)
         {
-            //Dictionary<string, int> keyValues = JsonConvert.DeserializeObject<Dictionary<string, int>>(JsonData);
-            List<mr_book_meter> bookInfo = await _Book_MeterRepository.Query(c=>c.bookid==bookid);
-            bookInfo.ForEach(c => {c.meterseq = JsonData.ToList().Find(s => s.Key == c.useraccount).Value;});
+            Dictionary<string, int> keyValues = JsonConvert.DeserializeObject<Dictionary<string, int>>(JsonData);
+            List<mr_book_meter> bookInfo = await _Book_MeterRepository.Query(c=> keyValues.Keys.Contains(c.useraccount) && c.bookid == bookid);
+            bookInfo.ForEach(c => {c.meterseq = keyValues.ToList().Find(s => s.Key == c.useraccount).Value;});
             bool b=await _Book_MeterRepository.Updateable(bookInfo);
             return new JsonResult(new
             {
                 code = 0,
                 msg = b==true?"保存成功":"保存失败",
-                data = bookInfo
+                data = b
             });
         }
     }

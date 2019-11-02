@@ -12,27 +12,10 @@ namespace CDWM_MR.Controllers.v1
     /// <summary>
     /// 软件部分
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class AppSoftware : Controller
     {
-        /// <summary>
-        /// 软件检查更新
-        /// </summary>
-        /// <param name="OldVersion">旧的版本号</param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("CheckUpdate")]
-        [AllowAnonymous]//允许所有都访问
-        public string CheckUpdate(int OldVersion)
-        {
-            string Newversion = Common.Appsettings.app(new string[] { "APKSetting", "VersionCode" });
-            if(OldVersion<Convert.ToInt32( Newversion))
-            {
-                return "您的版本过低！请更新版本！"+"旧版本号是"+ OldVersion +",最新版本号是"+ Newversion ;
-            }
-            return "当前版本已为最新版本";
-        }
-
+        
         /// <summary>
         /// 软件更新下载
         /// </summary>
@@ -42,11 +25,13 @@ namespace CDWM_MR.Controllers.v1
         [AllowAnonymous]//允许所有都访问
         public object SoftWareUpdate()
         {           
-            string VersionCode = Common.Appsettings.app(new string[] { "APKSetting" , "VersionCode" });
+            int VersionCode = Common.Appsettings.app(new string[] { "APKSetting" , "VersionCode" }).ObjToInt();
             string VersionName= Common.Appsettings.app(new string[] { "APKSetting", "VersionName" });
             string APKName = Common.Appsettings.app(new string[] { "APKSetting", "APKName" });
             string Dowloadurl= Common.Appsettings.app(new string[] { "APKSetting", "Dowloadurl" });
             string UpdateInfo= Common.Appsettings.app(new string[] { "APKSetting", "UpdateInfo" });
+
+
             var data =new
             {
                 VersionCode= VersionCode,
@@ -57,7 +42,7 @@ namespace CDWM_MR.Controllers.v1
             };
             return new JsonResult(new {
                 code=0,
-                msg="下载成功",
+                msg="获取成功",
                 data= data
             });
             
@@ -75,9 +60,11 @@ namespace CDWM_MR.Controllers.v1
             
             var TechnicalSupport = Common.Appsettings.app(new string[] { "AppAboutus", "TechnicalSupport" });
             var Servicestelephone = Common.Appsettings.app(new string[] { "AppAboutus", "Servicestelephone" });
+            var Technicaltelephone= Common.Appsettings.app(new string[] { "AppAboutus", "Technicaltelephone" });
             var temp = new
             {
                 TechnicalSupport = TechnicalSupport,
+                Technicaltelephone= Technicaltelephone,
                 Servicestelephone = Servicestelephone,
             };
             return temp;
