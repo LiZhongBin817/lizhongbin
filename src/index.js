@@ -158,11 +158,9 @@ layui.extend({
         admin.pageType = 'alone';
       });
     } else { //后台框架页面
-        console.log(setter.interceptor);
       //强制拦截未登入
       if(setter.interceptor){
         var local = layui.data(setter.tableName);
-        console.log(local[setter.request.tokenName]);
         if(!local[setter.request.tokenName]){
           return location.hash = '/user/login/redirect='+ encodeURIComponent(pathURL); //跳转到登入页
         }

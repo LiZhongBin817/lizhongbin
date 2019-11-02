@@ -18,10 +18,8 @@ layui.define(function(exports){
   //公共业务的逻辑处理可以写在此处，切换任何页面都会执行
   //……
   
-  console.log("执行！！！");
   //退出
   admin.events.logout = function(){
-    console.log("执行1！！！");
     //执行退出接口
     admin.req({
       url: './json/user/logout.js'
