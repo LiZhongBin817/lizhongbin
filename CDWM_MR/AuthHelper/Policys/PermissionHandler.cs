@@ -1,5 +1,6 @@
 ﻿using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
+using CDWM_MR.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -69,10 +70,8 @@ namespace CDWM_MR.AuthHelper
                 {
                     if (await handlers.GetHandlerAsync(httpContext, scheme.Name) is IAuthenticationRequestHandler handler && await handler.HandleRequestAsync())
                     {
-                        //自定义返回数据
-                        var payload = JsonConvert.SerializeObject(new { Code = "401", Message = "很抱歉，您无权访问该接口!" });
                         httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                        filterContext.Result = new JsonResult(payload);
+                        filterContext.Result = new JsonResult(new MessageModel<string> { code = 1003, msg = "很抱歉，您无权访问该接口!", data = "没有分配此接口！" });
                         context.Succeed(requirement);
                         return;
                     }
@@ -107,37 +106,26 @@ namespace CDWM_MR.AuthHelper
                             }
                             catch (Exception)
                             {
-                                // ignored
+                                //ignored
                             }
                         }
-
                         //验证权限
-                        //if (currentUserRoles.Count <= 0 || requirement.Permissions.Where(w => currentUserRoles.Contains(w.Role) && w.Url.ToLower() == questUrl).Count() <= 0)
                         if (currentUserRoles.Count <= 0 || !isMatchRole)
                         {
-                            // 可以在这里设置跳转页面
-                            //httpContext.Response.Redirect(requirement.DeniedAction);
-                            //context.Succeed(requirement);
-                            //return;
-
-                            //自定义返回数据
-                            var payload = JsonConvert.SerializeObject(new { Code = "403", Message = "很抱歉，您无权访问该接口!" });
-                            httpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-                            filterContext.Result = new JsonResult(payload);
+                            httpContext.Response.StatusCode = StatusCodes.Status200OK;
+                            filterContext.Result = new JsonResult(new MessageModel<string>{ code = 1003, msg = "很抱歉，您无权访问该接口!",data = "没有权限"});
                             context.Succeed(requirement);
                             return;
                         }
-                        //判断过期时间（这里仅仅是最坏验证原则，你可以不要这个if else的判断，因为我们使用的官方验证，Token过期后上边的result?.Principal 就为 null 了，进不到这里了，因此这里其实可以不用验证过期时间，只是做最后严谨判断）
+                        //判断过期时间,当过期时间过短,短到运行至此的时候，Token已经过期了
                         if ((httpContext.User.Claims.SingleOrDefault(s => s.Type == ClaimTypes.Expiration)?.Value) != null && DateTime.Parse(httpContext.User.Claims.SingleOrDefault(s => s.Type == ClaimTypes.Expiration)?.Value) >= DateTime.Now)
                         {
                             context.Succeed(requirement);
                         }
                         else
                         {
-                            //自定义返回数据
-                            var payload = JsonConvert.SerializeObject(new { Code = "401", Message = "很抱歉，您无权访问该接口!" });
-                            httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                            filterContext.Result = new JsonResult(payload);
+                            httpContext.Response.StatusCode = StatusCodes.Status200OK;
+                            filterContext.Result = new JsonResult(new MessageModel<string> { code = 1002, msg = "很抱歉，您的Token验证码已经失效了!", data = "Error" });
                             context.Succeed(requirement);
                             return;
                         }
@@ -148,9 +136,8 @@ namespace CDWM_MR.AuthHelper
                 if (!questUrl.Equals(requirement.LoginPath.ToLower(), StringComparison.Ordinal) && (!httpContext.Request.Method.Equals("POST") || !httpContext.Request.HasFormContentType))
                 {
                     //自定义返回数据
-                    var payload = JsonConvert.SerializeObject(new { Code = "401", Message = "很抱歉，您无权访问该接口!" });
-                    httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    filterContext.Result = new JsonResult(payload);
+                    httpContext.Response.StatusCode = StatusCodes.Status200OK;
+                    filterContext.Result = new JsonResult(new MessageModel<string> { code = 1002, msg = "很抱歉，您的Token验证码已经失效了!", data = "Error" });
                 }
             }
 

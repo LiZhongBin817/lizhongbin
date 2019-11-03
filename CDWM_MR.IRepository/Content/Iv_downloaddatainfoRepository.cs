@@ -1,12 +1,20 @@
-﻿using CDWM_MR.IRepository.Base;
-using CDWM_MR.Model.Models;
+	//----------v_downloaddatainfo开始----------
+    
+	
 using System;
-using System.Collections.Generic;
-using System.Text;
-
+using CDWM_MR.Model.Models;
+using CDWM_MR.IRepository.Base;
 namespace CDWM_MR.IRepository.Content
-{
-    public partial interface Iv_downloaddatainfoRepository:IBaseRepository<v_downloaddatainfo>
+{	
+	/// <summary>
+	/// Iv_downloaddatainfoRepository
+	/// </summary>	
+	public partial interface Iv_downloaddatainfoRepository : IBaseRepository<v_downloaddatainfo>//类名
     {
+
+       
     }
 }
+
+	//----------v_downloaddatainfo结束----------
+	

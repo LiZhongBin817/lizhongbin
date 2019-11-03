@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CDWM_MR.Model.Models
 {
-    // <summary>
+    /// <summary>
     /// 结转数据管理展示数据
     /// </summary>
     public class v_carryoverdatainfo

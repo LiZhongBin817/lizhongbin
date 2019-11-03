@@ -113,5 +113,18 @@ namespace CDWM_MR.Model.Models
         /// 抄表员id（mr_b_reader：:id）
         /// </summary>
         public System.Int32? readerid { get; set; }
+        /// <summary>
+        /// 故障编号（自动生成）
+        /// </summary>
+        public System.String faultnumber { get; set; }
+
+        /// <summary>
+        /// 故障信息内容
+        /// </summary>
+        public System.String faultcontent { get; set; }
+        /// <summary>
+        /// 抄表员编号
+        /// </summary>
+        public System.String mrreadernumber { get; set; }
     }
 }

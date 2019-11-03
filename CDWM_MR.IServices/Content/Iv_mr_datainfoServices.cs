@@ -4,9 +4,6 @@
 using System;
 using CDWM_MR.Model.Models;
 using CDWM_MR.IServices.BASE;
-using CDWM_MR.Model;
-using System.Threading.Tasks;
-
 namespace CDWM_MR.IServices.Content
 {	
 	/// <summary>
@@ -14,9 +11,8 @@ namespace CDWM_MR.IServices.Content
 	/// </summary>	
     public partial interface Iv_mr_datainfoServices :IBaseServices<v_mr_datainfo>
 	{
-       Task<TableModel<object>> ShowMRPath(string month, string date, string name, int page = 1, int limit = 20);
 
-
+       
     }
 }
 

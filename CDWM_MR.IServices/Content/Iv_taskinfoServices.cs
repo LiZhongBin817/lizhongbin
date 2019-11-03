@@ -1,14 +1,20 @@
-﻿using CDWM_MR.IServices.BASE;
-using CDWM_MR.Model.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+	//----------v_taskinfo开始----------
+    
 
+using System;
+using CDWM_MR.Model.Models;
+using CDWM_MR.IServices.BASE;
 namespace CDWM_MR.IServices.Content
-{
-   public interface Iv_taskinfoServices:IBaseServices<v_taskinfo>
-    {
-         Task<object> AutoCreat(int planid);
+{	
+	/// <summary>
+	/// v_taskinfoServices
+	/// </summary>	
+    public partial interface Iv_taskinfoServices :IBaseServices<v_taskinfo>
+	{
+
+       
     }
 }
+
+	//----------v_taskinfo结束----------
+	

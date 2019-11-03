@@ -1,12 +1,20 @@
-﻿using CDWM_MR.IRepository.Base;
-using CDWM_MR.Model.Models;
+	//----------v_reader_analysis开始----------
+    
+	
 using System;
-using System.Collections.Generic;
-using System.Text;
-
+using CDWM_MR.Model.Models;
+using CDWM_MR.IRepository.Base;
 namespace CDWM_MR.IRepository.Content
-{
-    public partial interface Iv_reader_analysisRepository : IBaseRepository<v_reader_analysis>
+{	
+	/// <summary>
+	/// Iv_reader_analysisRepository
+	/// </summary>	
+	public partial interface Iv_reader_analysisRepository : IBaseRepository<v_reader_analysis>//类名
     {
+
+       
     }
 }
+
+	//----------v_reader_analysis结束----------
+	

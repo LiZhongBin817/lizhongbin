@@ -103,6 +103,7 @@ namespace CDWM_MR.Controllers.v1
                     {
                         await files[i].CopyToAsync(stream);
                     }
+                    uploadmodel[i].photourl = file;//重新赋值
                     rt_b_photoattachment photomodel = _mapper.Map<rt_b_photoattachment>(uploadmodel[i]);
                     addlist.Add(photomodel);
                 }

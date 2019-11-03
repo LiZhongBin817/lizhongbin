@@ -5,6 +5,7 @@ using CDWM_MR.Model.Models;
 using CDWM_MR.Tasks.Job;
 using CDWM_MR_Common.Redis;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Quartz;
 using Quartz.Impl;
@@ -18,6 +19,9 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 抄表册管理
     /// </summary>
+    [Route("api/BookManage")]
+    [EnableCors("LimitRequests")]
+    [AllowAnonymous]
     public class BookManageController : ControllerBase
     {
         private readonly Iv_b_bookinfoServices _Iv_b_bookinfoServices;
@@ -30,10 +34,22 @@ namespace CDWM_MR.Controllers
         private readonly Iv_b_bookuserinfoServices _Iv_b_bookuserinfoServices;
         private readonly It_b_watermetersServices _It_b_watermetersServices;
         private readonly IRedisHelper _redishelpr;
-        private readonly IBuildBookServices _buildservices;
 
         #region 构造函数注入
-        public BookManageController(IRedisHelper redis, Iv_b_bookinfoServices Iv_b_bookinfoService, Imr_book_meterServices Imr_book_meterService, Iv_wateruserinfoServices Iv_wateruserinfoService, Imr_book_readerServices Imr_book_readerService, Imr_b_readerServices Imr_b_readerService, Iv_b_bookuserinfoServices v_b_bookuserinfoService, Imr_b_bookinfoServices Imr_b_bookinfoService, It_b_watermetersServices It_b_watermetersService, It_b_regionsServices It_b_regionsService, IBuildBookServices buildservices)
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="redis"></param>
+        /// <param name="Iv_b_bookinfoService"></param>
+        /// <param name="Imr_book_meterService"></param>
+        /// <param name="Iv_wateruserinfoService"></param>
+        /// <param name="Imr_book_readerService"></param>
+        /// <param name="Imr_b_readerService"></param>
+        /// <param name="v_b_bookuserinfoService"></param>
+        /// <param name="Imr_b_bookinfoService"></param>
+        /// <param name="It_b_watermetersService"></param>
+        /// <param name="It_b_regionsService"></param>
+        public BookManageController(IRedisHelper redis, Iv_b_bookinfoServices Iv_b_bookinfoService, Imr_book_meterServices Imr_book_meterService, Iv_wateruserinfoServices Iv_wateruserinfoService, Imr_book_readerServices Imr_book_readerService, Imr_b_readerServices Imr_b_readerService, Iv_b_bookuserinfoServices v_b_bookuserinfoService, Imr_b_bookinfoServices Imr_b_bookinfoService, It_b_watermetersServices It_b_watermetersService, It_b_regionsServices It_b_regionsService)
         {
             _Iv_b_bookinfoServices = Iv_b_bookinfoService;
             _Imr_book_meterServices = Imr_book_meterService;
@@ -45,7 +61,6 @@ namespace CDWM_MR.Controllers
             _It_b_watermetersServices = It_b_watermetersService;
             _It_b_regionsServices = It_b_regionsService;
             _redishelpr = redis;
-            _buildservices = buildservices;
         }
         #endregion
 
@@ -59,8 +74,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit">分页参数</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("t_b_bookinfoShow")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("t_b_bookinfoShow")]       
         public async Task<TableModel<object>> t_b_bookinfoShow(string bookno, string bookname, int page = 1, int limit = 10)
         {
             PageModel<v_b_bookinfo> bookinfo = new PageModel<v_b_bookinfo>();
@@ -96,8 +110,7 @@ namespace CDWM_MR.Controllers
         /// <param name="bookno">抄表册编号</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("SelectUser")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("SelectUser")]       
         public async Task<MessageModel<object>> SelectUser(List<string> meternum, int bookid, string[] account, string bookno)
         {
             List<mr_book_meter> list = new List<mr_book_meter>();
@@ -142,8 +155,7 @@ namespace CDWM_MR.Controllers
         /// <param name="readperiod">抄表周期</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("AddBook")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("AddBook")]       
         public async Task<MessageModel<object>> AddBook(string bookno, string bookname, string regionno, int readperiod)
         {
             int bookid;
@@ -188,8 +200,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit">分页参数</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("RegionShow")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("RegionShow")]       
         public async Task<TableModel<object>> RegionShow(int page = 1, int limit = 10)
         {
             PageModel<t_b_regions> regions = new PageModel<t_b_regions>();
@@ -205,9 +216,14 @@ namespace CDWM_MR.Controllers
         #endregion
 
         #region 分配抄表员
+        /// <summary>
+        /// 分配抄表员
+        /// </summary>
+        /// <param name="bookid"></param>
+        /// <param name="readerid"></param>
+        /// <returns></returns>
         [HttpPost]
-        [Route("SelectReader")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("SelectReader")]       
         public async Task<MessageModel<object>> SelectReader(int bookid, int readerid)
         {
             await _Imr_book_readerServices.Update(c => new mr_book_reader
@@ -238,8 +254,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit">分页参数</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("waterrederinfo")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("waterrederinfo")]       
         public async Task<TableModel<object>> waterrederinfo(string readmanid, string mrreadernumber, string mrreadername, int page = 1, int limit = 10)
         {
             PageModel<mr_b_reader> readerinfo = new PageModel<mr_b_reader>();//分页的对象
@@ -279,8 +294,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("AllUserInfoShow")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("AllUserInfoShow")]       
         public async Task<TableModel<object>> AllUserInfoShow(string regionplace, string areaname, int disstatus = 3, int page = 1, int limit = 10)
         {
             PageModel<v_wateruserinfo> userinfo = new PageModel<v_wateruserinfo>();//分页的对象
@@ -317,11 +331,12 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 显示关联的用户
         /// </summary>
-        /// <param name="bookid">抄表册ID</param>
+        /// <param name="bookid"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("AssoUserShow")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("AssoUserShow")]       
         public async Task<TableModel<object>> AssoUserShow(int bookid, int page = 1, int limit = 10)
         {
             PageModel<v_b_bookuserinfo> assouser = new PageModel<v_b_bookuserinfo>();
@@ -352,8 +367,7 @@ namespace CDWM_MR.Controllers
         /// <param name="regionno">区域</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("EditBook")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("EditBook")]     
         public async Task<MessageModel<object>> EditBook(int ID, string bookname, string regionno)
         {
             await _Imr_b_bookinfoServices.Update(c => new mr_b_bookinfo
@@ -371,9 +385,14 @@ namespace CDWM_MR.Controllers
         #endregion
 
         #region  删除抄表册信息
+        /// <summary>
+        /// 删除抄表册信息
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="bookno"></param>
+        /// <returns></returns>
         [HttpPost]
-        [Route("DeleteBook")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("DeleteBook")]      
         public async Task<MessageModel<object>> DeleteBook(int ID, string bookno)
         {
             Expression<Func<mr_book_meter, bool>> lambda = c => c.bookid == ID;
@@ -408,8 +427,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("BuildExcel")]
-        [AllowAnonymous]//允许所有都访问
+        [Route("BuildExcel")]    
         public async Task<string> BuildExcel()
         {
 
@@ -422,7 +440,7 @@ namespace CDWM_MR.Controllers
                 .WithIdentity("BuildBookExcel", "task1")
                 .WithDescription("创建抄表册Excel文件")
                 .Build();
-            buildexcel.JobDataMap.Add("buildService", _buildservices);//为方法传入参数
+            //buildexcel.JobDataMap.Add("buildService", _buildservices);//为方法传入参数
             //创建时间策略
             ITrigger triggerbuildexcel = TriggerBuilder.Create()
                               .WithIdentity("BuildBookExceltigger", "task1")
@@ -432,7 +450,8 @@ namespace CDWM_MR.Controllers
                              .Build();
             await scheduler.ScheduleJob(buildexcel, triggerbuildexcel);
             return "OK";
+            #endregion
         }
     }
-    #endregion
+    
 }

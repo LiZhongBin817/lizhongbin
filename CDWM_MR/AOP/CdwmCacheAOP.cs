@@ -7,7 +7,7 @@ using System.Linq;
 namespace CDWM_MR.AOP
 {
     /// <summary>
-    /// 面向切面的缓存使用
+    /// 面向切面的缓存使用(MemCached缓存使用)
     /// </summary>
     public class CdwmCacheAOP : CacheAOPbase
     {

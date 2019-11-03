@@ -5,6 +5,7 @@ using System;
 using CDWM_MR.IRepository.Content;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Repository.BASE;
+using CDWM_MR.IRepository.UnitOfWork;
 
 namespace CDWM_MR.Repository.Content
 {	
@@ -13,7 +14,10 @@ namespace CDWM_MR.Repository.Content
 	/// </summary>	
 	public partial class sys_operatelogRepository : BaseRepository<sys_operatelog>, Isys_operatelogRepository
     {
-
+        public sys_operatelogRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+          
+        }
        
     }
 }

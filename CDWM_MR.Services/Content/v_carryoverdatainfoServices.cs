@@ -1,25 +1,29 @@
-﻿using CDWM_MR.IRepository.Content;
+	//----------v_carryoverdatainfo开始----------
+    
+
+using System;
 using CDWM_MR.IServices.Content;
+using CDWM_MR.IRepository.Content;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Services.BASE;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace CDWM_MR.Services.Content
-{
-    public partial class v_carryoverdatainfoServices:BaseServices<v_carryoverdatainfo>, Iv_carryoverdatainfoServices
+{	
+	/// <summary>
+	/// v_carryoverdatainfoServices
+	/// </summary>	
+	public partial class v_carryoverdatainfoServices : BaseServices<v_carryoverdatainfo>, Iv_carryoverdatainfoServices
     {
-        readonly Iv_carryoverdatainfoRepository dal;
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="dal"></param>
+	
+        private readonly Iv_carryoverdatainfoRepository dal;
         public v_carryoverdatainfoServices(Iv_carryoverdatainfoRepository dal)
         {
             this.dal = dal;
             base.BaseDal = dal;
         }
+       
     }
 }
+
+	//----------v_carryoverdatainfo结束----------
+
+	

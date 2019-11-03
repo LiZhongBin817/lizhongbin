@@ -4,6 +4,9 @@ using System.Text;
 
 namespace CDWM_MR.Model.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class v_datainfo_ocrlog
     {
         /// <summary>

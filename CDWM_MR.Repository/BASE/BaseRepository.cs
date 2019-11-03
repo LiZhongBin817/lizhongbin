@@ -2,49 +2,38 @@
 using CDWM_MR.IRepository.Base;
 using CDWM_MR.IRepository.UnitOfWork;
 using CDWM_MR.Model;
-using CDWM_MR.Model.Models;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CDWM_MR.Repository.BASE
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, new()
     {
-        private DbContext _context;
+        //private DbContext _context;
         private readonly IUnitOfWork _unitOfWork;
         private ISqlSugarClient _db;
         private SimpleClient<TEntity> _entityDb;
 
-        public DbContext Context
-        {
-            get { return _context; }
-            set { _context = value; }
-        }
         internal ISqlSugarClient Db
         {
             get { return _db; }
             private set { _db = value; }
         }
 
-        internal SimpleClient<TEntity> EntityDb
-        {
-            get { return _entityDb; }
-            private set { _entityDb = value; }
-        }
-
         /// <summary>
         /// 构造函数注入
         /// </summary>
         /// <param name="unitOfWork"></param>
-        public BaseRepository()
+        public BaseRepository(IUnitOfWork unitofwork)
         {
             DbContext.Init(BaseDBConfig.ConnectionString, (DbType)BaseDBConfig.DbType);
-            _context = DbContext.GetDbContext();
-            _db = _context.Db;
+            _unitOfWork = unitofwork;
+            _db = unitofwork.GetDbClient();
+            //_context = DbContext.GetDbContext();
+            //_db = _context.Db;
             //_context = DbContext.GetDbContext();
             //_unitOfWork = unitOfWork;
             //_db = unitOfWork.GetDbClient();
@@ -179,7 +168,7 @@ namespace CDWM_MR.Repository.BASE
         [Obsolete]
         public async Task<bool> Update(Expression<Func<TEntity, TEntity>> expression, Expression<Func<TEntity, bool>> wherelambda)
         {
-           return await _db.Updateable<TEntity>().UpdateColumns(expression).Where(wherelambda).ExecuteCommandHasChangeAsync();
+            return await _db.Updateable<TEntity>().UpdateColumns(expression).Where(wherelambda).ExecuteCommandHasChangeAsync();
         }
         public async Task<bool> Update(
           TEntity entity,
@@ -306,7 +295,7 @@ namespace CDWM_MR.Repository.BASE
         /// </summary>
         /// <param name="whereExpression">whereExpression</param>
         /// <returns>数据列表</returns>
-        public async Task<List<TEntity>> Queryfield(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity,TEntity>> sellambda)
+        public async Task<List<TEntity>> Queryfield(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TEntity>> sellambda)
         {
             return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).Select(sellambda).ToListAsync();
             //return await Task.Run(() => _entityDb.GetList(whereExpression));
@@ -439,7 +428,7 @@ namespace CDWM_MR.Repository.BASE
         /// <param name="intPageSize">页大小</param>
         /// <param name="strOrderByFileds">排序字段，如name asc,age desc</param>
         /// <returns></returns>
-        public async Task<PageModel<object>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> whereExpression1,int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null)
+        public async Task<PageModel<object>> QueryPage(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> whereExpression1, int intPageIndex = 1, int intPageSize = 20, string strOrderByFileds = null)
         {
             RefAsync<int> totalCount = 0;
             var list = await _db.Queryable<TEntity>()

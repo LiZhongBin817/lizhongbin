@@ -12,7 +12,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CDWM_MR.Controllers
-{ 
+{
+    /// <summary>
+    /// 结转数据管理
+    /// </summary>
+    [Route("api/CarryOverDataManage")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class CarryOverDataManageController : ControllerBase
     {
         #region 相关变量
@@ -30,6 +36,7 @@ namespace CDWM_MR.Controllers
         /// <param name="b_WateradjustServices"></param>
         /// <param name="b_WatercarryovarcheckServices"></param>
         /// <param name="b_WatercarryoverServices"></param>
+        /// <param name="b_UsersServices"></param>
         public CarryOverDataManageController(Iv_carryoverdatainfoServices carryoverdatainfoServices, Irt_b_wateradjustServices b_WateradjustServices, Irt_b_watercarryovarcheckServices b_WatercarryovarcheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, It_b_usersServices b_UsersServices)
         {
             _CarryoverdatainfoServices = carryoverdatainfoServices;
@@ -47,8 +54,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("ShowCarriedData")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ShowCarriedData(int page=1,int limit=10)
         {
             PageModel<v_carryoverdatainfo> pageModel = new PageModel<v_carryoverdatainfo>();
@@ -70,8 +75,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ChangeCarryCounts")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ChangeCarryCounts(string[] accounts,string JsonData)
         {
             rt_b_wateradjust JustData = Common.Helper.JsonHelper.GetObject<rt_b_wateradjust>(JsonData);
@@ -112,8 +115,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ReCarryOver")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ReCarryOver(string account,string JsonData,string meternum,string taskperiodname)
         {
             rt_b_watercarryovarcheck b_Watercarryovarcheck = Common.Helper.JsonHelper.GetObject<rt_b_watercarryovarcheck>(JsonData);

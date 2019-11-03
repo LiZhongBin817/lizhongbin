@@ -2,6 +2,9 @@
 
 namespace CDWM_MR.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class bookExcel
     {
         /// <summary>

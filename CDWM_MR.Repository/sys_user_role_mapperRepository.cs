@@ -1,5 +1,6 @@
 ﻿using CDWM_MR.IRepository;
 using CDWM_MR.IRepository.Content;
+using CDWM_MR.IRepository.UnitOfWork;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Repository.BASE;
 using System;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using CDWM_MR.IServices;
-using CDWM_MR.IServices.Content;
+﻿using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -12,6 +6,11 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CDWM_MR.Controllers.v1
 {
@@ -39,7 +38,7 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="Env"></param>
         /// <param name="vbookexcel"></param>
         /// <param name="downloaddatainfoservices"></param>
-        public AppDownloadMRPlanController(Imr_taskinfoServices taskservices, Iv_taskinfoServices Taskinfo, IHostingEnvironment Env, Iv_bookexcelServices vbookexcel,Iv_downloaddatainfoServices downloaddatainfoservices)
+        public AppDownloadMRPlanController(Imr_taskinfoServices taskservices, Iv_taskinfoServices Taskinfo, IHostingEnvironment Env, Iv_bookexcelServices vbookexcel, Iv_downloaddatainfoServices downloaddatainfoservices)
         {
             taskServices = taskservices;
             vtaskinfo = Taskinfo;
@@ -60,14 +59,16 @@ namespace CDWM_MR.Controllers.v1
             var t = await vtaskinfo.Query(c => c.readerid == ID && c.dowloadstatus == 1);
             if (t == null || t?.Count <= 0)
             {
-                return new {
-                    code =1001,
+                return new
+                {
+                    code = 1001,
                     msg = "无数据！",
                     data = 0
                 };
             }
-            
-            return new {
+
+            return new
+            {
                 code = 0,
                 msg = "成功",
                 data = t
@@ -84,21 +85,21 @@ namespace CDWM_MR.Controllers.v1
         public async Task<MessageModel<List<v_downloaddatainfo>>> downLoadMRinfo(int? taskid)
         {
             var data = new MessageModel<List<v_downloaddatainfo>>();
-            var judedata =await vtaskinfo.Query(c => c.taskid == taskid);
-            if (judedata == null) 
+            var judedata = await vtaskinfo.Query(c => c.taskid == taskid);
+            if (judedata == null)
             {
                 data.code = 1001;
                 data.msg = "没有对应的任务单！";
                 return data;
             }
             var temp = judedata.FirstOrDefault();
-            if (DateTime.Now < temp.downloadstarttime) 
+            if (DateTime.Now < temp.downloadstarttime)
             {
                 data.code = 1001;
                 data.msg = "没有到对应的下载日期！";
                 return data;
             }
-            var rdata =await _v_downloaddatainfoservices.Query(c => c.bookno == temp.bookno);
+            var rdata = await _v_downloaddatainfoservices.Query(c => c.bookno == temp.bookno);
             if (rdata.Count <= 0)
             {
                 data.code = 1001;
@@ -133,11 +134,11 @@ namespace CDWM_MR.Controllers.v1
         /// <returns></returns>
         [HttpGet("{taskid}/{status}")]
         [EnableCors("LimitRequests")]
-        public async Task<object> JudeSuccess(int? taskid,int? status)
+        public async Task<object> JudeSuccess(int? taskid, int? status)
         {
             if (status == 0)
             {
-                await taskServices.Update(c => new mr_taskinfo() { dowloadstatus = 0 },c => c.id == taskid);
+                await taskServices.Update(c => new mr_taskinfo() { dowloadstatus = 0 }, c => c.id == taskid);
                 return new
                 {
                     code = 0,
@@ -158,7 +159,6 @@ namespace CDWM_MR.Controllers.v1
         /// <summary>
         /// 接受上传图片(测试)
         /// </summary>
-        /// <param name="Test"></param>
         /// <param name="environment"></param>
         /// <returns></returns>
         [HttpPost]
@@ -203,7 +203,7 @@ namespace CDWM_MR.Controllers.v1
                 {
                     foreach (var item in files)
                     {
-                        string strpath = Path.Combine(foldername,item.FileName);
+                        string strpath = Path.Combine(foldername, item.FileName);
                         path = Path.Combine(environment.WebRootPath, strpath);
 
                         using (var stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
@@ -227,7 +227,6 @@ namespace CDWM_MR.Controllers.v1
                 }
             }
             else
-
             {
                 data.msg = "图片格式错误";
                 return data;

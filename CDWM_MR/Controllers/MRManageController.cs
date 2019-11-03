@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using CDWM_MR.Common;
 using CDWM_MR.Common.Helper;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
@@ -18,6 +19,9 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 抄表数据管理
     /// </summary>
+    [Route("api/MRManage")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class MRManageController : ControllerBase
     {
         #region 相关变量
@@ -30,6 +34,7 @@ namespace CDWM_MR.Controllers
         readonly Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices _Union_Datainfoocrlog_DatainfohistoryocrloghistoryServices;
         readonly Imr_datainfo_historyServices _Datainfo_HistoryServices;
         readonly Imr_b_readerServices _B_ReaderServices;
+        readonly Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices _rt_b_photoservices;
         #endregion
 
         /// <summary>
@@ -42,7 +47,10 @@ namespace CDWM_MR.Controllers
         /// <param name="datainfoServices"></param>
         /// <param name="recheck_RecheckhistoryServices"></param>
         /// <param name="union_Datainfoocrlog_DatainfohistoryocrloghistoryServices"></param>
-        public MRManageController(Iv_mr_datainfoServices mr_DatainfoServices, Irt_b_watercarryover_historyServices b_Watercarryover_HistoryServices, Irt_b_recheckServices b_RecheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, Imr_datainfoServices datainfoServices, Iv_recheck_recheckhistoryServices recheck_RecheckhistoryServices, Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices union_Datainfoocrlog_DatainfohistoryocrloghistoryServices, Imr_datainfo_historyServices datainfo_HistoryServices, Isys_userinfoServices userinfoServices, Imr_b_readerServices b_ReaderServices)
+        /// <param name="datainfo_HistoryServices"></param>
+        /// <param name="userinfoServices"></param>
+        /// <param name="b_ReaderServices"></param>
+        public MRManageController(Iv_mr_datainfoServices mr_DatainfoServices, Irt_b_watercarryover_historyServices b_Watercarryover_HistoryServices, Irt_b_recheckServices b_RecheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, Imr_datainfoServices datainfoServices, Iv_recheck_recheckhistoryServices recheck_RecheckhistoryServices, Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices union_Datainfoocrlog_DatainfohistoryocrloghistoryServices, Imr_datainfo_historyServices datainfo_HistoryServices, Isys_userinfoServices userinfoServices, Imr_b_readerServices b_ReaderServices , Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices photoservices)
         {
             _Mr_DatainfoServices = mr_DatainfoServices;
             _B_Watercarryover_HistoryServices = b_Watercarryover_HistoryServices;
@@ -53,6 +61,7 @@ namespace CDWM_MR.Controllers
             _Union_Datainfoocrlog_DatainfohistoryocrloghistoryServices = union_Datainfoocrlog_DatainfohistoryocrloghistoryServices;
             _Datainfo_HistoryServices = datainfo_HistoryServices;
             _B_ReaderServices = b_ReaderServices;
+            _rt_b_photoservices = photoservices;
         }
 
         /// <summary>
@@ -69,9 +78,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Show_CB_DataInfo")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("Show_CB_DataInfo")]      
         public async Task<TableModel<object>> Show_CB_DataInfo(string username, string account, string meternum, string address, string mrreadername, string bookno, int rtrecheckstatus = 3, int page = 1, int limit = 20)
         {
             //跟踪登录用户
@@ -170,9 +177,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("CarryData")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("CarryData")]      
         public async Task<TableModel<object>> CarryData()
         {
             #region 连接数据库查询
@@ -285,24 +290,30 @@ namespace CDWM_MR.Controllers
         /// <param name="autoaccount"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("Change")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("Change")]     
         public async Task<TableModel<object>> Change(string JsonData, string taskperiodname, string autoaccount)
         {
+            string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
             string Month = (Convert.ToInt32(taskperiodname) - 2).ToString();
             List<v_recheck_recheckhistory> rt_B_Rechecks = await _Recheck_RecheckhistoryServices.Query();
             List<v_union_datainfoocrlog_datainfohistoryocrloghistory> Data = await _Union_Datainfoocrlog_DatainfohistoryocrloghistoryServices.Query();
+            List<v_rt_b_photoattachment_rt_b_photoattachment_histoty> photo = await _rt_b_photoservices.Query();
             List<object> returnData = new List<object>();
-            string[] array = JsonData.Split(',');
+            string[] array = JsonData.Split(',');         
             for (int i = 0; i < array.Length; i++)
             {
                 decimal recheckdata = 0;
                 decimal ocrdata = 0;
-                int photoid = 0;
                 var recheckData = rt_B_Rechecks.FindAll(c => c.userid == autoaccount && c.taskperiodname == Month);
                 var ocrData = Data.FindAll(c => c.autoaccount == autoaccount && c.taskperiodname == Month);
+                var photoinfo = photo.FindAll(c => c.usercode == autoaccount && c.taskperiodname == Month);
+                photoinfo.ForEach(c => {
+                    if (!string.IsNullOrEmpty(c.photourl))
+                        c.photourl = $@"{ipadress}{c.photourl.Split("wwwroot")[1]}";
+                    c.photourl.Replace(@"\", @"/");
+                });//循环修改每一项的值
                 string[] array2 = array[i].Split('/');
+               
                 if (recheckData.Count != 0)
                 {
                     recheckdata = (decimal)recheckData[recheckData.Count-1].recheckdata;
@@ -311,14 +322,13 @@ namespace CDWM_MR.Controllers
                 if (ocrData.Count != 0)
                 {
                     ocrdata = ocrData[0].ocrdata==null?0: (decimal)ocrData[0].ocrdata;
-                    photoid = ocrData[0].photoid == null ? 0 : (int)ocrData[0].photoid;
                 }
                 var data = new
                 {
                     updateData = array2[0],
                     ocrData = ocrdata,
                     recheckdata = recheckdata,
-                    pircture = photoid,
+                    pircture = String.Join(',', photoinfo.Select(c => c.photourl).ToArray()),
                     month = Month
 
                 };
@@ -343,9 +353,7 @@ namespace CDWM_MR.Controllers
         /// <param name="result"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("SubmitChecked")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("SubmitChecked")]    
         public async Task<TableModel<object>> SubmitChecked(string JsonData, decimal RecheckData, int RecheckStatus, string result)
         {
             v_mr_datainfo mr_Datainfos = JsonHelper.GetObject<v_mr_datainfo>(JsonData);
@@ -396,14 +404,14 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 显示抄表路径
         /// </summary>
-        /// <param name="month">抄表月份</param>
-        /// <param name="name">抄表员姓名</param>
-        /// <param name="date">抄表日期</param>
+        /// <param name="month"></param>
+        /// <param name="date"></param>
+        /// <param name="name"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("ShowMRPath")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("ShowMRPath")]      
         public async Task<TableModel<object>> ShowMRPath(string month, string date, string name, int page = 1, int limit = 20)
         {
             return await _Mr_DatainfoServices.ShowMRPath(month, date, name, page, limit);
@@ -414,9 +422,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("RenderSelect")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("RenderSelect")]    
         public async Task<TableModel<object>> RenderSelect()
         {
             List<string> readerName = new List<string>();
@@ -439,9 +445,7 @@ namespace CDWM_MR.Controllers
         /// <param name="autoaccount"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ShowHistoryRecheckData")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [Route("ShowHistoryRecheckData")]    
         public async Task<TableModel<object>> ShowHistoryRecheckData(string autoaccount)
         {
             //查出审核历史数据
