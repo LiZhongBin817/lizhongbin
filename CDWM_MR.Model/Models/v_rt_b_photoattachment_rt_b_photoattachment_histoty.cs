@@ -36,6 +36,11 @@ namespace CDWM_MR.Model.Models
         /// 服务器存储路径
         /// </summary>
         public System.String photourl { get { return this._photourl; } set { this._photourl = value; } }
+        private System.Int32? _phototype;
+        /// <summary>
+        /// 照片类型(0--其他类型;1--表盘抄表;2--现场照片;3--故障处理后(故障);4--故障照片)
+        /// </summary>
+        public System.Int32? phototype { get { return this._phototype; } set { this._phototype = value; } }
     }
 }
 
