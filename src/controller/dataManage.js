@@ -291,7 +291,17 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                                 { field: 'inputdata', title: '上传数据', width: 120 },
                                 { field: 'ocrlogdata', title: '图像识别', width: 120 },
                                 { field: 'recheckdata', title: '复审读数', width: 120 },
-                                { field: 'pirctureID', title: '图片', width: 120 },
+                                {
+                                    field: 'pirctureurl', title: '图片', width: 150,
+                                    templet: function (d) {
+                                        if (d.pirctureurl != "") {
+                                            return `<a  lay-event="seehistoryphoto">点击查看图片</a>`;
+                                        }
+                                        else {
+                                            return '<a>' + "暂无图片" + '</a>';
+                                        }
+                                    }
+                                },
                                 {
                                     field: 'recheckstatus', title: '状态', width: 120,
                                     templet: function (d) {

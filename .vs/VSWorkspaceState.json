@@ -3,8 +3,10 @@
     "",
     "\\json",
     "\\src",
-    "\\src\\controller"
+    "\\src\\controller",
+    "\\src\\views",
+    "\\src\\views\\DataManage"
   ],
-  "SelectedNode": "\\src\\controller\\mr_bookManage.js",
+  "SelectedNode": "\\src\\controller\\dataManage.js",
   "PreviewInSolutionExplorer": false
 }
