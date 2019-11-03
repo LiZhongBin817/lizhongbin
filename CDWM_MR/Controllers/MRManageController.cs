@@ -297,7 +297,7 @@ namespace CDWM_MR.Controllers
             string Month = (Convert.ToInt32(taskperiodname) - 2).ToString();
             List<v_recheck_recheckhistory> rt_B_Rechecks = await _Recheck_RecheckhistoryServices.Query();
             List<v_union_datainfoocrlog_datainfohistoryocrloghistory> Data = await _Union_Datainfoocrlog_DatainfohistoryocrloghistoryServices.Query();
-            List<v_rt_b_photoattachment_rt_b_photoattachment_histoty> photo = await _rt_b_photoservices.Query();
+            List<v_rt_b_photoattachment_rt_b_photoattachment_histoty> photo = await _rt_b_photoservices.Query(c=>c.phototype==1||c.phototype==2);
             List<object> returnData = new List<object>();
             string[] array = JsonData.Split(',');         
             for (int i = 0; i < array.Length; i++)
@@ -379,7 +379,15 @@ namespace CDWM_MR.Controllers
             var lastData = _B_Rechecks.FindAll(c => c.userid == mr_Datainfos.autoaccount);
             if (RecheckData == 0)//使用者没有填写审核数据的时候
             {
-                b_Recheck.recheckdata = lastData[lastData.Count-1].recheckdata;
+                if (lastData.Count!=0)//再次审核情形
+                {
+                    b_Recheck.recheckdata = lastData[lastData.Count - 1].recheckdata;
+                }
+                else//初次审核但没有填写复审数据
+                {
+                    b_Recheck.recheckdata = 0;
+                }
+               
             }
             else
             {
@@ -448,14 +456,28 @@ namespace CDWM_MR.Controllers
         [Route("ShowHistoryRecheckData")]    
         public async Task<TableModel<object>> ShowHistoryRecheckData(string autoaccount)
         {
+            bool b = true;
+            string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
+            List<v_rt_b_photoattachment_rt_b_photoattachment_histoty> photo = await _rt_b_photoservices.Query(c => c.phototype == 1 || c.phototype == 2);
             //查出审核历史数据
             List<v_recheck_recheckhistory> recheck_Recheckhistories = await _Recheck_RecheckhistoryServices.Query(c=>c.userid== autoaccount);
             //查询拿到审核历史记录的图片和图片识别的读数
             List<v_union_datainfoocrlog_datainfohistoryocrloghistory> ocrlogData = await _Union_Datainfoocrlog_DatainfohistoryocrloghistoryServices.Query(c=>c.autoaccount== autoaccount);
             List<object> returnData = new List<object>();
+
             foreach (var item in recheck_Recheckhistories)
             {
                 var ocrlogDataAndinputdata = ocrlogData.FindAll(c=>c.taskperiodname==item.taskperiodname);
+                var photoinfo = photo.FindAll(c => c.usercode == autoaccount && c.taskperiodname == item.taskperiodname);
+                if (b)
+                {
+                    photoinfo.ForEach(c => {
+                        if (!string.IsNullOrEmpty(c.photourl))
+                            c.photourl = $@"{ipadress}{c.photourl.Split("wwwroot")[1]}";
+                        c.photourl.Replace(@"\", @"/");
+                    });//循环修改每一项的值
+                    b = false;
+                }   
                 var data = new
                 {
 
@@ -466,7 +488,7 @@ namespace CDWM_MR.Controllers
                     remark=item.recheckresult,
                     inputdata= ocrlogDataAndinputdata[0].inputdata,
                     ocrlogdata= ocrlogDataAndinputdata[0].ocrdata,
-                    pirctureID= ocrlogDataAndinputdata[0].photoid
+                    pirctureurl= String.Join(',', photoinfo.Select(c => c.photourl).ToArray())
 
                 };
                 returnData.Add(data);
