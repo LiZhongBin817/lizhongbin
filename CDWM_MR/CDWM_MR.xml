@@ -524,6 +524,7 @@
             <summary>
             抄表数据查询/抄表量化分析
             </summary>
+             [Produces("application/json")]
         </member>
         <member name="M:CDWM_MR.Controllers.DataSearchController.#ctor(CDWM_MR.IServices.Content.Iv_b_datasearch_historyServices,CDWM_MR.IServices.Content.Iv_mr_date_readerServices,CDWM_MR.IServices.Content.Iv_b_areas_regionServices,CDWM_MR.IServices.Content.Iv_b_regionServices,CDWM_MR.IServices.Content.Iv_mr_b_readerServices,CDWM_MR.IServices.Content.Iv_reader_analysisServices)">
             <summary>
