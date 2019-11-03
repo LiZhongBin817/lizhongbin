@@ -25,6 +25,7 @@ namespace CDWM_MR.Controllers.v1
         readonly Imr_datainfoServices _mr_datainfoServices;
         readonly Iv_mr_datainfoServices _v_mr_datainfoServices;
         private readonly Irt_b_photoattachmentServices _rt_b_photoservices;
+        readonly Iv_meterdataServices _MeterdataServices;
         #endregion
 
         /// <summary>
@@ -33,11 +34,12 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="mr_datainfoServices"></param>
         /// <param name="v_mr_datainfoServices"></param>
         /// <param name="rtbphotoservices"></param>
-        public AppMeterReadingDataController(Imr_datainfoServices mr_datainfoServices, Iv_mr_datainfoServices v_mr_datainfoServices, Irt_b_photoattachmentServices rtbphotoservices)
+        public AppMeterReadingDataController(Imr_datainfoServices mr_datainfoServices, Iv_mr_datainfoServices v_mr_datainfoServices, Irt_b_photoattachmentServices rtbphotoservices, Iv_meterdataServices MeterdataServices)
         {
             _mr_datainfoServices = mr_datainfoServices;
             _v_mr_datainfoServices = v_mr_datainfoServices;
             _rt_b_photoservices = rtbphotoservices;
+            _MeterdataServices = MeterdataServices;
         }
 
         #region  上传用户抄表数据接口
@@ -134,6 +136,56 @@ namespace CDWM_MR.Controllers.v1
             });
         }
         #endregion
+
+        #region 抄表数据统计
+        [HttpPost]
+        [Route("readdatastatistics")]
+        [AllowAnonymous]//允许所有都访问
+        public async Task<TableModel<object>> readdatastatistics(string month)
+        { 
+            List<v_meterdata> pageModel = new List<v_meterdata>();
+            Expression<Func<v_meterdata, bool>> wherelambda = c => true;
+            #region lambda拼接
+            if (!string.IsNullOrEmpty(month))
+            { 
+                wherelambda = PredicateExtensions.And<v_meterdata>(wherelambda, c => c.taskperiodname == month);
+            } 
+            #endregion 
+            pageModel = await _MeterdataServices.Query(wherelambda);
+            var datalist = pageModel
+                 .Select(c => new {
+                     readstatussum=c.readstatussum,
+                     readstatus0=c.readstatus0,
+                     taskperiodname = c.taskperiodname,
+                     usewaternum = c.usewaternum,
+                     date01 = c.date01,
+                     datehistory = c.datehistory,
+                     faultinfocount = c.faultinfocount,
+                     faultinfo_historycount = c.faultinfo_historycount,
+                     faultstatus = c.faultstatus,
+                     faultstatushistory = c.faultstatushistory,
+                 }) ; string [] a; int i=1;
+            for (int bb = 0; bb < datalist.First().readstatussum; bb++)
+            {
+                a[bb] = datalist.First().date01.ToString();
+                List<object> li = new List<object>();
+                li.Add(a[bb]);  
+                if (!li.Contains(a[bb]))
+                {
+                    i++;
+                }
+            }
+             
+            return new TableModel<object>
+            {
+                code = 0,
+                msg = "OK",
+                data = datalist
+            };
+
+
+        }
+            #endregion
 
     }
 }

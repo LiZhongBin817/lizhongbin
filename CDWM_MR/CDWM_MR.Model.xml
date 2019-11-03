@@ -3456,6 +3456,66 @@
             上期抄表异常
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.Models.v_meterdata">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_meterdata.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.readstatussum">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.readstatus0">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.taskperiodname">
+            <summary>
+            任务账期201909冗余
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.usewaternum">
+            <summary>
+            当前月份用水量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.date01">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.datehistory">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultinfocount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultinfo_historycount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultstatus">
+            <summary>
+            处理状态0--未受理;1--已受理;2--已处理;3--已存档(已审核)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultstatushistory">
+            <summary>
+            处理状态0--未受理;1--已受理;2--已处理;3--已存档(已审核)
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_mr_book_reader_lq">
             <summary>
             VIEW
