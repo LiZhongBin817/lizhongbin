@@ -99,7 +99,7 @@ namespace CDWM_MR.Controllers.v1
         public async Task<object> GetcheckedReadingWaterDate(string taskperiodname, int taskid)
         {
             #region lambda拼接式
-            Expression<Func<v_mr_datainfo, bool>> wherelambda = c => true;
+            Expression<Func<v_mr_datainfo, bool>> wherelambda = c => c.recheckstatus == 1;
             if (taskid != 0)
             {
                 wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.taskid == taskid);

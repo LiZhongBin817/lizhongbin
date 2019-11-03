@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using CDWM_MR.Common;
 using CDWM_MR.Common.Helper;
 using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
@@ -153,13 +154,10 @@ namespace CDWM_MR.Controllers
         {
             List<object> alllist = new List<object>();
             List<rt_b_photoattachment> list = await _B_PhotoattachmentServices.Query(c => c.billid == id);
+            string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
             for (int i = 0; i < list.Count; i++)
             {
-                string url;
-                string[] sArray = list[i].photourl.Split("images");
-                string newurl= sArray[1].Replace("\\", "/");
-                url = "http://localhost:1090" + newurl +"/"+list[i].photonname ;
-                alllist.Add(url);
+                alllist.Add($"{ipadress}{list[i].photourl.Split("wwwroot")[1]}");
             }
             return new MessageModel<object>()
             {
@@ -432,15 +430,13 @@ namespace CDWM_MR.Controllers
             List<rb_b_faultprocess> faultprocesslist = await _B_FaultprocessServices.Query(c => c.faultid == id && c.faulttype == 0);
             List<rb_b_faultprocess> faultprocessessecondlist = await _B_FaultprocessServices.Query(c => c.faultid == id && c.faulttype == 1);
             List<rt_b_photoattachment> photolist = await _B_PhotoattachmentServices.Query(c => c.billid == id&&c.phototype==2);//现场照片
+            string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
             if (photolist.Count!=0)
             {
+                
                 for (int i = 0; i < photolist.Count; i++)
                 {
-                    string url;
-                    string[] sArray = photolist[i].photourl.Split("images");
-                    string newurl = sArray[1].Replace("\\", "/");
-                    url = "http://localhost:1090" + newurl + "/" + photolist[i].photonname;
-                    firstphotolist.Add(url);
+                    firstphotolist.Add($"{ipadress}{photolist[i].photourl.Split("wwwroot")[1]}");
                 }
             }
             List<rt_b_photoattachment> dealphotolist = await _B_PhotoattachmentServices.Query(c=>c.billid==id&&c.phototype==3);//处理后照片
@@ -448,11 +444,7 @@ namespace CDWM_MR.Controllers
             {
                 for (int j = 0; j < dealphotolist.Count; j++)
                 {
-                    string url;
-                    string[] strArray = dealphotolist[j].photourl.Split("images");
-                    string newurl = strArray[1].Replace("\\", "/");
-                    url = "http://localhost:1090" + newurl + "/" + dealphotolist[j].photonname;
-                    secondphotolist.Add(url);
+                    secondphotolist.Add($"{ipadress}{dealphotolist[j].photourl.Split("wwwroot")[1]}");
                 }
             }
             list.Add(faultinfolist);
