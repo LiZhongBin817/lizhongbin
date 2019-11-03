@@ -55,10 +55,14 @@
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\APK\版本存放处.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\v2\" />
+    <Folder Include="wwwroot\APK\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,4 @@
 ﻿using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CDWM_MR.Model.Models
 {
@@ -252,5 +249,21 @@ namespace CDWM_MR.Model.Models
         /// NB表是否注册到iot平台(1:是；2：否)
         /// </summary>
         public System.Int32? isreg { get; set; }
+        /// <summary>
+        /// GIS位置
+        /// </summary>
+        public System.String GISPlace { get; set; }
+        /// <summary>
+        /// 更换水表时间
+        /// </summary>
+        public System.DateTime updatemetertime { get; set; }
+        /// <summary>
+        /// 口径
+        /// </summary>
+        public System.String caliber { get; set; }
+        /// <summary>
+        /// 截止用水量
+        /// </summary>
+        public System.Int16 lastwaternum { get; set; }
     }
 }

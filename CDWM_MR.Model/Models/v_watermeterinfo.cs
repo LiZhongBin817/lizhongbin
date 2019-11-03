@@ -1,6 +1,4 @@
-﻿using SqlSugar;
-
-namespace CDWM_MR.Model.Models
+﻿namespace CDWM_MR.Model.Models
 {
     /// <summary>
     /// VIEW
@@ -13,11 +11,24 @@ namespace CDWM_MR.Model.Models
         public v_watermeterinfo()
         {
         }
+        /// <summary>
+        /// 更换水表时间
+        /// </summary>
+        public System.DateTime? updatemetertime { get; set; }
+
+        /// <summary>
+        /// 使用标记 (0:否；1:是)
+        /// </summary>
+        public System.SByte? delflag { get; set; }
 
         /// <summary>
         /// 水表自动表号
         /// </summary>
         public System.String meternum { get; set; }
+        /// <summary>
+        /// 安装位置
+        /// </summary>
+        public System.String posname { get; set; }
 
         /// <summary>
         /// 
@@ -73,5 +84,9 @@ namespace CDWM_MR.Model.Models
         /// 截止用水量
         /// </summary>
         public System.Int32? lastwaternum { get; set; }
+        /// <summary>
+        /// 安装位置
+        /// </summary>
+        public System.Int16 installpos { get; set; }
     }
 }
