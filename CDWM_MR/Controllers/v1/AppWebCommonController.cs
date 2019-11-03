@@ -57,9 +57,16 @@ namespace CDWM_MR.Controllers.v1
         #endregion
 
         #region 抄表员两年查询
+        /// <summary>
+        /// 抄表员两年查询
+        /// </summary>
+        /// <param name="readernameid"></param>
+        /// <returns></returns>
         [HttpPost]
-        [Route("SearchReaderDate")] 
-        public async Task<TableModel<object>> SearchReaderDate(int readernameid)
+        [Route("SearchReaderDate01")]
+        [AllowAnonymous]
+        [EnableCors("LimitRequests")]
+        public async Task<TableModel<object>> SearchReaderDate01(int readernameid)
         {
             string time,num;
             List<vrt_b_watercarryover_datainfo> data = new List<vrt_b_watercarryover_datainfo>();

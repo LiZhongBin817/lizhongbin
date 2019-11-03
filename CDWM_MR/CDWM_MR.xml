@@ -1703,6 +1703,13 @@
             Web与APP公用参数接口
             </summary>
         </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppWebCommonController.SearchReaderDate01(System.Int32)">
+            <summary>
+            抄表员两年查询
+            </summary>
+            <param name="readernameid"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.WatermeterUserManageController">
             <summary>
             用户管理(档案管理)
