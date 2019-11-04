@@ -55,7 +55,7 @@
         //渲染autocomplete
         autocomplete.render({
             elem: $('#AddMenuID'),
-            url: layui.setter.requesturl+'/ShowSelectInfor',//后台地址
+            url: layui.setter.requesturl+'/api/MeterReadingPlan/ShowSelectInfor',//后台地址
             method: 'post',
             template_val: '{{d.ID}}',
             cache: true,
@@ -68,7 +68,7 @@
         });
         autocomplete.render({
             elem: $('#AddInterfaceID'),
-            url: layui.setter.requesturl+'/ShowInterInfor',
+            url: layui.setter.requesturl+'/api/MeterReadingPlan/ShowInterInfor',
             method: 'post',
              template_val: '{{d.ID}}',
             cache: true,
