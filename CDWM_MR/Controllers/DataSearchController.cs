@@ -92,35 +92,35 @@ namespace CDWM_MR.Controllers
             }
             if (!string.IsNullOrEmpty(account))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.account == account);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.account.Contains(account));
             }
             if (!string.IsNullOrEmpty(username))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.username == username);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.username.Contains(username));
             }
             if (!string.IsNullOrEmpty(meternum))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.meternum == meternum);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.meternum.Contains(meternum));
             }
             if (!string.IsNullOrEmpty(telephone))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.telephone == telephone);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.telephone.Contains(telephone));
             }
             if (!string.IsNullOrEmpty(meterbooknumber))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.meterbooknumber == meterbooknumber);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.meterbooknumber.Contains(meterbooknumber));
             }
             if (!string.IsNullOrEmpty(mrreadername))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.mrreadername == mrreadername);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.mrreadername.Contains(mrreadername));
             }
             if (!string.IsNullOrEmpty(regionname))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.regionname == regionname);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.regionname.Contains(regionname));
             }
             if (!string.IsNullOrEmpty(areaname))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.areaname == areaname);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.areaname.Contains(areaname));
             }
             #endregion
 
@@ -225,7 +225,7 @@ namespace CDWM_MR.Controllers
         /// 导出EXcel表格
         /// </summary>
         /// <returns></returns> 
-        [HttpPost]
+        [HttpGet]
         [Route("OutExcelDataSearch")]
         public async Task<FileResult> OutExcelDataSearch()
         {
@@ -308,7 +308,7 @@ namespace CDWM_MR.Controllers
             }
             if (!string.IsNullOrEmpty(mrreadername))
             {
-                wherelambda = PredicateExtensions.And<v_mr_date_reader>(wherelambda, c => c.mrreadername == mrreadername);
+                wherelambda = PredicateExtensions.And<v_mr_date_reader>(wherelambda, c => c.mrreadername ==mrreadername);
             }
             #endregion 
             pageModel = await _Date_ReaderServices.Query(wherelambda);
@@ -340,7 +340,7 @@ namespace CDWM_MR.Controllers
         /// 抄表员量化导出
         /// </summary>
         /// <returns></returns> 
-        [HttpPost]
+        [HttpGet]
         [Route("OutExcelReadAnalysis")]
         public async Task<FileResult> OutExcelReadAnalysis()
         {
@@ -473,7 +473,7 @@ namespace CDWM_MR.Controllers
         /// 抄表员量化汇总导出
         /// </summary>
         /// <returns></returns> 
-        [HttpPost]
+        [HttpGet]
         [Route("OutExcelReadAnalysisSum")]
         public async Task<FileResult> OutExcelReadAnalysisSum()
         {

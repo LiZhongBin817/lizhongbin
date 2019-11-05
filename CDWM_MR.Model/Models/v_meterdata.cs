@@ -17,17 +17,23 @@ namespace CDWM_MR.Model.Models
         {
         }
 
-        private System.Int64? _readstatussum;
+        private System.Int32 _readerid;
         /// <summary>
-        /// 
+        /// 抄表员id（mr_b_reader：:id）
         /// </summary>
-        public System.Int64? readstatussum { get { return this._readstatussum; } set { this._readstatussum = value; } }
+        public System.Int32 readerid { get { return this._readerid; } set { this._readerid = value; } }
 
-        private System.Int64? _readstatus0;
+        private System.Int64? _shouldcopysum;
         /// <summary>
         /// 
         /// </summary>
-        public System.Int64? readstatus0 { get { return this._readstatus0; } set { this._readstatus0 = value; } }
+        public System.Int64? shouldcopysum { get { return this._shouldcopysum; } set { this._shouldcopysum = value; } }
+
+        private System.Int64? _alreadysum;
+        /// <summary>
+        /// 
+        /// </summary>
+        public System.Int64? alreadysum { get { return this._alreadysum; } set { this._alreadysum = value; } }
 
         private System.String _taskperiodname;
         /// <summary>
@@ -35,46 +41,34 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         public System.String taskperiodname { get { return this._taskperiodname; } set { this._taskperiodname = value; } }
 
-        private System.Decimal? _usewaternum;
-        /// <summary>
-        /// 当前月份用水量
-        /// </summary>
-        public System.Decimal? usewaternum { get { return this._usewaternum; } set { this._usewaternum = value; } }
-
-        private System.DateTime? _date01;
+        private System.Decimal? _carrywatercount;
         /// <summary>
         /// 
         /// </summary>
-        public System.DateTime? date01 { get { return this._date01; } set { this._date01 = value; } }
+        public System.Decimal? carrywatercount { get { return this._carrywatercount; } set { this._carrywatercount = value; } }
 
-        private System.DateTime? _datehistory;
+        private System.Int64? _faultcount;
         /// <summary>
         /// 
         /// </summary>
-        public System.DateTime? datehistory { get { return this._datehistory; } set { this._datehistory = value; } }
+        public System.Int64? faultcount { get { return this._faultcount; } set { this._faultcount = value; } }
 
-        private System.Int64? _faultinfocount;
+        private System.Int64? _faultCumulativecount;
         /// <summary>
         /// 
         /// </summary>
-        public System.Int64? faultinfocount { get { return this._faultinfocount; } set { this._faultinfocount = value; } }
+        public System.Int64? faultCumulativecount { get { return this._faultCumulativecount; } set { this._faultCumulativecount = value; } }
 
-        private System.Int64? _faultinfo_historycount;
+        private System.Int64? _faultalready;
         /// <summary>
         /// 
         /// </summary>
-        public System.Int64? faultinfo_historycount { get { return this._faultinfo_historycount; } set { this._faultinfo_historycount = value; } }
+        public System.Int64? faultalready { get { return this._faultalready; } set { this._faultalready = value; } }
 
-        private System.Int32? _faultstatus;
+        private System.Int64? _faultalreadyCumulative;
         /// <summary>
-        /// 处理状态0--未受理;1--已受理;2--已处理;3--已存档(已审核)
+        /// 
         /// </summary>
-        public System.Int32? faultstatus { get { return this._faultstatus; } set { this._faultstatus = value; } }
-
-        private System.Int32? _faultstatushistory;
-        /// <summary>
-        /// 处理状态0--未受理;1--已受理;2--已处理;3--已存档(已审核)
-        /// </summary>
-        public System.Int32? faultstatushistory { get { return this._faultstatushistory; } set { this._faultstatushistory = value; } }
+        public System.Int64? faultalreadyCumulative { get { return this._faultalreadyCumulative; } set { this._faultalreadyCumulative = value; } }
     }
 }

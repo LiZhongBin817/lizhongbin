@@ -579,6 +579,11 @@
             备注
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.readerid">
+            <summary>
+            抄表员id
+            </summary> 
+        </member>
         <member name="T:CDWM_MR.Model.Models.mr_planinfo">
             <summary>
             抄表计划单
@@ -2826,9 +2831,24 @@
             VIEW
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.endtime">
+        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.autoaccount">
             <summary>
-            本期抄表时间
+            自动帐号(系统自动生成)(关联水表用户信息)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.taskperiodname">
+            <summary>
+            任务账期201909
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.startnum">
+            <summary>
+            上期止码,本期起码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.endnum">
+            <summary>
+            本期止码,下期起码
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.carrywatercount">
@@ -2836,14 +2856,9 @@
             冗余,用水量=上止-本止
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.autoaccount">
+        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.bookkeepingcount">
             <summary>
-            自动帐号(系统自动生成)(关联水表用户信息)
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.readerid">
-            <summary>
-            抄表员id（mr_b_reader：:id）
+            记账用量,冗余
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_bookexcel">
@@ -3606,12 +3621,17 @@
             VIEW
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_meterdata.readstatussum">
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.readerid">
+            <summary>
+            抄表员id（mr_b_reader：:id）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.shouldcopysum">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_meterdata.readstatus0">
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.alreadysum">
             <summary>
             
             </summary>
@@ -3621,39 +3641,29 @@
             任务账期201909冗余
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_meterdata.usewaternum">
-            <summary>
-            当前月份用水量
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_meterdata.date01">
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.carrywatercount">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_meterdata.datehistory">
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultcount">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultinfocount">
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultCumulativecount">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultinfo_historycount">
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultalready">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultstatus">
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultalreadyCumulative">
             <summary>
-            处理状态0--未受理;1--已受理;2--已处理;3--已存档(已审核)
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultstatushistory">
-            <summary>
-            处理状态0--未受理;1--已受理;2--已处理;3--已存档(已审核)
+            
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_mr_book_reader_lq">

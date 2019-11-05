@@ -56,9 +56,9 @@ namespace CDWM_MR.Controllers.v1
         }
         #endregion
 
-        #region 抄表员两年查询
+        #region 用户两年用水及水费查询
         /// <summary>
-        /// 抄表员两年查询
+        /// 用户两年用水及水费查询
         /// </summary>
         /// <param name="readernameid"></param>
         /// <returns></returns>
@@ -66,29 +66,24 @@ namespace CDWM_MR.Controllers.v1
         [Route("SearchReaderDate01")]
         [AllowAnonymous]
         [EnableCors("LimitRequests")]
-        public async Task<TableModel<object>> SearchReaderDate01(int readernameid)
-        {
-            string time,num;
+        public async Task<TableModel<object>> SearchReaderDate01(string  autoaccount)
+        {  
             List<vrt_b_watercarryover_datainfo> data = new List<vrt_b_watercarryover_datainfo>();
-            var list = await _B_Watercarryover_DatainfoServices.Query(c => c.readerid == readernameid);
-            Dictionary<object, object> dic = new Dictionary<object, object>(); 
-            for (int i = 0; i < list.Count; i++)
+            var list01 = await _B_Watercarryover_DatainfoServices.Query(c => c.autoaccount == autoaccount);
+            List<object> list02 = new List<object>();
+            for (int i = 0; i < list01.Count; i++)
             {
-                time = list[i].endtime.ToString();
-                string a = time.Substring(0, 7);
-                num = list[i].carrywatercount.ToString();
-                string[] b = num.Split(".");
-                dic.Add(a,b[0]); 
-                if (i > 24)
+                list02.Add(list01[i]);
+                if (i >= 24)
                 {
                     break;
                 }
-            } 
+            }
             return new TableModel<object>
             {
                 code = 0,
                 msg = "OK",
-                data = dic
+                data = list02
             };
         }
         #endregion

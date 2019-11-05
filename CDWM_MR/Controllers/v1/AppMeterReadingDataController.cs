@@ -26,6 +26,8 @@ namespace CDWM_MR.Controllers.v1
         readonly Iv_mr_datainfoServices _v_mr_datainfoServices;
         private readonly Irt_b_photoattachmentServices _rt_b_photoservices;
         readonly Iv_meterdataServices _MeterdataServices;
+        readonly Imr_datainfoServices _DatainfoServices;
+        readonly Imr_datainfo_historyServices _imr_Datainfo_HistoryServices;
         #endregion
 
         /// <summary>
@@ -34,12 +36,14 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="mr_datainfoServices"></param>
         /// <param name="v_mr_datainfoServices"></param>
         /// <param name="rtbphotoservices"></param>
-        public AppMeterReadingDataController(Imr_datainfoServices mr_datainfoServices, Iv_mr_datainfoServices v_mr_datainfoServices, Irt_b_photoattachmentServices rtbphotoservices, Iv_meterdataServices MeterdataServices)
+        public AppMeterReadingDataController(Imr_datainfoServices mr_datainfoServices, Imr_datainfo_historyServices imr_Datainfo_HistoryServices, Imr_datainfoServices DatainfoServices, Iv_mr_datainfoServices v_mr_datainfoServices, Irt_b_photoattachmentServices rtbphotoservices, Iv_meterdataServices MeterdataServices)
         {
             _mr_datainfoServices = mr_datainfoServices;
             _v_mr_datainfoServices = v_mr_datainfoServices;
             _rt_b_photoservices = rtbphotoservices;
             _MeterdataServices = MeterdataServices;
+            _DatainfoServices = DatainfoServices;
+            _imr_Datainfo_HistoryServices = imr_Datainfo_HistoryServices;
         }
 
         #region  上传用户抄表数据接口
@@ -70,11 +74,11 @@ namespace CDWM_MR.Controllers.v1
                     updatemodel.readstatus = 1;
                     List<string> updatefield = new List<string>() { "uploadgisplace", "readDateTime", "readstatus", "remark", "inputdata", "uploadtime", "readtype" };
                     await _mr_datainfoServices.Update(updatemodel, updatefield);
-                    
+
                 }
                 //Status = UserData.Count();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 data.code = 1001;
                 data.msg = ex.ObjToString();
@@ -138,44 +142,55 @@ namespace CDWM_MR.Controllers.v1
         #endregion
 
         #region 抄表数据统计
+        /// <summary>
+        /// 抄表数据统计
+        /// </summary>
+        /// <param name="readerid"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("readdatastatistics")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<TableModel<object>> readdatastatistics(string month)
-        { 
-            List<v_meterdata> pageModel = new List<v_meterdata>();
-            Expression<Func<v_meterdata, bool>> wherelambda = c => true;
-            #region lambda拼接
-            if (!string.IsNullOrEmpty(month))
-            { 
-                wherelambda = PredicateExtensions.And<v_meterdata>(wherelambda, c => c.taskperiodname == month);
-            } 
-            #endregion 
-            pageModel = await _MeterdataServices.Query(wherelambda);
-            var datalist = pageModel
-                 .Select(c => new {
-                     readstatussum=c.readstatussum,
-                     readstatus0=c.readstatus0,
-                     taskperiodname = c.taskperiodname,
-                     usewaternum = c.usewaternum,
-                     date01 = c.date01,
-                     datehistory = c.datehistory,
-                     faultinfocount = c.faultinfocount,
-                     faultinfo_historycount = c.faultinfo_historycount,
-                     faultstatus = c.faultstatus,
-                     faultstatushistory = c.faultstatushistory,
-                 }) ; string [] a; int i=1;
-            for (int bb = 0; bb < datalist.First().readstatussum; bb++)
+        public async Task<TableModel<object>> readdatastatistics(int readerid )
+        {
+            List<object > li = new List<object>();
+            List<object> li01 = new List<object>();
+            var data01 = await _MeterdataServices.Query(c => c.readerid == readerid);
+            var data02 = await _DatainfoServices.Query(c => c.readerid == readerid);//当前天数 
+            var data03 = await _imr_Datainfo_HistoryServices.Query(c => c.readerid == readerid);//查询累计抄表天数
+            int   count = 0;//当前天数 
+            int cumulativecount = 0;//累计抄表天数
+            foreach (var item in data02)
             {
-                a[bb] = datalist.First().date01.ToString();
-                List<object> li = new List<object>();
-                li.Add(a[bb]);  
-                if (!li.Contains(a[bb]))
+                if (item.readDateTime != null)
                 {
-                    i++;
+                    if (!li.Contains(item.readDateTime.ToShortDateString()))
+                    {
+                        li.Add(item.readDateTime.ToShortDateString());
+                         count++;
+                        
+                    } 
+                } 
+            }
+            foreach (var item in data03)
+            {
+                if (item.readDateTime != null)
+                {
+                    if (!li01.Contains(item.readDateTime.ToShortDateString()))
+                    {
+                        li01.Add(item.readDateTime.ToShortDateString());
+                        cumulativecount++;
+
+                    }
                 }
             }
-             
+            cumulativecount += count;
+            var datalist = new
+            {
+                data01,
+                count,
+                cumulativecount,
+            };
+
             return new TableModel<object>
             {
                 code = 0,
@@ -185,7 +200,7 @@ namespace CDWM_MR.Controllers.v1
 
 
         }
-            #endregion
+        #endregion
 
     }
 }

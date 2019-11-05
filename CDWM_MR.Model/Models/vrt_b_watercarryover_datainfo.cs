@@ -4,6 +4,7 @@ using System.Text;
 
 namespace CDWM_MR.Model.Models
 {
+
     /// <summary>
     /// VIEW
     /// </summary>
@@ -16,11 +17,29 @@ namespace CDWM_MR.Model.Models
         {
         }
 
-        private System.DateTime _endtime;
+        private System.String _autoaccount;
         /// <summary>
-        /// 本期抄表时间
+        /// 自动帐号(系统自动生成)(关联水表用户信息)
         /// </summary>
-        public System.DateTime endtime { get { return this._endtime; } set { this._endtime = value; } }
+        public System.String autoaccount { get { return this._autoaccount; } set { this._autoaccount = value; } }
+
+        private System.String _taskperiodname;
+        /// <summary>
+        /// 任务账期201909
+        /// </summary>
+        public System.String taskperiodname { get { return this._taskperiodname; } set { this._taskperiodname = value; } }
+
+        private System.Decimal _startnum;
+        /// <summary>
+        /// 上期止码,本期起码
+        /// </summary>
+        public System.Decimal startnum { get { return this._startnum; } set { this._startnum = value; } }
+
+        private System.Decimal _endnum;
+        /// <summary>
+        /// 本期止码,下期起码
+        /// </summary>
+        public System.Decimal endnum { get { return this._endnum; } set { this._endnum = value; } }
 
         private System.Decimal _carrywatercount;
         /// <summary>
@@ -28,16 +47,10 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         public System.Decimal carrywatercount { get { return this._carrywatercount; } set { this._carrywatercount = value; } }
 
-        private System.String _autoaccount;
+        private System.Decimal? _bookkeepingcount;
         /// <summary>
-        /// 自动帐号(系统自动生成)(关联水表用户信息)
+        /// 记账用量,冗余
         /// </summary>
-        public System.String autoaccount { get { return this._autoaccount; } set { this._autoaccount = value; } }
-
-        private System.Int32? _readerid;
-        /// <summary>
-        /// 抄表员id（mr_b_reader：:id）
-        /// </summary>
-        public System.Int32? readerid { get { return this._readerid; } set { this._readerid = value; } }
+        public System.Decimal? bookkeepingcount { get { return this._bookkeepingcount; } set { this._bookkeepingcount = value; } }
     }
 }

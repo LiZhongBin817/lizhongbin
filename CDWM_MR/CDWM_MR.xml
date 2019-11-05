@@ -1571,7 +1571,7 @@
             抄表数据接口
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.#ctor(CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Iv_meterdataServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.#ctor(CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Imr_datainfo_historyServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Iv_meterdataServices)">
             <summary>
             构造函数注入
             </summary>
@@ -1592,6 +1592,13 @@
             </summary>
             <param name="taskperiodname">任务周期</param>
             <param name="taskid">任务单ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.readdatastatistics(System.Int32)">
+            <summary>
+            抄表数据统计
+            </summary>
+            <param name="readerid"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppMeterReadingPlan">
@@ -1703,9 +1710,9 @@
             Web与APP公用参数接口
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppWebCommonController.SearchReaderDate01(System.Int32)">
+        <member name="M:CDWM_MR.Controllers.v1.AppWebCommonController.SearchReaderDate01(System.String)">
             <summary>
-            抄表员两年查询
+            用户两年用水及水费查询
             </summary>
             <param name="readernameid"></param>
             <returns></returns>
