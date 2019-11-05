@@ -47,37 +47,24 @@ namespace CDWM_MR.Controllers
 
         #region 显示数据
         /// <summary>
-        /// 显示权限信息
+        /// 显示按钮权限信息
         /// </summary>
         /// <param name="OperationName"></param>
-        /// <param name="InterfaceID"></param>
-        /// <param name="LinkUrl"></param>
-        /// <param name="MenuID"></param>
+        /// <param name="menuname"></param>
+        /// <param name="operationclass"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("ShowInfor")]
-        public async Task<TableModel<object>> ShowInfor(string OperationName, int InterfaceID, string LinkUrl, int MenuID, int page = 1, int limit = 10)
+        public async Task<TableModel<object>> ShowInfor(string OperationName,string menuname,int operationclass, int page = 1, int limit = 10)
         {
-            PageModel<object> datainfor = new PageModel<object>();
+            PageModel<sys_operation> datainfor = new PageModel<sys_operation>();
             #region Lambda拼接式
             Expression<Func<sys_operation, bool>> wherelambda = c => true;
             if (!string.IsNullOrEmpty(OperationName))
             {
                 wherelambda = PredicateExtensions.And<sys_operation>(wherelambda, c => c.OperationName == OperationName);
-            }
-            if (InterfaceID!=0)
-            {
-                wherelambda = PredicateExtensions.And<sys_operation>(wherelambda, c => c.InterfaceID == InterfaceID);
-            }
-            if (!string.IsNullOrEmpty(LinkUrl))
-            {
-                wherelambda = PredicateExtensions.And<sys_operation>(wherelambda, c => c.LinkUrl == LinkUrl);
-            }
-            if (MenuID!=0)
-            {
-                wherelambda = PredicateExtensions.And<sys_operation>(wherelambda, c => c.MenuID == MenuID);
             }
             #endregion
             Expression<Func<sys_operation, object>> expression = c => new
@@ -85,18 +72,30 @@ namespace CDWM_MR.Controllers
                 ID = c.id,
                 AuthorityName = c.OperationName,
                 MenuID = c.MenuID,
-                InterfaceID = c.InterfaceID,
-                URL = c.LinkUrl,
+                menuname = c.menumodel.MenuName,
+                btnClassName = c.btnClassName,
+                btneventName = c.btneventName,
                 Type = c.OperationType,
                 UseStatus = c.OperationStatus == 0 ? "使用" : "作废"
             };
-            datainfor = await _sys_OperationServices.QueryPage(wherelambda, expression, page, limit, "");
+            datainfor = await _sys_OperationServices.Getoperationlist(wherelambda, expression, page, limit);
+            var temp = datainfor.data.Select(c => new
+            {
+                ID = c.id,
+                AuthorityName = c.OperationName,
+                MenuID = c.MenuID,
+                menuname = c.menumodel.MenuName,
+                btnClassName = c.btnClassName,
+                btneventName = c.btneventName,
+                Type = c.OperationType,
+                UseStatus = c.OperationStatus == 0 ? "使用" : "作废"
+            }).ToList();
             return new TableModel<object>()
             {
                 code = 0,
                 msg = "ok",
                 count = datainfor.dataCount,
-                data = datainfor.data
+                data = temp
             };
         }
         #endregion

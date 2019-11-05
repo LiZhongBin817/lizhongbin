@@ -47,10 +47,26 @@ namespace CDWM_MR.Model.Models
         [SugarColumn(IsNullable = true)]
         public short OperationStatus { get; set; } = 0;
         /// <summary>
-        /// 权限种类 0:增加 1:删除 2:修改  3:查看
+        /// 权限种类 0:增加 1:删除 2:修改  3:查看 4:其他
         /// </summary>
         [SugarColumn(IsNullable = true)]
         public int OperationType { get; set; }
+
+        /// <summary>
+        /// 按钮的className
+        /// </summary>
+        public string btnClassName { get; set; }
+
+        /// <summary>
+        /// 按钮的eventName
+        /// </summary>
+        public string btneventName { get; set; }
+
+        /// <summary>
+        /// 关联的菜单集合
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public sys_menu menumodel { get; set; }
 
     }
 }

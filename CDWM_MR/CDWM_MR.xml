@@ -1127,14 +1127,13 @@
             <param name="_MenuServices"></param>
             <param name="_Interface_InfoServices"></param>
         </member>
-        <member name="M:CDWM_MR.Controllers.OprationManageController.ShowInfor(System.String,System.Int32,System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:CDWM_MR.Controllers.OprationManageController.ShowInfor(System.String,System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
-            显示权限信息
+            显示按钮权限信息
             </summary>
             <param name="OperationName"></param>
-            <param name="InterfaceID"></param>
-            <param name="LinkUrl"></param>
-            <param name="MenuID"></param>
+            <param name="menuname"></param>
+            <param name="operationclass"></param>
             <param name="page"></param>
             <param name="limit"></param>
             <returns></returns>
