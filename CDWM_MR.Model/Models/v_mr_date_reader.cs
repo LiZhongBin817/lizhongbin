@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace CDWM_MR.Model.Models
-{
-    /// <summary>
-    /// VIEW
-    /// </summary>
+{ /// <summary>
+  /// VIEW
+  /// </summary>
     public class v_mr_date_reader
     {
         /// <summary>
