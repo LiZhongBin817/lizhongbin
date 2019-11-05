@@ -4466,6 +4466,11 @@
             服务器存储路径
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_rt_b_photoattachment_rt_b_photoattachment_histoty.phototype">
+            <summary>
+            照片类型(0--其他类型;1--表盘抄表;2--现场照片;3--故障处理后(故障);4--故障照片)
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_rt_b_recheck">
             <summary>
             VIEW

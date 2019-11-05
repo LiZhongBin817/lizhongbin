@@ -173,10 +173,12 @@ namespace CDWM_MR.Controllers.v1
                     rb_b_faultprocess changemodel = _mapper.Map<rb_b_faultprocess>(FaultHandlinglist[i]);
                     changemodel.createtime = DateTime.Now;
                     changemodel.faulttype = 1;
+                    changemodel.createperson = "系统自动生成";
                     int a = await _rb_b_faultprocessServices.Add(changemodel);
+                    string meternum = FaultHandlinglist[i].meternum, tasknumber = FaultHandlinglist[i].taskperiodname;
+                    await _rt_b_faultinfoServices.Update(c => new rt_b_faultinfo() { faultstatus = 2 }, c => c.meternum == meternum && c.taskperiodname == tasknumber);
                     if (FaultHandlinglist[i].isupdateimg == 1)
                     {
-                        string meternum = FaultHandlinglist[i].meternum, tasknumber = FaultHandlinglist[i].taskperiodname;
                         await _rt_b_photoservices.Update(c => new rt_b_photoattachment() { billid = a }, c => c.metercode == meternum && c.taskperiodname == tasknumber && c.phototype == 3);//修改图片表billid
                     }
                 }
