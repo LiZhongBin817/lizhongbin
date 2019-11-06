@@ -44,13 +44,13 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">抄表时间段</label>
                         <div class="layui-inline">
-                            <input class="layui-input" name="ordatatime01" autocomplete="off" width="140" id="test1" placeholder="yyyy-MM-dd" />
+                            <input class="layui-input" name="ordatatime01" autocomplete="off" width="140" id="date_searchshort01" placeholder="yyyy-MM-dd" />
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">至</label>
                         <div class="layui-inline">
-                            <input class="layui-input" name="ordatatime02" autocomplete="off" width="140" id="test" placeholder="yyyy-MM-dd" />
+                            <input class="layui-input" name="ordatatime02" autocomplete="off" width="140" id="date_searchshort02" placeholder="yyyy-MM-dd" />
                         </div>
                     </div>
                     <div class="layui-inline">
@@ -71,8 +71,8 @@
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <button id="numSearch" class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="numSearch">查询</button>
-                        <a class="layui-btn  layui-btn-normal layui-btn-radius" href="http://localhost:8081/OutExcelDataSearch">导出</a>
+                        <button id="numSearch" class="layui-btn layui-btn-normal  " style="border-radius:3px" lay-submit lay-filter="numSearch">查询</button>
+                        <a class="layui-btn  layui-btn-normal  " style="border-radius:3px" lay-filter="btn_export01" id="btn_export01">导出</a>
                     </div>
                     <div class="layui-card-body">
                         <table id="dataManageInfo_Table" lay-filter="dataManageInfoo" class="layui-hide"></table>
@@ -83,7 +83,7 @@
     </div>
 </div>
 <script>
-    layui.use('DataSearch' , layui.factory('DataSearch')).use(['admin', 'DataSearch', 'table', 'form', 'view','laydate'], function () {
+    layui.use('DataSearch', layui.factory('DataSearch')).use(['admin', 'DataSearch', 'table', 'form', 'view', 'laydate'], function () {
         var admin = layui.admin
             , table = layui.table
             , form = layui.form
@@ -91,12 +91,12 @@
             , laydate = layui.laydate
 
         form.render();
-             laydate.render({
-           elem: '#test1'
-             });
-          laydate.render({
-           elem: '#test'
-           });
+        laydate.render({
+            elem: '#date_searchshort01'
+        });
+        laydate.render({
+            elem: '#date_searchshort02'
+        });
     });
 </script>
 
