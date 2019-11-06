@@ -2025,6 +2025,11 @@
             按钮的eventName
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.btnContainer">
+            <summary>
+            按钮容器属性(id或者class)
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.sys_operation.menumodel">
             <summary>
             关联的菜单集合

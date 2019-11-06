@@ -63,6 +63,11 @@ namespace CDWM_MR.Model.Models
         public string btneventName { get; set; }
 
         /// <summary>
+        /// 按钮容器属性(id或者class)
+        /// </summary>
+        public string btnContainer { get; set; }
+
+        /// <summary>
         /// 关联的菜单集合
         /// </summary>
         [SugarColumn(IsIgnore = true)]
