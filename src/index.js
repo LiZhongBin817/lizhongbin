@@ -1,9 +1,7 @@
 /**
 
  @Name：layuiAdmin 主入口
- @Author：贤心
- @Site：http://www.layui.com/admin/
- @License：LPPL
+ @Author：ZK(郑凯)
     
  */
  
