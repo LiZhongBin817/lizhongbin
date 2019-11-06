@@ -7,77 +7,62 @@
 
 <div class="layui-form" lay-filter="layui-Page-Add" id="layui-Page-Add">
     <div class="layui-form-item">
-        <label class="layui-form-label">权限名：</label>
+        <label class="layui-form-label">权限名称：</label>
         <div class="layui-input-inline">
-            <input type="text" class="layui-input" layui-autocomplete id="OperationName" name="OperationName" placeholder="请输入权限名称" autocomplete="off" />
+            <input type="text" class="layui-input"  id="OperationName" name="OperationName" placeholder="请输入权限名称" autocomplete="off" />
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">菜单ID：</label>
+        <label class="layui-form-label">菜单名称：</label>
         <div class="layui-input-inline">
-            <input type="text" class="layui-input" id="AddMenuID" name="AddMenuID" placeholder="请输入菜单ID" autocomplete="off" />
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">接口ID：</label>
-        <div class="layui-input-inline">
-            <input type="text" class="layui-input" id="AddInterfaceID" name="AddInterfaceID" placeholder="请输入菜单ID" autocomplete="off" />
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">URL地址：</label>
-        <div class="layui-input-inline">
-            <input type="text" class="layui-input" id="LinkUrl" name="LinkUrl" placeholder="请输入URL地址" autocomplete="off" />
+            <select name="MenuID" id="MenuID-add" lay-search="">
+
+            </select>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">权限种类：</label>
         <div class="layui-input-inline">
-            <input type="text" class="layui-input" id="OperationType" name="OperationType" placeholder="请输入权限种类" autocomplete="off" />
+            <select name="OperationType" lay-filter="OperationType" id="OperationType">
+                <option value="-1">请选择</option>
+                <option value="0">增加</option>
+                <option value="1">删除</option>
+                <option value="2">修改</option>
+                <option value="3">查看</option>
+                <option value="4">其他种类</option>
+            </select>
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">按钮Class：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="btnClassName" name="btnClassName" placeholder="请输入按钮Class" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">按钮事件名称：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="btneventName" name="btneventName" placeholder="请输入事件名称" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">按钮容器属性：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="btnContainer" name="btnContainer" placeholder="请输入容器属性" autocomplete="off" />
+        </div>
+    </div>
+
     <div class="layui-form-item layui-hide">
         <input type="button" lay-submit lay-filter="LAY-Add-submit" id="LAY-Add-submit" value="确认">
     </div>
 </div>
 <script>
-    layui.config({
-        base: '../../../../start/autocomplete/'  // 自己autocomplete文件路径
-
-    });
-    layui.use(['admin', 'table', 'form', 'view', 'jquery', 'autocomplete'], function () {
+    layui.use(['admin', 'table', 'form', 'view', 'jquery'], function () {
         var $ = layui.$
             , admin = layui.admin
             , table = layui.table
             , view = layui.view
-            , autocomplete = layui.autocomplete
             , form = layui.form;
-        //渲染autocomplete
-        autocomplete.render({
-            elem: $('#AddMenuID'),
-            url: layui.setter.requesturl+'/api/MeterReadingPlan/ShowSelectInfor',//后台地址
-            method: 'post',
-            template_val: '{{d.ID}}',
-            cache: true,
-            response: {code: 'code', data: 'data'},
-            template_txt: '{{d.ID}} <span class=\'layui-badge layui-bg-gray\'>{{d.Name}}</span>',
-            onselect: function (resp) {
-                console.log(resp);
-                $('input[name=AddMenuID]').val(resp.ID+'-'+ resp.Name);
-            }
-        });
-        autocomplete.render({
-            elem: $('#AddInterfaceID'),
-            url: layui.setter.requesturl+'/api/MeterReadingPlan/ShowInterInfor',
-            method: 'post',
-             template_val: '{{d.ID}}',
-            cache: true,
-            response: { code: 'code', data: 'data' },
-            template_txt: '{{d.ID}} <span class=\'layui-badge layui-bg-gray\'>{{d.Name}}</span>',
-            onselect: function (resp) {
-                console.log(resp);
-                $('input[name=AddInterfaceID]').val(resp.ID+'-'+ resp.Name);
-            }
-        });
     });
 </script>
