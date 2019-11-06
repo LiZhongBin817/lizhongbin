@@ -50,15 +50,15 @@ namespace CDWM_MR.Controllers
             Expression<Func<sys_parameter,bool>>wherelambda=c=>true;
             if (!string.IsNullOrEmpty(parameterNumber))
             {
-                wherelambda = PredicateExtensions.And<sys_parameter>(wherelambda, c => c.parameternumber == parameterNumber);
+                wherelambda = PredicateExtensions.And<sys_parameter>(wherelambda, c => c.parameternumber.Contains(parameterNumber));
             }
             if (!string.IsNullOrEmpty(parameterName))
             {
-                wherelambda = PredicateExtensions.And<sys_parameter>(wherelambda, c => c.parametername == parameterName);
+                wherelambda = PredicateExtensions.And<sys_parameter>(wherelambda, c => c.parametername.Contains(parameterName));
             }
             if (parameterType!=0)
             {
-                wherelambda = PredicateExtensions.And<sys_parameter>(wherelambda, c => c.parametertype == parameterType);
+                wherelambda = PredicateExtensions.And<sys_parameter>(wherelambda, c => c.parametertype==parameterType);
             }
             #endregion
 

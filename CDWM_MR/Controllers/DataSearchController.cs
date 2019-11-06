@@ -21,6 +21,10 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 抄表数据查询/抄表量化分析
     /// </summary>
+    ///  [Produces("application/json")]
+    [Route("api/DataSearch")]
+    [AllowAnonymous]
+    [EnableCors("AllRequests")]
     public class DataSearchController : ControllerBase
     {
 
@@ -74,8 +78,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowDataSearchInfo")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ShowDataSearchInfo(string account, string username, string meternum, string telephone, string meterbooknumber, string mrreadername, string ordatatime01, string ordatatime02, string regionname, string areaname, int page = 1, int limit = 20)
         {
             PageModel<object> pageModel = new PageModel<object>();
@@ -90,35 +92,35 @@ namespace CDWM_MR.Controllers
             }
             if (!string.IsNullOrEmpty(account))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.account == account);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.account.Contains(account));
             }
             if (!string.IsNullOrEmpty(username))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.username == username);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.username.Contains(username));
             }
             if (!string.IsNullOrEmpty(meternum))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.meternum == meternum);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.meternum.Contains(meternum));
             }
             if (!string.IsNullOrEmpty(telephone))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.telephone == telephone);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.telephone.Contains(telephone));
             }
             if (!string.IsNullOrEmpty(meterbooknumber))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.meterbooknumber == meterbooknumber);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.meterbooknumber.Contains(meterbooknumber));
             }
             if (!string.IsNullOrEmpty(mrreadername))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.mrreadername == mrreadername);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.mrreadername.Contains(mrreadername));
             }
             if (!string.IsNullOrEmpty(regionname))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.regionname == regionname);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.regionname.Contains(regionname));
             }
             if (!string.IsNullOrEmpty(areaname))
             {
-                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.areaname == areaname);
+                wherelambda = PredicateExtensions.And<v_b_datasearch_history>(wherelambda, c => c.areaname.Contains(areaname));
             }
             #endregion
 
@@ -170,8 +172,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("renderdataInfo")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> renderdataInfo(string JsonData)
         {
             List<v_b_areas_region> data = new List<v_b_areas_region>();
@@ -201,8 +201,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns> 
         [HttpPost]
         [Route("render_regionInfo")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> render_regionInfo()
         {
 
@@ -229,8 +227,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns> 
         [HttpGet]
         [Route("OutExcelDataSearch")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<FileResult> OutExcelDataSearch()
         {
             List<v_b_datasearch_history> ExcelList = await _B_Datasearch_HistoryServices.Query(c => true);
@@ -300,8 +296,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ReadAnalysis")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ReadAnalysis(string readDatetime01, string mrreadername)
         {
             List<v_mr_date_reader> pageModel = new List<v_mr_date_reader>();
@@ -314,7 +308,7 @@ namespace CDWM_MR.Controllers
             }
             if (!string.IsNullOrEmpty(mrreadername))
             {
-                wherelambda = PredicateExtensions.And<v_mr_date_reader>(wherelambda, c => c.mrreadername == mrreadername);
+                wherelambda = PredicateExtensions.And<v_mr_date_reader>(wherelambda, c => c.mrreadername ==mrreadername);
             }
             #endregion 
             pageModel = await _Date_ReaderServices.Query(wherelambda);
@@ -348,8 +342,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns> 
         [HttpGet]
         [Route("OutExcelReadAnalysis")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<FileResult> OutExcelReadAnalysis()
         {
             List<v_mr_date_reader> ExcelList = await _Date_ReaderServices.Query(c => true);
@@ -392,8 +384,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("render_ReaderAnalysis")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> render_ReaderAnalysis()
         {
 
@@ -423,8 +413,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ReadAnalysis_Sum")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ReadAnalysis_Sum(string readDatetime01, string mrreadername)
         {
             List<v_reader_analysis> pageModel = new List<v_reader_analysis>();
@@ -487,8 +475,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns> 
         [HttpGet]
         [Route("OutExcelReadAnalysisSum")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<FileResult> OutExcelReadAnalysisSum()
         {
             List<v_reader_analysis> ExcelList = await _Reader_AnalysisServices.Query(c => true);
@@ -529,8 +515,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ReadAnalysis_key")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ReadAnalysis_key()
         { 
             List<v_reader_analysis> data = new List<v_reader_analysis>();
@@ -565,8 +549,6 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ReadAnalysis_val")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> ReadAnalysis_val()
         {
             List<v_reader_analysis> data = new List<v_reader_analysis>();
