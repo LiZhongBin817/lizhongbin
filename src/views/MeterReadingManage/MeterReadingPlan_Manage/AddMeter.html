@@ -36,21 +36,27 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label"></label>
-        <div class="layui-input-inline">
-            <input type="button" lay-submit lay-filter="AddMeter_submit" value="提交" class="layui-btn">
+        <div class="layui-input-inline" style="text-align:center">
+            <input type="button" lay-submit lay-filter="AddMeter_submit" value="提交" style="border-radius:3px" class="layui-btn layui-btn-sm layui-btn-normal" >
         </div>
     </div>
 
 </div>
 
 <script>
-    layui.use(['admin', 'form', 'view', 'MeterReadPlan'], function () {
+    layui.use(['admin', 'form', 'view', 'MeterReadPlan', 'laydate'], function () {
         var $ = layui.$
             , form = layui.form,
             view = layui.view,
             admin = layui.admin,
+            laydate = layui.laydate,
             MeterReadPlan = layui.MeterReadPlan;
         form.render();
-
+        laydate.render({
+            elem: '#Add_StartTime',
+        });
+        laydate.render({
+            elem: '#Add_EndTime',
+        });
     });
 </script>

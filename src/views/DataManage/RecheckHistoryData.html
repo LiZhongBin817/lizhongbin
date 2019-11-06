@@ -5,7 +5,7 @@
     <div class="layui-row">
         <div class="layui-col-md12">
             <div class="layui-card layui-form" id="RecheckHistoryData">
-                <div class="layui-card-header  layuiadmin-card-header-auto" >
+                <div class="layui-card-header  layuiadmin-card-header-auto">
                     <div class="layui-inline">
                         <label class="layui-form-label">户号:</label>
                         <div class="layui-inline">
@@ -31,11 +31,40 @@
     </div>
 </div>
 <script>
-    layui.use(['admin', 'table', 'form', 'view'], function () {
+    layui.use(['admin', 'table', 'form', 'view','jquery'], function () {
         var admin = layui.admin
             , table = layui.table
             , form = layui.form
-            , view = layui.view;
+            , view = layui.view
+            ,$=layui.jquery;
         form.render();
+        table.on('tool(RecheckHistoryDataTable)', function (obj) {
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+
+            if (layEvent === 'seehistoryphoto') { //查看
+               
+                //layer.photo();checkdata-seephoto
+                admin.popup({
+                    id: "recheckdata-Seehistoryphoto",
+                    area: ['800px', '500px'],
+                    title: '查看历史图片',
+                    success: function () {
+                        view(this.id).render('DataManage/SeeHistoryPhoto', data).done(function () {
+                            var photoobject = data.pirctureurl.split(',');
+                             
+                            var rhtml = "";
+                            for (var i = 0; i < photoobject.length; i++) {
+                                rhtml += `<img style="width:250px;height:250px" src="${photoobject[i]}" alt="">`;
+                            }
+                            console.log(rhtml);
+                            $("#recheckdata-seehistoryphoto").html(rhtml);
+
+                        });
+                    }
+                });
+            }
+        });
     });
 </script>

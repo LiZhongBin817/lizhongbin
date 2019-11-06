@@ -89,7 +89,7 @@
         function SelectRender() {
             //渲染下拉框
             admin.req({
-                url: layui.setter.requesturl + '/RenderSelect',
+                url: layui.setter.requesturl + '/api/MRManage/RenderSelect',
                 method: 'post',
                 success: function (d) {
                     data = d.data;
@@ -113,7 +113,7 @@
             MapInit();
             var data = d.field;         
             admin.req({
-                url: layui.setter.requesturl + '/ShowMRPath',
+                url: layui.setter.requesturl + '/api/MRManage/ShowMRPath',
                 type: 'get',
                 data: {
                     'month': data.month,

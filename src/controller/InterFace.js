@@ -13,7 +13,7 @@ layui.define(['table', 'form','view'], function (exports) {
     table.render({
         elem: '#Interface',
         method: 'post',
-        url: layui.setter.requesturl+'/InterfaceInfoShow',
+        url: layui.setter.requesturl +'/api/SysManange/InterfaceInfoShow',
         cols: [[
             { field: 'InterfaceName', title: '接口名称', width: 200 },
             { field: 'InterfaceUrl', title: '接口地址', width: 200 },
@@ -45,18 +45,18 @@ layui.define(['table', 'form','view'], function (exports) {
                 }
             },
             { field: 'Remark', title: '描述', minWidth: 120 },
-            { title: '操作', width: 120, toolbar: '#barDemo', align: 'center', fixed: 'right' }
+            { title: '操作', width: 120, toolbar: '#InterfacebarDemo', align: 'center', fixed: 'right' }
         ]],
         page: true,
         limit: 20,
-        toolbar: "#toolbarDemo",
+        toolbar: "#InterfacetoolbarDemo",
         limits: [20, 30, 40],
         done: function () {
             layer.close(load);
         }
     });
     //监听表格中的操作
-    table.on('tool(test)', function (obj) {
+    table.on('tool(InterfaceTable)', function (obj) {
         var data = obj.data;       
         var layEvent = obj.event;    
         //编辑按钮
@@ -83,7 +83,7 @@ layui.define(['table', 'form','view'], function (exports) {
                             };
                             console.log(sendData);
                             admin.req({
-                                url: layui.setter.requesturl+'/ModifyInterface',
+                                url: layui.setter.requesturl +'/api/SysManange/ModifyInterface',
                                 type: 'post',
                                 data: {
                                     "JsonData": JSON.stringify(sendData),
@@ -122,7 +122,7 @@ layui.define(['table', 'form','view'], function (exports) {
         });
     });
     //监听工具栏按钮
-    table.on('toolbar(test)', function (obj) {
+    table.on('toolbar(InterfaceTable)', function (obj) {
         var layEvent = obj.event;
         if (layEvent === "AddInterface") {
             admin.popup({
@@ -136,7 +136,7 @@ layui.define(['table', 'form','view'], function (exports) {
                             var field = obj.field;
                             var load = layer.load(3);
                             admin.req({
-                                url: layui.setter.requesturl+'/AddInterface',
+                                url: layui.setter.requesturl +'/api/SysManange/AddInterface',
                                 type:'post',
                                 data: {
                                     "JsonData": JSON.stringify(field)

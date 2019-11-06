@@ -1,0 +1,50 @@
+﻿<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<div class="layui-form" lay-filter="DistributeUserform" id="DistributeUserform">
+    <div class="layui-inline">
+        <div class="layui-inline">
+            <input class="layui-input" name="regionplace" id="regionplace" autocomplete="off" placeholder="所属区域">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <div class="layui-inline">
+            <input class="layui-input" name="areaname" id="areaname" autocomplete="off" placeholder="小区名称">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">是否分配</label>
+        <div class="layui-input-block">
+            <select name="status">   
+                <option value="">请选择</option>
+                <option value="0">未分配</option>
+                <option value="1">已分配</option>     
+            </select>
+        </div>
+    </div>
+    <div class="layui-inline">
+        <div class="layui-inline">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="DiPolling">
+                查询
+            </button>
+        </div>
+    </div>
+    <div class="layui-inline">
+        <div class="layui-inline">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="AddToBook">
+                添加到抄表册
+            </button>
+        </div>
+    </div>
+    <table class="layui-hide" id="DistributeUserTable" lay-filter="test1"></table>
+</div>
+<script>
+    layui.use(['admin', 'form', 'mr_bookManage', 'view'], function () {
+        var $ = layui.$
+            , form = layui.form,
+            admin = layui.admin,
+            view = layui.view,
+            mr_bookManage = layui.mr_bookManage;
+
+    });
+</script>

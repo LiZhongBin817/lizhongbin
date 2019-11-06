@@ -1,5 +1,5 @@
 ﻿
-<title>接口管理</title>
+<title>抄表册管理</title>
 
 <div class="layui-card layadmin-header">
     <div class="layui-breadcrumb" lay-filter="breadcrumb">
@@ -18,40 +18,43 @@
             <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                 <div class="layui-inline">
                     <div class="layui-inline">
-                        <input class="layui-input" name="interfacename" id="interfacename" autocomplete="off" placeholder="接口名">
+                        <input class="layui-input" name="bookno" id="bookno" autocomplete="off" placeholder="表册编号">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <div class="layui-inline">
-                        <input class="layui-input" name="interfaceurl" id="interfaceurl" autocomplete="off" placeholder="接口地址">
+                        <input class="layui-input" name="bookname" id="bookname" autocomplete="off" placeholder="表册名称">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="polling">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="polling">
                             查询
                         </button>
                     </div>
                 </div>
             </div>
             <div class="layui-card-body">
-                <table class="layui-hide" id="Interface" lay-filter="InterfaceTable"></table>
+                <table class="layui-hide" id="Book" lay-filter="test"></table>
             </div>
         </div>
     </div>
 </div>
-<script type="text/html" id="InterfacebarDemo">
-    <a class="layui-btn layui-btn-warm " lay-event="edit">编辑</a>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-warm " lay-event="distributeUser">分配用户</a>
+    <a class="layui-btn layui-btn-warm " lay-event="distributeReader">分配抄表员</a>
+    <a class="layui-btn layui-btn-warm " lay-event="editBook">编辑</a>
+    <a class="layui-btn layui-btn-warm " lay-event="deleteBook">删除</a>
 </script>
-<script type="text/html" id="InterfacetoolbarDemo">
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="AddInterface">增加接口</button>
-    </div>
+<script type="text/html" id="toolbarDemo">
+    <a class="layui-btn layui-btn-warm " lay-event="AddBook">新增抄表册</a>  
 </script>
 <script>
-    layui.use('InterFace', layui.factory('InterFace')).use(['admin', 'InterFace', 'table', 'view'], function () {
+    layui.use('mr_bookManage', layui.factory('mr_bookManage')).use(['admin', 'mr_bookManage', 'table', 'view'], function () {
         var admin = layui.admin,
-            view = layui.view
-            
+            view = layui.view,
+            table = layui.table,
+            mr_bookManage = layui.mr_bookManage;
+
     })
 </script>

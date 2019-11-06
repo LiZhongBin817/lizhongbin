@@ -12,9 +12,9 @@ layui.define(['table', 'form', 'view'], function (exports) {
     var $ = layui.$;
     //显示数据
     table.render({
-        elem: '#Interface',//渲染指定元素(表格ID)
+        elem: '#Sys_User',//渲染指定元素(表格ID)
         method: 'post',
-        url: layui.setter.requesturl+'/ShowUserInfoDate',
+        url: layui.setter.requesturl +'/api/SysManange/ShowUserInfoDate',
         cols: [[
             { type: 'checkbox', fixed: 'left' },
             { title: '#', width: 70, type: 'numbers' },
@@ -52,7 +52,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
         //编辑按钮
         if (layEvent === 'edit') {
             admin.req({
-                url: layui.setter.requesturl+'/ModifyData',
+                url: layui.setter.requesturl +'/api/SysManange/ModifyData',
                 type: 'get',
                 data: {
                     "ID": data.ID
@@ -100,7 +100,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                 //var load = layer.load(3);让有一个转转哈哈哈
                                 console.log(field);
                                 admin.req({
-                                    url: layui.setter.requesturl+'/ModifyUserInfo',
+                                    url: layui.setter.requesturl +'/api/SysManange/ModifyUserInfo',
                                     type: 'post',
                                     data: {
                                         "JsonDate": JSON.stringify(field),
@@ -108,7 +108,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                     },
                                     success: function (message) {
                                         if (message.msg == "ok") {
-                                            layui.table.reload('Interface'); //重载表格
+                                            layui.table.reload('Sys_User'); //重载表格
                                             layer.close(index); //执行关闭 
                                             layer.msg("编辑成功");
                                         }
@@ -134,7 +134,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                 btn: ['提交', '取消'],
                 yes: function (layero, index) {
                     admin.req({
-                        url: "layui.setter.requesturl+'/DeleteUser",
+                        url: layui.setter.requesturl +'/api/SysManange/DeleteUser',
                         type: "Get",
                         data: {
                             "ID": Number(data.ID),
@@ -142,7 +142,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                         success: function (msg) {
                             if (msg.msg == "ok") {
                                 console.log(msg);
-                                table.reload('Interface');
+                                table.reload('Sys_User');
                                 layer.msg("删除成功");
                             }
                             else {
@@ -167,7 +167,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
         var field = data.field;
         console.log(data.field);
         //执行重载
-        table.reload('Interface', {
+        table.reload('Sys_User', {
             where: {
                 "FUserName": data.field.FUserName,//传Name属性
                 "LoginName": data.field.LoginName,
@@ -179,7 +179,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
     //监听添加
     form.on('submit(Add)', function (obj) {
         admin.req({
-            url: layui.setter.requesturl+'/roleDate',
+            url: layui.setter.requesturl +'/api/SysManange/roleDate',
             type: 'get',
             success: function (obj) {
                 console.log(obj);
@@ -222,7 +222,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                 var field = Data.field; //获取提交的字段,如果前台没有写name属性，field将吧包括这个表单元素的值                              
                                 var load = layer.load(3);
                                 admin.req({
-                                    url: layui.setter.requesturl+'/AddUser',
+                                    url: layui.setter.requesturl +'/api/SysManange/AddUser',
                                     type: 'post',
                                     data: {
                                         "JsonDate": JSON.stringify(field),
@@ -230,7 +230,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                     },
                                     success: function (message) {
                                         if (message.msg == "ok") {
-                                            layui.table.reload('Interface'); //重载表格
+                                            layui.table.reload('Sys_User'); //重载表格
                                             layer.close(index); //执行关闭 
                                             layer.close(load);//关闭加载层
                                             layer.msg("添加成功");
@@ -250,7 +250,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
     });
     //监听批量删除
     form.on('submit(deletes)', function (obj) {
-        var deletedata = layui.table.checkStatus('Interface').data;//获取表格中选中的信息
+        var deletedata = layui.table.checkStatus('Sys_User').data;//获取表格中选中的信息
         console.log(deletedata);
         var IDs = "";
         for (var i = 0; i < deletedata.length; i++) {
@@ -265,14 +265,14 @@ layui.define(['table', 'form', 'view'], function (exports) {
             btn: ['提交', '取消'],
             yes: function (index, layero) {
                 admin.req({
-                    url: "layui.setter.requesturl+'/DeleteUsers",
+                    url: layui.setter.requesturl +'/api/SysManange/DeleteUsers',
                     type: "Get",
                     data: {
                         "ids": IDs,
                     },
                     success: function (msg) {
                         if (msg.msg == "ok") {
-                            table.reload('Interface');
+                            table.reload('Sys_User');
                             layer.msg("删除成功");
                         }
                         else {

@@ -1,0 +1,42 @@
+﻿
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-form" lay-filter="Bookeditform" id="Bookeditform" style="padding: 15px 0 0 0;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">抄表册名称</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input type="text" name="bookname" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.params[0].bookname }}">
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">区域</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <select name="regionno" lay-filter="" lay-search>
+                    <option value="">请选择</option>
+                    {{# layui.each(d.params[1], function(index, item){ }}
+                    <option value="{{ item.regionno }}" {{# if(d.params[0].regionname==item.regionname){}}selected="selected" {{# } }}>{{ item.regionname }}</option>
+                    {{# }); }}
+                </select>
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"></label>
+        <div class="layui-input-inline">
+            <input type="button" lay-submit lay-filter="Book-edit-submit" value="提交" class="layui-btn">
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['admin', 'form', 'view', 'mr_bookManage'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            view = layui.view,
+            mr_bookManage = layui.mr_bookManage;
+    });
+</script>

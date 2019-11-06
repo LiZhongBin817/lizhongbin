@@ -131,6 +131,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
         var data = obj.data,
             event = obj.event,
             tr = obj.tr;
+        Resdata.splice(0, Resdata.length);//将数据清零
         Resdata.push(data);
         Resdata.push(util.toDateString(data.DSMTime));//将时间格式规范化
         ID = obj.data.DSMID;
@@ -217,7 +218,6 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                         });
                                         console.log(Resdata);
                                         form.render();
-                                        Resdata.splice(0, Resdata.length);//将数据清零
                                         form.on('submit(DSMShowAcceptance_submit)', function (Data) {
                                             console.log(DispatchedWorker);
                                             LatestTime = Data.field.ShowOperation_operationtime;//最迟处理时间

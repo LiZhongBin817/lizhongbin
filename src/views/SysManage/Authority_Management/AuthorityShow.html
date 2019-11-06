@@ -7,7 +7,7 @@
     <link href="{{layui.setter.base}}style/autocomplete.css?v={{ layui.admin.v }}-1" media="all" rel="stylesheet" />
 </script>
 
-<script type="text/html" id="toolbarDemo">
+<script type="text/html" id="AuthoritytoolbarDemo">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="AddAuthority">增加权限</button>
     </div>
@@ -50,12 +50,12 @@
                 </div>
             </div>
             <div class="layui-card-body">
-                <table class="layui-hide" id="power" lay-filter="test"></table>
+                <table class="layui-hide" id="power" lay-filter="AuthorityTable"></table>
             </div>
         </div>
     </div>
 </div>
-<script type="text/html" id="barDemo">
+<script type="text/html" id="AuthoritybarDemo">
     <a class="layui-btn layui-btn-warm " lay-event="edit">编辑</a>
 </script>
 <script>
@@ -86,10 +86,10 @@
                         return '<input type="checkbox" lay-skin="switch" lay-filter="Forbidden" lay-text="使用|作废" ' + isCkecked + '> ';
                     }
                 },
-                { title: '编辑', width: 150, toolbar: '#barDemo', align: 'center', fixed: 'right' }
+                { title: '编辑', width: 150, toolbar: '#AuthoritybarDemo', align: 'center', fixed: 'right' }
             ]],
             limit: 20,
-            toolbar: "#toolbarDemo",
+            toolbar: "#AuthoritytoolbarDemo",
             limits: [20, 30, 40],
         });
         //监听查询
@@ -118,7 +118,7 @@
             });
         });
         //监听表格操作
-        table.on('tool(test)', function (obj) {
+        table.on('tool(AuthorityTable)', function (obj) {
             var data = obj.data,
                 $ = layui.$,
                 layEvent = obj.event;
@@ -195,7 +195,7 @@
             }
         });
         //监听添加
-        table.on('toolbar(test)', function (obj) {
+        table.on('toolbar(AuthorityTable)', function (obj) {
             var layEvent = obj.event;
             if (layEvent === "AddAuthority") {
                 admin.popup({
