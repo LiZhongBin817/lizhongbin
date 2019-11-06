@@ -429,6 +429,13 @@ namespace CDWM_MR.Controllers
             List<rt_b_faultinfo> faultinfolist = await _B_FaultinfoServices.Query(c => c.id == id);
             List<rb_b_faultprocess> faultprocesslist = await _B_FaultprocessServices.Query(c => c.faultid == id && c.faulttype == 0);
             List<rb_b_faultprocess> faultprocessessecondlist = await _B_FaultprocessServices.Query(c => c.faultid == id && c.faulttype == 1);
+            //faultprocessessecondlist[0].createtime = DateTime.Now;
+            //faultprocessessecondlist[0].id = 0;
+            //faultprocessessecondlist[0].processdatetime = DateTime.Now;
+            //faultprocessessecondlist[0].processpreson = Permissions.UersName;
+            //faultprocessessecondlist[0].faulttype = 2;
+            //faultprocessessecondlist[0].processresult = 0;
+            //int a = await _B_FaultprocessServices.Add(faultprocessessecondlist[0]);
             List<rt_b_photoattachment> photolist = await _B_PhotoattachmentServices.Query(c => c.billid == id&&c.phototype==2);//现场照片
             string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
             if (photolist.Count!=0)
