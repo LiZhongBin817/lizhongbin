@@ -5,8 +5,6 @@
     "\\src",
     "\\src\\controller",
     "\\src\\views",
-    "\\src\\views\\MeterReadingManage\\MeterReadingPath_Manage",
-    "\\src\\views\\MeterReadingManage\\MeterReadingPlan_Manage",
     "\\src\\views\\SysManage",
     "\\src\\views\\SysManage\\Authority_Management"
   ],
