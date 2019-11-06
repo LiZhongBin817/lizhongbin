@@ -2,9 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\controller",
     "\\src\\views",
     "\\src\\views\\MeterReadingManage",
-    "\\src\\views\\MeterReadingManage\\MeterReadingPath_Manage",
     "\\src\\views\\MeterReadingManage\\MeterReadingPlan_Manage",
     "\\src\\views\\mr_bookManage",
     "\\src\\views\\Seecopy",
