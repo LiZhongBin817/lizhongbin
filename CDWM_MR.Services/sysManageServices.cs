@@ -24,8 +24,9 @@ namespace CDWM_MR.Services
         readonly Isys_operationRepository OperationRepository;
         readonly Isys_operationRepository sys_operationDal;
         readonly IRedisHelper redis;
+        readonly Isys_interface_infoServices _Interface_InfoServices;
 
-        public sysManageServices(Isys_userinfoRepository userinfodal, Isys_menuRepository sysmenudal, Isys_role_menuRepository sysrolemenudal, Isys_user_role_mapperRepository sysuserroledal, Isys_roleRepository sys_roledal,Isys_operationRepository sys_operationdal,Isys_operationRepository operationRepository, IRedisHelper redisHelper)
+        public sysManageServices(Isys_userinfoRepository userinfodal, Isys_menuRepository sysmenudal, Isys_role_menuRepository sysrolemenudal, Isys_user_role_mapperRepository sysuserroledal, Isys_roleRepository sys_roledal,Isys_operationRepository sys_operationdal,Isys_operationRepository operationRepository, IRedisHelper redisHelper, Isys_interface_infoServices interface_InfoServices)
         {
             UserinfoDal = userinfodal;
             SysMenuDal = sysmenudal;
@@ -36,6 +37,7 @@ namespace CDWM_MR.Services
             OperationRepository = operationRepository;
             sys_operationDal = sys_operationdal;
             redis = redisHelper;
+            _Interface_InfoServices = interface_InfoServices;
         }
 
         #region  菜单管理
@@ -384,12 +386,15 @@ namespace CDWM_MR.Services
             //查询角色菜单表的所有角色与RoleID相等的数据
             var allData = await SysRoleMenuDal.Query(c => c.RoleID == RoleID);
             //将权限表的信息查出来
-            var operationData = await OperationRepository.Query();           
+            var operationData = await OperationRepository.Query();
+            var interfaceData = await _Interface_InfoServices.Query();
             foreach (var item in MenuId)
             {
                 //查询到菜单对应的权限
                 var Data = operationData.FindAll(c => c.MenuID.ToString() == item);
-                if (Data.Count == 0)
+                //查询到菜单对应得接口
+                var interfacedata = interfaceData.FindAll(c => c.menuid.ToString()== item);
+                if (Data.Count == 0&&interfacedata.Count==0)
                 {
                     return new TableModel<object>()
                     {
@@ -410,6 +415,18 @@ namespace CDWM_MR.Services
                         role_Menu.OperationID = item1.id;
                         role_Menu.createtime = DateTime.Now;
                         role_Menu.createpeople = Permissions.UersName;
+                        role_Menu.judgetype = 0;
+                        commonData.Add(role_Menu);
+                    }
+                    foreach (var item2 in interfacedata)
+                    {
+                        sys_role_menu role_Menu = new sys_role_menu();
+                        role_Menu.RoleID = RoleID;
+                        role_Menu.MenuID = Convert.ToInt32(item);
+                        role_Menu.OperationID = item2.ID;
+                        role_Menu.createtime = DateTime.Now;
+                        role_Menu.createpeople = Permissions.UersName;
+                        role_Menu.judgetype = 1;
                         commonData.Add(role_Menu);
                     }
                 }

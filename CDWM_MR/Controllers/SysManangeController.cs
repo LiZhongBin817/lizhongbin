@@ -77,11 +77,11 @@ namespace CDWM_MR.Controllers
             Expression<Func<sys_userinfo, bool>> wherelambda = c => c.DeleteFlag != 1;
             if (!string.IsNullOrEmpty(FUserName))
             {
-                wherelambda = PredicateExtensions.And<sys_userinfo>(wherelambda, c => c.FUserName == FUserName);
+                wherelambda = PredicateExtensions.And<sys_userinfo>(wherelambda, c => c.FUserName .Contains( FUserName));
             }
             if (!string.IsNullOrEmpty(LoginName))
             {
-                wherelambda = PredicateExtensions.And<sys_userinfo>(wherelambda, c => c.LoginName == LoginName);
+                wherelambda = PredicateExtensions.And<sys_userinfo>(wherelambda, c => c.LoginName.Contains( LoginName));
             }
             #endregion
             Expression<Func<sys_userinfo, object>> expression = c => new

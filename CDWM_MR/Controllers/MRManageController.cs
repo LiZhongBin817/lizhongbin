@@ -260,7 +260,7 @@ namespace CDWM_MR.Controllers
                     {
                         addData.carrystatus = 2;
                     }
-                    addData.remark = "";
+                    addData.remark = "已备注";
                     Datalist.Add(addData);
                 }
             }
@@ -329,7 +329,8 @@ namespace CDWM_MR.Controllers
                     ocrData = ocrdata,
                     recheckdata = recheckdata,
                     pircture = String.Join(',', photoinfo.Select(c => c.photourl).ToArray()),
-                    month = Month
+                    month = Month,
+                    phototype= String.Join(',', photoinfo.Select(c => c.phototype).ToArray())
 
                 };
                 returnData.Add(data);
@@ -385,7 +386,12 @@ namespace CDWM_MR.Controllers
                 }
                 else//初次审核但没有填写复审数据
                 {
-                    b_Recheck.recheckdata = 0;
+                    return new TableModel<object>
+                    {
+                        code = 0,
+                        msg = "NO",
+                        data = "",
+                    };
                 }
                
             }
