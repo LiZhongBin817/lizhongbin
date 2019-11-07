@@ -1,12 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\json",
     "\\src",
     "\\src\\controller",
     "\\src\\views",
-    "\\src\\views\\DataManage"
+    "\\src\\views\\MeterReadingManage",
+    "\\src\\views\\MeterReadingManage\\MeterReadingPlan_Manage",
+    "\\src\\views\\mr_bookManage",
+    "\\src\\views\\Seecopy",
+    "\\src\\views\\senior",
+    "\\src\\views\\senior\\im"
   ],
-  "SelectedNode": "\\src\\controller\\dataManage.js",
+  "SelectedNode": "\\src\\controller\\ReadAnalysis.js",
   "PreviewInSolutionExplorer": false
 }
