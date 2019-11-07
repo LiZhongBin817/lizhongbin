@@ -2111,6 +2111,16 @@
             操作者ID
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.sys_role_menu.judgetype">
+            <summary>
+            判断是接口id还是权限id(0是权限id，1是接口id)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_role_menu.interfaceinfo">
+            <summary>
+            导航sys_interface_info表
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.sys_role_menu.Role">
             <summary>
             导航sys_role表

@@ -57,6 +57,27 @@ namespace CDWM_MR.Controllers
             };
         }
 
-
+        /// <summary>
+        /// 获取按钮信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetbtninfoData")]
+        public async Task<MessageModel<object>> GetbtninfoData()
+        {
+            var UserRoles = Permissions.RolesList;//当前用户所有角色
+            var temp = await SysManage.GetbtninfoData();
+            List<int> btnlist = new List<int>();
+            UserRoles.ForEach(c => {
+                var t = Convert.ToInt32(c);
+                btnlist.AddRange(temp.FindAll(s => s.RoleID == t).Select(d => d.OperationID));
+            });
+            var temp2 = btnlist.Distinct().ToList();
+            return new MessageModel<object>() {
+                code = 0,
+                msg = "成功",
+                data = temp2
+            };
+        }
     }
 }

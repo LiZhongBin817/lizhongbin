@@ -844,6 +844,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.MainController.GetbtninfoData">
+            <summary>
+            获取按钮信息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.MeterReadingController">
             <summary>
             抄表管理(档案管理)

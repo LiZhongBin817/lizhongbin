@@ -51,7 +51,7 @@ namespace CDWM_MR.AuthHelper
                         orderby item.id
                         select new PermissionItem
                         {
-                            Url = item.Operation?.LinkUrl,
+                            Url = item.interfaceinfo?.InterfaceUrl,
                             Role = Convert.ToInt32(item.Role?.id),
                         }).ToList();
 
