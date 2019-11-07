@@ -4,13 +4,12 @@
     "\\src",
     "\\src\\controller",
     "\\src\\views",
-    "\\src\\views\\MeterReadingManage",
-    "\\src\\views\\MeterReadingManage\\MeterReadingPlan_Manage",
-    "\\src\\views\\mr_bookManage",
     "\\src\\views\\Seecopy",
     "\\src\\views\\senior",
-    "\\src\\views\\senior\\im"
+    "\\src\\views\\senior\\im",
+    "\\src\\views\\SysManage",
+    "\\src\\views\\SysManage\\ParameterSetting"
   ],
-  "SelectedNode": "\\src\\controller\\ReadAnalysis.js",
+  "SelectedNode": "\\src\\controller\\ReadAnalysis_Sum.js",
   "PreviewInSolutionExplorer": false
 }
