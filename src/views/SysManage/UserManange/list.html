@@ -27,21 +27,21 @@
                 </div>
                 <div class="layui-inline">
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="polling">
+                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-filter="polling">
                             查询
                         </button>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="Add">
+                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-filter="Add">
                             新增
                         </button>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="deletes">
+                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-filter="deletes">
                             批量删除
                         </button>
                     </div>
@@ -54,7 +54,7 @@
     </div>
 </div>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary " lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-primary " lay-event="edit" style="display:none;">编辑</a>
     <a class="layui-btn layui-btn-danger " lay-event="delete">删除</a>
 </script>
 <script>layui.use('usermanage', layui.factory('usermanage')).use(['admin', 'usermanage', 'table', 'view'], function () {

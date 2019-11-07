@@ -93,7 +93,16 @@ layui.use(['admin', 'form', 'user'], function(){
           key: setter.request.tokenName
           ,value: "Bearer " + res.data
         });
-        
+
+        //请求所有的按钮数据
+        admin.req({
+          url:`${layui.setter.requesturl}/api/Main/GetbtninfoData`,
+          type:"Get",
+          success:function(res){
+            layui.setter.localbtnlist = res.data;
+          }
+        });
+
         //登入成功的提示与跳转
         layer.msg('登入成功', {
           offset: '15px'
