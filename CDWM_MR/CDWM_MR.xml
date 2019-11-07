@@ -524,6 +524,7 @@
             <summary>
             抄表数据查询/抄表量化分析
             </summary>
+             [Produces("application/json")]
         </member>
         <member name="M:CDWM_MR.Controllers.DataSearchController.#ctor(CDWM_MR.IServices.Content.Iv_b_datasearch_historyServices,CDWM_MR.IServices.Content.Iv_mr_date_readerServices,CDWM_MR.IServices.Content.Iv_b_areas_regionServices,CDWM_MR.IServices.Content.Iv_b_regionServices,CDWM_MR.IServices.Content.Iv_mr_b_readerServices,CDWM_MR.IServices.Content.Iv_reader_analysisServices)">
             <summary>
@@ -843,6 +844,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.MainController.GetbtninfoData">
+            <summary>
+            获取按钮信息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.MeterReadingController">
             <summary>
             抄表管理(档案管理)
@@ -1127,14 +1134,13 @@
             <param name="_MenuServices"></param>
             <param name="_Interface_InfoServices"></param>
         </member>
-        <member name="M:CDWM_MR.Controllers.OprationManageController.ShowInfor(System.String,System.Int32,System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:CDWM_MR.Controllers.OprationManageController.ShowInfor(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
-            显示权限信息
+            显示按钮权限信息
             </summary>
             <param name="OperationName"></param>
-            <param name="InterfaceID"></param>
-            <param name="LinkUrl"></param>
-            <param name="MenuID"></param>
+            <param name="menuid"></param>
+            <param name="operationclass"></param>
             <param name="page"></param>
             <param name="limit"></param>
             <returns></returns>
@@ -1166,7 +1172,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.OprationManageController.GetStatus(System.Int32,System.String)">
+        <member name="M:CDWM_MR.Controllers.OprationManageController.GetStatus(System.Int32,System.Int32)">
             <summary>
             判断状态
             </summary>
@@ -1570,13 +1576,16 @@
             抄表数据接口
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.#ctor(CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.#ctor(CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Imr_datainfo_historyServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Iv_meterdataServices)">
             <summary>
             构造函数注入
             </summary>
             <param name="mr_datainfoServices"></param>
+            <param name="imr_Datainfo_HistoryServices"></param>
+            <param name="DatainfoServices"></param>
             <param name="v_mr_datainfoServices"></param>
             <param name="rtbphotoservices"></param>
+            <param name="MeterdataServices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.UpdateUserData(System.Collections.Generic.List{CDWM_MR.Model.Models.mr_datainfo})">
             <summary>
@@ -1591,6 +1600,13 @@
             </summary>
             <param name="taskperiodname">任务周期</param>
             <param name="taskid">任务单ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.readdatastatistics(System.Int32)">
+            <summary>
+            抄表数据统计
+            </summary>
+            <param name="readerid"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppMeterReadingPlan">
@@ -1701,6 +1717,13 @@
             <summary>
             Web与APP公用参数接口
             </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppWebCommonController.SearchReaderDate01(System.String)">
+            <summary>
+            用户两年用水及水费查询
+            </summary>
+            <param name="readernameid"></param>
+            <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.WatermeterUserManageController">
             <summary>

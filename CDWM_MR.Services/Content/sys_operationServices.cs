@@ -1,11 +1,15 @@
-	//----------sys_operation开始----------
-    
+//----------sys_operation开始----------
+
 
 using System;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.IRepository.Content;
 using CDWM_MR.Model.Models;
 using CDWM_MR.Services.BASE;
+using CDWM_MR.Model;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+
 namespace CDWM_MR.Services.Content
 {	
 	/// <summary>
@@ -20,7 +24,6 @@ namespace CDWM_MR.Services.Content
             this.dal = dal;
             base.BaseDal = dal;
         }
-       
     }
 }
 

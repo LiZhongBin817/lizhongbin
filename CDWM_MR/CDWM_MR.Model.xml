@@ -579,6 +579,11 @@
             备注
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.mr_datainfo_history.readerid">
+            <summary>
+            抄表员id
+            </summary> 
+        </member>
         <member name="T:CDWM_MR.Model.Models.mr_planinfo">
             <summary>
             抄表计划单
@@ -2012,7 +2017,27 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.sys_operation.OperationType">
             <summary>
-            权限种类 0:增加 1:删除 2:修改  3:查看
+            权限种类 0:增加 1:删除 2:修改  3:查看 4:其他
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.btnClassName">
+            <summary>
+            按钮的className
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.btneventName">
+            <summary>
+            按钮的eventName
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.btnContainer">
+            <summary>
+            按钮容器属性(id或者class)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.menumodel">
+            <summary>
+            关联的菜单集合
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.sys_parameter">
@@ -2089,6 +2114,16 @@
         <member name="P:CDWM_MR.Model.Models.sys_role_menu.OperationID">
             <summary>
             操作者ID
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_role_menu.judgetype">
+            <summary>
+            判断是接口id还是权限id(0是权限id，1是接口id)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_role_menu.interfaceinfo">
+            <summary>
+            导航sys_interface_info表
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.sys_role_menu.Role">
@@ -2824,6 +2859,46 @@
         <member name="P:CDWM_MR.Model.Models.t_b_watermodel.bwmstate">
             <summary>
             状态
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)(关联水表用户信息)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.taskperiodname">
+            <summary>
+            任务账期201909
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.startnum">
+            <summary>
+            上期止码,本期起码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.endnum">
+            <summary>
+            本期止码,下期起码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.carrywatercount">
+            <summary>
+            冗余,用水量=上止-本止
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.vrt_b_watercarryover_datainfo.bookkeepingcount">
+            <summary>
+            记账用量,冗余
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_bookexcel">
@@ -3574,6 +3649,61 @@
         <member name="P:CDWM_MR.Model.Models.v_downloaddatainfo.lastmeterstatus">
             <summary>
             上期抄表异常
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.v_meterdata">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_meterdata.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.readerid">
+            <summary>
+            抄表员id（mr_b_reader：:id）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.shouldcopysum">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.alreadysum">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.taskperiodname">
+            <summary>
+            任务账期201909冗余
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.carrywatercount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultcount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultCumulativecount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultalready">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterdata.faultalreadyCumulative">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_mr_book_reader_lq">
