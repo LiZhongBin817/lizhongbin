@@ -364,7 +364,7 @@ namespace CDWM_MR.Controllers
         /// 生成菜单树
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         [Route("GetTrees")]        
         public async Task<MessageModel<object>> GetTrees()
         {
