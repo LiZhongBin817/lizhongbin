@@ -296,7 +296,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ReadAnalysis")]
-        public async Task<TableModel<object>> ReadAnalysis(string readDatetime01, string mrreadername)
+        public async Task<TableModel<object>> ReadAnalysis(string readDatetime01, string mrreadername, int page = 1, int limit = 5)
         {
             List<v_mr_date_reader> pageModel = new List<v_mr_date_reader>();
             Expression<Func<v_mr_date_reader, bool>> wherelambda = c => true;
