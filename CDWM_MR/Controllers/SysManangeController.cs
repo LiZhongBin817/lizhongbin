@@ -33,6 +33,7 @@ namespace CDWM_MR.Controllers
         readonly Isys_interface_infoServices _Isys_interface_infoServices;
         readonly Isys_operationServices _sys_OperationServices;
         readonly Isys_role_menuServices _Role_MenuServices;
+        readonly Iv_interfaceServices _InterfaceServices;
         #endregion
 
 
@@ -46,7 +47,7 @@ namespace CDWM_MR.Controllers
         /// <param name="Isys_interface_info"></param>
         /// <param name="sysrolemenu"></param>
         /// <param name="sys_OperationServices"></param>
-        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices)
+        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices, Iv_interfaceServices iv_InterfaceServices)
         {
             _sysuserinfoservices = sysuserinfo;
             _sysManageServices = sysusermanage;
@@ -55,6 +56,7 @@ namespace CDWM_MR.Controllers
             _Isys_interface_infoServices = Isys_interface_info;
             _sys_OperationServices = sys_OperationServices;
             _Role_MenuServices = sysrolemenu;
+            _InterfaceServices = iv_InterfaceServices;
         }
 
         #region  用户管理
@@ -247,31 +249,32 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("InterfaceInfoShow")]        
-        public async Task<TableModel<object>> InterfaceInfoShow(string InterfaceUrl, string InterfaceName, int page = 1, int limit = 10)
+        public async Task<TableModel<object>> InterfaceInfoShow(string InterfaceUrl, string MenuName, int page = 1, int limit = 10)
         {
             PageModel<object> Interface = new PageModel<object>();
             #region lambda拼接式
-            Expression<Func<sys_interface_info,bool>>wherelambda=c=>true;
+            Expression<Func<v_interface, bool>>wherelambda=c=>true;
             if(!string .IsNullOrEmpty(InterfaceUrl))
             {
-                wherelambda = PredicateExtensions.And<sys_interface_info>(wherelambda, c => c.InterfaceUrl == InterfaceUrl);
+                wherelambda = PredicateExtensions.And<v_interface>(wherelambda, c => c.InterfaceUrl.Contains(InterfaceUrl));
             }
-            if(!string.IsNullOrEmpty(InterfaceName))
+            if(!string.IsNullOrEmpty(MenuName))
             {
-                wherelambda = PredicateExtensions.And<sys_interface_info>(wherelambda, c => c.InterfaceName == InterfaceName);
+                wherelambda = PredicateExtensions.And<v_interface>(wherelambda, c => c.InterfaceName.Contains(MenuName));
             }
             #endregion
-            Expression<Func<sys_interface_info, object>> expression = c => new
+            Expression<Func<v_interface, object>> expression = c => new
             {
-                ID = c.ID,
+                ID = c.id,
                 InterfaceUrl = c.InterfaceUrl,
                 InterfaceName = c.InterfaceName,
                 OperationVersion = c.OperationVersion,
+                MenuName=c.MenuName,
                 ExternalInterface = c.ExternalInterface,
                 Verify = c.Verify,
                 Remark = c.Remark
             };
-            Interface = await _Isys_interface_infoServices.QueryPage(wherelambda, expression, page, limit, "");
+            Interface = await _InterfaceServices.QueryPage(wherelambda, expression, page, limit, "");
             return new TableModel<object>()
             {
                 code = 0,
