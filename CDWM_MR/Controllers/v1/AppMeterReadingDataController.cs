@@ -34,8 +34,11 @@ namespace CDWM_MR.Controllers.v1
         /// 构造函数注入
         /// </summary>
         /// <param name="mr_datainfoServices"></param>
+        /// <param name="imr_Datainfo_HistoryServices"></param>
+        /// <param name="DatainfoServices"></param>
         /// <param name="v_mr_datainfoServices"></param>
         /// <param name="rtbphotoservices"></param>
+        /// <param name="MeterdataServices"></param>
         public AppMeterReadingDataController(Imr_datainfoServices mr_datainfoServices, Imr_datainfo_historyServices imr_Datainfo_HistoryServices, Imr_datainfoServices DatainfoServices, Iv_mr_datainfoServices v_mr_datainfoServices, Irt_b_photoattachmentServices rtbphotoservices, Iv_meterdataServices MeterdataServices)
         {
             _mr_datainfoServices = mr_datainfoServices;

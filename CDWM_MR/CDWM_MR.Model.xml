@@ -2012,7 +2012,27 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.sys_operation.OperationType">
             <summary>
-            权限种类 0:增加 1:删除 2:修改  3:查看
+            权限种类 0:增加 1:删除 2:修改  3:查看 4:其他
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.btnClassName">
+            <summary>
+            按钮的className
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.btneventName">
+            <summary>
+            按钮的eventName
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.btnContainer">
+            <summary>
+            按钮容器属性(id或者class)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_operation.menumodel">
+            <summary>
+            关联的菜单集合
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.sys_parameter">
@@ -2089,6 +2109,16 @@
         <member name="P:CDWM_MR.Model.Models.sys_role_menu.OperationID">
             <summary>
             操作者ID
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_role_menu.judgetype">
+            <summary>
+            判断是接口id还是权限id(0是权限id，1是接口id)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.sys_role_menu.interfaceinfo">
+            <summary>
+            导航sys_interface_info表
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.sys_role_menu.Role">

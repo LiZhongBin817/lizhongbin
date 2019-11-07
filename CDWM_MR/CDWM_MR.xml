@@ -844,6 +844,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.MainController.GetbtninfoData">
+            <summary>
+            获取按钮信息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.MeterReadingController">
             <summary>
             抄表管理(档案管理)
@@ -1128,14 +1134,13 @@
             <param name="_MenuServices"></param>
             <param name="_Interface_InfoServices"></param>
         </member>
-        <member name="M:CDWM_MR.Controllers.OprationManageController.ShowInfor(System.String,System.Int32,System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:CDWM_MR.Controllers.OprationManageController.ShowInfor(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
-            显示权限信息
+            显示按钮权限信息
             </summary>
             <param name="OperationName"></param>
-            <param name="InterfaceID"></param>
-            <param name="LinkUrl"></param>
-            <param name="MenuID"></param>
+            <param name="menuid"></param>
+            <param name="operationclass"></param>
             <param name="page"></param>
             <param name="limit"></param>
             <returns></returns>
@@ -1167,7 +1172,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.OprationManageController.GetStatus(System.Int32,System.String)">
+        <member name="M:CDWM_MR.Controllers.OprationManageController.GetStatus(System.Int32,System.Int32)">
             <summary>
             判断状态
             </summary>
@@ -1576,8 +1581,11 @@
             构造函数注入
             </summary>
             <param name="mr_datainfoServices"></param>
+            <param name="imr_Datainfo_HistoryServices"></param>
+            <param name="DatainfoServices"></param>
             <param name="v_mr_datainfoServices"></param>
             <param name="rtbphotoservices"></param>
+            <param name="MeterdataServices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppMeterReadingDataController.UpdateUserData(System.Collections.Generic.List{CDWM_MR.Model.Models.mr_datainfo})">
             <summary>

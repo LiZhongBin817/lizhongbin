@@ -366,10 +366,10 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetTrees")]        
-        public async Task<TableModel<object>> GetTrees()
+        public async Task<MessageModel<object>> GetTrees()
         {
             var data=await _sysManageServices.GetTree(0);
-            return new TableModel<object>() {
+            return new MessageModel<object>() {
                 code=0,
                 msg="ok",
                 data=data

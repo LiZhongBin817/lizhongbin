@@ -80,6 +80,15 @@ namespace CDWM_MR.Services
         }
 
         /// <summary>
+        /// 获取按钮信息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<sys_role_menu>> GetbtninfoData()
+        {
+            return await SysRoleMenuDal.GetbtninfoData();
+        }
+
+        /// <summary>
         /// 获取菜单信息
         /// </summary>
         /// <param name="Parentid"></param>

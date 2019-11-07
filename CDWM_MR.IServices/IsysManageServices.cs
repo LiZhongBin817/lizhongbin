@@ -12,6 +12,8 @@ namespace CDWM_MR.IServices
     {
         Task<List<sys_role_menu>> GetRoleOperation();
 
+        Task<List<sys_role_menu>> GetbtninfoData();
+
         Task<string> GetuserRole(int userid);
 
         Task<List<sys_menu>> GetMenuTree();
