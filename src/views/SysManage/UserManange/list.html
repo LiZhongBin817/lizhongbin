@@ -27,21 +27,21 @@
                 </div>
                 <div class="layui-inline">
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-filter="polling">
+                        <button class="layui-btn layui-btn-sm layui-btn-normal " style="border-radius: 3px;" lay-submit lay-filter="polling">
                             查询
                         </button>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-filter="Add">
+                        <button class="layui-btn layui-btn-sm " style="border-radius: 3px;" lay-submit lay-filter="Add">
                             新增
                         </button>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-filter="deletes">
+                        <button class="layui-btn layui-btn-sm layui-btn-danger " style="border-radius: 3px;" lay-submit lay-filter="deletes">
                             批量删除
                         </button>
                     </div>
@@ -58,12 +58,14 @@
     var t_btn1 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(1)===-1?"none":"inline-block";
     var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(2)===-1?"none":"inline-block";
     }}
-    <a class="layui-btn layui-btn-primary " lay-event="edit" style="display:{{t_btn1}};">编辑</a>
-    <a class="layui-btn layui-btn-danger " lay-event="delete" style="display:{{t_btn2}}";>删除</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="edit" style="border-radius: 3px;display:{{t_btn1}};">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete" style="border-radius: 3px;display:{{t_btn2}}";>删除</a>
 </script>
-<script>layui.use('usermanage', layui.factory('usermanage')).use(['admin', 'usermanage', 'table', 'view'], function () {
+<script>
+    layui.use('usermanage', layui.factory('usermanage')).use(['admin', 'usermanage', 'table', 'view'], function () {
         var admin = layui.admin,
             view = layui.view,
             usermanange = layui.usermanange;
-        });
+        form.render();
+    });
 </script>

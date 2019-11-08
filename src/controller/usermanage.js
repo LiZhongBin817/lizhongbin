@@ -3,7 +3,6 @@
  * 李芊
  * 2019年8月7
 */
-
 layui.define(['table', 'form', 'view'], function (exports) {
     var table = layui.table;
     var admin = layui.admin;
@@ -41,8 +40,9 @@ layui.define(['table', 'form', 'view'], function (exports) {
             { title: '操作', toolbar: '#barDemo', minWidth: 300, align: 'center' }
         ]],
         page: true,
-        limit: 5,
-        limits: [5, 10, 20, 30]
+        limit: 10,
+        height: $(document).height() - $('#Sys_User').offset().top - 330,
+        limits: [5, 10, 15]
     });
     //监听编辑
     table.on('tool(test)', function (obj) {
@@ -62,7 +62,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                     admin.popup({
                         title: '用户管理编辑弹窗',
                         id: 'UserManageEdit',
-                        area: ['800px', '700px'],
+                        area: ['650px', '650px'],
                         success: function (layero, index) {
                             //渲染指定视图
                             view(this.id).render('SysManage/UserManange/UserEdit', {//注意写法：切勿写成SysManage/UserManage/UserEdit.html
@@ -160,8 +160,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
     table.on('checkbox(test)', function (obj) {
         console.log(obj);
 
-    });
-    
+    }); 
     //监听查询
     form.on('submit(polling)', function (data) {
         var field = data.field;
@@ -185,7 +184,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                 admin.popup({
                     title: '用户管理添加弹窗',
                     id: 'UserManageAdd',
-                    area: ['800px', '700px'],
+                    area: ['600px', '639px'],
                     success: function (layero, index) {
                         sendID = obj.data;
                         //渲染指定视图

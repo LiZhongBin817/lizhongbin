@@ -108,25 +108,26 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                 title: '操作', width: 180, align: 'center',
                 templet: function (d) {
                     if (d.rtrecheckstatus == 0) {
-                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="SeeRecheckHistoryData">查看</button>';
+                        return '<button  class="layui-btn  layui-btn-sm" lay-event="SeeRecheckHistoryData"  style="border-radius:3px">查看</button>';
                     }
                     else if (d.recheckstatus != 1 && d.carrystatus == null && d.rtrecheckstatus != 1) {
-                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen">审核</button>' +'<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="SeeRecheckHistoryData">查看</button>';
+                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen"  style="border-radius:3px">审核</button>' +'<button  class="layui-btn layui-btn-sm"  style="border-radius:3px" lay-event="SeeRecheckHistoryData">查看</button>';
                     }
                     else if (d.recheckstatus != 1 && d.carrystatus == null && d.rtrecheckstatus == 1) {
-                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen">再次审核</button>' +'<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="SeeRecheckHistoryData">查看</button>';
+                        return '<button  class="layui-btn  layui-btn-sm" lay-event="dataManageOpen"  style="border-radius:3px">再次审核</button>' +'<button  class="layui-btn  layui-btn-sm"  style="border-radius:3px" lay-event="SeeRecheckHistoryData">查看</button>';
                     }
                     else {
-                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="SeeRecheckHistoryData">查看</button>';
+                        return '<button  class="layui-btn  layui-btn-sm" lay-event="SeeRecheckHistoryData"  style="border-radius:3px">查看</button>';
 
                     }
                 }
             },
         ]]
         , page: true
-        , limit: 20
+        , limit: 10
         , toolbar: '#toolDemo_Carry'
-        , limits: [20, 30, 40]
+        , height: $(document).height() - $('#dataManageInfo_Table').offset().top - 290
+        , limits: [5, 10, 15]
         , done: function () {
             layer.close(load);
         }
@@ -239,28 +240,34 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                         form.on('submit(SubmitChecked)', function (data1) {
                             var Data = data1.field;
                             console.log(data);
-                            load = layer.load(3);
-                            admin.req({
-                                url: layui.setter.requesturl +'/api/MRManage/SubmitChecked',
-                                method: 'post',
-                                data: {
-                                    'JsonData': JSON.stringify(data),
-                                    'RecheckData': editData,
-                                    'RecheckStatus': Data.Pass,
-                                    'result': Data.checked
-                                },
-                                success: function (d) {
-                                    layer.close(load);
-                                    if (d.msg == "ok") {
-                                        layer.msg("审核成功!");
-                                        layer.close(index);
-                                        table.reload('dataManageInfo_Table');
-                                    }
-                                    else {
-                                        layer.msg("审核失败!");
-                                    }
-                                },
-                            });
+                            if (!Data.Pass) {
+                                layer.msg("请选中是否通过！！")
+                            }
+                            else {
+                                load = layer.load(3);
+                                admin.req({
+                                    url: layui.setter.requesturl + '/api/MRManage/SubmitChecked',
+                                    method: 'post',
+                                    data: {
+                                        'JsonData': JSON.stringify(data),
+                                        'RecheckData': editData,
+                                        'RecheckStatus': Data.Pass,
+                                        'result': Data.checked
+                                    },
+                                    success: function (d) {
+                                        layer.close(load);
+                                        if (d.msg == "ok") {
+                                            layer.msg("审核成功!");
+                                            layer.close(index);
+                                            table.reload('dataManageInfo_Table');
+                                        }
+                                        else if (d.msg == "NO") {
+                                            layer.alert("初次审核,请检查您是否有填写审核数据!");
+                                        }
+                                    },
+                                });
+                            }
+                           
                             
                         });                        
                     });
