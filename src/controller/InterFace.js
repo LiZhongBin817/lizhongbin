@@ -28,7 +28,7 @@ layui.define(['table', 'form','view'], function (exports) {
                     else {
                         intvalue = "是"
                     }
-                    return '<button class="layui-btn layui-btn-fluid layui-btn-normal">' + intvalue + '</button>';
+                    return '<button class="layui-btn layui-btn-sm layui-btn-fluid layui-btn-normal">' + intvalue + '</button>';
                 }
             },
             {
@@ -41,7 +41,7 @@ layui.define(['table', 'form','view'], function (exports) {
                     else {
                         intvalue = "是"
                     }
-                    return '<button class="layui-btn layui-btn-fluid">' + intvalue + '</button>';
+                    return '<button class="layui-btn layui-btn-sm layui-btn-fluid">' + intvalue + '</button>';
                 }
             },
             { field: 'Remark', title: '描述', minWidth: 120 },

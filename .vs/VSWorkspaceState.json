@@ -1,12 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\json",
     "\\src",
     "\\src\\controller",
     "\\src\\views",
-    "\\src\\views\\DataManage"
+    "\\src\\views\\Seecopy",
+    "\\src\\views\\SysManage",
+    "\\src\\views\\SysManage\\Interface"
   ],
-  "SelectedNode": "\\src\\controller\\dataManage.js",
+  "SelectedNode": "\\src\\controller\\Copysee.js",
   "PreviewInSolutionExplorer": false
 }

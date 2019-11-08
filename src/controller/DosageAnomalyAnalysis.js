@@ -15,7 +15,7 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view', 'bMap', 'jquery'], fu
     table.render({
         elem: '#DosageAnomalyAnalysis',
         method: 'post',
-        url: layui.setter.requesturl +'/ShowDosageAnomalyAnalysis',
+        url: layui.setter.requesturl +'/api/DosageAnomalyAnalysis/ShowDosageAnomalyAnalysis',
         cols: [[
             { title: '序号', type: 'numbers', width: 60 },
             { field: 'autoaccount', title: '用户编号', width: 100 },
@@ -35,8 +35,9 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view', 'bMap', 'jquery'], fu
         ]]
         , page: true
         , toolbar: true
+        , height: $(document).height() - $('#DosageAnomalyAnalysis').offset().top - 330
         , limit: 10
-        , limits: [10, 20, 30, 40]
+        , limits: [5, 10, 15]
         , done: function (res, curr, count) {
             currPage = curr;
             var that = this.elem.next();
@@ -79,7 +80,7 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view', 'bMap', 'jquery'], fu
 
     //给抄表员下拉框赋值
      admin.req({
-         url: layui.setter.requesturl +'/Serchmrreader',
+         url: layui.setter.requesturl +'/api/DosageAnomalyAnalysis/Serchmrreader',
         type: 'post',
         data: {
         },
@@ -93,7 +94,7 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view', 'bMap', 'jquery'], fu
 
    //给抄表册传值
     admin.req({
-        url: layui.setter.requesturl + '/Serchbookno',
+        url: layui.setter.requesturl + '/api/DosageAnomalyAnalysis/Serchbookno',
         type: 'post',
         data: {
         },

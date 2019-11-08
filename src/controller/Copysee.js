@@ -34,9 +34,9 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
             ]],
             page: true,
             totalRow: true,
-            toolbar: true ,
+            toolbar: true,
             limit: 5,
-            limits: [5, 10, 20, 30
+            limits: [5, 10, 15
             ],
             done: function (res) {
                 var onwanceTotal = 0;
@@ -50,7 +50,7 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
                     onwanceTota3 += Number(d.shoudcopy);
                 })
                 seecopyrate = onwanceTotal / onwanceTota3;
-                realcopyrate = onwanceTota2 /onwanceTota3;
+                realcopyrate = onwanceTota2 / onwanceTota3;
 
                 $(".layui-table-total [data-field ='droprate'] .layui-table-cell").text(seecopyrate * 100 + '%');
                 $(".layui-table-total [data-field ='copyrate'] .layui-table-cell").text(realcopyrate * 100 + '%');
@@ -73,31 +73,26 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
 
     //监听提交
     form.on('submit(Buttonone)', function (obj) {
-       // console.log("10001");
+        // console.log("10001");
         var field = obj.field;
         admin.req({
-            url: layui.setter.requesturl +'/ShowCopysee',
+            url: layui.setter.requesturl + '/api/CopySee/ShowCopysee',
             type: 'post',
             data: {
                 "taskperiodname": field.taskperiodname,
                 "mrreadername": field.bookman
             },
+            
             success: function (d) {
-                if (d.msg == "ok") {
+            
+                if (d.msg == "ok" && d.data.length > 0) {
                     var tabletwo = {
                         // one: obj.data.copy,
-
-                        //allyichao: d.data[0].datatwo.allyichao,
-                        //allshichao: d.data[0].datatwo.allshichao,
-                        //allyingchao: d.data[0].datatwo.allyingchao,
-                        //allchaojianlv: d.data[0].datatwo.allchaojianlv,
-                        //allshichaolv: d.data[0].datatwo.allshichaolv
-
-                         allalreadycopy: obj.data[0].datatwo.allalreadycopy,
-                        allreallycopy: obj.data[0].datatwo.allreallycopy,
-                        allshoudcopy: obj.data[0].datatwo.allshoudcopy,
-                        allcopyrate: obj.data[0].datatwo.allcopyrate,
-                        allreallyrate: obj.data[0].datatwo.allreallyrate
+                        allalreadycopy: d.data[0].datatwo.allalreadycopy,
+                        allreallycopy: d.data[0].datatwo.allreallycopy,
+                        allshoudcopy: d.data[0].datatwo.allshoudcopy,
+                        allcopyrate: d.data[0].datatwo.allcopyrate,
+                        allreallyrate: d.data[0].datatwo.allreallyrate
                     };
                     var arrysum = [];
                     arrysum.push(tabletwo);
@@ -109,7 +104,7 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
                     layer.msg("无数据");
                     pagerender(a, b);
                 }
-               
+
             }
 
         });
@@ -117,16 +112,16 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
 
 
     // 导出
-   
-    $('#Buttontow').on('click', function () {      
-            window.location.href = layui.setter.requesturl + "/OutExcel1?taskperiodname=" + $('#wx').find("#taskperiodname").val() + "&mrreadername=" + $('#wx').find("#bookman").val();
+
+    $('#Buttontow').on('click', function () {
+        window.location.href = layui.setter.requesturl + "/api/CopySee/OutExcel1?taskperiodname=" + $('#wx').find("#taskperiodname").val() + "&mrreadername=" + $('#wx').find("#bookman").val();
     });
-    
-    
+
+
 
     //给抄表员下拉框给值
     admin.req({
-        url: layui.setter.requesturl+'/Serchname',
+        url: layui.setter.requesturl + '/api/CopySee/Serchname',
         type: 'post',
         data: {
         },
@@ -142,7 +137,7 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
 
     //给静态表格值
     admin.req({
-        url: layui.setter.requesturl + '/ShowCopysee',
+        url: layui.setter.requesturl + '/api/CopySee/ShowCopysee',
         type: 'post',
         data: {
         },
@@ -153,25 +148,38 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
             //}
             ////console.log(input);
             //$('#jingtai').append(str);
-            var tabletwo = {
-                // one: obj.data.copy,  
-               //allalreadycopy: obj.data[0].datatwo.allalreadycopy,
-               // allreallycopy: obj.data[0].datatwo.allreallycopy,
-               // allshoudcopy: obj.data[0].datatwo.allshoudcopy,
-               // allcopyrate: obj.data[0].datatwo.allcopyrate,
-                //allreallyrate: obj.data[0].datatwo.allreallyrate
-               
-            };
-            console.log(obj.data);
-            console.log("111");
-            var arrysum = [];
-            arrysum.push(tabletwo);
-            pagerender(obj.data, arrysum);
-            console.log(obj.data);
-            //console.log(obj.data[1].datatwo);
-            console.log(tabletwo);
-            form.render();
+            if (obj.data != null) {
+                var tabletwo = {
+                    // one: obj.data.copy,  
+                    allalreadycopy: obj.data[0].datatwo.allalreadycopy,
+                    allreallycopy: obj.data[0].datatwo.allreallycopy,
+                    allshoudcopy: obj.data[0].datatwo.allshoudcopy,
+                    allcopyrate: obj.data[0].datatwo.allcopyrate,
+                    allreallyrate: obj.data[0].datatwo.allreallyrate
+
+                };
+
+
+                console.log(obj.data);
+                console.log("111");
+                var arrysum = [];
+                arrysum.push(tabletwo);
+                pagerender(obj.data, arrysum);
+                console.log(obj.data);
+                //console.log(obj.data[1].datatwo);
+                console.log(tabletwo);
+                form.render();
+            }
+            else {
+                var a = new Array();
+                var b = new Array();
+                layer.msg("无数据");
+                pagerender(a, b);
+                form.render();
+            }
         }
+
+
     });
 
     //给抄表月份导入日期
@@ -180,7 +188,7 @@ layui.define(['table', 'admin', 'laydate', 'form', 'view'], function (exports) {
         , type: 'month'
         , format: 'yyyyMM'
     });
- 
+
 
     exports('Copysee', {})
- })
+})
