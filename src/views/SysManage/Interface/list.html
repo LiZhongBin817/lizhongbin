@@ -17,14 +17,17 @@
         <div class="layui-card">
             <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                 <div class="layui-inline">
+                    <label class="layui-form-label">接口名:</label>
                     <div class="layui-inline">
                         <input class="layui-input" name="interfacename" id="interfacename" autocomplete="off" placeholder="接口名">
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <div class="layui-inline">
-                        <input class="layui-input" name="interfaceurl" id="interfaceurl" autocomplete="off" placeholder="接口地址">
-                    </div>
+                    <label class="layui-form-label">菜单名:</label>
+                        <div class="layui-input-block">
+                            <select name="Interface_menuid" id="Interface_menuid" lay-search="">
+                            </select>
+                        </div>
                 </div>
                 <div class="layui-inline">
                     <div class="layui-inline">

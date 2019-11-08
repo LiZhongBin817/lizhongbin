@@ -57,7 +57,7 @@
                             <td class="title" style="border:0">菜单名称:</td>
                             <td style="border:0"><input class="layui-input" type="text" name="Menu_Name" id="Menu_Name" required="required" placeholder="请输入菜单名称" autocomplete="off"></td>
                             <td class="title" style="border:0">排序:</td>
-                            <td style="border:0"><input class="layui-input" type="text" name="Seq" id="Seq" min="1" maxlength="100" increment="1"  placeholder="请输入序号" autocomplete="off"></td>
+                            <td style="border:0"><input class="layui-input" type="text" name="Seq" id="Seq" min="1" maxlength="100" increment="1" placeholder="请输入序号" autocomplete="off"></td>
                         </tr>
                         <tr>
                             <td class="title" style="border:0">URL地址:</td>
@@ -72,8 +72,8 @@
                         </tr>
                     </table>
                 </div>
-                    
-                
+
+
             </div>
 
         </div>
@@ -97,7 +97,7 @@
                 setTimeout(function () {
                     admin.req({
                         url: layui.setter.requesturl + '/api/SysManange/GetTrees',
-                        type: 'get'
+                        type: 'post'
                         , beforeSend: function (XMLHttpRequest) {
                             //注意，layer.msg默认3秒自动关闭，如果数据加载耗时比较长，需要设置time
                             loadingFlag = layer.msg('正在读取数据，请稍候……', { icon: 16, shade: 0.01, shadeClose: false, time: 60000 });
@@ -122,6 +122,7 @@
 
         dtree.on("node('Menutree')", function (obj) {
             //点击回调节点数据
+            console.log(obj.param.level);
             Current_module = obj.param.context;//获取当前模块名字
             CurrentID = obj.param.nodeId;
             admin.req({
@@ -304,12 +305,14 @@
             Add: function () {
                 console.log("添加");
                 var textarea = document.getElementsByTagName("textarea");
-                var input = document.getElementsByTagName("input");
-                var btn = document.getElementsByTagName("button");
-                btn[4].style.display = "none";
-                input[7].value = "";
-                input[8].value = "";
-                input[9].value = "";
+                var menuname = document.getElementById('Menu_Name');//菜单名
+                var menuorder = document.getElementById('Seq');//排序
+                var urladdress = document.getElementById('GetURL');//url地址
+                var btn = document.getElementById("Pcontrol");
+                btn.style.display = "none";
+                menuname.value = "";
+                menuorder.value = "";
+                urladdress.value = "";
                 textarea[0].value = "";
             }
         }

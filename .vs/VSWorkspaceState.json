@@ -6,8 +6,10 @@
     "\\src\\controller",
     "\\src\\views",
     "\\src\\views\\SysManage",
-    "\\src\\views\\SysManage\\Authority_Management"
+    "\\src\\views\\SysManage\\Authority_Management",
+    "\\src\\views\\SysManage\\Interface",
+    "\\src\\views\\SysManage\\Menu"
   ],
-  "SelectedNode": "\\src\\views\\SysManage\\Authority_Management\\edit.html",
+  "SelectedNode": "\\src\\controller\\InterFace.js",
   "PreviewInSolutionExplorer": false
 }
