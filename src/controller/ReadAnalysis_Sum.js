@@ -19,23 +19,21 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         method: 'post',
         toolbar: true,
         url: layui.setter.requesturl + '/api/DataSearch/ReadAnalysis_Sum',
-        cols: [[
-
-            { title: '序号', type: 'numbers', width: 70, totalRowText: '合计' },
-            { field: 'mrreadername', title: '抄表员', width: 110 },
-            { field: 'mindatatime', title: '开始时间', width: 180 },
-            { field: 'maxdatetime', title: '结束时间', width: 180 },
-            { field: 'readmetertime', title: '抄表时长', width: 110, totalRow: true },
-            { field: 'meternum', title: '抄表个数', width: 110, totalRow: true },
-            { field: 'readmonth', title: '抄表月份', width: 110 },
-
+        cols: [[ 
+            { title: '序号', type: 'numbers', totalRowText: '合计', align: 'center' },
+            { field: 'mrreadername', title: '抄表员', align: 'center'  },
+            { field: 'mindatatime', title: '开始时间'  },
+            { field: 'maxdatetime', title: '结束时间'  },
+            { field: 'readmetertime', title: '抄表时长', totalRow: true, align: 'center' },
+            { field: 'meternum', title: '抄表个数', totalRow: true, align: 'center' },
+            { field: 'readmonth', title: '抄表月份', align: 'center'  }, 
         ]], totalRow: true
         , page: true
+        , height: $(document).height() - $('#dataAnalysis_SumInfo_Table').offset().top - 200
         , limit: 10
         , limits: [5, 10, 15]
         , done: function (result) {
-            layer.close(load);
-
+            layer.close(load); 
             //  抄表员的抄表个数
             $.ajax({
                 type: 'post',
@@ -83,8 +81,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
                 error: function (errorMsg) {
                     alert("加载数据失败");
                 }
-            }); //ajax 
-
+            });   
         }
     });
 
@@ -100,13 +97,10 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         });
     });
 
-    // 导出
-
+    // 导出 
     $('#btn_export02').on('click', function () {
         window.location.href = layui.setter.requesturl + '/api/DataSearch/OutExcelReadAnalysisSum';
-    });
-
-
+    }); 
     //下拉框渲染
     admin.req({
         url: layui.setter.requesturl + '/api/DataSearch/render_ReaderAnalysis',

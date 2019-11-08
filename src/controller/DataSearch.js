@@ -9,11 +9,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
         , $ = layui.$
         , load = layer.load(3)
         , admin = layui.admin
-        , laydate = layui.laydate
-
-    //初始化
-
-
+        , laydate = layui.laydate 
 
     //表格渲染
     table.render({
@@ -21,23 +17,23 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
         method: 'post',
         url: layui.setter.requesturl + '/api/DataSearch/ShowDataSearchInfo',
         cols: [[
-            { field: 'id', title: '序号', width: 110 },
-            { field: 'account', title: '户号', width: 110 },
-            { field: 'username', title: '户名', width: 110 },
-            { field: 'meternum', title: '表号', width: 110 },
-            { field: 'regionname', title: '区域', width: 110 },
-            { field: 'areaname', title: '小区', width: 110 },
-            { field: 'telephone', title: '联系电话', width: 110 },
-            { field: 'meterbooknumber', title: '抄表册', width: 110 },
-            { field: 'address', title: '地址', width: 110 },
-            { field: 'mrreadername', title: '抄表员', width: 110 },
-            { field: 'readDateTime', title: '抄表月份', width: 110 },
-            { field: 'lastmonthdata', title: '上月读数', width: 110 },
-            { field: 'nowmonthdata', title: '本月读数', width: 110 },
-            { field: 'usewaternum', title: '本月用量', width: 110 },
+            { field: 'id', title: '序号', width: 110, align: 'center' },
+            { field: 'account', title: '户号', width: 110, align: 'center'},
+            { field: 'username', title: '户名', width: 110, align: 'center'},
+            { field: 'meternum', title: '表号', width: 110, align: 'center'},
+            { field: 'regionname', title: '区域', width: 110, align: 'center'},
+            { field: 'areaname', title: '小区', width: 110, align: 'center' },
+            { field: 'telephone', title: '联系电话', width: 110, align: 'center'},
+            { field: 'meterbooknumber', title: '抄表册', width: 110, align: 'center' },
+            { field: 'address', title: '地址', width: 110, align: 'center'},
+            { field: 'mrreadername', title: '抄表员', width: 110, align: 'center'},
+            { field: 'readDateTime', title: '抄表月份', width: 110, align: 'center'},
+            { field: 'lastmonthdata', title: '上月读数', width: 110, align: 'center'},
+            { field: 'nowmonthdata', title: '本月读数', width: 110, align: 'center'},
+            { field: 'usewaternum', title: '本月用量', width: 110, align: 'center'},
             { field: 'omrdatetime', title: '抄表时间', width: 110 },
             {
-                field: 'readtype', title: '抄表状态', width: 110,
+                field: 'readtype', title: '抄表状态', width: 110, align: 'center',
                 templet: function (d) {
                     var intValue = "";
                     if (d.readtype == null) {
@@ -55,9 +51,8 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
                     return intValue;
                 }
             },
-            { field: 'meterstatus', title: '表况', width: 110 },
-            { field: ' ', title: '图片', width: 110 },
-
+            { field: 'meterstatus', title: '表况', width: 110, align: 'center' },
+            { field: ' ', title: '图片', width: 110, align: 'center' }, 
         ]]
         , page: true
         , height: $(document).height() - $('#dataManageInfo_Table').offset().top - 330
@@ -68,8 +63,8 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
             layer.close(load);
         }
     });
-    //下拉框渲染
 
+    //下拉框渲染 
     admin.req({
         url: layui.setter.requesturl + '/api/DataSearch/render_regionInfo',
         type: "post",
@@ -83,10 +78,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
             $("#regionname").html(strs);
             form.render();
         }
-    });
-
-
-
+    }); 
     //监听区域下拉框
     form.on('select(regionnames)', function (d) {
         var nos = $("#regionname").val();
