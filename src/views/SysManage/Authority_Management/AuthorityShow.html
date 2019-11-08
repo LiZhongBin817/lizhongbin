@@ -6,10 +6,9 @@
 <script type="text/html" template>
     <link href="{{layui.setter.base}}style/autocomplete.css?v={{ layui.admin.v }}-1" media="all" rel="stylesheet" />
 </script>
-
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="AddAuthority">增加权限</button>
+        <button class="layui-btn layui-btn-sm" lay-event="AddAuthority">增加按钮权限</button>
     </div>
 </script>
 
@@ -18,27 +17,30 @@
         <div class="layui-card">
             <div class="layui-card-header layui-form layuiadmin-card-header-auto">
                 <div class="layui-inline">
-                    <label class="layui-form-label">权限名称:</label>
-                    <div class="layui-inline">
-                        <input type="text" class="layui-input" name="OperationName" id="OperationName" autocomplete="off" placeholder="请输入权限名称">
+                    <label class="layui-form-label">按钮名称:</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" name="OperationName" id="OperationName" autocomplete="off" placeholder="请输入按钮名称">
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">菜单ID:</label>
-                    <div class="layui-inline">
-                        <input type="text" class="layui-input" name="MenuID" id="MenuID" autocomplete="off" placeholder="请输入菜单ID" />
+                    <label class="layui-form-label">菜单名称:</label>
+                    <div class="layui-input-block">
+                        <select name="menuid" id="menuid" lay-search="">
+
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">接口ID</label>
-                    <div class="layui-inline">
-                        <input type="text" class="layui-input" name="InterfaceID" id="InterfaceID" autocomplete="off" placeholder="请输入接口ID" />
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">URL地址</label>
-                    <div class="layui-inline">
-                        <input type="text" class="layui-input" name="LinkUrl" id="LinkUrl" autocomplete="off" placeholder="请输入URL地址" />
+                    <label class="layui-form-label">按钮种类:</label>
+                    <div class="layui-input-block">
+                        <select name="operationclass" lay-filter="operationclass">
+                            <option value="-1">请选择</option>
+                            <option value="0">增加</option>
+                            <option value="1">删除</option>
+                            <option value="2">修改</option>
+                            <option value="3">查看</option>
+                            <option value="4">其他种类</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -58,58 +60,95 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-warm " lay-event="edit">编辑</a>
 </script>
+
 <script>
 
-    layui.use(['admin', 'table', 'form', 'view', 'jquery', 'autocomplete'], function () {
-        var admin = layui.admin,
+    layui.use(['admin', 'table', 'form', 'view', 'jquery'], function () {
+        let admin = layui.admin,
             form = layui.form,
             view = layui.view,
             $ = layui.jquery,
-            autocomplete = layui.autocomplete,
             table = layui.table;
         table.render({
             elem: '#power',
             method: 'post',
-            url: layui.setter.requesturl+'/api/MeterReadingPlan/ShowInfor',//后台地址
+            url: layui.setter.requesturl+'/api/OprationManage/ShowInfor',//后台地址
             page: true,
             cols: [[
                 { field: 'ID', title: 'ID', width: 80, sort: true, fixed: 'left' },
-                { field: 'AuthorityName', title: '权限名', width: 150 },
-                { field: 'MenuID', title: '菜单ID', width: 200 },
-                { field: 'InterfaceID', title: '接口ID', width: 200 },
-                { field: 'URL', title: 'URL地址', width: 200 },
-                { field: 'Type', title: '权限种类', width: 150 },
+                { field: 'AuthorityName', title: '按钮名称', width: 150 },
+                { field: 'menuname', title: '菜单名称', width: 200 },
+                { field: 'MenuID', title: '菜单ID', width: 200,hide:true },
+                {field:'btnClassName',title:'按钮Class名称',width:200},
+                {field:'btneventName',title:'按钮事件名称',width:200},
+                {field:'btnContainer',title:'按钮容器属性',width:200},
+                { field: 'Type', title: '权限种类', width: 150 ,templet:function (d) {
+                        let a = "";
+                        switch(d.Type) {
+                            case 0:
+                                a = "增加";
+                                break;
+                            case 1:
+                                a = "删除";
+                                break;
+                            case 2:
+                                a = "修改";
+                                break;
+                            case 3:
+                                a = "查看";
+                                break;
+                            case 4:
+                                 a = "其他";
+                                break;
+                            default:
+                                a = "异常";
+                        }
+                        return a;
+                    }
+                },
                 {
                     field: 'UseStatus', title: '使用状态', width: 150, unresize: true, event: 'Bidden',
                     templet: function (d) {
-                        var isCkecked = d.UseStatus === "使用" ? "checked" : "作废";
-                        return '<input type="checkbox" lay-skin="switch" lay-filter="Forbidden" lay-text="使用|作废" ' + isCkecked + '> ';
+                        var isCkecked = d.UseStatus === 0 ? "checked" : "";
+                        return '<input type="checkbox" lay-skin="switch" lay-filter="Forbidden" lay-text="使用|作废" ' + isCkecked + '>';
                     }
                 },
                 { title: '编辑', width: 150, toolbar: '#barDemo', align: 'center', fixed: 'right' }
             ]],
-            limit: 20,
+            limit: 10,
             toolbar: "#toolbarDemo",
-            limits: [20, 30, 40],
+            limits: [5, 10, 15],
+            done:function(){
+                let p = new Promise((resolve, reject) => {
+                    admin.req({
+                        url:layui.setter.requesturl+'/api/OprationManage/ShowSelectInfor',
+                        type:'post',
+                        success:function(data){
+                            let htmlstr = `<option value="0">请选择</option>`;
+                            let htmlarr = data.data.map((item,index) => {
+                                return `<option value="${item.ID}">${item.Name}</option>`
+                            });
+                            htmlstr += htmlarr.join('');
+                            $("#menuid").html(htmlstr);
+                            resolve(htmlstr);
+                        }
+                    });
+                });
+                p.then((htmlstr) => {
+                    form.render('select');
+                });
+            }
         });
         //监听查询
         form.on('submit(polling)', function (data) {
             var field = data.field;
-            var SendStatus = "";
-            if (field.Usestatus === "0") {
-                SendStatus = "";
-            } else if (field.Usestatus === "1") {
-                SendStatus = "使用";
-            } else if (field.Usestatus === "2") {
-                SendStatus = "作废";
-            }
+            console.log(field);
             //执行重载
             table.reload('power', {
                 where: {
                     "OperationName": field.OperationName,
-                    "InterfaceID": field.InterfaceID,
-                    "LinkUrl": field.LinkUrl,
-                    "MenuID": field.MenuID,
+                    "menuid": field.menuid,
+                    "operationclass": field.operationclass,
                 }
                 , page: {
                     "curr": 1,
@@ -123,11 +162,9 @@
                 $ = layui.$,
                 layEvent = obj.event;
             var form = layui.form;
-            var tr = $(obj.tr);
             if (layEvent === 'edit') {
-                var tr = $(obj.tr);
                 admin.popup({
-                    title: '编辑权限',
+                    title: '编辑按钮',
                     area: ['600px', '500px'],
                     maxmin: true,
                     btn: ['确认', '取消'],
@@ -135,15 +172,15 @@
                         var div = layero.contents().find('#layui-Page-Edit');
                         var sendData = {
                             "OperationName": div.find("#OperationName").val(),//权限名称
-                            "MenuID": div.find("#MenuID").val(),//菜单ID
-                            "LinkUrl": div.find("#LinkUrl").val(),//URL地址
-                            "InterfaceID": div.find("#InterfaceID").val(),//接口ID
-                            "OperationType": div.find("#OperationType").val(),//权限种类
-                            "Operationstatus": data.UseStatus === "使用" ? 0 : 1
+                            "MenuID": div.find("#menuid-edit").val(),//菜单ID
+                            "operationclass": div.find("#operationclass").val(),
+                            "btnClassName": div.find("#btnClassName").val(),
+                            "btneventName": div.find("#btneventName").val(),
+                            "btnContainer":div.find('#btnContainer').val()
                         };
                         var jsonData = JSON.stringify(sendData);
                         admin.req({
-                            url: layui.setter.requesturl+'/api/MeterReadingPlan/ModifyInfor ',
+                            url: layui.setter.requesturl+'/api/OprationManage/ModifyInfor ',
                             type: "post",
                             data: {
                                 "data": jsonData,
@@ -162,13 +199,27 @@
                     },
                     success: function (layero, index) {
                         view(this.id).render('SysManage/Authority_Management/Edit', null).done(function () {
-                            form.render(null, 'layui-Page-Edit');
-                            var div = layero.contents().find('#layui-Page-Edit');
-                            div.find("#OperationName").val(data.AuthorityName);//权限名称
-                            div.find("#MenuID").val(data.MenuID);//菜单ID
-                            div.find("#LinkUrl").val(data.URL);//URL地址
-                            div.find("#InterfaceID").val(data.InterfaceID);//接口ID
-                            div.find("#OperationType").val(data.Type)//权限种类
+
+                            admin.req({
+                                url:layui.setter.requesturl+'/api/OprationManage/ShowSelectInfor',
+                                type:'post',
+                                success:function(rdata){
+                                    let htmlstr = `<option value="0">请选择</option>`;
+                                    let htmlarr = rdata.data.map((item,index) => {
+                                        var t = data.MenuID === item.ID?"selected":"";
+                                        return `<option value="${item.ID}" ${t}>${item.Name}</option>`
+                                    });
+                                    htmlstr += htmlarr.join('');
+                                    $("#menuid-edit").html(htmlstr);
+                                    var div = layero.contents().find('#layui-Page-Edit');
+                                    div.find("#OperationName").val(data.AuthorityName);//权限名称
+                                    div.find("#btnClassName").val(data.btnClassName);
+                                    div.find("#btneventName").val(data.btneventName);
+                                    div.find("#btnContainer").val(data.btnContainer);
+                                    div.find("#operationclass").val(data.Type);//权限种类
+                                    form.render(null, 'layui-Page-Edit');
+                                }
+                            });
                         });
 
                     }
@@ -176,12 +227,13 @@
             }
             //使用状态
             else if (layEvent === 'Bidden') {
+                console.log(data.UseStatus);
                 $.ajax({
-                    url: "layui.setter.requesturl+'/api/MeterReadingPlan/GetStatus",
+                    url: layui.setter.requesturl+'/api/OprationManage/GetStatus',
                     type: "post",
                     data: {
                         "ID": data.ID,
-                        "status": data.UseStatus == "使用" ? "作废" : "使用"
+                        "status": data.UseStatus
                     },
                     success: function (msg) {
                         if (msg.msg == "ok") {
@@ -210,7 +262,7 @@
                         form.on('submit(' + submitID + ')', function (data) {
                             var fields = JSON.stringify(data.field); //获取提交的字段
                             admin.req({
-                                url: layui.setter.requesturl+'/api/MeterReadingPlan/AddData',
+                                url: layui.setter.requesturl+'/api/OprationManage/AddData',
                                 type: 'post',
                                 data: { "JsonDate": fields },
                                 success: function (data) {
@@ -218,7 +270,7 @@
                                         layer.msg("添加失败");
                                     }
                                     else {
-                                        layer.msg("添加成功")
+                                        layer.msg("添加成功");
                                         table.reload('power', {});
                                     }
                                 }
@@ -228,11 +280,19 @@
                     },
                     success: function (layero, index) {
                         view(this.id).render('SysManage/Authority_Management/Add', null).done(function () {
-                            form.render(null, 'layui-Page-Add');
-                            console.log($('#MenuID'));
-                            //渲染autocomplete
-
-
+                            admin.req({
+                                url:layui.setter.requesturl+'/api/OprationManage/ShowSelectInfor',
+                                type:'post',
+                                success:function(rdata){
+                                    let htmlstr = `<option value="0">请选择</option>`;
+                                    let htmlarr = rdata.data.map((item,index) => {
+                                        return `<option value="${item.ID}" >${item.Name}</option>`
+                                    });
+                                    htmlstr += htmlarr.join('');
+                                    $("#MenuID-add").html(htmlstr);
+                                    form.render(null, 'layui-Page-Add');
+                                }
+                            });
                         });
                     }
                 });

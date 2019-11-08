@@ -164,7 +164,6 @@ layui.define(['table', 'form', 'view'], function (exports) {
     //监听查询
     form.on('submit(polling)', function (data) {
         var field = data.field;
-        console.log(data.field);
         //执行重载
         table.reload('Sys_User', {
             where: {
@@ -285,4 +284,4 @@ layui.define(['table', 'form', 'view'], function (exports) {
         });
     });
     exports('usermanage', {})
-})
+});
