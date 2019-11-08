@@ -55,19 +55,19 @@ namespace CDWM_MR.Controllers
             Expression<Func<mr_b_reader, bool>> wherelambda = c =>c.deleteflag!=1;
             if (!string.IsNullOrEmpty(Number))
             {
-                wherelambda = PredicateExtensions.And<mr_b_reader>(wherelambda, c => c.mrreadernumber == Number);
+                wherelambda = PredicateExtensions.And<mr_b_reader>(wherelambda, c => c.mrreadernumber.Contains(Number));
             }
             if (!string.IsNullOrEmpty(Name))
             {
-                wherelambda =PredicateExtensions.And<mr_b_reader>(wherelambda, c => c.mrreadername == Name);
+                wherelambda =PredicateExtensions.And<mr_b_reader>(wherelambda, c => c.mrreadername.Contains(Name));
             }
             if (!string.IsNullOrEmpty(Telephone))
             {
-                wherelambda = PredicateExtensions.And<mr_b_reader>(wherelambda, c => c.telephone == Telephone) ;
+                wherelambda = PredicateExtensions.And<mr_b_reader>(wherelambda, c => c.telephone .Contains(Telephone)) ;
             }
             if (!string.IsNullOrEmpty(Appcount))
             {
-                wherelambda = PredicateExtensions.And<mr_b_reader>(wherelambda, c => c.appcount == Appcount);
+                wherelambda = PredicateExtensions.And<mr_b_reader>(wherelambda, c => c.appcount .Contains(Appcount));
             }
             #endregion
             Expression<Func<mr_b_reader, object>> expression = c => new

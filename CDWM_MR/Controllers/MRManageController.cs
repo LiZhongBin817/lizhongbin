@@ -90,7 +90,7 @@ namespace CDWM_MR.Controllers
             Expression<Func<v_mr_datainfo, bool>> wherelambda = c => true;
             if (rtrecheckstatus != 3 && rtrecheckstatus != 1)
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.rtrecheckstatus == rtrecheckstatus);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.rtrecheckstatus ==rtrecheckstatus);
             }
             if (rtrecheckstatus == 1)
             {
@@ -98,27 +98,27 @@ namespace CDWM_MR.Controllers
             }
             if (!string.IsNullOrEmpty(username))
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.username == username);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.username .Contains( username));
             }
             if (!string.IsNullOrEmpty(account))
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.account == account);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.account .Contains( account));
             }
             if (!string.IsNullOrEmpty(meternum))
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.meternum == meternum);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.meternum .Contains( meternum));
             }
             if (!string.IsNullOrEmpty(address))
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.address == address);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.address .Contains( address));
             }
             if (!string.IsNullOrEmpty(mrreadername))
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.mrreadername == mrreadername);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.mrreadername .Contains( mrreadername));
             }
             if (!string.IsNullOrEmpty(bookno))
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.bookno == bookno);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.bookno .Contains( bookno));
             }
             #endregion
             Expression<Func<v_mr_datainfo, object>> expression = c => new
@@ -494,8 +494,8 @@ namespace CDWM_MR.Controllers
                     remark=item.recheckresult,
                     inputdata= ocrlogDataAndinputdata[0].inputdata,
                     ocrlogdata= ocrlogDataAndinputdata[0].ocrdata,
-                    pirctureurl= String.Join(',', photoinfo.Select(c => c.photourl).ToArray())
-
+                    pirctureurl= String.Join(',', photoinfo.Select(c => c.photourl).ToArray()),
+                    phototype = String.Join(',', photoinfo.Select(c => c.phototype).ToArray())
                 };
                 returnData.Add(data);
 

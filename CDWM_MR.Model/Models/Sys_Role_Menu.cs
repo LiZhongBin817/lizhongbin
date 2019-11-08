@@ -56,11 +56,7 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsIgnore = true)]
         public sys_operation Operation { get; set; }
-        private System.Int16? _judgetype;
-        /// <summary>
-        /// 判断是接口id还是权限id
-        /// </summary>
-        public System.Int16? judgetype { get { return this._judgetype; } set { this._judgetype = value; } }
+        
 
     }
 }

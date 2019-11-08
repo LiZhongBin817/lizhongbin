@@ -2141,11 +2141,6 @@
             导航sys_operation
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.sys_role_menu.judgetype">
-            <summary>
-            判断是接口id还是权限id
-            </summary>
-        </member>
         <member name="T:CDWM_MR.Model.Models.sys_userinfo">
             <summary>
             用户信息表
