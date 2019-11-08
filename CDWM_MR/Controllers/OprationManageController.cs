@@ -114,20 +114,8 @@ namespace CDWM_MR.Controllers
             Data.updatepeople = "1";
             Data.id = ID;
             #region 判重
-            Expression<Func<sys_operation, bool>> wherelambda = c =>c.id!=ID&&(c.OperationName == Data.OperationName||c.LinkUrl==Data.LinkUrl);
-            var listQuery = await _sys_OperationServices.Query(wherelambda);
-            string message = "";
-            if (listQuery.Count != 0)
-            {
-                return new MessageModel<object>()
-                {
-                    data = null,
-                    code = 1,
-                    msg = "该权限名称或者URL地址存在"
-                };
-            }
             #endregion
-            message = await _sys_OperationServices.Update(c => new sys_operation
+            var message = await _sys_OperationServices.Update(c => new sys_operation
             {
                 MenuID = Data.MenuID,
                 OperationName = Data.OperationName,
@@ -137,7 +125,7 @@ namespace CDWM_MR.Controllers
                 btnClassName = Data.btnClassName,
                 btneventName = Data.btneventName,
                 btnContainer = Data.btnContainer
-            }, c => c.OperationName == Data.OperationName) == true ? "ok" : "error";
+            }, c => c.id == Data.id) == true ? "ok" : "error";
             return new MessageModel<object>()
             {
                 data = null,
