@@ -99,7 +99,10 @@ layui.use(['admin', 'form', 'user'], function(){
           url:`${layui.setter.requesturl}/api/Main/GetbtninfoData`,
           type:"Get",
           success:function(res){
-            layui.setter.localbtnlist = res.data;
+            layui.data(setter.tableName,{
+                key:setter.localbtnname,
+                value:res.data
+            });
           }
         });
 

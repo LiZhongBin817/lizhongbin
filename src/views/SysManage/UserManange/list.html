@@ -54,8 +54,12 @@
     </div>
 </div>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary " lay-event="edit" style="display:none;">编辑</a>
-    <a class="layui-btn layui-btn-danger " lay-event="delete">删除</a>
+    {{#
+    var t_btn1 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(1)===-1?"none":"inline-block";
+    var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(2)===-1?"none":"inline-block";
+    }}
+    <a class="layui-btn layui-btn-primary " lay-event="edit" style="display:{{t_btn1}};">编辑</a>
+    <a class="layui-btn layui-btn-danger " lay-event="delete" style="display:{{t_btn2}}";>删除</a>
 </script>
 <script>layui.use('usermanage', layui.factory('usermanage')).use(['admin', 'usermanage', 'table', 'view'], function () {
         var admin = layui.admin,
