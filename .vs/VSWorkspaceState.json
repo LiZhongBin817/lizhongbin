@@ -1,12 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\json",
     "\\src",
     "\\src\\controller",
     "\\src\\views",
-    "\\src\\views\\DataManage"
+    "\\src\\views\\CarryOverDataManage",
+    "\\src\\views\\DataManage",
+    "\\src\\views\\MeterReadingManage\\MeterReadingPath_Manage",
+    "\\src\\views\\MR_B_BookManage\\mr_b_readerManage"
   ],
-  "SelectedNode": "\\src\\controller\\dataManage.js",
+  "SelectedNode": "\\src\\controller\\CarryOverDataManage.js",
   "PreviewInSolutionExplorer": false
 }
