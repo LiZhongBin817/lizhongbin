@@ -28,7 +28,7 @@ namespace CDWM_MR.Services.Content
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public async Task<TableModel<object>> ShowMRPath(string month, string date, string name, int page = 1, int limit = 20)
+        public async Task<TableModel<object>> ShowMRPath(string month, string date, string name, int page = 1, int limit = 5)
         {
             string Month = DateTime.Now.Year.ToString()+DateTime.Now.Month.ToString();//为了默认是查询当前周期的
             List<string> uploadGPS = new List<string>();

@@ -1843,12 +1843,13 @@
             <param name="account">用户编号</param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.Changemeter(System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.Changemeter(System.String,System.String,System.String)">
             <summary>
             换表
             </summary>
             <param name="Oldmeternum">旧表编号</param>
             <param name="Newmeternum">新表编号</param>
+            <param name="lastmodifyby">修改人</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.DelUser(System.String)">
