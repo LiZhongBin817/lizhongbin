@@ -832,11 +832,12 @@
             主页面控制器
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.MainController.#ctor(CDWM_MR.IServices.IsysManageServices)">
+        <member name="M:CDWM_MR.Controllers.MainController.#ctor(CDWM_MR.IServices.IsysManageServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数注入
             </summary>
             <param name="sysmanage"></param>
+            <param name="user"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.MainController.GetMenuData">
             <summary>
@@ -847,6 +848,12 @@
         <member name="M:CDWM_MR.Controllers.MainController.GetbtninfoData">
             <summary>
             获取按钮信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MainController.GetuserdetailInfo">
+            <summary>
+            获取用户名称
             </summary>
             <returns></returns>
         </member>
@@ -1836,12 +1843,13 @@
             <param name="account">用户编号</param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.Changemeter(System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.Changemeter(System.String,System.String,System.String)">
             <summary>
             换表
             </summary>
             <param name="Oldmeternum">旧表编号</param>
             <param name="Newmeternum">新表编号</param>
+            <param name="lastmodifyby">修改人</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.DelUser(System.String)">

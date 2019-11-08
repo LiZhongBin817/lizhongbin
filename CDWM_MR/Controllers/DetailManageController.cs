@@ -66,11 +66,11 @@ namespace CDWM_MR.Controllers
             }
             if (!string.IsNullOrEmpty(ReaderName))
             {
-                wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.mrreadername == ReaderName);
+                wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.mrreadername .Contains( ReaderName));
             }
             if (!string.IsNullOrEmpty(bookno))
             {
-                wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.bookno == bookno);
+                wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.bookno.Contains( bookno));
             }
             #endregion
 

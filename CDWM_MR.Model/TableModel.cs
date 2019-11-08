@@ -13,7 +13,7 @@ namespace CDWM_MR.Model
         /// <summary>
         /// 返回编码
         /// </summary>
-        public int code { get; set; }
+        public int code { get; set; } = 0;
         /// <summary>
         /// 返回信息
         /// </summary>
