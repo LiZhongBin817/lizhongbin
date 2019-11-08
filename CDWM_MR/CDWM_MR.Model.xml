@@ -1884,6 +1884,11 @@
             
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.sys_interface_info.menuid">
+            <summary>
+            菜单ID
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.sys_menu">
             <summary>
             菜单表

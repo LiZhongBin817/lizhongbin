@@ -249,18 +249,18 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("InterfaceInfoShow")]        
-        public async Task<TableModel<object>> InterfaceInfoShow(string InterfaceUrl, string MenuName, int page = 1, int limit = 10)
+        public async Task<TableModel<object>> InterfaceInfoShow(string InterfaceName, int menuid, int page = 1, int limit = 10)
         {
             PageModel<object> Interface = new PageModel<object>();
             #region lambda拼接式
             Expression<Func<v_interface, bool>>wherelambda=c=>true;
-            if(!string .IsNullOrEmpty(InterfaceUrl))
+            if(!string .IsNullOrEmpty(InterfaceName))
             {
-                wherelambda = PredicateExtensions.And<v_interface>(wherelambda, c => c.InterfaceUrl.Contains(InterfaceUrl));
+                wherelambda = PredicateExtensions.And<v_interface>(wherelambda, c => c.InterfaceName.Contains(InterfaceName));
             }
-            if(!string.IsNullOrEmpty(MenuName))
+            if(menuid!=0)
             {
-                wherelambda = PredicateExtensions.And<v_interface>(wherelambda, c => c.InterfaceName.Contains(MenuName));
+                wherelambda = PredicateExtensions.And<v_interface>(wherelambda, c => c.menuid==menuid);
             }
             #endregion
             Expression<Func<v_interface, object>> expression = c => new
@@ -270,6 +270,7 @@ namespace CDWM_MR.Controllers
                 InterfaceName = c.InterfaceName,
                 OperationVersion = c.OperationVersion,
                 MenuName=c.MenuName,
+                MenuID=c.menuid,
                 ExternalInterface = c.ExternalInterface,
                 Verify = c.Verify,
                 Remark = c.Remark
@@ -367,7 +368,7 @@ namespace CDWM_MR.Controllers
         /// 生成菜单树
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [Route("GetTrees")]        
         public async Task<MessageModel<object>> GetTrees()
         {

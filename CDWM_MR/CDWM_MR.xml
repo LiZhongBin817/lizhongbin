@@ -1282,7 +1282,7 @@
             <param name="roleid"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.InterfaceInfoShow(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.InterfaceInfoShow(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             显示接口数据
             </summary>

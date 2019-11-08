@@ -46,5 +46,9 @@
         /// 
         /// </summary>
         public System.String Remark { get; set; }
+        /// <summary>
+        /// 菜单ID
+        /// </summary>
+        public System.Int32 menuid { get; set; }
     }
 }
