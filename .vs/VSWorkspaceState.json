@@ -4,10 +4,9 @@
     "\\src",
     "\\src\\controller",
     "\\src\\views",
-    "\\src\\views\\Seecopy",
     "\\src\\views\\SysManage",
-    "\\src\\views\\SysManage\\Interface"
+    "\\src\\views\\SysManage\\UserManange"
   ],
-  "SelectedNode": "\\src\\controller\\Copysee.js",
+  "SelectedNode": "\\src\\controller\\DosageAnomalyAnalysis.js",
   "PreviewInSolutionExplorer": false
 }
