@@ -832,11 +832,12 @@
             主页面控制器
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.MainController.#ctor(CDWM_MR.IServices.IsysManageServices)">
+        <member name="M:CDWM_MR.Controllers.MainController.#ctor(CDWM_MR.IServices.IsysManageServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数注入
             </summary>
             <param name="sysmanage"></param>
+            <param name="user"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.MainController.GetMenuData">
             <summary>
@@ -847,6 +848,12 @@
         <member name="M:CDWM_MR.Controllers.MainController.GetbtninfoData">
             <summary>
             获取按钮信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.MainController.GetuserdetailInfo">
+            <summary>
+            获取用户名称
             </summary>
             <returns></returns>
         </member>
