@@ -12,17 +12,17 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         , admin = layui.admin
         , echarts = layui.echarts
         , laydate = layui.laydate;
-     
+
     //表格渲染
     table.render({
         elem: '#dataAnalysis_SumInfo_Table',
         method: 'post',
         toolbar: true,
-        url: layui.setter.requesturl+'/ReadAnalysis_Sum',
+        url: layui.setter.requesturl + '/api/DataSearch/ReadAnalysis_Sum',
         cols: [[
 
             { title: '序号', type: 'numbers', width: 70, totalRowText: '合计' },
-            { field: 'mrreadername', title: '抄表员', width: 110 }, 
+            { field: 'mrreadername', title: '抄表员', width: 110 },
             { field: 'mindatatime', title: '开始时间', width: 180 },
             { field: 'maxdatetime', title: '结束时间', width: 180 },
             { field: 'readmetertime', title: '抄表时长', width: 110, totalRow: true },
@@ -31,15 +31,15 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
 
         ]], totalRow: true
         , page: true
-        , limit: 20
-        , limits: [20, 30, 40]
+        , limit: 10
+        , limits: [5, 10, 15]
         , done: function (result) {
             layer.close(load);
-             
-           //  抄表员的抄表个数
+
+            //  抄表员的抄表个数
             $.ajax({
                 type: 'post',
-                url: layui.setter.requesturl + '/ReadAnalysis_key', //web.xml中注册的Servlet的url-pattern
+                url: layui.setter.requesturl + '/api/DataSearch/ReadAnalysis_key', //web.xml中注册的Servlet的url-pattern
                 success: function (result) {
                     if (result) {
                         var temp1 = result.data.datalist01, temp2 = result.data.datalist02;
@@ -48,12 +48,12 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
                         for (var i = 0; i < num; i++) {
                             var addobject = {
                                 value: temp2[i],
-                                name:temp1[i]
+                                name: temp1[i]
                             }
                             data2.push(addobject);
                         } var res = "container";
                         var o4 = "抄表员与抄表个数";
-                        showadc(temp1, data2,res,o4);
+                        showadc(temp1, data2, res, o4);
                     }
                 },
                 error: function (errorMsg) {
@@ -63,10 +63,10 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
             //抄表员的抄表时间
             $.ajax({
                 type: 'post',
-                url: layui.setter.requesturl + '/ReadAnalysis_val', //web.xml中注册的Servlet的url-pattern
+                url: layui.setter.requesturl + '/api/DataSearch/ReadAnalysis_val', //web.xml中注册的Servlet的url-pattern
                 success: function (result) {
                     if (result) {
-                        var temp1 = result.data.datalist01, temp2 = result.data.datalist02; 
+                        var temp1 = result.data.datalist01, temp2 = result.data.datalist02;
                         var num = temp1.length;
                         var data2 = [];
                         for (var i = 0; i < num; i++) {
@@ -77,7 +77,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
                             data2.push(addobject);
                         } var res = "container01";
                         var o4 = "抄表员和抄表时间";
-                        showadc(temp1, data2,res,o4);
+                        showadc(temp1, data2, res, o4);
                     }
                 },
                 error: function (errorMsg) {
@@ -89,7 +89,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
     });
 
     //监听查询
-    form.on('submit(numberSearch)', function (obj) {
+    form.on('submit(number_Search01)', function (obj) {
         var field = obj.field;
         table.reload('dataAnalysis_SumInfo_Table', {
             where: {
@@ -100,9 +100,16 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         });
     });
 
+    // 导出
+
+    $('#btn_export02').on('click', function () {
+        window.location.href = layui.setter.requesturl + '/api/DataSearch/OutExcelReadAnalysisSum';
+    });
+
+
     //下拉框渲染
     admin.req({
-        url: layui.setter.requesturl + '/render_ReaderAnalysis',
+        url: layui.setter.requesturl + '/api/DataSearch/render_ReaderAnalysis',
         type: "post",
         success: function (result) {
             workData = result.data;
@@ -114,18 +121,18 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
             $("#mrreadername").html(strs);
             form.render();
         }
-    }); 
+    });
 
     //饼图js
-      function showadc (o1,o2,o3,o4) {
-          var dom = document.getElementById(o3);  
+    function showadc(o1, o2, o3, o4) {
+        var dom = document.getElementById(o3);
         var myChart = echarts.init(dom);
         var app = {};
         option = null;
         option = {
             title: {
                 text: '常德牌水表厂',
-                subtext:o4,
+                subtext: o4,
                 x: 'left'
             },
             tooltip: {
@@ -141,11 +148,11 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
                 {
                     name: '访问来源',
                     type: 'pie',
-                    radius: '55%', 
-                    center:['30%','40%'],
+                    radius: '55%',
+                    center: ['30%', '40%'],
                     data: o2,
                     itemStyle: {
-                        emphasis: { 
+                        emphasis: {
                             shadowBlur: 10,
                             shadowOffsetX: 0,
                             shadowColor: 'rgba(0, 0, 0, 0.5)'
@@ -158,6 +165,6 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         if (option && typeof option === "object") {
             myChart.setOption(option, true);
         }
-      }; 
+    };
     exports('ReadAnalysis_Sum', {});
 });

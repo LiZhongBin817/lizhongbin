@@ -47,17 +47,18 @@ layui.define(['table', 'view', 'form', 'admin', 'jquery'], function (exports) {
                 title: '操作', width: 350, fixed: 'right', align: 'center',
                 templet: function (d) {
                     if (d.bookkeepingcount == null) {
-                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="Change" >调整用量</button>' + '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="ReCarryOver" >重新结转</button>' + '<button class="layui-btn layui-btn-radius layui-btn-sm" lay-event="ReCreateBill">重新生成账单</button>'
+                        return '<button  class="layui-btn layui-btn-warm layui-btn-sm" lay-event="Change" style="border-radius:3px">调整用量</button>' + '<button  class="layui-btn  layui-btn-sm" lay-event="ReCarryOver"style="border-radius:3px" >重新结转</button>' + '<button class="layui-btn  layui-btn-sm" lay-event="ReCreateBill" style="border-radius:3px">重新生成账单</button>'
                     }
                     else {
-                        return '<button class="layui-btn layui-btn-radius layui-btn-sm" lay-event="ReCreateBill">重新生成账单</button>'
+                        return '<button class="layui-btn  layui-btn-sm" lay-event="ReCreateBill" style="border-radius:3px">重新生成账单</button>'
                     }
                 }
             }
         ]]
         , toolbar: '#headerbutton'
         , page: true
-        , limit: 5
+        , height: $(document).height() - $('#CarryDataShowTable').offset().top - 50
+        , limit: 10
         , limits: [5, 10, 15]
         , id: 'studentTable'
         , done: function (res, curr, count) {
@@ -163,24 +164,31 @@ layui.define(['table', 'view', 'form', 'admin', 'jquery'], function (exports) {
                                 "adjustperson": field.adjustPerson,
                                 "adjusttime": field.adjustDate,
                             }
-                            admin.req({
-                                url: layui.setter.requesturl + '/api/CarryOverDataManage/ChangeCarryCounts',
-                                method: 'post',
-                                data: {
-                                    "accounts": data.account,
-                                    "JsonData": JSON.stringify(SendData)
-                                },
-                                success: function (d) {
-                                    if (d.msg == "ok") {
-                                        layer.msg("调整成功");
-                                        table.reload('CarryDataShowTable');
-                                    }
-                                    else {
 
-                                        layer.msg("调整失败");
+                            if (!field.AdjustType) {
+                                layer.msg("请选中调整状态！！");
+                            }
+                            else {
+                                admin.req({
+                                    url: layui.setter.requesturl + '/api/CarryOverDataManage/ChangeCarryCounts',
+                                    method: 'post',
+                                    data: {
+                                        "accounts": data.account,
+                                        "JsonData": JSON.stringify(SendData)
+                                    },
+                                    success: function (d) {
+                                        if (d.msg == "ok") {
+                                            layer.msg("调整成功");
+                                            table.reload('CarryDataShowTable');
+                                        }
+                                        else {
+
+                                            layer.msg("调整失败");
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                           
                         });
 
                         //监听关闭按钮
@@ -210,26 +218,32 @@ layui.define(['table', 'view', 'form', 'admin', 'jquery'], function (exports) {
                                 "turndate": field.CarryDate,
                                 "finishturnstatus": field.CarryStatus,
                             }
-                            admin.req({
-                                url: layui.setter.requesturl + '/api/CarryOverDataManage/ReCarryOver',
-                                method: 'post',
-                                data: {
-                                    "account": data.account,
-                                    "meternum": data.meternum,
-                                    "taskperiodname": data.taskperiodname,
-                                    "JsonData": JSON.stringify(SendData)
-                                },
-                                success: function (d) {
-                                    if (d.msg == "ok") {
-                                        layer.msg("重新结转成功");
-                                        table.reload('CarryDataShowTable');
-                                    }
-                                    else {
+                            if (!field.CarryStatus) {
+                                layer.msg("请选中通过状态！！");
+                            }
+                            else {
+                                admin.req({
+                                    url: layui.setter.requesturl + '/api/CarryOverDataManage/ReCarryOver',
+                                    method: 'post',
+                                    data: {
+                                        "account": data.account,
+                                        "meternum": data.meternum,
+                                        "taskperiodname": data.taskperiodname,
+                                        "JsonData": JSON.stringify(SendData)
+                                    },
+                                    success: function (d) {
+                                        if (d.msg == "ok") {
+                                            layer.msg("重新结转成功");
+                                            table.reload('CarryDataShowTable');
+                                        }
+                                        else {
 
-                                        layer.msg("重新结转失败");
+                                            layer.msg("重新结转失败");
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                           
                         });
 
                         //监听关闭按钮

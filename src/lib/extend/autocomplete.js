@@ -1,3 +1,10 @@
+/**
+
+ @Name：搜索下拉框
+ @Author：外来插件
+
+ */
+
 layui.define(['jquery', 'laytpl', 'layer'], function (e) {
     "use strict";
     var hint = layui.hint(),
@@ -177,4 +184,4 @@ layui.define(['jquery', 'laytpl', 'layer'], function (e) {
         return callback.call(j)
     }
     system.init(), e(module, system);
-})
+});

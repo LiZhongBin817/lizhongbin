@@ -64,7 +64,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
                         data: o.metertime,
                         markPoint: {
                             data: [
-                                 
+
                             ]
                         },
                         markLine: {
@@ -142,9 +142,9 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         elem: '#dataAnalysisInfo_Table',
         method: 'post',
         toolbar: true,
- 
-        url: layui.setter.requesturl+'/ReadAnalysis',
- 
+
+        url: layui.setter.requesturl + '/api/DataSearch/ReadAnalysis',
+
         cols: [[
 
             { title: '序号', type: 'numbers', width: 70, totalRowText: '合计' },
@@ -152,16 +152,16 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
             { field: 'readtime', title: '抄表日期', width: 120 },
             { field: 'mindatatime', title: '开始时间', width: 180 },
             { field: 'maxdatetime', title: '结束时间', width: 180 },
- 
-            {  field: 'readmetertime', title: '抄表时长', width: 110, totalRow: true, },
- 
+
+            { field: 'readmetertime', title: '抄表时长', width: 110, totalRow: true, },
+
             { field: 'meternum', title: '抄表个数', width: 110, totalRow: true },
             { field: 'metermonth', title: '抄表月份', width: 110 },
 
         ]], totalRow: true
         , page: true
-        , limit: 20
-        , limits: [20, 30, 40]
+        , limit: 10
+        , limits: [5, 10, 15]
         , done: function (data) {
             layer.close(load);
             var num = data.count;
@@ -180,12 +180,12 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
                     , anim: othis.data('anim')
                 });
             });
- 
-            for (var i = 0; i < renderdata.length; i++ ) {
+
+            for (var i = 0; i < renderdata.length; i++) {
                 singlerender(renderdata[i]);
 
-            } 
- 
+            }
+
         }
     });
 
@@ -203,9 +203,9 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
 
     //下拉框渲染
     admin.req({
- 
-        url: layui.setter.requesturl+'/render_ReaderAnalysis',
- 
+
+        url: layui.setter.requesturl + '/api/DataSearch/render_ReaderAnalysis',
+
         type: "post",
         success: function (result) {
             workData = result.data;
@@ -227,7 +227,10 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         console.log(obj.data);
          
     });*/
-
+    // 导出 
+    $('#button_export').on('click', function () {
+        window.location.href = layui.setter.requesturl + '/api/DataSearch/OutExcelReadAnalysis';
+    });
 
     exports('ReadAnalysis', {});
 });

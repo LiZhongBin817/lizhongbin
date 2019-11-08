@@ -19,7 +19,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
     table.render({
         elem: '#dataManageInfo_Table',
         method: 'post',
-        url: 'http://localhost:8081/ShowDataSearchInfo',
+        url: layui.setter.requesturl + '/api/DataSearch/ShowDataSearchInfo',
         cols: [[
             { field: 'id', title: '序号', width: 110 },
             { field: 'account', title: '户号', width: 110 },
@@ -60,9 +60,10 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
 
         ]]
         , page: true
+        , height: $(document).height() - $('#dataManageInfo_Table').offset().top - 330
         , toolbar: true
-        , limit: 20
-        , limits: [20, 30, 40]
+        , limit: 10
+        , limits: [5, 10, 15]
         , done: function () {
             layer.close(load);
         }
@@ -70,7 +71,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
     //下拉框渲染
 
     admin.req({
-        url: 'http://localhost:8081/render_regionInfo',
+        url: layui.setter.requesturl + '/api/DataSearch/render_regionInfo',
         type: "post",
         success: function (result) {
             workData = result.data;
@@ -91,7 +92,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
         var nos = $("#regionname").val();
         console.log(nos);
         admin.req({
-            url: 'http://localhost:8081/renderdataInfo',
+            url: layui.setter.requesturl + '/api/DataSearch/renderdataInfo',
             type: 'post',
             data: {
                 'JsonData': nos
@@ -128,6 +129,11 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
                 'page': 1
             }
         });
+    });
+    // 导出
+
+    $('#btn_export01').on('click', function () {
+        window.location.href = layui.setter.requesturl + '/api/DataSearch/OutExcelDataSearch';
     });
 
     exports('DataSearch', {});
