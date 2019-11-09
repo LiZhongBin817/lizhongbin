@@ -158,6 +158,7 @@ namespace CDWM_MR.Controllers.v1
             List<object > li = new List<object>();
             List<object> li01 = new List<object>();
             var data01 = await _MeterdataServices.Query(c => c.readerid == readerid);
+            double copyspeed=Math.Round(Convert.ToDouble(data01.First().alreadysum*1.00 / data01.First().shouldcopysum),2);//抄表进度保留两位小数
             var data02 = await _DatainfoServices.Query(c => c.readerid == readerid);//当前天数 
             var data03 = await _imr_Datainfo_HistoryServices.Query(c => c.readerid == readerid);//查询累计抄表天数
             int   count = 0;//当前天数 
@@ -189,9 +190,18 @@ namespace CDWM_MR.Controllers.v1
             cumulativecount += count;
             var datalist = new
             {
-                data01,
+                data01.First().readerid,
+                data01.First().taskperiodname,
+                data01.First().shouldcopysum,
+                data01.First().alreadysum,
+                copyspeed, 
+                data01.First().carrywatercount,
                 count,
                 cumulativecount,
+                data01.First().faultcount,
+                data01.First().faultCumulativecount,
+                data01.First().faultalready,
+                data01.First().faultalreadyCumulative, 
             };
 
             return new TableModel<object>
