@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CDWM_MR.Common.Helper;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -24,15 +25,17 @@ namespace CDWM_MR.Controllers
     {
         #region 相关变量
         readonly Isys_parameter_settingServices _Parameter_SettingServices;
+        readonly IUser _user;
         #endregion 
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="parameter_SettingServices"></param>
-        public ParameterSettingController(Isys_parameter_settingServices parameter_SettingServices)
+        public ParameterSettingController(Isys_parameter_settingServices parameter_SettingServices,IUser user)
         {
             _Parameter_SettingServices = parameter_SettingServices;
+            _user = user;
         }
 
         #region 参数管理
@@ -96,7 +99,7 @@ namespace CDWM_MR.Controllers
         {
             //将前端传过来的值进行转换
             sys_parameter Jsondata = Common.Helper.JsonHelper.GetObject<sys_parameter>(JsonData);
-            Jsondata.createpeople = Permissions.UersName;
+            Jsondata.createpeople = _user.Name;
             Jsondata.createtime = DateTime.Now;
 
             //查询参数表中的最后一条数据
@@ -150,7 +153,7 @@ namespace CDWM_MR.Controllers
                 parametertype=Jsondata.parametertype,
                 parametertypename=Jsondata.parametertypename,
                 parameterkey=Jsondata.parameterkey,
-                updatepeople = Permissions.UersName,
+                updatepeople = _user.Name,
                 updatetime=DateTime.Now,
                 remark=Jsondata.remark,
             }, c => c.id ==ID);

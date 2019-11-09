@@ -28,9 +28,9 @@ namespace CDWM_MR.IServices
 
         Task<TableModel<object>> SaveOperation(int RoleID, string MenuID);
 
-        Task<TableModel<object>> GetOperation(int RoleID, int menuID);
+        Task<TableModel<object>> GetOperation(int RoleID, int menuID, int judgetype);
 
-        Task<TableModel<sys_operation>> EditOperations(int RoleID, int MenuID, string OperationID);
+        Task<TableModel<sys_operation>> EditOperations(int RoleID, int MenuID, string OperationID,int judgetype);
         Task<int> ModifyInfo(string JsonDate, int[] roleid);
         Task<int> AddUserinfo(string JsonDate, int [] roleid);
         Task<List<object>> GetTree(int id);
