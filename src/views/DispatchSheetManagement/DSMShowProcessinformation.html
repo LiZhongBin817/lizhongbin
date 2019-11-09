@@ -4,6 +4,9 @@
 </script>
 
 <div class="layui-form" lay-fiter="DSMShowProcessinformation" id="DSMShowProcessinformation">
+    <div class="layui-form-item">
+        <table class="layui-hide" id="DSMShowProcessinformationtable" lay-filter="DSMSP"></table>
+    </div>
     <div class="layui-form-item" >
         <label class="layui-form-label">故障信息:</label>
     </div>
@@ -132,3 +135,82 @@
         </div>
     </div>
 </div>
+
+<script>
+    layui.use(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'layedit', 'upload', 'jquery', 'DSMSHOW'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            table = layui.table,
+            util = layui.util;
+        table.render({
+        elem: '#DSMShowProcessinformationtable',
+        url: layui.setter.requesturl + '/api/DispatchSheet/ShowFaultTable',
+        method: 'post',
+        cols: [[
+            { field: 'DSMID', title: '序号', width: 100, sort: true, fixed: 'left' },
+            { field: 'DSMNumber', title: '故障编号', width: 150 },
+            {
+                field: 'DSMType', title: '故障类型', width: 100,
+                templet: function (d) {
+                    if (d.DSMType == 6) {
+                        return "表埋"
+                    }
+                    else if (d.DSMType == 7) {
+                        return "表坏"
+                    }
+                    else if (d.DSMType == 8) {
+                        return "井盖坏"
+                    }
+                    else if (d.DSMType == 10) {
+                        return "漏水"
+                    }
+                    else {
+                        return "其他"
+                    }
+                }
+            },
+            { field: 'DSMContent', title: '故障内容', width: 100 },
+            {
+                field: 'DSMTime', title: '上报时间', width: 100,
+                templet: function (d) {
+                    return util.toDateString(d.DSMTime);
+                }
+            },
+            { field: 'DSMReportPerson', title: '上报人', width: 100 },
+            {
+                field: 'DSMEnclosure', title: '附件', width: 100, event: 'Enclosure',
+                templet: function (d) {
+                    return '<a  style="color: #c00;text-decoration:underline">' + d.DSMEnclosure + '</a>'
+                }
+            },
+            {
+                field: 'DSMStatus', title: '状态', width: 100,
+                templet: function (d) {
+                    if (d.DSMStatus == 0) {
+                        return "未受理"
+                    }
+                    else if (d.DSMStatus == 1) {
+                        return "已受理"
+                    }
+                    else if (d.DSMStatus == 2) {
+                        return "已处理"
+                    }
+                    else {
+                        return "已存档"
+                    }
+                }
+            },
+            {
+                field: 'DSMAddress', title: '位置信息', width: 100, event: 'Address',
+                templet: function (d) {
+                    return '<a style="color: #c00;text-decoration:underline">' + d.DSMAddress + '</a>'
+                }
+            }
+        ]],
+        page: true,
+        limit: 10,
+        limits: [10, 15, 20],
+    });
+        form.render();
+    });
+</script>

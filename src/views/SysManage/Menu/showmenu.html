@@ -10,11 +10,19 @@
 <div class="layui-fluid" style="color:white; background:#fffffb;height:auto">
     <div class="layui-row layui-col-space10">
         <div class="layui-col-md12" style="height: 30px">
-            <div class="layui-btn-group">
-                <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-sm layui-btn-danger" style="border-radius:3px" lay-submit lay-filter="polling" data-type="Del"><i class="layui-icon">&#xe640;</i>删除菜单</button>
-                <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-sm layui-btn-normal" style="border-radius:3px" lay-submit lay-filter="polling" onclick="window.location.reload()"><i class="layui-icon">&#x1002;</i>刷新菜单</button>
-                <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-sm" style="border-radius:3px" lay-submit lay-filter="polling" data-type="Save"><i class="layui-icon">&#xe642;</i>保存菜单</button>
-                <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-sm" style="border-radius:3px" lay-submit lay-filter="polling" data-type="Add"><i class="layui-icon">&#xe608;</i>添加菜单</button>
+            <div class="layui-btn-group" id="showmenu_groupbtn" >
+                <script type="text/html" template>
+                    {{#
+                       var t_btn1 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(3)===-1?"none":"inline-block";
+                       var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(6)===-1?"none":"inline-block";
+                    }}
+                    <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-sm layui-btn-danger" style="border-radius:3px;display:{{t_btn1}};" lay-submit lay-filter="polling" data-type="Del" ><i class="layui-icon">&#xe640;</i>删除菜单</button>
+                    <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-sm layui-btn-normal" style="border-radius:3px;" lay-submit lay-filter="polling" onclick="window.location.reload()"><i class="layui-icon">&#x1002;</i>刷新菜单</button>
+                    <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-sm" style="border-radius:3px;display:{{t_btn2}};" lay-submit lay-filter="polling" data-type="Save"><i class="layui-icon">&#xe642;</i>保存菜单</button>
+                    <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-sm" style="border-radius:3px;" lay-submit lay-filter="polling" data-type="Add"><i class="layui-icon">&#xe608;</i>添加菜单</button>
+                </script>
+
+               
             </div>
 
         </div>
@@ -41,8 +49,8 @@
                             <td class="title" lay-data="{field:''}" style="border:0">菜单等级:</td>
                             <td style="border:0">
                                 <select id="Menu_Type" name="Menu_Type">
-                                    <option value="1">1</option>
                                     <option value="2">2</option>
+                                    <option value="1">1</option>
                                 </select>
                             </td>
                             <td colspan="2" style="border:0;font-weight: 900"></td>
@@ -68,7 +76,14 @@
                             <td colspan="3" style="border:0"><textarea class="c6" name="Remark" id="Remark" rows="4" style="width: 600px;" placeholder="请输入备注"></textarea></td>
                         </tr>
                         <tr>
-                            <td colspan="4" style="border:0;text-align:center"><button class="layui-btn layui-btn-fluid layui-btn-sm" lay-submit lay-filter="submitinfo" style="display:none;border-radius:3px" id="Pcontrol">页面增删改查权限配置</button></td>
+                            <td colspan="4" style="border:0;text-align:center">
+                                <script type="text/html" template>
+                                    {{#
+                                     var t_btn3 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(17)===-1?"none":"inline-block";
+                                    }}
+                                    <button class="layui-btn layui-btn-fluid layui-btn-sm" lay-submit lay-filter="submitinfo" style="display:{{t_btn3}};border-radius:3px" id="Pcontrol">页面增删改查权限配置</button>
+                                </script>
+                            </td>
                         </tr>
                     </table>
                 </div>

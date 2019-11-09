@@ -12,27 +12,27 @@
           控制台
         </a>
       </li>-->
-      <li class="layui-nav-item layui-hide-xs" lay-unselect>
+      <!--<li class="layui-nav-item layui-hide-xs" lay-unselect>
         <a href="http://www.layui.com/admin/" target="_blank" title="前台">
           <i class="layui-icon layui-icon-website"></i>
         </a>
-      </li>
+      </li>-->
       <li class="layui-nav-item" lay-unselect>
         <a href="javascript:;" layadmin-event="refresh" title="刷新">
           <i class="layui-icon layui-icon-refresh-3"></i>
         </a>
       </li>
-      <li class="layui-nav-item layui-hide-xs" lay-unselect>
+      <!--<li class="layui-nav-item layui-hide-xs" lay-unselect>
         <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search/keywords="> 
-      </li>
+      </li>-->
     </ul>
     <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
       
-      <li class="layui-nav-item" lay-unselect>
+      <!--<li class="layui-nav-item" lay-unselect>
         <a lay-href="app/message/" layadmin-event="message">
           <i class="layui-icon layui-icon-notice"></i>
           
-          <!-- 如果有新消息，则显示小圆点 -->
+          &lt;!&ndash; 如果有新消息，则显示小圆点 &ndash;&gt;
           <script type="text/html" template lay-url="./json/message/new.js">
           {{# if(d.data.newmsg){ }} 
             <span class="layui-badge-dot"></span>
@@ -40,7 +40,7 @@
           </script>
           
         </a>
-      </li>
+      </li>-->
       <li class="layui-nav-item layui-hide-xs" lay-unselect>
         <a href="javascript:;" layadmin-event="theme">
           <i class="layui-icon layui-icon-theme"></i>
@@ -57,10 +57,10 @@
         </a>
       </li>
       <li class="layui-nav-item" lay-unselect>
-        <script type="text/html" template lay-url="./json/user/session.js" 
+        <script type="text/html" template lay-url="{{layui.setter.requesturl}}/api/Main/GetuserdetailInfo"
         lay-done="layui.element.render('nav', 'layadmin-layout-right');">
           <a href="javascript:;">
-            <cite>{{ d.data.username }}</cite>
+            <cite>{{ d.data }}</cite>
           </a>
           <dl class="layui-nav-child">
             <dd><a lay-href="set/user/info">基本资料</a></dd>
@@ -87,7 +87,7 @@
       lay-done="layui.element.render('nav', 'layadmin-system-side-menu');" id="TPL_layout">
       
         <div class="layui-logo" lay-href="">
-          <span>{{ layui.setter.name || 'layuiAdmin' }}</span>
+          <span>{{ layui.setter.name || '抄表云平台' }}</span>
         </div>
         
         <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">

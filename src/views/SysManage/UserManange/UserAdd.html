@@ -75,21 +75,22 @@
         </fieldset>
         <div class="layui-input-block" id="userroles">
             <script type="text/html" template>
-                {{# layui.each(d.params,function(index,item){ }}
-                <input type="checkbox" title="{{item.RoleName}}" value="{{item.ID}}"/>
+                {{# layui.each(d.params,function(index,item){}}
+                <input type="checkbox" title="{{item.RoleName}}" name="role" value="{{item.ID}}"/>
                 {{# })}}
 
             </script>
         </div>
     </div>   
-    <div class="layui-form-item">
-        <input type="button" lay-submit lay-filter="LAY-user-front-submit" id="LAY-user-front-submit" value="确认" class="layui-btn">
+    <div class="layui-form-item" style="text-align:center">
+        <input type="button" lay-submit lay-filter="LAY-user-front-submit" id="LAY-user-front-submit" value="确认" class="layui-btn layui-btn-sm layui-btn-normal" >
     </div>
 </div>
 <script>
-    layui.use(['admin', 'form'], function () {
+    layui.use(['admin', 'form','usermanage'], function () {
         var $ = layui.$
+            , usermanage = layui.usermanage
             , form = layui.form;
-
+        form.render();
     });
 </script>

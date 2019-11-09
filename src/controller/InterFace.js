@@ -30,7 +30,7 @@ layui.define(['table', 'form','view'], function (exports) {
                     else {
                         intvalue = "是"
                     }
-                    return '<button class="layui-btn layui-btn-fluid layui-btn-normal">' + intvalue + '</button>';
+                    return '<button class="layui-btn layui-btn-sm " style="border-radius:3px;">' + intvalue + '</button>';
                 }
             },
             {
@@ -43,16 +43,17 @@ layui.define(['table', 'form','view'], function (exports) {
                     else {
                         intvalue = "是"
                     }
-                    return '<button class="layui-btn layui-btn-fluid">' + intvalue + '</button>';
+                    return '<button class="layui-btn layui-btn-sm" style="border-radius:3px;">' + intvalue + '</button>';
                 }
             },
             { field: 'Remark', title: '描述', minWidth: 120 },
             { title: '操作', width: 120, toolbar: '#InterfacebarDemo', align: 'center', fixed: 'right' }
         ]],
         page: true,
-        limit: 20,
+        limit: 10,
         toolbar: "#InterfacetoolbarDemo",
-        limits: [20, 30, 40],
+        limits: [5, 10, 15],
+        height: $(document).height() - $('#Interface').offset().top - 200,
         done: function () {
             layer.close(load);
             let p = new Promise((resolve, reject) => {

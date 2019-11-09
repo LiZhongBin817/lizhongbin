@@ -30,10 +30,16 @@
                         </div>
                 </div>
                 <div class="layui-inline">
-                    <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="polling">
-                            查询
-                        </button>
+                    <div class="layui-inline" id="InterfaceSelectbtn">
+                        <script type="text/html" template>
+                            {{#
+                       var t_btn1 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(22)===-1?"none":"inline-block";
+                            }}
+                            <button class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius:3px;display:{{t_btn1}};" lay-submit lay-filter="polling">
+                                查询
+                            </button>
+                        </script>
+                        
                     </div>
                 </div>
             </div>
@@ -44,11 +50,17 @@
     </div>
 </div>
 <script type="text/html" id="InterfacebarDemo">
-    <a class="layui-btn layui-btn-warm " lay-event="edit">编辑</a>
+    {{#
+                       var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(26)===-1?"none":"inline-block";
+    }}
+    <a class="layui-btn layui-btn-warm layui-btn-sm" style="border-radius:3px;display:{{t_btn2}};" lay-event="edit">编辑</a>
 </script>
 <script type="text/html" id="InterfacetoolbarDemo">
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="AddInterface">增加接口</button>
+    {{#
+                       var t_btn3 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(24)===-1?"none":"inline-block";
+    }}
+    <div class="layui-btn-container" id="InterfaceAddbtn">
+        <button class="layui-btn layui-btn-sm" style="border-radius:3px;display:{{t_btn3}};" lay-event="AddInterface">增加接口</button>
     </div>
 </script>
 <script>
