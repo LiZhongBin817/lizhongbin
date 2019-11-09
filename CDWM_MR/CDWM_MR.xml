@@ -482,11 +482,6 @@
             <param name="taskperiodname"></param>
             <returns></returns>
         </member>
-        <member name="T:CDWM_MR.Controllers.CopySee">
-            <summary>
-            抄见率分析
-            </summary>
-        </member>
         <member name="M:CDWM_MR.Controllers.CopySee.#ctor(CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Imr_datainfo_historyServices)">
             <summary>
             
