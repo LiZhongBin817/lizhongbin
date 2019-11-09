@@ -229,7 +229,7 @@ namespace CDWM_MR.Controllers
             tb.Add("taskperiodname", "抄表月份");
             tb.Add("drop", "已抄表");
             tb.Add("copy", "实抄表");
-            tb.Add("shoudecopy", "应抄表");
+            tb.Add("shoudcopy", "应抄表");
             tb.Add("droprate", "抄见率");
             tb.Add("copyrate", "实抄率");
             for (int i = 0; i < user.data.Count(); i++)

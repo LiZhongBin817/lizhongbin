@@ -29,6 +29,17 @@ namespace CDWM_MR.Model.Models
         public int OperationID { get; set; }
 
         /// <summary>
+        /// 判断是接口id还是权限id(0是权限id，1是接口id)
+        /// </summary>
+        public short judgetype { get; set; }
+
+        /// <summary>
+        /// 导航sys_interface_info表
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public sys_interface_info interfaceinfo { get; set; }
+
+        /// <summary>
         /// 导航sys_role表
         /// </summary>
         [SugarColumn(IsIgnore = true)]
@@ -45,6 +56,7 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsIgnore = true)]
         public sys_operation Operation { get; set; }
+        
 
     }
 }

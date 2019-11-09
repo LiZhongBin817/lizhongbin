@@ -17,7 +17,7 @@ namespace CDWM_MR.Controllers
     /// <summary>
     /// 权限管理
     /// </summary>
-    [Route("api/MeterReadingPlan")]
+    [Route("api/OprationManage")]
     [AllowAnonymous]
     [EnableCors("LimitRequests")]
     public class OprationManageController : ControllerBase
@@ -47,56 +47,54 @@ namespace CDWM_MR.Controllers
 
         #region 显示数据
         /// <summary>
-        /// 显示权限信息
+        /// 显示按钮权限信息
         /// </summary>
         /// <param name="OperationName"></param>
-        /// <param name="InterfaceID"></param>
-        /// <param name="LinkUrl"></param>
-        /// <param name="MenuID"></param>
+        /// <param name="menuid"></param>
+        /// <param name="operationclass"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("ShowInfor")]
-        public async Task<TableModel<object>> ShowInfor(string OperationName, int InterfaceID, string LinkUrl, int MenuID, int page = 1, int limit = 10)
+        public async Task<TableModel<object>> ShowInfor(string OperationName,int menuid = 0,int operationclass = -1, int page = 1, int limit = 10)
         {
-            PageModel<object> datainfor = new PageModel<object>();
+            PageModel<sys_operation> datainfor = new PageModel<sys_operation>();
             #region Lambda拼接式
             Expression<Func<sys_operation, bool>> wherelambda = c => true;
             if (!string.IsNullOrEmpty(OperationName))
             {
-                wherelambda = PredicateExtensions.And<sys_operation>(wherelambda, c => c.OperationName == OperationName);
+                wherelambda = PredicateExtensions.And<sys_operation>(wherelambda, c => c.OperationName.Contains(OperationName));
             }
-            if (InterfaceID!=0)
+            if (menuid != 0)
             {
-                wherelambda = PredicateExtensions.And<sys_operation>(wherelambda, c => c.InterfaceID == InterfaceID);
+                wherelambda = PredicateExtensions.And<sys_operation>(wherelambda, c => c.MenuID == menuid);
             }
-            if (!string.IsNullOrEmpty(LinkUrl))
+            if (operationclass != -1)
             {
-                wherelambda = PredicateExtensions.And<sys_operation>(wherelambda, c => c.LinkUrl == LinkUrl);
-            }
-            if (MenuID!=0)
-            {
-                wherelambda = PredicateExtensions.And<sys_operation>(wherelambda, c => c.MenuID == MenuID);
+                wherelambda = PredicateExtensions.And<sys_operation>(wherelambda, c => c.OperationType == operationclass);
             }
             #endregion
-            Expression<Func<sys_operation, object>> expression = c => new
+            Expression<Func<sys_operation, object>> expression = null;
+            datainfor = await _sys_OperationServices.Getoperationlist(wherelambda, expression, page, limit);
+            var temp = datainfor.data.Select(c => new
             {
                 ID = c.id,
                 AuthorityName = c.OperationName,
                 MenuID = c.MenuID,
-                InterfaceID = c.InterfaceID,
-                URL = c.LinkUrl,
+                menuname = c.menumodel.MenuName,
+                btnClassName = c.btnClassName,
+                btneventName = c.btneventName,
+                btnContainer = c.btnContainer,
                 Type = c.OperationType,
-                UseStatus = c.OperationStatus == 0 ? "使用" : "作废"
-            };
-            datainfor = await _sys_OperationServices.QueryPage(wherelambda, expression, page, limit, "");
+                UseStatus = c.OperationStatus
+            }).ToList();
             return new TableModel<object>()
             {
                 code = 0,
                 msg = "ok",
                 count = datainfor.dataCount,
-                data = datainfor.data
+                data = temp
             };
         }
         #endregion
@@ -114,7 +112,6 @@ namespace CDWM_MR.Controllers
         {
             sys_operation Data = Common.Helper.JsonHelper.GetObject<sys_operation>(data);          
             Data.updatepeople = "1";
-            Data.updatetime = DateTime.Now;
             Data.id = ID;
             #region 判重
             Expression<Func<sys_operation, bool>> wherelambda = c =>c.id!=ID&&(c.OperationName == Data.OperationName||c.LinkUrl==Data.LinkUrl);
@@ -132,11 +129,14 @@ namespace CDWM_MR.Controllers
             #endregion
             message = await _sys_OperationServices.Update(c => new sys_operation
             {
-                LinkUrl = Data.LinkUrl,
+                MenuID = Data.MenuID,
                 OperationName = Data.OperationName,
                 updatepeople = "1",
                 updatetime = DateTime.Now,
-                OperationType = Data.OperationType
+                OperationType = Data.OperationType,
+                btnClassName = Data.btnClassName,
+                btneventName = Data.btneventName,
+                btnContainer = Data.btnContainer
             }, c => c.OperationName == Data.OperationName) == true ? "ok" : "error";
             return new MessageModel<object>()
             {
@@ -157,33 +157,13 @@ namespace CDWM_MR.Controllers
         [Route("AddData")]
         public async Task<MessageModel<object>> AddData(string JsonDate)
         {
-            string[] jsondata = JsonDate.Split('"',';','{',':',',');
-            int MenuID=Convert.ToInt32(jsondata[11].Substring(0, jsondata[11].IndexOf('-')));
-            int InterfaceID=Convert.ToInt32(jsondata[17].Substring(0,jsondata[17].IndexOf('-')));
             var alllist= await _sys_OperationServices.Query();
             int ID = alllist[alllist.Count-1].id+1;
             sys_operation data = Common.Helper.JsonHelper.GetObject<sys_operation>(JsonDate);
             data.createpeople = "1";
             data.createtime = DateTime.Now;
             data.OperationNumber = "ON-000" + ID;
-            data.MenuID = MenuID;
-            data.InterfaceID = InterfaceID;
-            #region 判重
-            string operationname = data.OperationName;
-            string linkurl = data.LinkUrl;
-            var listQuery = alllist.FindAll(c => c.OperationName == operationname && c.LinkUrl == linkurl);
-            string message = "";
-            if (listQuery.Count!=0)
-            {
-                return new MessageModel<object>()
-                {
-                    data = null,
-                    code = 1,
-                    msg ="该权限存在"
-                };
-            }
-            #endregion
-            message = await _sys_OperationServices.Add(data) > 0 ? "ok" : "error";
+            var message = await _sys_OperationServices.Add(data) > 0 ? "ok" : "error";
             return new MessageModel<object>()
             {
                 data = null,
@@ -202,7 +182,7 @@ namespace CDWM_MR.Controllers
         [Route("ShowSelectInfor")]
         public async Task<MessageModel<object>> ShowSelectInfor()
         {
-            var allist=await isys_MenuServices.Query();
+            var allist=await isys_MenuServices.Query(c => c.MenuType == 2);
             List<object> list = new List<object>();
             foreach (var item in allist)
             {
@@ -252,12 +232,12 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("GetStatus")]
-        public async Task<MessageModel<object>> GetStatus(int ID, string status)
+        public async Task<MessageModel<object>> GetStatus(int ID, int status = 0)
         {
-            int s= status == "使用" ? 0 : 1;
+            status = status == 0 ? 1 : 0;
             var msg=await _sys_OperationServices.Update(c => new sys_operation
             {
-                OperationStatus = (short)s
+                OperationStatus = (short)status
             }, c => c.id == ID) == true ? "ok" : "error";
             return new MessageModel<object>()
             {
