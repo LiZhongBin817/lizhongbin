@@ -20,9 +20,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CDWM_MR.Controllers
 {
+
     /// <summary>
     /// 抄见率分析
     /// </summary>
+    [Route("api/CopySee")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class CopySee : Controller
     {
 
@@ -49,8 +53,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowCopysee")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+
         public async Task<TableModel<object>> ShowCopysee(string mrreadername, string taskperiodname, int page = 1, int limit = 5)
         {
             PageModel<mr_datainfo_history> user = new PageModel<mr_datainfo_history>();
@@ -61,16 +64,16 @@ namespace CDWM_MR.Controllers
             {
                 taskperiodname = (DateTime.Now.Year).ToString() + (DateTime.Now.Month).ToString().PadLeft(2, '0');
                 dateTime = taskperiodname;
-                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.taskperiodname == taskperiodname);
+                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.taskperiodname.Contains(taskperiodname));
             }
             if (!string.IsNullOrEmpty(taskperiodname))
             {
                 dateTime = taskperiodname;
-                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.taskperiodname == taskperiodname);
+                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.taskperiodname.Contains(taskperiodname));
             }
             if (!string.IsNullOrEmpty(mrreadername))
             {
-                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.mrreadername == mrreadername);
+                wherelambda = PredicateExtensions.And<mr_datainfo_history>(wherelambda, c => c.mrreadername.Contains(mrreadername));
             }
             user = await _mr_datainfo_historyServices.QueryPage(wherelambda, page, limit);
             if (user.data.Count() == 0)
@@ -99,17 +102,22 @@ namespace CDWM_MR.Controllers
                 allreallyrate = allreallyrate
 
             };
-
+            // List<mr_datainfo_history> meterreadnum = new List<mr_datainfo_history>();
 
             for (int i = 0; i < user.data.Count(); i++)
             {
+                // if (meterreadnum.Find(c => c.mrreadernumber == user.data[i].mrreadernumber).ObjToBool())
+                //  {
+                //      continue;
+                //  }
+                // meterreadnum.Add(user.data[i]);
                 var data1 = user.data.FindAll(c => c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime);
                 //if (!(name.Contains(user.data[i].mrreadername)))判重
                 //已抄
-                int drop = user.data.FindAll(c => c.readstatus == 1 && c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime).Count();
+                int drop = user.data.FindAll(c => c.readstatus == 1 && c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime && c.mrreadernumber == user.data[i].mrreadernumber).Count();
                 //未抄
-                int uncopied = user.data.FindAll(c => c.readstatus == 0 && c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime).Count();
-                int copy = user.data.FindAll(c => c.readtype == 1 && c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime).Count();
+                int uncopied = user.data.FindAll(c => c.readstatus == 0 && c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime && c.mrreadernumber == user.data[i].mrreadernumber).Count();
+                int copy = user.data.FindAll(c => c.readtype == 1 && c.mrreadername == user.data[i].mrreadername && c.taskperiodname == dateTime && c.mrreadernumber == user.data[i].mrreadernumber).Count();
                 int shoudcopy = drop + uncopied;
                 string droprate = (Math.Round(Convert.ToDouble(drop) / Convert.ToDouble(shoudcopy) * 100, 2)).ToString();
                 droprate = droprate + "%";
@@ -128,7 +136,9 @@ namespace CDWM_MR.Controllers
                     datatwo = datatwo,
 
                 };
+
                 datalist.Add(data);
+
 
             }
             return new TableModel<object>()
@@ -146,8 +156,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Serchname")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+
         public async Task<TableModel<object>> Serchname()
         {
 
@@ -182,8 +191,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("OutExcel1")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+
         public async Task<FileResult> OutExcel1(string taskperiodname, string mrreadername, int page = 1, int limit = 5)
         {
             PageModel<mr_datainfo_history> user = new PageModel<mr_datainfo_history>();
