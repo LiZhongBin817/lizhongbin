@@ -1726,11 +1726,18 @@
             Web与APP公用参数接口
             </summary>
         </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppWebCommonController.SearchDictionary(System.Int32)">
+            <summary>
+            字典查询
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
         <member name="M:CDWM_MR.Controllers.v1.AppWebCommonController.SearchReaderDate01(System.String)">
             <summary>
             用户两年用水及水费查询
             </summary>
-            <param name="readernameid"></param>
+            <param name="autoaccount"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.WatermeterUserManageController">

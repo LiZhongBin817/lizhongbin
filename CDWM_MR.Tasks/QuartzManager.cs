@@ -47,22 +47,22 @@ namespace CDWM_MR.Tasks
             _scheduler = await _schedulerFactory.GetScheduler();
             _scheduler.JobFactory = this._iocJobfactory;//  替换默认工厂
             await _scheduler.Start();//启动单元
-            #region 任务一 创建任务单Excel文件
+            #region 任务一 生成计划单
             //创建作业
-            IJobDetail buildexcel = JobBuilder.Create<BuildBookExcel>()
-                .WithIdentity("BuildBookExcel", "task1")
-                .WithDescription("创建抄表册Excel文件")
+            IJobDetail plansheet = JobBuilder.Create<BuildBookExcel>()
+                .WithIdentity("AutoTask_plansheet", "task1")
+                .WithDescription("生成计划单")
                 .Build();
 
             //创建时间策略
-            ITrigger triggerbuildexcel = TriggerBuilder.Create()
-                              .WithIdentity("BuildBookExceltigger", "task1")
+            ITrigger triggerplansheet = TriggerBuilder.Create()
+                              .WithIdentity("AutoTask_plansheettigger", "task1")
                               .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(10)))
                              //.StartNow()//StartAt  Cron
                              .WithCronSchedule("0 0/2 * * * ?")
-                             .WithDescription("生成抄表册EXCEL文件！")
+                             .WithDescription("生成计划单！")
                              .Build();
-            await _scheduler.ScheduleJob(buildexcel, triggerbuildexcel);
+            await _scheduler.ScheduleJob(plansheet, triggerplansheet);
             #endregion
 
         }

@@ -263,7 +263,7 @@ namespace CDWM_MR
             //注入 Quartz调度类
             services.AddSingleton<QuartzManager>();
             // 这里使用瞬时依赖注入
-            //services.AddTransient<UserInfoSyncjob>();      
+            services.AddTransient<AutoTask_plansheet>();      
             //注册ISchedulerFactory的实例。
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             services.AddSingleton<IJobFactory, IOCJobFactory>();
@@ -442,7 +442,7 @@ namespace CDWM_MR
             services.AddSignalR();
             #endregion
             
-            services.AddSession();
+            //services.AddSession();
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
             #region AutoFac DI
@@ -653,7 +653,7 @@ namespace CDWM_MR
             app.UseCookiePolicy();
             // 返回错误码
             app.UseStatusCodePages();//把错误码返回前台，比如是404
-            app.UseSession();
+            //app.UseSession();
 
             app.UseMvc();
 

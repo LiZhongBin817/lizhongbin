@@ -589,11 +589,6 @@
             抄表计划单
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_planinfo.ID">
-            <summary>
-            抄表计划单编号
-            </summary>
-        </member>
         <member name="P:CDWM_MR.Model.Models.mr_planinfo.mplannumber">
             <summary>
             抄表计划单编号

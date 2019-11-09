@@ -66,7 +66,7 @@ namespace CDWM_MR.Controllers
             {
                 var alllist = await mr_planinfoServices.Query();
                 int Number = 1;
-                Number = alllist.Count == 0 ? 1 : alllist[alllist.Count - 1].ID + 1;
+                Number = alllist.Count == 0 ? 1 : alllist[alllist.Count - 1].id + 1;
                 mr_planinfo Data = Common.Helper.JsonHelper.GetObject<mr_planinfo>(data);
                 Data.createtime = DateTime.Now;
                 Data.createpeople = "1";
@@ -118,7 +118,7 @@ namespace CDWM_MR.Controllers
             Expression<Func<mr_planinfo, bool>> wherelambda = c => true;
             Expression<Func<mr_planinfo, object>> expression = c => new
             {
-                ID = c.ID,
+                ID = c.id,
                 Company = c.mplanname,
                 Year = c.mplanyear,
                 Month = c.mplanmonth,
