@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CDWM_MR.Common;
 using CDWM_MR.Common.Helper;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -35,6 +36,7 @@ namespace CDWM_MR.Controllers
         readonly Imr_datainfo_historyServices _Datainfo_HistoryServices;
         readonly Imr_b_readerServices _B_ReaderServices;
         readonly Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices _rt_b_photoservices;
+        readonly IUser _user;
         #endregion
 
         /// <summary>
@@ -50,7 +52,7 @@ namespace CDWM_MR.Controllers
         /// <param name="datainfo_HistoryServices"></param>
         /// <param name="userinfoServices"></param>
         /// <param name="b_ReaderServices"></param>
-        public MRManageController(Iv_mr_datainfoServices mr_DatainfoServices, Irt_b_watercarryover_historyServices b_Watercarryover_HistoryServices, Irt_b_recheckServices b_RecheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, Imr_datainfoServices datainfoServices, Iv_recheck_recheckhistoryServices recheck_RecheckhistoryServices, Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices union_Datainfoocrlog_DatainfohistoryocrloghistoryServices, Imr_datainfo_historyServices datainfo_HistoryServices, Isys_userinfoServices userinfoServices, Imr_b_readerServices b_ReaderServices , Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices photoservices)
+        public MRManageController(Iv_mr_datainfoServices mr_DatainfoServices, Irt_b_watercarryover_historyServices b_Watercarryover_HistoryServices, Irt_b_recheckServices b_RecheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, Imr_datainfoServices datainfoServices, Iv_recheck_recheckhistoryServices recheck_RecheckhistoryServices, Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices union_Datainfoocrlog_DatainfohistoryocrloghistoryServices, Imr_datainfo_historyServices datainfo_HistoryServices, Isys_userinfoServices userinfoServices, Imr_b_readerServices b_ReaderServices , Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices photoservices,IUser user)
         {
             _Mr_DatainfoServices = mr_DatainfoServices;
             _B_Watercarryover_HistoryServices = b_Watercarryover_HistoryServices;
@@ -62,6 +64,8 @@ namespace CDWM_MR.Controllers
             _Datainfo_HistoryServices = datainfo_HistoryServices;
             _B_ReaderServices = b_ReaderServices;
             _rt_b_photoservices = photoservices;
+            _user = user;
+
         }
 
         /// <summary>
@@ -82,7 +86,7 @@ namespace CDWM_MR.Controllers
         public async Task<TableModel<object>> Show_CB_DataInfo(string username, string account, string meternum, string address, string mrreadername, string bookno, int rtrecheckstatus = 3, int page = 1, int limit = 20)
         {
             //跟踪登录用户
-            string FUserName = Permissions.UersName;
+            string FUserName = _user.Name;
             string last_month = DateTime.Now.AddMonths(-1).Month.ToString();//上个月
             string the_month_before_last = DateTime.Now.AddMonths(-2).Month.ToString();//上上个月
             PageModel<object> pageModel = new PageModel<object>();
@@ -251,7 +255,7 @@ namespace CDWM_MR.Controllers
                     addData.carrywatercount = addData.endnum - addData.startnum;
                     addData.adjustwatercount = 0;
                     addData.createtime = DateTime.Now;
-                    addData.createperson = Permissions.UersName;
+                    addData.createperson =_user.Name;
                     if (addData.carrywatercount >= 0)
                     {
                         addData.carrystatus = 1;
@@ -403,7 +407,7 @@ namespace CDWM_MR.Controllers
             b_Recheck.checksuccesstime = DateTime.Now;
             b_Recheck.checkor = "1";//代表人工审核的
             b_Recheck.createtime = DateTime.Now;
-            b_Recheck.createpeople = Permissions.UersName;
+            b_Recheck.createpeople = _user.Name;
             AddData.Add(b_Recheck);
             int b = await _B_RecheckServices.Add(AddData);
             return new TableModel<object>

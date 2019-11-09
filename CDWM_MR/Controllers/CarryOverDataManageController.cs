@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -27,6 +28,7 @@ namespace CDWM_MR.Controllers
         readonly Irt_b_watercarryovarcheckServices _B_WatercarryovarcheckServices;
         readonly Irt_b_watercarryoverServices _B_WatercarryoverServices;
         readonly It_b_usersServices _B_UsersServices;
+        readonly IUser _user;
         #endregion
 
         /// <summary>
@@ -37,13 +39,14 @@ namespace CDWM_MR.Controllers
         /// <param name="b_WatercarryovarcheckServices"></param>
         /// <param name="b_WatercarryoverServices"></param>
         /// <param name="b_UsersServices"></param>
-        public CarryOverDataManageController(Iv_carryoverdatainfoServices carryoverdatainfoServices, Irt_b_wateradjustServices b_WateradjustServices, Irt_b_watercarryovarcheckServices b_WatercarryovarcheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, It_b_usersServices b_UsersServices)
+        public CarryOverDataManageController(Iv_carryoverdatainfoServices carryoverdatainfoServices, Irt_b_wateradjustServices b_WateradjustServices, Irt_b_watercarryovarcheckServices b_WatercarryovarcheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, It_b_usersServices b_UsersServices,IUser user)
         {
             _CarryoverdatainfoServices = carryoverdatainfoServices;
             _B_WateradjustServices = b_WateradjustServices;
             _B_WatercarryovarcheckServices = b_WatercarryovarcheckServices;
             _B_WatercarryoverServices = b_WatercarryoverServices;
             _B_UsersServices = b_UsersServices;
+            _user = user;
         }
 
         /// <summary>
@@ -91,7 +94,7 @@ namespace CDWM_MR.Controllers
                 b_Wateradjust.adjustperson = JustData.adjustperson;
                 b_Wateradjust.adjusttime = JustData.adjusttime;
                 b_Wateradjust.adjustremark = JustData.adjustremark;
-                b_Wateradjust.createperson = Permissions.UersName;
+                b_Wateradjust.createperson = _user.Name;
                 b_Wateradjust.createtime = DateTime.Now;
                 AddData.Add(b_Wateradjust);
             }

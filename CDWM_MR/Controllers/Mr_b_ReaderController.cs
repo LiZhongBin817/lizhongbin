@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CDWM_MR.Common.Helper;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -24,14 +25,16 @@ namespace CDWM_MR.Controllers
     {
         #region 相关变量
         readonly Imr_b_readerServices _B_ReaderServices;
+        readonly IUser _user;
         #endregion
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="b_ReaderServices"></param>
-        public Mr_b_ReaderController(Imr_b_readerServices b_ReaderServices)
+        public Mr_b_ReaderController(Imr_b_readerServices b_ReaderServices,IUser user)
         {
             _B_ReaderServices = b_ReaderServices;
+            _user = user;
         }
 
         
@@ -120,7 +123,7 @@ namespace CDWM_MR.Controllers
             jsonData.lastlogintime = DateTime.Now;
             jsonData.appcount = jsonData.mrreadernumber;
             jsonData.apppassword = MD5Helper.MD5Encrypt32(jsonData.apppassword);
-            jsonData.createpeople = Permissions.UersName;
+            jsonData.createpeople =_user.Name;
             jsonData.createtime = DateTime.Now;
 
             //根据一个账号对应一个用户判重，但是一个用户可以对应多个账号

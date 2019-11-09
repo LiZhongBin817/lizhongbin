@@ -446,7 +446,7 @@
             结转数据管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.#ctor(CDWM_MR.IServices.Content.Iv_carryoverdatainfoServices,CDWM_MR.IServices.Content.Irt_b_wateradjustServices,CDWM_MR.IServices.Content.Irt_b_watercarryovarcheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.It_b_usersServices)">
+        <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.#ctor(CDWM_MR.IServices.Content.Iv_carryoverdatainfoServices,CDWM_MR.IServices.Content.Irt_b_wateradjustServices,CDWM_MR.IServices.Content.Irt_b_watercarryovarcheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.It_b_usersServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数
             </summary>
@@ -998,7 +998,7 @@
             抄表数据管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.MRManageController.#ctor(CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_watercarryover_historyServices,CDWM_MR.IServices.Content.Irt_b_recheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_recheck_recheckhistoryServices,CDWM_MR.IServices.Content.Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices,CDWM_MR.IServices.Content.Imr_datainfo_historyServices,CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices)">
+        <member name="M:CDWM_MR.Controllers.MRManageController.#ctor(CDWM_MR.IServices.Content.Iv_mr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_watercarryover_historyServices,CDWM_MR.IServices.Content.Irt_b_recheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Iv_recheck_recheckhistoryServices,CDWM_MR.IServices.Content.Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices,CDWM_MR.IServices.Content.Imr_datainfo_historyServices,CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数
             </summary>
@@ -1082,7 +1082,7 @@
             抄表员管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.#ctor(CDWM_MR.IServices.Content.Imr_b_readerServices)">
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.#ctor(CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数
             </summary>
@@ -1134,7 +1134,7 @@
             权限管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.OprationManageController.#ctor(CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.IServices.Content.Isys_menuServices,CDWM_MR.IServices.Content.Isys_interface_infoServices)">
+        <member name="M:CDWM_MR.Controllers.OprationManageController.#ctor(CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.IServices.Content.Isys_menuServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数
             </summary>
@@ -1193,7 +1193,7 @@
             参数管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.ParameterSettingController.#ctor(CDWM_MR.IServices.Content.Isys_parameter_settingServices)">
+        <member name="M:CDWM_MR.Controllers.ParameterSettingController.#ctor(CDWM_MR.IServices.Content.Isys_parameter_settingServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数
             </summary>
@@ -1225,7 +1225,7 @@
             系统管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_operationServices)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数
             </summary>
@@ -1417,7 +1417,7 @@
             <param name="MenuID"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.GetOperation(System.Int32,System.Int32)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetOperation(System.Int32,System.Int32,System.Int32)">
             <summary>
             渲染权限
             </summary>
@@ -1425,7 +1425,7 @@
             <param name="menuID"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.EditOperations(System.Int32,System.Int32,System.String)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.EditOperations(System.Int32,System.Int32,System.String,System.Int32)">
             <summary>
             权限修改
             </summary>

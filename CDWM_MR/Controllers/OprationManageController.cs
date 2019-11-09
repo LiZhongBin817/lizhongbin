@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CDWM_MR.Common.Helper;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -26,6 +27,7 @@ namespace CDWM_MR.Controllers
         readonly Isys_operationServices _sys_OperationServices;
         readonly Isys_menuServices isys_MenuServices;
         readonly Isys_interface_infoServices isys_Interface_InfoServices;
+        readonly IUser _user;
         #endregion
 
         #region 构造函数
@@ -35,11 +37,12 @@ namespace CDWM_MR.Controllers
         /// <param name="isys_OperationServices"></param>
         /// <param name="_MenuServices"></param>
         /// <param name="_Interface_InfoServices"></param>
-        public OprationManageController(Isys_operationServices isys_OperationServices,Isys_menuServices _MenuServices,Isys_interface_infoServices _Interface_InfoServices)
+        public OprationManageController(Isys_operationServices isys_OperationServices,Isys_menuServices _MenuServices,Isys_interface_infoServices _Interface_InfoServices, IUser user)
         {
             _sys_OperationServices = isys_OperationServices;
             isys_MenuServices = _MenuServices;
             isys_Interface_InfoServices = _Interface_InfoServices;
+            _user = user;
         }
         #endregion
 
@@ -111,7 +114,7 @@ namespace CDWM_MR.Controllers
         public async Task<MessageModel<object>> ModifyInfor(string data, int ID)
         {
             sys_operation Data = Common.Helper.JsonHelper.GetObject<sys_operation>(data);          
-            Data.updatepeople = "1";
+            Data.updatepeople =_user.Name;
             Data.id = ID;
             #region 判重
             #endregion
@@ -119,7 +122,7 @@ namespace CDWM_MR.Controllers
             {
                 MenuID = Data.MenuID,
                 OperationName = Data.OperationName,
-                updatepeople = "1",
+                updatepeople =_user.Name,
                 updatetime = DateTime.Now,
                 OperationType = Data.OperationType,
                 btnClassName = Data.btnClassName,
@@ -148,7 +151,7 @@ namespace CDWM_MR.Controllers
             var alllist= await _sys_OperationServices.Query();
             int ID = alllist[alllist.Count-1].id+1;
             sys_operation data = Common.Helper.JsonHelper.GetObject<sys_operation>(JsonDate);
-            data.createpeople = "1";
+            data.createpeople = _user.Name;
             data.createtime = DateTime.Now;
             data.OperationNumber = "ON-000" + ID;
             var message = await _sys_OperationServices.Add(data) > 0 ? "ok" : "error";
