@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CDWM_MR.Common;
 using CDWM_MR.Common.Helper;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -35,6 +36,7 @@ namespace CDWM_MR.Controllers
         readonly Imr_datainfo_historyServices _Datainfo_HistoryServices;
         readonly Imr_b_readerServices _B_ReaderServices;
         readonly Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices _rt_b_photoservices;
+        readonly IUser _Iuser;
         #endregion
 
         /// <summary>
@@ -50,7 +52,7 @@ namespace CDWM_MR.Controllers
         /// <param name="datainfo_HistoryServices"></param>
         /// <param name="userinfoServices"></param>
         /// <param name="b_ReaderServices"></param>
-        public MRManageController(Iv_mr_datainfoServices mr_DatainfoServices, Irt_b_watercarryover_historyServices b_Watercarryover_HistoryServices, Irt_b_recheckServices b_RecheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, Imr_datainfoServices datainfoServices, Iv_recheck_recheckhistoryServices recheck_RecheckhistoryServices, Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices union_Datainfoocrlog_DatainfohistoryocrloghistoryServices, Imr_datainfo_historyServices datainfo_HistoryServices, Isys_userinfoServices userinfoServices, Imr_b_readerServices b_ReaderServices , Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices photoservices)
+        public MRManageController(Iv_mr_datainfoServices mr_DatainfoServices, Irt_b_watercarryover_historyServices b_Watercarryover_HistoryServices, Irt_b_recheckServices b_RecheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, Imr_datainfoServices datainfoServices, Iv_recheck_recheckhistoryServices recheck_RecheckhistoryServices, Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices union_Datainfoocrlog_DatainfohistoryocrloghistoryServices, Imr_datainfo_historyServices datainfo_HistoryServices, Isys_userinfoServices userinfoServices, Imr_b_readerServices b_ReaderServices , Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices photoservices, IUser user)
         {
             _Mr_DatainfoServices = mr_DatainfoServices;
             _B_Watercarryover_HistoryServices = b_Watercarryover_HistoryServices;
@@ -62,6 +64,7 @@ namespace CDWM_MR.Controllers
             _Datainfo_HistoryServices = datainfo_HistoryServices;
             _B_ReaderServices = b_ReaderServices;
             _rt_b_photoservices = photoservices;
+            _Iuser = user;
         }
 
         /// <summary>
@@ -82,7 +85,7 @@ namespace CDWM_MR.Controllers
         public async Task<TableModel<object>> Show_CB_DataInfo(string username, string account, string meternum, string address, string mrreadername, string bookno, int rtrecheckstatus = 3, int page = 1, int limit = 20)
         {
             //跟踪登录用户
-            string FUserName = Permissions.UersName;
+            string FUserName = _Iuser.Name;
             string last_month = DateTime.Now.AddMonths(-1).Month.ToString();//上个月
             string the_month_before_last = DateTime.Now.AddMonths(-2).Month.ToString();//上上个月
             PageModel<object> pageModel = new PageModel<object>();
@@ -90,7 +93,7 @@ namespace CDWM_MR.Controllers
             Expression<Func<v_mr_datainfo, bool>> wherelambda = c => true;
             if (rtrecheckstatus != 3 && rtrecheckstatus != 1)
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.rtrecheckstatus == rtrecheckstatus);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.rtrecheckstatus ==rtrecheckstatus);
             }
             if (rtrecheckstatus == 1)
             {
@@ -98,27 +101,27 @@ namespace CDWM_MR.Controllers
             }
             if (!string.IsNullOrEmpty(username))
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.username == username);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.username .Contains( username));
             }
             if (!string.IsNullOrEmpty(account))
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.account == account);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.account .Contains( account));
             }
             if (!string.IsNullOrEmpty(meternum))
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.meternum == meternum);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.meternum .Contains( meternum));
             }
             if (!string.IsNullOrEmpty(address))
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.address == address);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.address .Contains( address));
             }
             if (!string.IsNullOrEmpty(mrreadername))
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.mrreadername == mrreadername);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.mrreadername .Contains( mrreadername));
             }
             if (!string.IsNullOrEmpty(bookno))
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.bookno == bookno);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.bookno .Contains( bookno));
             }
             #endregion
             Expression<Func<v_mr_datainfo, object>> expression = c => new
@@ -260,7 +263,7 @@ namespace CDWM_MR.Controllers
                     {
                         addData.carrystatus = 2;
                     }
-                    addData.remark = "";
+                    addData.remark = "已备注";
                     Datalist.Add(addData);
                 }
             }
@@ -329,7 +332,8 @@ namespace CDWM_MR.Controllers
                     ocrData = ocrdata,
                     recheckdata = recheckdata,
                     pircture = String.Join(',', photoinfo.Select(c => c.photourl).ToArray()),
-                    month = Month
+                    month = Month,
+                    phototype= String.Join(',', photoinfo.Select(c => c.phototype).ToArray())
 
                 };
                 returnData.Add(data);
@@ -385,7 +389,12 @@ namespace CDWM_MR.Controllers
                 }
                 else//初次审核但没有填写复审数据
                 {
-                    b_Recheck.recheckdata = 0;
+                    return new TableModel<object>
+                    {
+                        code = 0,
+                        msg = "NO",
+                        data = "",
+                    };
                 }
                
             }
@@ -488,8 +497,8 @@ namespace CDWM_MR.Controllers
                     remark=item.recheckresult,
                     inputdata= ocrlogDataAndinputdata[0].inputdata,
                     ocrlogdata= ocrlogDataAndinputdata[0].ocrdata,
-                    pirctureurl= String.Join(',', photoinfo.Select(c => c.photourl).ToArray())
-
+                    pirctureurl= String.Join(',', photoinfo.Select(c => c.photourl).ToArray()),
+                    phototype = String.Join(',', photoinfo.Select(c => c.phototype).ToArray())
                 };
                 returnData.Add(data);
 

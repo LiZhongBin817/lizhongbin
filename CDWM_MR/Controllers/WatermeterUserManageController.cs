@@ -483,10 +483,11 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <param name="Oldmeternum">旧表编号</param>
         /// <param name="Newmeternum">新表编号</param>
+        /// <param name="lastmodifyby">修改人</param>
         /// <returns></returns>
         [HttpGet]
         [Route("Changemeter")]      
-        public async Task<TableModel<object>> Changemeter(string Oldmeternum, string Newmeternum)
+        public async Task<TableModel<object>> Changemeter(string Oldmeternum, string Newmeternum,string lastmodifyby)
         {
             //旧表状态变成 未使用
             await _t_b_watermetersServices.OUpdate(c => new t_b_watermeters
@@ -496,7 +497,8 @@ namespace CDWM_MR.Controllers
             //新表状态变成正常
             await _t_b_watermetersServices.OUpdate(c => new t_b_watermeters
             {
-                meterstate = 1//正常
+                meterstate = 1,               
+                lastmodifyby=lastmodifyby//正常
             }, c => c.meternum == Newmeternum);
             return new TableModel<object>()
             {
@@ -538,7 +540,8 @@ namespace CDWM_MR.Controllers
         [Route("DownloadOrderTemplet")]        
         public IActionResult DownloadOrderTemplet()
         {
-            string filePath = "C: \\Users\\东\\Desktop\\userinfo.xls";//路径
+            string a=System.Environment.CurrentDirectory;   //当前路径
+            string filePath = a+"\\"+"wwwroot\\WatermeterManage\\userinfo.xls";//路径
             //获取文件的ContentType
             var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
             var memi = provider.Mappings[".xls"];

@@ -56,6 +56,7 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsIgnore = true)]
         public sys_operation Operation { get; set; }
+        
 
     }
 }

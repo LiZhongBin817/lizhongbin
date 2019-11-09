@@ -63,6 +63,7 @@
   <ItemGroup>
     <Folder Include="Controllers\v2\" />
     <Folder Include="wwwroot\APK\" />
+    <Folder Include="wwwroot\WatermeterManage\" />
   </ItemGroup>
 
   <ItemGroup>
