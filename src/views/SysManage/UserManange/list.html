@@ -25,27 +25,34 @@
                         <input class="layui-input" name="LoginName" id="test-table-demoReload" autocomplete="off" placeholder="登录账号">
                     </div>
                 </div>
-                <div class="layui-inline">
+                <script type="text/html" template>
+                    {{#
+                    var t_btn7 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(7)===-1?"none":"inline-block";
+                    var t_btn8 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(8)===-1?"none":"inline-block";
+                    var t_btn9 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(9)===-1?"none":"inline-block";
+                    }}
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-sm layui-btn-normal " style="border-radius: 3px;" lay-submit lay-filter="polling">
-                            查询
-                        </button>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-sm layui-btn-normal " style="border-radius: 3px;display: {{t_btn7}}" lay-submit lay-filter="polling">
+                                查询
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="layui-inline">
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-sm " style="border-radius: 3px;" lay-submit lay-filter="Add">
-                            新增
-                        </button>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-sm " style="border-radius: 3px;display:{{t_btn8}};" lay-submit lay-filter="Add">
+                                新增
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="layui-inline">
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-sm layui-btn-danger " style="border-radius: 3px;" lay-submit lay-filter="deletes">
-                            批量删除
-                        </button>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-sm layui-btn-danger " style="border-radius: 3px;display: {{t_btn9}}" lay-submit lay-filter="deletes">
+                                批量删除
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </script>
             </div>
             <div class="layui-card-body">
                 <table class="layui-hide" id="Sys_User" lay-filter="test"></table>
@@ -59,13 +66,13 @@
     var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(2)===-1?"none":"inline-block";
     }}
     <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="edit" style="border-radius: 3px;display:{{t_btn1}};">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete" style="border-radius: 3px;display:{{t_btn2}}";>删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete" style="border-radius: 3px;display:{{t_btn2}};">删除</a>
 </script>
 <script>
     layui.use('usermanage', layui.factory('usermanage')).use(['admin', 'usermanage', 'table', 'view'], function () {
         var admin = layui.admin,
             view = layui.view,
             usermanange = layui.usermanange;
-        form.render();
+        //form.render();
     });
 </script>

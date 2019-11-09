@@ -2,6 +2,8 @@
  * 用户管理
  * 李芊
  * 2019年8月7
+ * 李忠斌修改
+ * 2019.11.08
 */
 layui.define(['table', 'form', 'view'], function (exports) {
     var table = layui.table;
@@ -17,11 +19,11 @@ layui.define(['table', 'form', 'view'], function (exports) {
         cols: [[
             { type: 'checkbox', fixed: 'left' },
             { title: '#', width: 70, type: 'numbers' },
-            { field: 'FUserNumber', title: '用户编号', width: 180 },
-            { field: 'FUserName', title: '用户名称', width: 150 },
-            { field: 'LoginName', title: '登录账号', width: 150 },
+            { field: 'FUserNumber', title: '用户编号'},
+            { field: 'FUserName', title: '用户名称'},
+            { field: 'LoginName', title: '登录账号'},
             {
-                field: 'UserType', title: '用户类型', width: 150,
+                field: 'UserType', title: '用户类型',
                 templet: function (d) {
                     var intvalue = "";
                     if (d.UserType == "0") {
@@ -36,8 +38,8 @@ layui.define(['table', 'form', 'view'], function (exports) {
                     return '<div class="">' + intvalue + '</div>';
                 }
             },
-            { field: 'Sex', title: '性别', width: 80 },
-            { title: '操作', toolbar: '#barDemo', minWidth: 300, align: 'center' }
+            { field: 'Sex', title: '性别'},
+            { title: '操作', toolbar: '#barDemo', align: 'center'}
         ]],
         page: true,
         limit: 10,
