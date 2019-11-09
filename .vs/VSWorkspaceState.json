@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\controller",
     "\\src\\views",
-    "\\src\\views\\ReadAnalysis",
-    "\\src\\views\\Seecopy",
+    "\\src\\views\\DataSearch",
+    "\\src\\views\\DetailManage",
     "\\src\\views\\senior",
     "\\src\\views\\senior\\im",
     "\\src\\views\\SysManage",
-    "\\src\\views\\SysManage\\ParameterSetting"
+    "\\src\\views\\SysManage\\ParameterSetting",
+    "\\src\\views\\SysManage\\UserManange"
   ],
-  "SelectedNode": "\\src\\controller\\ReadAnalysis_Sum.js",
+  "SelectedNode": "\\src\\controller\\Parameter.js",
   "PreviewInSolutionExplorer": false
 }

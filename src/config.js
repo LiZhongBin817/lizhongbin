@@ -29,7 +29,8 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function (exports) {
         }
         //向后台请求的URL地址
         ,requesturl:'http://localhost:8081'
-
+        //所有的按钮信息
+        ,localbtnname:'localbtnlist'
         //自定义响应字段
         , response: {
             statusName: 'code' //数据状态的字段名称

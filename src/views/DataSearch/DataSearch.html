@@ -70,9 +70,16 @@
                             <input class="layui-input" name="mrreadername" autocomplete="off" width="140" />
                         </div>
                     </div>
-                    <div class="layui-inline">
-                        <button id="numSearch" class="layui-btn layui-btn-normal layui-btn-sm " style="border-radius:3px" lay-submit lay-filter="numSearch">查询</button>
-                        <a class="layui-btn  layui-btn-normal layui-btn-sm " style="border-radius:3px" lay-filter="btn_export01" id="btn_export01">导出</a>
+                    <div class="layui-inline"  id="DataSearch_barDemo">
+                        <script type="text/html" template>
+                            {{#
+                             var t_btn1 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(18)===-1?"none":"inline-block";
+                             var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(20)===-1?"none":"inline-block";
+                            }}
+                            <button id="numSearch" class="layui-btn layui-btn-normal layui-btn-sm " style="border-radius:3px;display:{{t_btn1}}" lay-submit lay-filter="numSearch">查询</button>
+                            <a class="layui-btn  layui-btn-normal layui-btn-sm " style="border-radius:3px;display:{{t_btn2}}" lay-filter="btn_export01" id="btn_export01">导出</a>
+
+                        </script> 
                     </div>
                     <div class="layui-card-body">
                         <table id="dataManageInfo_Table" lay-filter="dataManageInfoo" class="layui-hide"></table>

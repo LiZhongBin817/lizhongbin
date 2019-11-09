@@ -20,13 +20,13 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         toolbar: true,
         url: layui.setter.requesturl + '/api/DataSearch/ReadAnalysis_Sum',
         cols: [[ 
-            { title: '序号', type: 'numbers', totalRowText: '合计', align: 'center' },
-            { field: 'mrreadername', title: '抄表员', align: 'center'  },
+            { title: '序号', type: 'numbers', totalRowText: '合计' },
+            { field: 'mrreadername', title: '抄表员' },
             { field: 'mindatatime', title: '开始时间'  },
             { field: 'maxdatetime', title: '结束时间'  },
-            { field: 'readmetertime', title: '抄表时长', totalRow: true, align: 'center' },
-            { field: 'meternum', title: '抄表个数', totalRow: true, align: 'center' },
-            { field: 'readmonth', title: '抄表月份', align: 'center'  }, 
+            { field: 'readmetertime', title: '抄表时长', totalRow: true },
+            { field: 'meternum', title: '抄表个数', totalRow: true },
+            { field: 'readmonth', title: '抄表月份'  }, 
         ]], totalRow: true
         , page: true
         , height: $(document).height() - $('#dataAnalysis_SumInfo_Table').offset().top - 200
