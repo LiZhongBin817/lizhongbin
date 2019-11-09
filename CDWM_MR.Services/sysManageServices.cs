@@ -525,6 +525,9 @@ namespace CDWM_MR.Services
             List<sys_role_menu> commonlist1 = new List<sys_role_menu>();           
             if (OperationID == null)
             {
+                List<sys_role_menu> role_Menus = await SysRoleMenuDal.Query(c => c.RoleID == RoleID && c.MenuID == MenuID && c.judgetype == judgetype);
+                var id = role_Menus.Select(c => c.id).ToList();
+                await SysRoleMenuDal.DeleteById(id);
                 return new TableModel<sys_operation>()
                 {
                     code = 0,
