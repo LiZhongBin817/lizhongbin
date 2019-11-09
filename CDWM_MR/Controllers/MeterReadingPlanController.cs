@@ -163,7 +163,7 @@ namespace CDWM_MR.Controllers
             }
             if (!string.IsNullOrEmpty(reader))
             {
-                wherelambda = PredicateExtensions.And<v_taskinfo>(wherelambda, c => c.mrreadername == reader);
+                wherelambda = PredicateExtensions.And<v_taskinfo>(wherelambda, c => c.mrreadername.Contains(reader));
             }
             #endregion        
             Expression<Func<v_taskinfo, object>> expression = c => new

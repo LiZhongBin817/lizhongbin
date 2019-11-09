@@ -3641,6 +3641,56 @@
             上期抄表异常
             </summary>
         </member>
+        <member name="M:CDWM_MR.Model.Models.v_interface.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_interface.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_interface.InterfaceUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_interface.OperationVersion">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_interface.InterfaceName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_interface.ExternalInterface">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_interface.Verify">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_interface.Remark">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_interface.menuid">
+            <summary>
+            菜单ID
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_interface.MenuName">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_meterdata">
             <summary>
             VIEW
