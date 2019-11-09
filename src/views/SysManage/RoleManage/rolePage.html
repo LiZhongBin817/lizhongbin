@@ -8,9 +8,9 @@
         <div class="layui-col-md*" style="height: 50px">
             <div class="layui-btn-group" style="height: 3px;">
                 <button class="layui-btn  layui-btn-sm add " style="border-radius: 3px;" type="button" layui-filter="add"><i class="layui-icon">&#xe608</i>增加</button>
-                <button class="layui-btn  layui-btn-warm layui-btn-sm  edit" style="border-radius: 3px;"type="button" layui-filter="edit"> <i class="layui-icon">&#xe642</i>编辑</button>
-                <button class="layui-btn  layui-btn-danger layui-btn-sm delete"style="border-radius: 3px;" type="button" layui-filter="delete"> <i class="layui-icon">&#xe640</i>删除</button>
-                <button class="layui-btn  layui-btn-sm get-checked" style="border-radius: 3px;"type="button" layui-filter="save"> <i class="layui-icon">&#xe60a</i>保存</button>
+                <button class="layui-btn  layui-btn-warm layui-btn-sm  edit" style="border-radius: 3px;" type="button" layui-filter="edit"> <i class="layui-icon">&#xe642</i>编辑</button>
+                <button class="layui-btn  layui-btn-danger layui-btn-sm delete" style="border-radius: 3px;" type="button" layui-filter="delete"> <i class="layui-icon">&#xe640</i>删除</button>
+                <button class="layui-btn  layui-btn-sm get-checked" style="border-radius: 3px;" type="button" layui-filter="save"> <i class="layui-icon">&#xe60a</i>保存</button>
             </div>
         </div>
     </div>
@@ -48,11 +48,11 @@
             , view = layui.view
             , admin = layui.admin;
         form.render();
-        function SingClick(obj) {            
+        function SingClick(obj) {
             RoleName = obj.attr('name');
             roleID = obj.attr('id');
             admin.req({
-                url: layui.setter.requesturl+'/api/SysManange/GetMenuID'
+                url: layui.setter.requesturl + '/api/SysManange/GetMenuID'
                 , type: 'Get'
                 , data: {
                     "id": roleID
@@ -64,51 +64,51 @@
         };
         $(document).on('click', ".singclick", function () {
             console.log($(this).attr('id'));
-            $(".singclick").css("background-color","");
-            $(this).css("background-color","#ECFFFF");
+            $(".singclick").css("background-color", "");
+            $(this).css("background-color", "#ECFFFF");
             SingClick($(this));
         })
         $('.add').click(function () {
             admin.popup({
                 title: '增加'
-                ,id:'AddPage'
-                , area: ['400px', '200px']               
+                , id: 'AddPage'
+                , area: ['400px', '200px']
                 , success: function (layero, index) {
                     view(this.id).render('SysManage/RoleManage/AddPage', null).done(function () {
 
-                    //监听提交
-                    form.on('submit(Role_submit)', function (data) {
-                        //获取提交的字段
-                        var field = data.field;
-                        admin.req({
-                            url: layui.setter.requesturl+'/api/SysManange/AddRole'
-                            , type: 'Get'
-                            , data: {
-                                "RoleNumber": data.field.RoleNumber,
-                                "RoleName": data.field.RoleName,
-                                "CreatePeople": data.field.CreatePeople,
-                            }
-                            , beforeSend: function (XMLHttpRequest) {
-                                loadingFlag = layer.msg('正在加载数据，请稍候……', { icon: 16, shade: 0.01, shadeClose: false, time: 60000 });
-                            }
-                            , success: function (msg) {
-                                layer.close(loadingFlag);
-                                if (msg.msg == "添加成功") {
-                                    layer.msg("添加成功");
-                                    layer.close(index);
-                                    time = setTimeout(function () {
-                                        Refresh();//调用刷新的方法
-                                    }, 500);
-                                }                              
-                                else {
-                                    layer.msg("该角色已存在");
+                        //监听提交
+                        form.on('submit(Role_submit)', function (data) {
+                            //获取提交的字段
+                            var field = data.field;
+                            admin.req({
+                                url: layui.setter.requesturl + '/api/SysManange/AddRole'
+                                , type: 'Get'
+                                , data: {
+                                    "RoleNumber": data.field.RoleNumber,
+                                    "RoleName": data.field.RoleName,
+                                    "CreatePeople": data.field.CreatePeople,
                                 }
-                            }
-                            , error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                layer.msg("加载失败");
-                            }
+                                , beforeSend: function (XMLHttpRequest) {
+                                    loadingFlag = layer.msg('正在加载数据，请稍候……', { icon: 16, shade: 0.01, shadeClose: false, time: 60000 });
+                                }
+                                , success: function (msg) {
+                                    layer.close(loadingFlag);
+                                    if (msg.msg == "添加成功") {
+                                        layer.msg("添加成功");
+                                        layer.close(index);
+                                        time = setTimeout(function () {
+                                            Refresh();//调用刷新的方法
+                                        }, 500);
+                                    }
+                                    else {
+                                        layer.msg("该角色已存在");
+                                    }
+                                }
+                                , error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    layer.msg("加载失败");
+                                }
+                            });
                         });
-                    });
                     });
                 }
             });
@@ -130,7 +130,7 @@
                         form.on('submit(' + submitID + ')', function (data) {
                             var field = data.field;
                             admin.req({
-                                url: layui.setter.requesturl+'/api/SysManange/EditRole'
+                                url: layui.setter.requesturl + '/api/SysManange/EditRole'
                                 , type: 'Get'
                                 , data: {
                                     "RoleName": RoleName,
@@ -178,7 +178,7 @@
                 }, function () {
                     layer.close('dialog');
                     admin.req({
-                        url: layui.setter.requesturl+'/api/SysManange/DeleteRole'
+                        url: layui.setter.requesturl + '/api/SysManange/DeleteRole'
                         , type: 'Get'
                         , data: {
                             "RoleName": RoleName
@@ -209,14 +209,14 @@
         $('.get-checked').click(function () {
             var selectData = treeTable.checked(ptable).join(',');
             var Data = JSON.stringify(treeTable.checked(ptable));
-            layer.alert(Data);
+            console.log(selectData);
             if (RoleName == null) {
                 layer.msg("请选择您要保存的的对象");
                 return;
             }
             else {
                 admin.req({
-                    url: layui.setter.requesturl+'/api/SysManange/SaveOperation'
+                    url: layui.setter.requesturl + '/api/SysManange/SaveOperation'
                     , type: 'Get'
                     , data: {
                         "RoleID": roleID,
@@ -244,7 +244,7 @@
         })
         function Refresh() {//刷新角色列表
             admin.req({
-                url: layui.setter.requesturl+'/api/SysManange/ShowRole'
+                url: layui.setter.requesturl + '/api/SysManange/ShowRole'
                 , type: 'Get'
                 , data: {
                 }
@@ -268,7 +268,7 @@
         $(function () {
             Refresh();
             admin.req({
-                url: layui.setter.requesturl+'/api/SysManange/GetMenu'
+                url: layui.setter.requesturl + '/api/SysManange/GetMenu'
                 , type: 'Get'
                 , success: function (data) {
                     layer.close(loadingFlag);
@@ -309,10 +309,9 @@
                             }
                             , {
                                 title: '操作'
-                                , width: '50px'
                                 , align: 'center'
                                 , template: function (item) {
-                                    return '<button lay-filter="Jurisdiction" id="' + item.id + '" class="layui-btn layui-btn-sm  operation" style="border-radius: 3px;">权限分配详情</button>';
+                                    return '<button lay-filter="Jurisdiction" id="' + item.id + '" class="layui-btn layui-btn-sm  operation" style="border-radius: 3px;">按钮分配详情</button>' + `<button class="layui-btn layui-btn-sm  interfaceoperation"style="border-radius: 3px;">接口分配详情</button>`;
                                 }
                             }
                         ]
@@ -365,10 +364,9 @@
                     }
                     , {
                         title: '操作'
-                        , width: '50px'
                         , align: 'center'
                         , template: function (item) {
-                            return '<button lay-filter="Jurisdiction" id="' + item.id + '" class="layui-btn layui-btn-sm  operation" style="border-radius: 3px;">权限分配详情</button>';
+                            return '<button lay-filter="Jurisdiction" id="' + item.id + '" class="layui-btn layui-btn-sm  operation" style="border-radius: 3px;" >按钮分配详情</button>' + `<button class="layui-btn layui-btn-sm  interfaceoperation"style="border-radius: 3px;" id="${item.id}">接口分配详情</button>`;
                         }
                     }
                 ]
@@ -383,7 +381,7 @@
             else {
                 //判断复选框的值
                 admin.req({
-                    url: layui.setter.requesturl+'/api/SysManange/Jude'
+                    url: layui.setter.requesturl + '/api/SysManange/Jude'
                     , type: 'Get'
                     , data: {
                         "RoleID": roleID,
@@ -411,14 +409,15 @@
                                             sendData += allChecked[i].name + ",";
                                         }
                                     }
-                                    sendData = sendData.substring(0, sendData.length_1);
+                                    sendData = sendData.substring(0, sendData.length - 1);
                                     admin.req({
-                                        url: layui.setter.requesturl+'/api/SysManange/EditOperations'
+                                        url: layui.setter.requesturl + '/api/SysManange/EditOperations'
                                         , type: 'Get'
                                         , data: {
                                             "RoleID": roleID,
                                             "MenuID": window.parent.MenuID,
-                                            "OperationID": sendData
+                                            "OperationID": sendData,
+                                             "judgetype": 0
                                         }
                                         , success: function (data) {
                                             if (data.msg == "OK") {
@@ -436,11 +435,12 @@
                                         var div = layero.contents().find('#PowerBox');
                                         //渲染页面
                                         admin.req({
-                                            url: layui.setter.requesturl+'/api/SysManange/GetOperation'
+                                            url: layui.setter.requesturl + '/api/SysManange/GetOperation'
                                             , type: 'Get'
                                             , data: {
                                                 "RoleID": roleID,
-                                                "menuID": MenuID
+                                                "menuID": MenuID,
+                                                "judgetype": 0
                                             }
                                             , success: function (data) {
                                                 //var iframeWindow = window['layui-layer' + index];
@@ -448,54 +448,43 @@
                                                 var delhtml = '';
                                                 var modifiedhtml = '';
                                                 var selhtml = '';
+                                                var otherhtml = '';
                                                 for (var i = 0; i < data.data.length; i++) {
-                                                    if (data.data[i].opName == "") {
-                                                        data.data[i].opName = "无";
+                                                    if (data.data[i].OperationName == "") {
+                                                        data.data[i].OperationName = "无";
                                                     }
+                                                    console.log(data.data);
+                                                    var isshow = data.data[i].isshow ? "checked" : "";
                                                     //增加按钮权限
-                                                    if (data.data[i].opType == 0) {
-                                                        if (data.data[i].opRemark != "1") {
-                                                            addhtml += '<input type="checkbox" class="SumSelector" name="' + data.data[i].opID + '" title="' + data.data[i].opName + '" />'
-                                                        }
-                                                        else {
-                                                            addhtml += '<input type="checkbox" class="SumSelector" name="' + data.data[i].opID + '" title="' + data.data[i].opName + '" checked>'
-                                                        }
+                                                    if (data.data[i].OperationType == 0) {
+
+                                                        addhtml += `<input type="checkbox" class="SumSelector" name="${data.data[i].id}" title="${data.data[i].OperationName}" ${isshow}>`;
                                                     }
                                                     //删除按钮权限
-                                                    if (data.data[i].opType == 1) {
-                                                        if (data.data[i].opRemark != 1) {
-                                                            delhtml += '<input type="checkbox" class="SumSelector" name="' + data.data[i].opID + '" title="' + data.data[i].opName + '" />'
-                                                        }
-                                                        else {
-                                                            delhtml += '<input type="checkbox" class="SumSelector" name="' + data.data[i].opID + '" title="' + data.data[i].opName + '" checked />'
-                                                        }
+                                                    if (data.data[i].OperationType == 1) {
+
+                                                        delhtml += `<input type="checkbox" class="SumSelector" name="${data.data[i].id}" title="${data.data[i].OperationName}" ${isshow}/>`;
+
+
                                                     }
                                                     //修改按钮权限
-                                                    if (data.data[i].opType == 2) {
-                                                        if (data.data[i].opRemark != 1) {
-                                                            modifiedhtml += '<input type="checkbox" class="SumSelector" name="' + data.data[i].opID + '" title="' + data.data[i].opName + '"/>'
-                                                        }
-                                                        else {
-                                                            modifiedhtml += '<input type="checkbox" class="SumSelector" name="' + data.data[i].opID + '" title="' + data.data[i].opName + '" checked/>'
-                                                        }
+                                                    if (data.data[i].OperationType == 2) {
+
+                                                        modifiedhtml += `<input type="checkbox" class="SumSelector" name="${data.data[i].id}" title="${data.data[i].OperationName}" ${isshow}/>`;
+
                                                     }
                                                     //查看按钮权限
-                                                    if (data.data[i].opType == 3) {
-                                                        if (data.data[i].opRemark != 1) {
-                                                            selhtml += '<input type="checkbox" class="SumSelector" name="' + data.data[i].opID + '" title="' + data.data[i].opName + '" />'
-                                                        }
-                                                        else {
-                                                            selhtml += '<input type="checkbox" class="SumSelector" name="' + data.data[i].opID + '" title="' + data.data[i].opName + '" checked/>'
-                                                        }
+                                                    if (data.data[i].OperationType == 3) {
+
+                                                        selhtml += `<input type="checkbox" class="SumSelector" name="${data.data[i].id}" title="${data.data[i].OperationName}" ${isshow}/>`;
+
+
                                                     }
-                                                     //其他按钮权限
-                                                    if (data.data[i].opType == 4) {
-                                                        if (data.data[i].opRemark != 1) {
-                                                            otherhtml += '<input type="checkbox" class="SumSelector" name="' + data.data[i].opID + '" title="' + data.data[i].opName + '" />'
-                                                        }
-                                                        else {
-                                                            otherhtml += '<input type="checkbox" class="SumSelector" name="' + data.data[i].opID + '" title="' + data.data[i].opName + '" checked/>'
-                                                        }
+                                                    //其他按钮权限
+                                                    if (data.data[i].OperationType == 4) {
+
+                                                        otherhtml += `<input type="checkbox" class="SumSelector" name="${data.data[i].id}" title="${data.data[i].OperationName}" ${isshow}/>`;
+
                                                     }
                                                 }
                                                 div.find(".AddBox")[0].innerHTML = addhtml;
@@ -516,9 +505,106 @@
             }
         }
 
-       $(document).on('click', ".operation", function () {
+        function interfaceOperation(menuid) {//分配接口监听
+            MenuID = menuid;
+            console.log(MenuID);
+            if (roleID == 0) {
+                layer.msg("请选择角色");
+            }
+            else {
+                //判断复选框的值
+                admin.req({
+                    url: layui.setter.requesturl + '/api/SysManange/Jude'
+                    , type: 'Get'
+                    , data: {
+                        "RoleID": roleID,
+                        "menuID": MenuID
+                    }
+                    , success: function (data) {
+                        if (data.msg == "NO") {
+                            layer.open({
+                                title: '提示'
+                                , content: '该菜单没有分配给该角色'
+                            });
+                            return;
+                        }
+                        else {
+                            admin.popup({
+                                title: '页面权限分配'
+                                , area: ['700px', '400px']
+                                , btn: ['提交', '取消']
+                                , yes: function (index, layero) {
+                                    var div = layero.contents().find('#interfacePowerBox');
+                                    var sendData = "";
+                                    var allChecked = div.find(".SumSelector");
+                                    for (var i = 0; i < allChecked.length; i++) {
+                                        if (allChecked[i].checked) {
+                                            sendData += allChecked[i].name + ",";
+                                        }
+                                    }
+                                    sendData = sendData.substring(0, sendData.length - 1);
+                                    admin.req({
+                                        url: layui.setter.requesturl + '/api/SysManange/EditOperations'
+                                        , type: 'Get'
+                                        , data: {
+                                            "RoleID": roleID,
+                                            "MenuID": window.parent.MenuID,
+                                            "OperationID": sendData,
+                                             "judgetype": 1
+                                        }
+                                        , success: function (data) {
+                                            if (data.msg == "OK") {
+                                                layer.msg("修改成功");
+                                                layer.close(index);
+                                            }
+                                            else {
+                                                layer.msg("修改失败");
+                                            }
+                                        }
+                                    });
+                                }
+                                , success: function (layero, index) {
+                                    view(this.id).render('SysManage/RoleManage/interfacePower', null).done(function () {
+                                        var div = layero.contents().find('#interfacePowerBox');
+                                        //渲染页面
+                                        admin.req({
+                                            url: layui.setter.requesturl + '/api/SysManange/GetOperation'
+                                            , type: 'Get'
+                                            , data: {
+                                                "RoleID": roleID,
+                                                "menuID": MenuID,
+                                                "judgetype": 1
+                                            }
+                                            , success: function (data) {
+                                                //var iframeWindow = window['layui-layer' + index];
+                                                var interfacehtml = '';                                               
+                                                for (var i = 0; i < data.data.length; i++) {
+                                                    if (data.data[i].OperationName == "") {
+                                                        data.data[i].OperationName = "无";
+                                                    }
+                                                    console.log(data.data);
+                                                    var isshow = data.data[i].isshow ? "checked" : "";                                        
+                                                    interfacehtml += `<input type="checkbox" class="SumSelector" name="${data.data[i].id}" title="${data.data[i].InterfaceName}" ${isshow}>`;
+                                                }
+                                                div.find(".interfaceBox")[0].innerHTML = interfacehtml;                                                
+                                                form.render();//必须要重新渲染一次页面才会有效果
+                                            }
+                                        });
+                                    });
+
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        }
+
+        $(document).on('click', ".operation", function () {
             Operation($(this).attr('id'));
         });
-
+        $(document).on('click', ".interfaceoperation", function () {
+            interfaceOperation($(this).attr('id'));
+        });
     });
 </script>
