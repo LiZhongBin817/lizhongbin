@@ -1,0 +1,16 @@
+﻿<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<div class="layui-form" id="interfacePowerBox">
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width:auto">接口权限:</label>
+        <div class="layui-input-block interfaceBox"></div>
+    </div>   
+</div>
+<script type="text/javascript">
+		layui.use(['form','admin','view'],function(){
+            var form = layui.form
+                , admin = layui.admin
+                ,view=layui.view;
+		});
+</script>

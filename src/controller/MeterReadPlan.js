@@ -27,9 +27,9 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
         page: true,
         cols: [[
             { field: 'ID', title: '序号', width: 100, sort: true, fixed: 'left' },
-            { field: 'Company', title: '所属公司', width: 150 },
-            { field: 'Year', title: '所属年', width: 100 },
-            { field: 'Month', title: '所属月份', width: 200 },
+            { field: 'Company', title: '所属公司', width: 200 },
+            { field: 'Year', title: '所属年', width: 200 },
+            { field: 'Month', title: '所属月份', width: 150 },
             {
                 field: 'StartTime', title: '起抄时间', width: 200,
                 templet: function (d) {
@@ -46,7 +46,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
         ]],
         limit: 10,
         toolbar: '#Show_toolbarDemo',
-        limits: [10, 20, 30],
+        limits: [5, 10, 15],
     });
 
     //监听添加计划单
@@ -56,7 +56,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
             admin.popup({
                 id: 'AddPlanLayer',
                 title: '添加抄表计划',
-                area: ['700px', '500px'],
+                area: ['500px', '400px'],
                 maxmin: true,
                 success: function (layero, index) {
                     view('AddPlanLayer').render('MeterReadingManage/MeterReadingPlan_Manage/AddMeter', null).done(function () {
@@ -192,7 +192,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                             ]],
                             page: true,
                             limit: 10,
-                            limits: [10, 20, 30],
+                            limits: [5, 10, 15],
                             toolbar: '#DMRtoolbarDemo',
                             done: function (res) {//实现分页后复选框保留功能
                                 table_data = res.data;
@@ -281,7 +281,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                     }
                     admin.popup({
                         title: '编辑抄表册',
-                        area: ['700px', '500px'],
+                        area: ['600px', '500px'],
                         maxmin: true,
                         id: 'edit1',
                         success: function (layero, index) {

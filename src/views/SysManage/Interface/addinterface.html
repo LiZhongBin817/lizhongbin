@@ -21,6 +21,13 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">所属菜单</label>
+        <div class="layui-input-inline">
+            <select name="InterfaceAdd_menuid" id="InterfaceAdd_menuid" lay-search="">
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">是否为第三方接口</label>
         <div class="layui-input-block">
             <input type="radio" name="ExternalInterface" value="0" title="是">
@@ -40,11 +47,8 @@
             <textarea name="Remark" class="layui-textarea" id="Remark"></textarea>
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"></label>
-        <div class="layui-input-inline">
-            <input type="button" lay-submit lay-filter="addinterface_submit" id="addinterface_submit" class="layui-btn" value="提交">
-        </div>
+    <div class="layui-form-item" style="text-align:center">
+            <input type="button" lay-submit lay-filter="addinterface_submit" id="addinterface_submit" class="layui-btn layui-btn-sm layui-btn-normal" value="提交">
     </div>
 </div>
 <script>
