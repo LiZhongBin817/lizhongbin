@@ -789,7 +789,7 @@
             登陆控制器--无权限控制
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.LoginController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR_Common.Redis.IRedisHelper,CDWM_MR.AuthHelper.PermissionRequirement)">
+        <member name="M:CDWM_MR.Controllers.LoginController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR_Common.Redis.IRedisHelper,CDWM_MR.AuthHelper.PermissionRequirement,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <summary>
             构造函数注入
             </summary>
@@ -797,6 +797,7 @@
             <param name="sysManage"></param>
             <param name="addredis"></param>
             <param name="requirement"></param>
+            <param name="accessor"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.LoginController.ShowCode">
             <summary>

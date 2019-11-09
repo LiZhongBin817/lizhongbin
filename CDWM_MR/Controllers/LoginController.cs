@@ -7,6 +7,7 @@ using CDWM_MR_Common.Redis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,7 @@ namespace CDWM_MR.Controllers
         readonly IRedisHelper _redishelper;
         readonly IsysManageServices _SysManage;
         readonly Isys_userinfoServices _SysUserinfo;
+        readonly IHttpContextAccessor _accessor;
         #endregion
 
 
@@ -42,13 +44,15 @@ namespace CDWM_MR.Controllers
         /// <param name="sysManage"></param>
         /// <param name="addredis"></param>
         /// <param name="requirement"></param>
-        public LoginController(Isys_userinfoServices sysuserinfo, IsysManageServices sysManage, IRedisHelper addredis, PermissionRequirement requirement)
+        /// <param name="accessor"></param>
+        public LoginController(Isys_userinfoServices sysuserinfo, IsysManageServices sysManage, IRedisHelper addredis, PermissionRequirement requirement, IHttpContextAccessor accessor)
         {
 
             _redishelper = addredis;
             _requirement = requirement;
             _SysManage = sysManage;
             _SysUserinfo = sysuserinfo;
+            _accessor = accessor;
         }
 
         /// <summary>
@@ -62,7 +66,8 @@ namespace CDWM_MR.Controllers
             Common.ValidateCode valcode = new Common.ValidateCode();
             string Code;
             byte[] buffer = valcode.GetVerifyCode(out Code);//将验证码画到画布上
-            _redishelper.StringSet("Code", Code, TimeSpan.FromSeconds(180));
+            string ipadress = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            _redishelper.StringSet(ipadress, Code, TimeSpan.FromSeconds(180));
             return File(buffer, "image/jpeg");
         }
 
@@ -78,7 +83,7 @@ namespace CDWM_MR.Controllers
         public async Task<object> UserLogin(string UserName, string PassWord, string VerCode)
         {
             //检验验证码
-            string checkCode = _redishelper.StringGet("Code");
+            string checkCode = _redishelper.StringGet(_accessor.HttpContext.Connection.RemoteIpAddress.ToString());
             if (string.IsNullOrEmpty(checkCode))
             {
                 return new JsonResult(new

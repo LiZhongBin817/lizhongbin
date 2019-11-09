@@ -442,7 +442,7 @@ namespace CDWM_MR
             services.AddSignalR();
             #endregion
             
-            //services.AddSession();
+            services.AddSession();
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
             #region AutoFac DI
@@ -653,7 +653,7 @@ namespace CDWM_MR
             app.UseCookiePolicy();
             // 返回错误码
             app.UseStatusCodePages();//把错误码返回前台，比如是404
-            //app.UseSession();
+            app.UseSession();
 
             app.UseMvc();
 
