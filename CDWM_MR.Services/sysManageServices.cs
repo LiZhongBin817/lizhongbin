@@ -522,12 +522,7 @@ namespace CDWM_MR.Services
         public async Task<TableModel<sys_operation>> EditOperations(int RoleID, int MenuID, string OperationID, int judgetype)
         {
             //用于在数据库更新操作的集合
-            List<sys_role_menu> commonlist1 = new List<sys_role_menu>();
-            ////查询权限表，将权限表中的Remark全置为0
-            //bool b = await SysRoleMenuDal.Update(c => new sys_role_menu
-            //{
-            //    remark = "0"
-            //}, c => c.MenuID == MenuID && c.RoleID == RoleID);
+            List<sys_role_menu> commonlist1 = new List<sys_role_menu>();           
             if (OperationID == null)
             {
                 return new TableModel<sys_operation>()
