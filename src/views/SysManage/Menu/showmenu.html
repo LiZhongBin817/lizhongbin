@@ -7,24 +7,32 @@
 </script>
 
 
-<div class="layui-fluid" style="color:azure;background:azure;height:auto">
+<div class="layui-fluid" style="color:white; background:#fffffb;height:auto">
     <div class="layui-row layui-col-space10">
         <div class="layui-col-md12" style="height: 30px">
-            <div class="layui-btn-group">
-                <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-xs" lay-submit lay-filter="polling" data-type="Del"><i class="layui-icon">&#xe640;</i>删除菜单</button>
-                <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-xs" lay-submit lay-filter="polling" onclick="window.location.reload()"><i class="layui-icon">&#x1002;</i>刷新菜单</button>
-                <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-xs" lay-submit lay-filter="polling" data-type="Save"><i class="layui-icon">&#xe642;</i>保存菜单</button>
-                <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-xs" lay-submit lay-filter="polling" data-type="Add"><i class="layui-icon">&#xe608;</i>添加菜单</button>
+            <div class="layui-btn-group" id="showmenu_groupbtn" >
+                <script type="text/html" template>
+                    {{#
+                       var t_btn1 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(3)===-1?"none":"inline-block";
+                       var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(6)===-1?"none":"inline-block";
+                    }}
+                    <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-sm layui-btn-danger" style="border-radius:3px;display:{{t_btn1}};" lay-submit lay-filter="polling" data-type="Del" ><i class="layui-icon">&#xe640;</i>删除菜单</button>
+                    <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-sm layui-btn-normal" style="border-radius:3px;" lay-submit lay-filter="polling" onclick="window.location.reload()"><i class="layui-icon">&#x1002;</i>刷新菜单</button>
+                    <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-sm" style="border-radius:3px;display:{{t_btn2}};" lay-submit lay-filter="polling" data-type="Save"><i class="layui-icon">&#xe642;</i>保存菜单</button>
+                    <button type="button" class="layui-btn  layuiadmin-btn-admin layui-btn-sm" style="border-radius:3px;" lay-submit lay-filter="polling" data-type="Add"><i class="layui-icon">&#xe608;</i>添加菜单</button>
+                </script>
+
+               
             </div>
 
         </div>
         <div class="layui-col-md3" style="height: 100%;">
             <div class="layui-form layui-filter">
-                <div id="test1" style="box-shadow: 2px 2px 10px #909090;height:100%;color:green"></div>  <!--左侧菜单信息-->
+                <div id="Menutree" style="box-shadow: 2px 2px 10px #909090;height:100%;color:green"></div>  <!--左侧菜单信息-->
             </div>
 
         </div>
-        <div class="layui-col-md9" style=" height: auto;color:azure;background:azure ">
+        <div class="layui-col-md9" style=" height: auto;">
             <div region="center" style="padding: 10px; margin:3%; box-shadow: 2px 2px 10px #909090;">
                 <div class="layui-form" id="MenuInfoForm">
                     <input type="hidden" name="BackgroundType" value="1">
@@ -39,35 +47,48 @@
                         </colgroup>
                         <tr>
                             <td class="title" lay-data="{field:''}" style="border:0">菜单等级:</td>
-                            <td style="border:0"><input id="Menu_Type" type="text" name="Menu_Type" value="2"></td>
-                            <td colspan="2" style="border:0; color: red;font-weight: 900">注：数字为1为目录类型；数字2为展示菜单类型</td>
+                            <td style="border:0">
+                                <select id="Menu_Type" name="Menu_Type">
+                                    <option value="2">2</option>
+                                    <option value="1">1</option>
+                                </select>
+                            </td>
+                            <td colspan="2" style="border:0;font-weight: 900"></td>
                         </tr>
                         <tr>
                             <td class="title" style="border:0">当前模块:</td>
-                            <td style="border:0"><input class="c1" type="text" name="eModuleName" id="eModuleName" disabled="disabled"></td>
+                            <td style="border:0"><input class="layui-input" type="text" name="eModuleName" id="eModuleName" disabled="disabled" autocomplete="off"></td>
                             <td class="title" style="border:0">上一级菜单:</td>
-                            <td style="border:0"><input class="c2" type="text" name="LastMenu" id="LastMenu"></td>
+                            <td style="border:0"><input class="layui-input" type="text" name="LastMenu" id="LastMenu" autocomplete="off"></td>
                         </tr>
                         <tr>
                             <td class="title" style="border:0">菜单名称:</td>
-                            <td style="border:0"><input class="c3" type="text" name="Menu_Name" id="Menu_Name" required="required" placeholder="请输入菜单名称"></td>
+                            <td style="border:0"><input class="layui-input" type="text" name="Menu_Name" id="Menu_Name" required="required" placeholder="请输入菜单名称" autocomplete="off"></td>
                             <td class="title" style="border:0">排序:</td>
-                            <td style="border:0"><input class="c4" type="text" name="Seq" id="Seq" min="1" maxlength="100" increment="1" style="width: 180px;" placeholder="请输入序号"></td>
+                            <td style="border:0"><input class="layui-input" type="text" name="Seq" id="Seq" min="1" maxlength="100" increment="1" placeholder="请输入序号" autocomplete="off"></td>
                         </tr>
                         <tr>
                             <td class="title" style="border:0">URL地址:</td>
-                            <td colspan="3" style="border:0"><input class="c5" type="text" name="GetURL" id="GetURL" style="width: 577px;" placeholder="请输入URL地址"></td>
+                            <td colspan="3" style="border:0"><input class="layui-input" type="text" name="GetURL" id="GetURL" placeholder="请输入URL地址" autocomplete="off"></td>
                         </tr>
                         <tr>
                             <td class="title" style="border:0">详细描述：</td>
                             <td colspan="3" style="border:0"><textarea class="c6" name="Remark" id="Remark" rows="4" style="width: 600px;" placeholder="请输入备注"></textarea></td>
                         </tr>
                         <tr>
-                            <td colspan="4" style="border:0"></td>
+                            <td colspan="4" style="border:0;text-align:center">
+                                <script type="text/html" template>
+                                    {{#
+                                     var t_btn3 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(17)===-1?"none":"inline-block";
+                                    }}
+                                    <button class="layui-btn layui-btn-fluid layui-btn-sm" lay-submit lay-filter="submitinfo" style="display:{{t_btn3}};border-radius:3px" id="Pcontrol">页面增删改查权限配置</button>
+                                </script>
+                            </td>
                         </tr>
                     </table>
-                    <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="submitinfo" style="display:none;" id="Pcontrol">页面增删改查权限配置</button>
                 </div>
+
+
             </div>
 
         </div>
@@ -90,8 +111,8 @@
             return new Promise((res, rej) => {
                 setTimeout(function () {
                     admin.req({
-                        url: layui.setter.requesturl+'/api/SysManange/GetTrees',
-                        type: 'get'
+                        url: layui.setter.requesturl + '/api/SysManange/GetTrees',
+                        type: 'post'
                         , beforeSend: function (XMLHttpRequest) {
                             //注意，layer.msg默认3秒自动关闭，如果数据加载耗时比较长，需要设置time
                             loadingFlag = layer.msg('正在读取数据，请稍候……', { icon: 16, shade: 0.01, shadeClose: false, time: 60000 });
@@ -109,18 +130,18 @@
         };
         fn().then(function (t) {
             dtree.render({
-                elem: '#test1'//绑定元素
-                //, id: 'demoId'
+                elem: '#Menutree'//绑定元素
                 , data: t
             });
         });
 
-        dtree.on("node('test1')", function (obj) {
+        dtree.on("node('Menutree')", function (obj) {
             //点击回调节点数据
+            console.log(obj.param.level);
             Current_module = obj.param.context;//获取当前模块名字
             CurrentID = obj.param.nodeId;
             admin.req({
-                url: layui.setter.requesturl+'/api/SysManange/ShowInfo',
+                url: layui.setter.requesturl + '/api/SysManange/ShowInfo',
                 type: 'get',
                 data: {
                     "id": obj.param.nodeId
@@ -135,11 +156,17 @@
                     var textarea = document.getElementsByTagName("textarea");
                     textarea.value = Remark;
                     var input = document.getElementsByTagName("input");
-                    input[5].value = "菜单管理";
-                    ParentID == 0? input[6].value = "菜单管理":input[6].value = LastMenu;                    
-                    input[7].value = Current_module;
-                    input[8].value = Order;
-                    input[9].value = Address;
+                    var menu = document.getElementById('eModuleName');//当前模块
+                    var lastmenu = document.getElementById('LastMenu');//上一级菜单
+                    var menuname = document.getElementById('Menu_Name');//菜单名
+                    var menuorder = document.getElementById('Seq');//排序
+                    var urladdress = document.getElementById('GetURL');//url地址
+                    var remark = document.getElementById('Remark');//备注
+                    menu.value = "菜单管理";
+                    ParentID == 0 ? lastmenu.value = "菜单管理" : lastmenu.value = LastMenu;
+                    menuname.value = Current_module;
+                    menuorder.value = Order;
+                    urladdress.value = Address;
                     var btn = document.getElementById("Pcontrol");
                     btn.style.display = ParentID != 0 ? "block" : "none";
                 }
@@ -179,7 +206,7 @@
                     sendModifiedData = sendModifiedData.substring(0, sendModifiedData.lastIndexOf(','));
                     sendSelectData = sendSelectData.substring(0, sendSelectData.lastIndexOf(','));
                     admin.req({
-                        url: layui.setter.requesturl+'/api/SysManange/AuthorityManagement',
+                        url: layui.setter.requesturl + '/api/SysManange/AuthorityManagement',
                         type: 'post',
                         data: {
                             "adddata": sendAddData,
@@ -190,6 +217,7 @@
                         },
                         success: function (obj) {
                             if (obj.code == 0) {
+                                layer.close(layer.index);
                                 layer.msg("提交成功");
                             }
                             else {
@@ -204,7 +232,7 @@
                         var div = layero.contents().find('#layui-Page-Power-Setting');
                         var Odiv = div.find(".Add"), Odiv1 = div.find(".Del"), Odiv2 = div.find(".Modified"), Odiv3 = div.find(".Select");
                         admin.req({
-                            url: layui.setter.requesturl+'/api/SysManange/GetInfo',
+                            url: layui.setter.requesturl + '/api/SysManange/GetInfo',
                             type: 'get',
                             data: {
                                 "id": CurrentID,
@@ -232,41 +260,39 @@
         });
         //事件
         var active = {
-            Del: function () {               
+            Del: function () {
                 if (Current_module == undefined) {
-                    layer.msg( "请选择要删除的菜单");
+                    layer.msg("请选择要删除的菜单");
                 }
                 else {
-                    var  message = "是否删除" + Current_module;
+                    var message = "是否删除" + Current_module;
                     layer.confirm(message, function (index) {
-                    admin.req({
-                        url: layui.setter.requesturl+'/api/SysManange/DeleMenu',
-                        type: 'get',
-                        data: { "id": CurrentID, },
-                        success: function (obj) {
-                            if (obj.code == 0) {
-                                layer.msg("删除成功");
+                        admin.req({
+                            url: layui.setter.requesturl + '/api/SysManange/DeleMenu',
+                            type: 'get',
+                            data: { "id": CurrentID, },
+                            success: function (obj) {
+                                if (obj.code == 0) {
+                                    layer.msg("删除成功");
+                                }
+                                else {
+                                    layer.msg("删除失败");
+                                }
                             }
-                            else {
-                                layer.msg("删除失败");
-                            }
-                        }
+                        });
                     });
-                });
-                } 
+                }
             },
             Save: function () {
-                console.log("保存");
                 var textarea = document.getElementsByTagName("textarea");
                 var input = document.getElementsByTagName("input");
-                var MenuLevel = input[4].value;//菜单等级
-                var Currentmodule = input[5].value;//当前模块
-                var LMune = input[6].value;//上级菜单
-                var MName = input[7].value;//菜单名称
-                var PaiXu = input[8].value;//排序
-                var URLAddress = input[9].value;//url地址
+                var MenuLevel = document.getElementById('Menu_Type').value;//菜单等级
+                var Currentmodule = document.getElementById('eModuleName').value;//当前模块
+                var LMune = document.getElementById('LastMenu').value;//上级菜单
+                var MName = document.getElementById('Menu_Name').value;//菜单名称
+                var PaiXu = document.getElementById('Seq').value;//排序
+                var URLAddress = document.getElementById('GetURL').value;//url地址
                 var MRemark = textarea[0].value;//详细描述
-                console.log(MRemark);
                 var sendData = {
                     "MenuLevel": MenuLevel,
                     "ParentID": CurrentID,
@@ -276,7 +302,7 @@
                     "Remark": MRemark,
                 }
                 admin.req({
-                    url: layui.setter.requesturl+'/api/SysManange/SaveMenu',
+                    url: layui.setter.requesturl + '/api/SysManange/SaveMenu',
                     type: 'Post',
                     data: {
                         "json": JSON.stringify(sendData)
@@ -294,12 +320,14 @@
             Add: function () {
                 console.log("添加");
                 var textarea = document.getElementsByTagName("textarea");
-                var input = document.getElementsByTagName("input");
-                var btn = document.getElementsByTagName("button");
-                btn[4].style.display = "none";
-                input[7].value = "";
-                input[8].value = "";
-                input[9].value = "";
+                var menuname = document.getElementById('Menu_Name');//菜单名
+                var menuorder = document.getElementById('Seq');//排序
+                var urladdress = document.getElementById('GetURL');//url地址
+                var btn = document.getElementById("Pcontrol");
+                btn.style.display = "none";
+                menuname.value = "";
+                menuorder.value = "";
+                urladdress.value = "";
                 textarea[0].value = "";
             }
         }

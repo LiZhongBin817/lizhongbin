@@ -161,6 +161,7 @@
             var data = obj.data,
                 $ = layui.$,
                 layEvent = obj.event;
+            console.log(data);
             var form = layui.form;
             if (layEvent === 'edit') {
                 admin.popup({
@@ -199,7 +200,6 @@
                     },
                     success: function (layero, index) {
                         view(this.id).render('SysManage/Authority_Management/Edit', null).done(function () {
-
                             admin.req({
                                 url:layui.setter.requesturl+'/api/OprationManage/ShowSelectInfor',
                                 type:'post',
