@@ -21,15 +21,23 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="Buttonone">
-                        查询
-                    </button>
+                    <script type="text/html" template>
+                        {{#
+                           var t_btn1 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(12)===-1?"none":"inline-block";
+                        }}
+                        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="Buttonone" id="Buttonone" style="border-radius: 3px;display:{{t_btn1}};">
+                            查询
+                        </button>
+                    </script>
                 </div>
 
                 <div class="layui-inline">
-                    
-                        <a class="layui-btn layui-btn-sm layui-btn-normal" lay-filter="Buttontow" id="Buttontow"> 导出数据</a>
-                
+                    <script type="text/html" template>
+                        {{#
+                           var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(13)===-1?"none":"inline-block";
+                        }}
+                        <a class="layui-btn layui-btn-sm layui-btn-normal" lay-filter="Buttontow" id="Buttontow" style="border-radius: 3px;display:{{t_btn2}};"> 导出数据</a>
+                    </script>
                 </div>
             </div>
 
@@ -38,26 +46,30 @@
             <table class="layui-hide" id="Copyseetable" lay-filter="test"></table>
             <div class="layui-form">
                 <table class="layui-table" id="allcopyseetable">
-                
-                    
+
+
                     <tbody class="jingtai" id="jingtai">
-                       
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-        
+
 </div>
+
+
+
+
+
 <script>
     layui.use('Copysee', layui.factory('Copysee')).use(
-        ['admin', 'Copysee','laydate', 'table', 'view', 'form' ], function () {
-        var admin = layui.admin,
-            view = layui.view,
-            table = layui.table,
-            laydate = layui.laydate,
-            form = layui.form;
+        ['admin', 'Copysee', 'laydate', 'table', 'view', 'form'], function () {
+            var admin = layui.admin,
+                view = layui.view,
+                table = layui.table,
+                laydate = layui.laydate,
+                form = layui.form;
             form.render();
-             
+
         });
 </script>
