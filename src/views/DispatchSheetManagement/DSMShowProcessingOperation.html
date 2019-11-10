@@ -108,7 +108,7 @@
         <label class="layui-form-label">处理人:</label>
         <div class="layui-input-inline">
             <script type="text/html" template>
-                <select name="DSMShowProcessingOperationShow_DealPeople" id="DSMShowProcessingOperationShow_DealPeople" lay-filter="DSMShowProcessingOperationShow_DealPeople">
+                <select name="DSMShowProcessingOperationShow_DealPeople" id="DSMShowProcessingOperationShow_DealPeople" lay-filter="DSMShowProcessingOperationShow_DealPeople" lay-search="">
                     <option value="">请选择</option>
                     {{# layui.each(d.params[0],function(index,item){ }}
                     <option value="{{ item.ID }}">{{ item.Name }}</option>
@@ -123,7 +123,7 @@
             <input class="layui-input" type="text" name="DSMShowProcessingAccessories" id="DSMShowProcessingAccessories" autocomplete="off" />
         </div>
         <div class="layui-inline">
-            <button type="button" class="layui-btn" id="layuiupload">
+            <button type="button" class="layui-btn layui-btn-sm" style="border-radius:3px;" id="layuiupload">
                 <i class="layui-icon">&#xe67c;</i>上传图片
             </button>
         </div>
@@ -134,14 +134,9 @@
             </div>
         </div>
     </div>
-    <div class="layui-form-item">
-        <div class="layui-input-inline">
-            <label class="layui-form-label"></label>
-            <input type="button" lay-submit id="DSMShowPO_submit" lay-filter="DSMShowPO_submit" value="提交" class="layui-btn">
-        </div>
-        <div class="layui-input-inline">
-            <input type="button" lay-submit lay-filter="DSMShowPO_cancel" value="取消" class="layui-btn">
-        </div>
+    <div class="layui-form-item" style="text-align:center">
+            <input type="button" lay-submit id="DSMShowPO_submit" style="border-radius:3px;" lay-filter="DSMShowPO_submit" value="提交" class="layui-btn layui-btn-sm layui-btn-normal">
+       
     </div>
 
 </div>
