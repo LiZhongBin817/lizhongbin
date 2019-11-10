@@ -1212,6 +1212,71 @@
             <param name="ID"></param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.RegionManageController">
+            <summary>
+            区域管理
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.regionsShow(System.String,System.Int32,System.Int32)">
+            <summary>
+            显示区域信息
+            </summary>
+            <param name="regionname"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.areaShow(System.String,System.Int32,System.Int32)">
+            <summary>
+            点击查看时展示的小区信息
+            </summary>
+            <param name="regionno"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.editRegion(System.String)">
+            <summary>
+            编辑区域信息
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.editArea(System.String)">
+            <summary>
+            修改小区信息
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.deleteRegion(System.String)">
+            <summary>
+            删除一条区域信息
+            </summary>
+            <param name="regionno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.deleteArea(System.String)">
+            <summary>
+            删除一条小区信息
+            </summary>
+            <param name="areano"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.addRegion(System.String)">
+            <summary>
+            添加一条区域信息
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.addArea(System.String)">
+            <summary>
+            添加一条小区信息    
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.SysManangeController">
             <summary>
             系统管理
