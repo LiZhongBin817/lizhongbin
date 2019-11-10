@@ -52,7 +52,8 @@ namespace CDWM_MR.AuthHelper
         {
             // 将最新的角色和接口列表更新
             var data = await sysrolemenuServices.GetRoleOperation();
-            var list = (from item in data
+            var tempdata = data.FindAll(c => c.judgetype == 1);
+            var list = (from item in tempdata
                         orderby item.id
                         select new PermissionItem
                         {
