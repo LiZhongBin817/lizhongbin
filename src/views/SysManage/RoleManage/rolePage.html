@@ -62,12 +62,13 @@
                 }
             });
         };
+        $(document).off('click',".singclick");//事件解绑
         $(document).on('click', ".singclick", function () {
             console.log($(this).attr('id'));
             $(".singclick").css("background-color", "");
             $(this).css("background-color", "#ECFFFF");
             SingClick($(this));
-        })
+        });
         $('.add').click(function () {
             admin.popup({
                 title: '增加'
@@ -112,7 +113,7 @@
                     });
                 }
             });
-        })
+        });
         $('.edit').click(function () {
             if (RoleName == null) {
                 layer.msg("请选择您要编辑的对象");
@@ -166,7 +167,7 @@
                     }
                 });
             }
-        })
+        });
         $('.delete').click(function () {
             if (RoleName == null) {
                 layer.msg("请选择您要删除的对象")
@@ -205,7 +206,7 @@
                     }, 2500);//让用户看到删除成功提示后在刷新,在2.5s后刷新窗体
                 });
             }
-        })
+        });
         $('.get-checked').click(function () {
             var selectData = treeTable.checked(ptable).join(',');
             var Data = JSON.stringify(treeTable.checked(ptable));
@@ -241,7 +242,7 @@
                 });
 
             }
-        })
+        });
         function Refresh() {//刷新角色列表
             admin.req({
                 url: layui.setter.requesturl + '/api/SysManange/ShowRole'
@@ -321,7 +322,7 @@
                     layer.msg("加载失败");
                 }
             });
-        })
+        });
         function begainrefresh(obj) {//自定义的一个方法，用来初始化treeTable
             ptable = treeTable.render({
                 elem: '#menuTable'
@@ -389,10 +390,7 @@
                     }
                     , success: function (data) {
                         if (data.msg == "NO") {
-                            layer.open({
-                                title: '提示'
-                                , content: '该菜单没有分配给该角色'
-                            });
+                            layer.msg("该菜单没有分配给该角色!");
                             return;
                         }
                         else {
@@ -522,10 +520,7 @@
                     }
                     , success: function (data) {
                         if (data.msg == "NO") {
-                            layer.open({
-                                title: '提示'
-                                , content: '该菜单没有分配给该角色'
-                            });
+                            layer.msg("该菜单没有分配给该角色!");
                             return;
                         }
                         else {
@@ -600,9 +595,12 @@
             }
         }
 
+        $(document).off('click','.operation');//事件解绑上次的事件，防止重复累加触发多次
+        $(document).off('click',".interfaceoperation");//事件解绑
         $(document).on('click', ".operation", function () {
             Operation($(this).attr('id'));
         });
+
         $(document).on('click', ".interfaceoperation", function () {
             interfaceOperation($(this).attr('id'));
         });
