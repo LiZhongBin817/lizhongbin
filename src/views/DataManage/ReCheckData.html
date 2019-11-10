@@ -34,17 +34,18 @@
                         </script>                     
                         <div>
                             <div class="layui-inline">
-                                <input  type="radio" value="0" title="通过" name="Pass"/>
-                                <input  type="radio" value="1" title="不通过" name="Pass" checked/>
+                                <input  type="radio" value="0" title="通过" name="Pass" lay-verify="required"/>
+                                <input  type="radio" value="1" title="不通过" name="Pass" lay-verify="required"/>
                             </div>
                             <div class="layui-inline">
                                 <select name="checked" id="checked" lay-filter="checked">
-                                    <option value="需要到现场核查">需要到现场核查</option>
+                                    <option value="">请选择</option>
+                                    <option value="需要到现场核查" >需要到现场核查</option>
                                     <option value="不需要到现场核查">不需要到现场核查</option>
                                 </select>
                             </div>
                             <div class="layui-inline" style="align-content:center">
-                                <button class="layui-btn layui-btn-normal" id="SubmitChecked" name="SubmitChecked" lay-submit lay-filter="SubmitChecked">确认审核</button>
+                                <button class="layui-btn layui-btn-sm layui-btn-normal" id="SubmitChecked" name="SubmitChecked" lay-submit lay-filter="SubmitChecked">确认审核</button>
                             </div>
                         </div>
                     </div>
@@ -81,10 +82,10 @@
                           var rhtml = "";
                           for (var i = 0; i < photoobject.length; i++) {
                               if (phototype[i] == 1) {
-                                  rhtml += `<div style="txet-align:ceter"><img style="width:600px;height:500px" src="${photoobject[i]}" title="表盘抄表图片"></div>`+`<div>表盘抄表图片</div>`;
+                                  rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:600px;height:500px" src="${photoobject[i]}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i+1}--表盘抄表图片</div></div>`;
                               }
                               else if (phototype[i] == 2) {
-                                   rhtml += `<div><img style="width:250px;height:250px" src="${photoobject[i]}"  title="现场图片"></div>`+`<div>现场图片</div>` ;
+                                   rhtml += `<div style="text-align:center;;margin-top:20px""><img style="width:600px;height:500px" src="${photoobject[i]}"  title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i+1}--现场图片</div></div>`;
                               }
                           }
                           $("#checkdata-seephoto").html(rhtml);

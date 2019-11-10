@@ -12,12 +12,12 @@
                     <div class="layui-input-block">
                         <label class="layui-form-label">抄表周期</label>
                         <div class="layui-inline">
-                            <input class="layui-input" name="month" id="month" autocomplete="off" placeholder="201912" />
+                            <input class="layui-input" name="month" id="month" autocomplete="off" placeholder="输入抄表周期" style="width:116%"/>
                         </div>
                     </div>
                     <div class="layui-input-block">
                         <label class="layui-form-label">抄表员</label>
-                        <div class="layui-inline">
+                        <div class="layui-inline" >
                             <select name="meterReader" id="meterReader" lay-filter="meterReader" class="select">
                                 <option value="">请选择</option>
                             </select>
@@ -26,15 +26,15 @@
                     <div class="layui-input-block">
                         <label class="layui-form-label">抄表日期</label>
                         <div class="layui-inline">
-                            <input name="date" id="date" autocomplete="off" placeholder="××××-××-××" class="layui-input" />
+                            <input name="date" id="date" autocomplete="off" placeholder="××××-××-××" class="layui-input"  style="width:116%"/>
                         </div>
                     </div>
                     <div class="layui-input-block" style="text-align:center">
-                        <button class="layui-btn layui-btn-normal layui-btn-radius" id="See" lay-submit lay-filter="See">查看</button>
+                        <button class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius:3px"id="See" lay-submit lay-filter="See">查看</button>
                     </div>
                 </div>
                 <div class="layui-card-body">
-                    <label style="width:auto;text-align:center;font-weight:900;font-size:x-large">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本周期共抄表<span id="MeterSum" style="color:red"></span>块</label>
+                    <label style="width:100%;text-align:center;font-weight:900;font-size:x-large;position:absolute;top:-20px">本周期共抄表<span id="MeterSum" style="color:red"></span>块</label>
                     <table class="layui-table" id="MeterCount" lay-filter="MeterCount">
                         <thead>
                             <tr>
@@ -52,9 +52,9 @@
                     <table id="MeterReadingInfo" lay-filter="MeterReadingInfo1"></table>
                     <div id="controller" align="center">
                         <input id="follow" type="checkbox"><span style="font-size:20px;">画面跟随</span>
-                        <input id="Play" class="layui-btn layui-btn-xs Play" onclick="play();" value="播放" disabled style="width:50px" />
-                        <input id="pause" class="layui-btn layui-btn-xs pause" value="暂停" disabled style="width:50px" />
-                        <input id="reset" class="layui-btn layui-btn-xs reset" value="重置" disabled style="width:50px" />
+                        <input id="Play" class="layui-btn layui-btn-xs Play" onclick="play();" value="播放" disabled style="width:50px;border-radius:3px" />
+                        <input id="pause" class="layui-btn layui-btn-xs pause" value="暂停" disabled style="width:50px;border-radius:3px" />
+                        <input id="reset" class="layui-btn layui-btn-xs reset" value="重置" disabled style="width:50px;border-radius:3px" />
                     </div>
                 </div>
             </div>
@@ -181,7 +181,7 @@
                 cols: [[
                     { field: 'account', title: '用户编号', width: 120 },
                     { field: 'username', title: '用户名称', width: 120 },
-                    { field: 'uploadtime', title: '抄表时间', width: 200 },
+                    { field: 'uploadtime', title: '抄表时间', width: 281 },
                 ]]
                 , page: true
                 , limit: 5

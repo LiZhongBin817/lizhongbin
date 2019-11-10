@@ -47,7 +47,11 @@ layui.define(['laytpl', 'layer'], function(exports){
       key: setter.request.tokenName
       ,remove: true
     });
-    
+    //清空本地的角色信息
+    layui.data(setter.tableName, {
+      key: setter.localbtnname
+      ,remove: true
+    });
     //跳转到登入页
     location.hash = '/user/login'; 
   };

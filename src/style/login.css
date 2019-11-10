@@ -1,13 +1,11 @@
 /**
 
  @Name：layuiAdmin 登入注册页
- @Author：贤心
- @Site：http://www.layui.com/admin/
- @License：GPL-2
+ @Author：ZK
  
  */
  
-html,body,#LAY_app{height:100%;background-image: url(timg.gif);}
+html,body,#LAY_app{height:100%;}
 .layui-layout-body{overflow: auto;}
  
 #LAY-user-login,

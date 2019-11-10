@@ -12,10 +12,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         , admin = layui.admin
         , laydate = layui.laydate
         , carousel = layui.carousel
-        , device = layui.device();
-
-
-
+        , device = layui.device(); 
     //单个柱状图渲染
     function singlerender(o) {
         //标准柱状图
@@ -64,7 +61,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
                         data: o.metertime,
                         markPoint: {
                             data: [
-                                 
+
                             ]
                         },
                         markLine: {
@@ -98,28 +95,27 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         };
         var sumlist = [];
         for (var i = 0; i < num; i++) {
-            var temp = data[i], temp2 = i === data.length - 1 ? { id: null } : data[i + 1];
-            alist.readmonth.push(temp.metermonth ? temp.metermonth : "undefind");
-            alist.readnum.push(temp.meternum);
-            alist.readtime.push(temp.readtime ? temp.readtime : "undefind");
-            alist.metertime.push(temp.readmetertime);
-            if (temp.id !== temp2.id) {
-                alist.readerid = temp.id;
-                alist.readname = temp.mrreadername;
-                sumlist.push(alist);
-                alist = {
-                    readerid: 0,
-                    readname: "",
-                    readmonth: [],
-                    readnum: [],
-                    readtime: [],
-                    metertime: []
-                }
-            }
+            var temp = data[i], temp2 = i === data.length - 1 ? { id: null } : data[i + 1]; 
+                alist.readmonth.push(temp.metermonth ? temp.metermonth : "undefind");
+                alist.readnum.push(temp.meternum);
+                alist.readtime.push(temp.readtime ? temp.readtime : "undefind");
+                alist.metertime.push(temp.readmetertime);
+                if (temp.id !== temp2.id) {
+                    alist.readerid = temp.id;
+                    alist.readname = temp.mrreadername;
+                    sumlist.push(alist);
+                    alist = {
+                        readerid: 0,
+                        readname: "",
+                        readmonth: [],
+                        readnum: [],
+                        readtime: [],
+                        metertime: []
+                    }
+                } 
         }
         return sumlist;
-    }
-
+    } 
     function renderhtml(d) {
         var sumhtml = ``;
         for (var i = 0; i < d.length; i++) {
@@ -136,32 +132,26 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
             sumhtml += htm;
         }
         $("#Histogramcontainer").html(sumhtml);
-    }
+    } 
     //表格渲染
     table.render({
         elem: '#dataAnalysisInfo_Table',
         method: 'post',
-        toolbar: true,
- 
-        url: layui.setter.requesturl+'/ReadAnalysis',
- 
+        toolbar: true, 
+        url: layui.setter.requesturl + '/api/DataSearch/ReadAnalysis', 
         cols: [[
-
-            { title: '序号', type: 'numbers', width: 70, totalRowText: '合计' },
-            { field: 'mrreadername', title: '抄表员', width: 110 },
-            { field: 'readtime', title: '抄表日期', width: 120 },
-            { field: 'mindatatime', title: '开始时间', width: 180 },
-            { field: 'maxdatetime', title: '结束时间', width: 180 },
- 
-            {  field: 'readmetertime', title: '抄表时长', width: 110, totalRow: true, },
- 
-            { field: 'meternum', title: '抄表个数', width: 110, totalRow: true },
-            { field: 'metermonth', title: '抄表月份', width: 110 },
-
+            { title: '序号', type: 'numbers',   totalRowText: '合计' },
+            { field: 'mrreadername', title: '抄表员'  },
+            { field: 'readtime', title: '抄表日期'  },
+            { field: 'mindatatime', title: '开始时间' },
+            { field: 'maxdatetime', title: '结束时间'  },
+            { field: 'readmetertime', title: '抄表时长', totalRow: true },
+            { field: 'meternum', title: '抄表个数', totalRow: true  },
+            { field: 'metermonth', title: '抄表月份'  }, 
         ]], totalRow: true
         , page: true
-        , limit: 20
-        , limits: [20, 30, 40]
+        , limit: 10
+        , limits: [5, 10, 15]
         , done: function (data) {
             layer.close(load);
             var num = data.count;
@@ -179,13 +169,13 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
                     , trigger: (device.ios || device.android) ? 'click' : 'hover'
                     , anim: othis.data('anim')
                 });
-            });
- 
-            for (var i = 0; i < renderdata.length; i++ ) {
-                singlerender(renderdata[i]);
+            }); 
+            for (var i = 0; i < renderdata.length; i++) {
+                if (renderdata[i].readtime != null) {
+                    singlerender(renderdata[i]);
 
+                } 
             } 
- 
         }
     });
 
@@ -203,9 +193,8 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
 
     //下拉框渲染
     admin.req({
- 
-        url: layui.setter.requesturl+'/render_ReaderAnalysis',
- 
+
+        url: layui.setter.requesturl + '/api/DataSearch/render_ReaderAnalysis', 
         type: "post",
         success: function (result) {
             workData = result.data;
@@ -219,7 +208,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         }
     });
     //监听行数据
-    /*table.on('row(dataAnalysisInfo)', function (obj) {  
+  /*  table.on('row(dataAnalysisInfo)', function (obj) {  
         var num = obj.data.meternum;
         var time = obj.data.readmetertime;
          var readtime=obj.data.readtime;
@@ -227,7 +216,10 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         console.log(obj.data);
          
     });*/
-
+    // 导出 
+    $('#button_export').on('click', function () {
+        window.location.href = layui.setter.requesturl + '/api/DataSearch/OutExcelReadAnalysis';
+    });
 
     exports('ReadAnalysis', {});
 });

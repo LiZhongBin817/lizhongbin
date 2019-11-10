@@ -1,4 +1,4 @@
-﻿<<title>抄表员量化汇总分析</title>
+﻿<title>抄表员量化汇总分析</title>
 
 <script type="text/html" template>
     <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
@@ -11,7 +11,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">抄表月份</label>
                         <div class="layui-inline">
-                            <input class="layui-input" name="readDatetime01" autocomplete="off" width="140" id="test1" placeholder="yyyyMM" />
+                            <input class="layui-input" name="readDatetime01" autocomplete="off" width="140" id="date_sumshort02" placeholder="yyyyMM" />
 
                         </div>
                     </div>
@@ -22,9 +22,18 @@
                             </select>
                         </div>
                     </div>
-                    <div class="layui-inline">
-                        <button id="numberSearch" class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="numberSearch">查询</button>
-                        <a class="layui-btn  layui-btn-normal layui-btn-radius" href="http://localhost:8081/OutExcelReadAnalysisSum">导出</a>
+                    <div class="layui-inline"id="ReadAnalysisSum_barDemo">
+                        <script type="text/html" template>
+                            {{# 
+                             var t_btn1 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(10)===-1?"none":"inline-block";
+                             var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(11)===-1?"none":"inline-block";
+                            }}
+                            
+                            <button id="number_Search01" class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius:3px;display:{{t_btn1}};" lay-submit lay-filter="number_Search01">查询</button>
+                            <a class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius:3px;display:{{t_btn2}};" lay-filter="btn_export02" id="btn_export02">导出</a>
+                        </script>
+                        
+                          
                     </div>
                 </div>
                 <div class="layui-card-body">
@@ -34,19 +43,15 @@
         </div>
     </div>
     <div class="layui-row">
-        <div class="layui-col-md6">
+        <div class="layui-col-md6" >
             <div id="container" style="height: 600px;width:600px;"></div>
         </div>
         <div class="layui-col-md6">
             <div id="container01" style="height: 600px;width:600px;"></div>
         </div>
-    </div>
-
+    </div> 
 </div>
-<!--<div style="height:90%; margin: 0; width:70%"> 
-                <div id="container" style="height: 50%"></div> 
-                <div id="container01" style="height: 50%"></div> 
-</div>-->
+ 
 <script type="text/javascript">
     layui.use('ReadAnalysis_Sum', layui.factory('ReadAnalysis_Sum')).use(['admin', 'table', 'form', 'view', 'laydate', 'echarts'], function () {
         var admin = layui.admin
@@ -57,7 +62,7 @@
             , $ = layui.$;
         form.render();
         laydate.render({
-            elem: '#test1',
+            elem: '#date_sumshort02',
             type: 'month',
             format: 'yyyyMM'
         });
