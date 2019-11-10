@@ -7,6 +7,7 @@ using CDWM_MR_Common.Redis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,7 @@ namespace CDWM_MR.Controllers
         readonly IRedisHelper _redishelper;
         readonly IsysManageServices _SysManage;
         readonly Isys_userinfoServices _SysUserinfo;
+        readonly IHttpContextAccessor _accessor;
         #endregion
 
 
@@ -42,13 +44,15 @@ namespace CDWM_MR.Controllers
         /// <param name="sysManage"></param>
         /// <param name="addredis"></param>
         /// <param name="requirement"></param>
-        public LoginController(Isys_userinfoServices sysuserinfo, IsysManageServices sysManage, IRedisHelper addredis, PermissionRequirement requirement)
+        /// <param name="accessor"></param>
+        public LoginController(Isys_userinfoServices sysuserinfo, IsysManageServices sysManage, IRedisHelper addredis, PermissionRequirement requirement, IHttpContextAccessor accessor)
         {
 
             _redishelper = addredis;
             _requirement = requirement;
             _SysManage = sysManage;
             _SysUserinfo = sysuserinfo;
+            _accessor = accessor;
         }
 
         /// <summary>
@@ -62,7 +66,8 @@ namespace CDWM_MR.Controllers
             Common.ValidateCode valcode = new Common.ValidateCode();
             string Code;
             byte[] buffer = valcode.GetVerifyCode(out Code);//将验证码画到画布上
-            _redishelper.StringSet("Code", Code, TimeSpan.FromSeconds(180));
+            string ipadress = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            _redishelper.StringSet(ipadress, Code, TimeSpan.FromSeconds(180));
             return File(buffer, "image/jpeg");
         }
 
@@ -78,7 +83,7 @@ namespace CDWM_MR.Controllers
         public async Task<object> UserLogin(string UserName, string PassWord, string VerCode)
         {
             //检验验证码
-            string checkCode = _redishelper.StringGet("Code");
+            string checkCode = _redishelper.StringGet(_accessor.HttpContext.Connection.RemoteIpAddress.ToString());
             if (string.IsNullOrEmpty(checkCode))
             {
                 return new JsonResult(new
@@ -103,7 +108,7 @@ namespace CDWM_MR.Controllers
             {
                 Permissions.UersName = user.FUserName;
                 //将登陆的用户信息存入Redis缓存
-                await _redishelper.StringSetAsync($"UserInfo{user.id}", user, TimeSpan.FromMinutes(30));
+                await _redishelper.StringSetAsync($"UserInfo{user.id}", user, TimeSpan.FromMinutes(60*60));
                 var rolestr = await _SysManage.GetuserRole(user.id);//角色的组合
                 //如果是基于用户的授权策略，这里要添加用户;如果是基于角色的授权策略，这里要添加角色
                 var claims = new List<Claim> {
@@ -121,7 +126,7 @@ namespace CDWM_MR.Controllers
             }
             return new JsonResult(new
             {
-                code = 1001,
+                code = 1000,
                 msg = "用户名或密码错误！",
                 data = new { }
             });

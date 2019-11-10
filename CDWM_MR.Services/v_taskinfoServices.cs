@@ -37,7 +37,7 @@ namespace CDWM_MR.Services.Content
         {
             int i = 1;
             List<mr_b_bookinfo> booklist = await book_info.Query();
-            List<mr_planinfo> planlist = await planinfo.Query(c => c.ID == planid);
+            List<mr_planinfo> planlist = await planinfo.Query(c => c.id == planid);
             if (planlist == null || planlist?.Count <= 0)
             {
                 return new
@@ -53,7 +53,7 @@ namespace CDWM_MR.Services.Content
             {
                 taskinfo = new mr_taskinfo();
                 taskinfo.bookid = item.id;
-                taskinfo.planid = temp.ID;
+                taskinfo.planid = temp.id;
                 taskinfo.readerid = item.readmanid;
                 taskinfo.taskstarttime = temp.planstarttime;
                 taskinfo.taskendtime = temp.planendtime;

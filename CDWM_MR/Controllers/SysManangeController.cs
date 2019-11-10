@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CDWM_MR.Common.Helper;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
@@ -33,6 +34,8 @@ namespace CDWM_MR.Controllers
         readonly Isys_interface_infoServices _Isys_interface_infoServices;
         readonly Isys_operationServices _sys_OperationServices;
         readonly Isys_role_menuServices _Role_MenuServices;
+        readonly IUser _user;
+        readonly Iv_interfaceServices _InterfaceServices;
         #endregion
 
 
@@ -46,7 +49,9 @@ namespace CDWM_MR.Controllers
         /// <param name="Isys_interface_info"></param>
         /// <param name="sysrolemenu"></param>
         /// <param name="sys_OperationServices"></param>
-        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices)
+        /// <param name="user"></param>
+        /// <param name="iv_InterfaceServices"></param>
+        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices, IUser user, Iv_interfaceServices iv_InterfaceServices)
         {
             _sysuserinfoservices = sysuserinfo;
             _sysManageServices = sysusermanage;
@@ -55,6 +60,8 @@ namespace CDWM_MR.Controllers
             _Isys_interface_infoServices = Isys_interface_info;
             _sys_OperationServices = sys_OperationServices;
             _Role_MenuServices = sysrolemenu;
+            _user = user;
+            _InterfaceServices = iv_InterfaceServices;
         }
 
         #region  用户管理
@@ -232,7 +239,7 @@ namespace CDWM_MR.Controllers
             };
         }
         #endregion
-         
+
         #endregion
 
         #region 接口管理
@@ -240,38 +247,40 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 显示接口数据
         /// </summary>
-        /// <param name="InterfaceUrl"></param>
         /// <param name="InterfaceName"></param>
+        /// <param name="menuid"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("InterfaceInfoShow")]        
-        public async Task<TableModel<object>> InterfaceInfoShow(string InterfaceUrl, string InterfaceName, int page = 1, int limit = 10)
+        public async Task<TableModel<object>> InterfaceInfoShow(string InterfaceName, int menuid, int page = 1, int limit = 10)
         {
             PageModel<object> Interface = new PageModel<object>();
             #region lambda拼接式
-            Expression<Func<sys_interface_info,bool>>wherelambda=c=>true;
-            if(!string .IsNullOrEmpty(InterfaceUrl))
+            Expression<Func<v_interface, bool>>wherelambda=c=>true;
+            if(!string .IsNullOrEmpty(InterfaceName))
             {
-                wherelambda = PredicateExtensions.And<sys_interface_info>(wherelambda, c => c.InterfaceUrl == InterfaceUrl);
+                wherelambda = PredicateExtensions.And<v_interface>(wherelambda, c => c.InterfaceName.Contains(InterfaceName));
             }
-            if(!string.IsNullOrEmpty(InterfaceName))
+            if(menuid!=0)
             {
-                wherelambda = PredicateExtensions.And<sys_interface_info>(wherelambda, c => c.InterfaceName == InterfaceName);
+                wherelambda = PredicateExtensions.And<v_interface>(wherelambda, c => c.menuid==menuid);
             }
             #endregion
-            Expression<Func<sys_interface_info, object>> expression = c => new
+            Expression<Func<v_interface, object>> expression = c => new
             {
-                ID = c.ID,
+                ID = c.id,
                 InterfaceUrl = c.InterfaceUrl,
                 InterfaceName = c.InterfaceName,
                 OperationVersion = c.OperationVersion,
+                MenuName=c.MenuName,
+                MenuID=c.menuid,
                 ExternalInterface = c.ExternalInterface,
                 Verify = c.Verify,
                 Remark = c.Remark
             };
-            Interface = await _Isys_interface_infoServices.QueryPage(wherelambda, expression, page, limit, "");
+            Interface = await _InterfaceServices.QueryPage(wherelambda, expression, page, limit, "");
             return new TableModel<object>()
             {
                 code = 0,
@@ -296,7 +305,7 @@ namespace CDWM_MR.Controllers
             #region 判重
             String InterfaceName = Jsondata.InterfaceName;
             string InterfaceUrl = Jsondata.InterfaceUrl;
-            var listInter= await _Isys_interface_infoServices.Query(c => c.InterfaceName == InterfaceName|| c.InterfaceUrl == InterfaceUrl);
+            var listInter= await _Isys_interface_infoServices.Query(c => c.InterfaceName.Contains(InterfaceName)|| c.InterfaceUrl.Contains(InterfaceUrl));
             var msg = "";
             if (listInter.Count()>0)
             {
@@ -364,7 +373,7 @@ namespace CDWM_MR.Controllers
         /// 生成菜单树
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [Route("GetTrees")]        
         public async Task<MessageModel<object>> GetTrees()
         {
@@ -550,7 +559,7 @@ namespace CDWM_MR.Controllers
             #endregion
             role.RoleNumber = "RN-000"+NewRoleNumber.ToString();
             role.RoleName = RoleName;
-            role.createpeople = Permissions.UersName;
+            role.createpeople =_user.Name;
             role.createtime = DateTime.Now;
             role.DeleteFlag = 0;
             foreach (var item in data)
@@ -759,9 +768,9 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetOperation")]        
-        public async Task<TableModel<object>> GetOperation(int RoleID, int menuID)
+        public async Task<TableModel<object>> GetOperation(int RoleID, int menuID,int judgetype)
         {
-            return await _sysManageServices.GetOperation(RoleID, menuID);
+            return await _sysManageServices.GetOperation(RoleID, menuID, judgetype);
         }
         #endregion
 
@@ -775,9 +784,9 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("EditOperations")]        
-        public async Task<TableModel<sys_operation>> EditOperations(int RoleID, int MenuID, string OperationID)
+        public async Task<TableModel<sys_operation>> EditOperations(int RoleID, int MenuID, string OperationID, int judgetype)
         {
-            return await _sysManageServices.EditOperations(RoleID, MenuID, OperationID);
+            return await _sysManageServices.EditOperations(RoleID, MenuID, OperationID, judgetype);
         }
         #endregion
         #endregion

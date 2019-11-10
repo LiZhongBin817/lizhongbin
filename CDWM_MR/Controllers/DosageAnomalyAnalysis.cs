@@ -20,14 +20,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace CDWM_MR.Controllers
 {
     /// <summary>
-   /// 用量异常分析
+    /// 用量异常分析
     /// </summary>
+    [Route("api/DosageAnomalyAnalysis")]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class DosageAnomalyAnalysis : ControllerBase
     {
         readonly Iv_user_water_bookinfoServices _v_user_water_bookinfoServices;
         readonly Imr_b_readerServices _mr_b_readerServices;
         readonly Imr_b_bookinfoServices _mr_b_bookinfoServices;
-      
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -39,7 +42,7 @@ namespace CDWM_MR.Controllers
             _v_user_water_bookinfoServices = v_user_water_bookinfoServices;
             _mr_b_readerServices = mr_b_readerServices;
             _mr_b_bookinfoServices = mr_b_bookinfoServices;
-      
+
         }
         /// <summary>
         /// 用量异常分析
@@ -53,17 +56,16 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowDosageAnomalyAnalysis")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
-        public async Task<TableModel<object>> ShowDosageAnomalyAnalysis(string taskperiodname, string readname, string bookno,string meternum, int page = 1, int limit = 5)
+
+        public async Task<TableModel<object>> ShowDosageAnomalyAnalysis(string taskperiodname, string readname, string bookno, string meternum, int page = 1, int limit = 5)
         {
-            
+
 
             PageModel<v_user_water_bookinfo> user = new PageModel<v_user_water_bookinfo>();
             Expression<Func<v_user_water_bookinfo, bool>> wherelambda = c => true;
             if (!string.IsNullOrEmpty(taskperiodname))
             {
-                wherelambda = PredicateExtensions.And<v_user_water_bookinfo>(wherelambda, c => c.taskperiodname == taskperiodname);
+                wherelambda = PredicateExtensions.And<v_user_water_bookinfo>(wherelambda, c => c.taskperiodname.Contains(taskperiodname));
             }
 
             //string dateTime = "";
@@ -75,30 +77,33 @@ namespace CDWM_MR.Controllers
             //}
             if (!string.IsNullOrEmpty(readname))
             {
-                wherelambda = PredicateExtensions.And<v_user_water_bookinfo>(wherelambda, c => c.readname == readname);
+                wherelambda = PredicateExtensions.And<v_user_water_bookinfo>(wherelambda, c => c.readname.Contains(readname));
             }
-            if(!string.IsNullOrEmpty(bookno))
+            if (!string.IsNullOrEmpty(bookno))
             {
-                wherelambda = PredicateExtensions.And<v_user_water_bookinfo>(wherelambda, c => c.bookno == bookno);
+                wherelambda = PredicateExtensions.And<v_user_water_bookinfo>(wherelambda, c => c.bookno.Contains(bookno));
             }
-            if(!string.IsNullOrEmpty(meternum))
+            if (!string.IsNullOrEmpty(meternum))
             {
-                wherelambda = PredicateExtensions.And<v_user_water_bookinfo>(wherelambda, c => c.meternum == meternum);
+                wherelambda = PredicateExtensions.And<v_user_water_bookinfo>(wherelambda, c => c.meternum.Contains(meternum));
             }
-          
+
             user = await _v_user_water_bookinfoServices.QueryPage(wherelambda, page, limit);
 
             List<object> datalist = new List<object>();
-        
-           //想用再次查询时间来
+
+            //想用再次查询时间来
             for (int i = 0; i < user.data.Count(); i++)
             {
                 double waterdifference;
-                 string waterdifferencerate;
+                string waterdifferencerate;
                 waterdifference = System.Math.Abs(Convert.ToDouble(user.data[i].lastwaternum) - Convert.ToDouble(user.data[i].carrywatercount));
 
                 waterdifferencerate = Convert.ToDouble(user.data[i].lastwaternum) / waterdifference + "%";
-              
+                if (waterdifference == 0)
+                {
+                    waterdifferencerate = "0%";
+                }
                 var data = new
                 {
                     autoaccount = user.data[i].autoaccount,
@@ -136,8 +141,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Serchmrreader")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+
         public async Task<TableModel<object>> Serchmrreader()
         {
 
@@ -166,8 +170,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Serchbookno")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+
         public async Task<TableModel<object>> Serchbookno()
         {
             List<mr_b_bookinfo> booknober = new List<mr_b_bookinfo>();

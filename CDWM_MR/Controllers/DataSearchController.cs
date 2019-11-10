@@ -296,9 +296,10 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ReadAnalysis")]
-        public async Task<TableModel<object>> ReadAnalysis(string readDatetime01, string mrreadername)
+        public async Task<TableModel<object>> ReadAnalysis(string readDatetime01, string mrreadername, int page = 1, int limit = 10)
         {
-            List<v_mr_date_reader> pageModel = new List<v_mr_date_reader>();
+            List<v_mr_date_reader> date_list = new List<v_mr_date_reader>();
+            PageModel<v_mr_date_reader> pagemodel01 = new PageModel<v_mr_date_reader>();
             Expression<Func<v_mr_date_reader, bool>> wherelambda = c => true;
             #region lambda拼接
             if (!string.IsNullOrEmpty(readDatetime01))
@@ -311,8 +312,12 @@ namespace CDWM_MR.Controllers
                 wherelambda = PredicateExtensions.And<v_mr_date_reader>(wherelambda, c => c.mrreadername ==mrreadername);
             }
             #endregion 
-            pageModel = await _Date_ReaderServices.Query(wherelambda);
-            var t = pageModel
+            pagemodel01 = await _Date_ReaderServices.QueryPage(wherelambda,page,limit);
+            for (int i = 0; i < pagemodel01.data.Count; i++)
+            {
+                date_list.Add(pagemodel01.data[i]);
+            }
+            var t = date_list
                  .OrderBy(c => c.readtime)
                  .OrderBy(c => c.mrreadername)
                  .Select(c => new {
@@ -321,15 +326,15 @@ namespace CDWM_MR.Controllers
                      metermonth = c.metermonth,
                      meternum = c.meternum,
                      mindatatime = c.mindatatime,
-                     mrreadername = c.mrreadername,
-                     readmetertime = c.readmetertime*1.00 / 3600,
+                     mrreadername = c.mrreadername, 
+                     readmetertime = Math.Round(Convert.ToDecimal(c.readmetertime * 1.00 / 3600), 2),
                      readtime = c.readtime
                  });
             return new TableModel<object>
             {
                 code = 0,
                 msg = "OK",
-                count = pageModel.Count,
+                count = date_list.Count,
                 data = t
             };
         }
@@ -413,9 +418,10 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ReadAnalysis_Sum")]
-        public async Task<TableModel<object>> ReadAnalysis_Sum(string readDatetime01, string mrreadername)
+        public async Task<TableModel<object>> ReadAnalysis_Sum(string readDatetime01, string mrreadername, int page = 1, int limit = 10)
         {
-            List<v_reader_analysis> pageModel = new List<v_reader_analysis>();
+            List<v_reader_analysis> data_list02 = new List<v_reader_analysis>();
+            PageModel<v_reader_analysis> pagemodel02 = new PageModel<v_reader_analysis>();
             Expression<Func<v_reader_analysis, bool>> wherelambda = c => true;
             #region lambda拼接
             if (!string.IsNullOrEmpty(readDatetime01))
@@ -443,8 +449,12 @@ namespace CDWM_MR.Controllers
 
             };
             #endregion
-            pageModel = await _Reader_AnalysisServices.Query(wherelambda);
-            var t = pageModel
+            pagemodel02 = await _Reader_AnalysisServices.QueryPage(wherelambda, page, limit);
+            for (int i = 0; i < pagemodel02.data.Count; i++)
+            {
+                data_list02.Add(pagemodel02.data[i]);
+            }
+            var t = data_list02
                  .OrderBy(c => c.mindatatime)
                  .OrderBy(c => c.mrreadername)
                  .Select(c => new {
@@ -454,14 +464,13 @@ namespace CDWM_MR.Controllers
                      meternum = c.meternum,
                      mindatatime = c.mindatatime,
                      mrreadername = c.mrreadername,
-                     readmetertime = c.readmetertime / 3600  ,
-                      
+                     readmetertime = Math.Round(Convert.ToDecimal(c.readmetertime  / 3600), 2),  
                  });
             return new TableModel<object>
             {
                 code = 0,
                 msg = "OK",
-                count = pageModel.Count,
+                count = data_list02.Count,
                 data = t
             };
 
