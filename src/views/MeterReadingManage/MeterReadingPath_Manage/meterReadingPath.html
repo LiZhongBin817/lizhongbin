@@ -2,8 +2,9 @@
 <script type="text/html" template>
     <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
 </script>
-<div id="container" style="height:100%;width:66%;float:left"></div>
-<div class="layui-fluid layui-inline">
+<div id="container" style="height:100%;width:60%;position:absolute;"></div>
+<div class="layui-fluid" style="height:100%;width:38%;margin-right
+    :0">
     <div class="layui-row">
         <div class="layui-col-md12">
             <div class="layui-card" style="background-color:#FBFBFF;">
@@ -183,7 +184,7 @@
                     { field: 'uploadtime', title: '抄表时间', width: 200 },
                 ]]
                 , page: true
-                , limit: 20
+                , limit: 5
                 , limits: [5, 10, 15]
                 , done: function () {
                     layer.close(load);

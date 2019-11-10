@@ -77,9 +77,15 @@
                   success: function () {
                       view(this.id).render('DataManage/Seephoto', data).done(function () {
                           var photoobject = data.pircture.split(',');
+                          var phototype=data.phototype.split(',');
                           var rhtml = "";
                           for (var i = 0; i < photoobject.length; i++) {
-                              rhtml += `<img style="width:250px;height:250px" src="${photoobject[i]}" alt="">`;
+                              if (phototype[i] == 1) {
+                                  rhtml += `<div style="txet-align:ceter"><img style="width:600px;height:500px" src="${photoobject[i]}" title="表盘抄表图片"></div>`+`<div>表盘抄表图片</div>`;
+                              }
+                              else if (phototype[i] == 2) {
+                                   rhtml += `<div><img style="width:250px;height:250px" src="${photoobject[i]}"  title="现场图片"></div>`+`<div>现场图片</div>` ;
+                              }
                           }
                           $("#checkdata-seephoto").html(rhtml);
 

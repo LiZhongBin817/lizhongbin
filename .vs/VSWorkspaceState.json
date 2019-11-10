@@ -5,8 +5,12 @@
     "\\src",
     "\\src\\controller",
     "\\src\\views",
-    "\\src\\views\\DataManage"
+    "\\src\\views\\RegionManage",
+    "\\src\\views\\SysManage",
+    "\\src\\views\\SysManage\\Interface",
+    "\\src\\views\\SysManage\\UserManange",
+    "\\src\\views\\watermeterManage"
   ],
-  "SelectedNode": "\\src\\controller\\dataManage.js",
+  "SelectedNode": "\\src\\controller\\usermanage.js",
   "PreviewInSolutionExplorer": false
 }

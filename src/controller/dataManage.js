@@ -256,8 +256,8 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                                         layer.close(index);
                                         table.reload('dataManageInfo_Table');
                                     }
-                                    else {
-                                        layer.msg("审核失败!");
+                                    else if (d.msg == "NO") {
+                                        layer.alert("初次审核,请检查您是否有填写审核数据!");
                                     }
                                 },
                             });

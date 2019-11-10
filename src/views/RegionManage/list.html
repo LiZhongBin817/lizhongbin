@@ -1,0 +1,45 @@
+
+<title>区域管理</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<div class="layui-fluid">
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto" id="list_region" lay-filter="list_region">
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <input class="layui-input" name="regionname" id="regionname" autocomplete="off" placeholder="区域名称(不可重复)">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="region_query">
+                            查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card-body">
+                <table class="layui-hide" id="region_table" lay-filter="region_table"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="region_barDemo">
+    <button class="layui-btn layui-btn-warm " lay-event="region_edit">编辑</button>
+    <button class="layui-btn layui-btn-danger " lay-event="region_delete">删除</button>
+</script>
+<script type="text/html" id="region_toolbarDemo">
+    <a class="layui-btn layui-btn-warm " lay-event="region_add">添加区域</a>
+</script>
+<script>
+    layui.use('RegionManage', layui.factory('RegionManage')).use(['admin', 'RegionManage', 'table', 'view', 'form'], function () {
+        var admin = layui.admin,
+            view = layui.view,
+            table = layui.table,
+            RegionManage = layui.RegionManage,
+            form = layui.form;
+        form.render();
+    })
+</script>

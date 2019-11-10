@@ -86,13 +86,15 @@
             </script>
         </div>
     </div>
-    <div class="layui-form-item">
-        <input type="button" lay-submit class="layui-btn" lay-filter="LAY-user-front-submit" id="LAY-user-front-submit" value="确认">
+    <div class="layui-form-item" style="text-align:center">
+        <input type="button" lay-submit class="layui-btn layui-btn-sm layui-btn-normal " lay-filter="LAY-user-front-submit" id="LAY-user-front-submit" value="确认">
     </div>
 </div>
 <script>
-    layui.use(['admin', 'form'], function () {
+    layui.use(['admin', 'form','usermanage'], function () {
         var $ = layui.$
+            ,usermanage=layui.usermanage
             , form = layui.form;
+        form.render();
     });
 </script>
