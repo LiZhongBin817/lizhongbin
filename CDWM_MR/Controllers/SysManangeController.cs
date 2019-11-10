@@ -34,6 +34,7 @@ namespace CDWM_MR.Controllers
         readonly Isys_operationServices _sys_OperationServices;
         readonly Isys_role_menuServices _Role_MenuServices;
         readonly Iv_interfaceServices _InterfaceServices;
+        readonly Isys_menuServices _Isys_menuServices;
         #endregion
 
 
@@ -47,7 +48,7 @@ namespace CDWM_MR.Controllers
         /// <param name="Isys_interface_info"></param>
         /// <param name="sysrolemenu"></param>
         /// <param name="sys_OperationServices"></param>
-        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices, Iv_interfaceServices iv_InterfaceServices)
+        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices, Iv_interfaceServices iv_InterfaceServices, Isys_menuServices isys_MenuServices)
         {
             _sysuserinfoservices = sysuserinfo;
             _sysManageServices = sysusermanage;
@@ -57,6 +58,7 @@ namespace CDWM_MR.Controllers
             _sys_OperationServices = sys_OperationServices;
             _Role_MenuServices = sysrolemenu;
             _InterfaceServices = iv_InterfaceServices;
+            _Isys_menuServices = isys_MenuServices;
         }
 
         #region  用户管理
@@ -412,6 +414,25 @@ namespace CDWM_MR.Controllers
         [Route("SaveMenu")]       
         public async Task<TableModel<object>> SaveMenu(string json)
         {
+            sys_menu Data = Common.Helper.JsonHelper.GetObject<sys_menu>(json);
+            var list= await _Isys_menuServices.Query(c=>c.id==Data.id);
+            if (list.Count!=0)
+            {
+               string message = await _Isys_menuServices.Update(c => new sys_menu
+               {
+                   MenuName=Data.MenuName,
+                   MenuLevel=Data.MenuLevel,
+                   MenuOrder=Data.MenuOrder,
+                   MenuUrl=Data.MenuUrl,
+                   remark=Data.remark
+                }, c => c.id==Data.id) == true ? "ok" : "error";
+                return new TableModel<object>()
+                {
+                    code = 0,
+                    msg = "编辑成功",
+                    data = null
+                };
+            }
             if (await _sysManageServices.AddMenu(json))
             {
                 return new TableModel<object>
