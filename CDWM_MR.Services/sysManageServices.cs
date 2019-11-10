@@ -650,7 +650,7 @@ namespace CDWM_MR.Services
         {
             try
             {
-                await redis.KeyDeleteAsync("CDWM_MR_sysManageServices:GetMenuTree");
+                await redis.KeyDeleteAsync("sysManageServices:GetMenuTree");
                 var alllist = await SysMenuDal.Query();
                 int ID = alllist[alllist.Count - 1].id + 1;
                 sys_menu menu = Common.Helper.JsonHelper.GetObject<sys_menu>(json);
