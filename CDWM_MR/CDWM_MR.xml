@@ -215,12 +215,13 @@
             services 层注入
             </summary>
         </member>
-        <member name="M:CDWM_MR.AuthHelper.PermissionHandler.#ctor(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider,CDWM_MR.IServices.IsysManageServices)">
+        <member name="M:CDWM_MR.AuthHelper.PermissionHandler.#ctor(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider,CDWM_MR.IServices.IsysManageServices,CDWM_MR_Common.Redis.IRedisHelper)">
             <summary>
             构造函数注入
             </summary>
             <param name="schemes"></param>
             <param name="roleModulePermissionServices"></param>
+            <param name="redishelper"></param>
         </member>
         <member name="M:CDWM_MR.AuthHelper.PermissionHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,CDWM_MR.AuthHelper.PermissionRequirement)">
             重载异步处理程序

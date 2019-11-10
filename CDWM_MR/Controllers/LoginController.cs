@@ -108,7 +108,7 @@ namespace CDWM_MR.Controllers
             {
                 Permissions.UersName = user.FUserName;
                 //将登陆的用户信息存入Redis缓存
-                await _redishelper.StringSetAsync($"UserInfo{user.id}", user, TimeSpan.FromMinutes(30));
+                await _redishelper.StringSetAsync($"UserInfo{user.id}", user, TimeSpan.FromMinutes(60*60));
                 var rolestr = await _SysManage.GetuserRole(user.id);//角色的组合
                 //如果是基于用户的授权策略，这里要添加用户;如果是基于角色的授权策略，这里要添加角色
                 var claims = new List<Claim> {
@@ -126,7 +126,7 @@ namespace CDWM_MR.Controllers
             }
             return new JsonResult(new
             {
-                code = 1001,
+                code = 1000,
                 msg = "用户名或密码错误！",
                 data = new { }
             });

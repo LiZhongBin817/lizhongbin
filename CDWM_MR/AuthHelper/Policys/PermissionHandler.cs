@@ -1,6 +1,7 @@
 ﻿using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
+using CDWM_MR_Common.Redis;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -31,15 +32,19 @@ namespace CDWM_MR.AuthHelper
         /// </summary>
         public IsysManageServices sysrolemenuServices { get; set; }
 
+        private IRedisHelper _redishelper;
+
         /// <summary>
         /// 构造函数注入
         /// </summary>
         /// <param name="schemes"></param>
         /// <param name="roleModulePermissionServices"></param>
-        public PermissionHandler(IAuthenticationSchemeProvider schemes, IsysManageServices roleModulePermissionServices)
+        /// <param name="redishelper"></param>
+        public PermissionHandler(IAuthenticationSchemeProvider schemes, IsysManageServices roleModulePermissionServices, IRedisHelper redishelper)
         {
             Schemes = schemes;
             this.sysrolemenuServices = roleModulePermissionServices;
+            _redishelper = redishelper;
         }
 
         ///重载异步处理程序
@@ -129,6 +134,17 @@ namespace CDWM_MR.AuthHelper
                             context.Succeed(requirement);
                             return;
                         }
+
+                        #region 修改权限后退出
+                        var t = await _redishelper.KeyExistsAsync($"UserInfo{result.Principal.Claims.ToList().Find(c => c.Type == "jti").Value}");
+                        if (!t) {
+                            httpContext.Response.StatusCode = StatusCodes.Status200OK;
+                            filterContext.Result = new JsonResult(new MessageModel<string> { code = 1002, msg = "您的权限已经发生修改,请重新登陆!", data = "Error" });
+                            context.Succeed(requirement);
+                            return;
+                        }
+                        #endregion
+
                         return;
                     }
                 }

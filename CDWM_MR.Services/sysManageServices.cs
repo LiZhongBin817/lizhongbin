@@ -408,13 +408,21 @@ namespace CDWM_MR.Services
                 var interfacedata = interfaceData.FindAll(c => c.menuid.ToString() == item);
                 if (Data.Count == 0 && interfacedata.Count == 0)
                 {
-                    return new TableModel<object>()
-                    {
-                        code = 0,
-                        msg = "NO",
-                        count = 0,
-                        data = ""
-                    };
+                    sys_role_menu role_Menu1 = new sys_role_menu();
+                    role_Menu1.RoleID = RoleID;
+                    role_Menu1.MenuID = Convert.ToInt32(item);
+                    role_Menu1.createtime = DateTime.Now;
+                    role_Menu1.createpeople = _user.Name;
+                    role_Menu1.judgetype = 0;
+
+                    sys_role_menu role_Menu2 = new sys_role_menu();
+                    role_Menu2.RoleID = RoleID;
+                    role_Menu2.MenuID = Convert.ToInt32(item);
+                    role_Menu2.createtime = DateTime.Now;
+                    role_Menu2.createpeople = _user.Name;
+                    role_Menu2.judgetype = 1;
+                    commonData.Add(role_Menu1);
+                    commonData.Add(role_Menu2);
                 }
                 else
                 {
@@ -445,11 +453,8 @@ namespace CDWM_MR.Services
 
             }
             //删除角色ID对应的所有数据
-            foreach (var item in allData)
-            {
-                int ID = item.id;
-                await SysRoleMenuDal.DeleteById(ID);
-            }
+            var temp = allData.Select(c => c.id ).ToList();
+            await SysRoleMenuDal.DeleteById(temp);
             await SysRoleMenuDal.Add(commonData);
             //用来返回到前端时渲染在复选框里面的菜单数据
             List<sys_role_menu> menuData = await SysRoleMenuDal.Query(c => c.RoleID == RoleID);
@@ -457,6 +462,16 @@ namespace CDWM_MR.Services
             {
                 list.Add(item.MenuID);
             }
+            //清空权限菜单中的redis数据
+            await redis.KeyDeleteAsync("sysManageServices:GetRoleOperation");
+            #region 清空redis用户信息,让用户自动退出
+            var changeuserinfo = await SysUserRoleDal.Query(c => c.RoleID == RoleID);
+            //清空Redis中的用户信息(表示权限已经更新)
+            foreach (var userinfo in changeuserinfo)
+            {
+                await redis.KeyDeleteAsync($"UserInfo{userinfo.UserID}");
+            }
+            #endregion
             return new TableModel<object>()
             {
                 code = 0,
@@ -556,6 +571,14 @@ namespace CDWM_MR.Services
                 }
                 await SysRoleMenuDal.Add(commonlist1);
             }
+            #region 清空redis用户信息,让用户自动退出
+            var changeuserinfo = await SysUserRoleDal.Query(c => c.RoleID == RoleID);
+            //清空Redis中的用户信息(表示权限已经更新)
+            foreach (var userinfo in changeuserinfo)
+            {
+                await redis.KeyDeleteAsync($"UserInfo{userinfo.UserID}");
+            }
+            #endregion
             return new TableModel<sys_operation>()
             {
                 code = 0,

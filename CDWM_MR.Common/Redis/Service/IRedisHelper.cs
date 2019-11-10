@@ -7,7 +7,20 @@ namespace CDWM_MR_Common.Redis
 {
     public interface IRedisHelper
     {
+        /// <summary>
+        /// 异步删除键
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         Task<bool> KeyDeleteAsync(string key);
+
+        /// <summary>
+        /// 判断键值是否存在
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        Task<bool> KeyExistsAsync(string key);
+
         #region List集合操作异步方法
         /// <summary>
         /// 从左侧向list中添加一个值，返回集合总数
