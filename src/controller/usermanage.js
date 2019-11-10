@@ -74,7 +74,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                 role_mapper: obj.data.role_mapper
                             }).done(function () {//视图文件请求完毕，视图渲染完毕
                                 form.render(null, 'useredit');//渲染表单
-                                form.on('checkbox', function (obj) {     //form.on代表监听表单，checkbox(filter)则是监听表单中的复选框，此处没有写filter则是监听所有复选框                                               
+                                form('useredit').on('checkbox', function (obj) {     //form.on代表监听表单，checkbox(filter)则是监听表单中的复选框，此处没有写filter则是监听所有复选框                                               
                                     console.log(obj);
                                     if (obj.elem.checked == true) {//判断触发监听事件的是选中还是取消
                                         for (var i = 0; i < sendID.length; i++) {//判断存储选中数组中是否有该ID
@@ -190,10 +190,10 @@ layui.define(['table', 'form', 'view'], function (exports) {
                     success: function (layero, index) {
                         sendID = obj.data;
                         //渲染指定视图
-                        view(this.id).render('SysManage/UserManange/UserAdd', obj.data).done(function () {//视图文件请求完毕，视图渲染完毕
+                        view('UserManageAdd').render('SysManage/UserManange/UserAdd', obj.data).done(function () {//视图文件请求完毕，视图渲染完毕
                             form.render(null, 'useradd');//渲染表单
                             sendID.splice(0, sendID.length);
-                            form.on('checkbox', function (obj) {     //form.on代表监听表单，checkbox(filter)则是监听表单中的复选框，此处没有写filter则是监听所有复选框                                               
+                            form('useradd').on('checkbox', function (obj) {     //form.on代表监听表单，checkbox(filter)则是监听表单中的复选框，此处没有写filter则是监听所有复选框                                               
                                 if (obj.elem.checked == true) {//判断触发监听事件的是选中还是取消
                                     if (sendID.length != 0) {
                                         for (var i = 0; i < sendID.length; i++) {//判断存储选中数组中是否有该ID

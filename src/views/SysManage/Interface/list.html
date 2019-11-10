@@ -51,13 +51,13 @@
 </div>
 <script type="text/html" id="InterfacebarDemo">
     {{#
-                       var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(26)===-1?"none":"inline-block";
+        var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(26)===-1?"none":"inline-block";
     }}
     <a class="layui-btn layui-btn-warm layui-btn-sm" style="border-radius:3px;display:{{t_btn2}};" lay-event="edit">编辑</a>
 </script>
 <script type="text/html" id="InterfacetoolbarDemo">
     {{#
-                       var t_btn3 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(24)===-1?"none":"inline-block";
+        var t_btn3 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(24)===-1?"none":"inline-block";
     }}
     <div class="layui-btn-container" id="InterfaceAddbtn">
         <button class="layui-btn layui-btn-sm" style="border-radius:3px;display:{{t_btn3}};" lay-event="AddInterface">增加接口</button>
