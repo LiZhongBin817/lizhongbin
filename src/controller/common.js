@@ -5,17 +5,25 @@
     
  */
  
-layui.define(function(exports){
+layui.define('table',function(exports){
   var $ = layui.$
   ,layer = layui.layer
   ,laytpl = layui.laytpl
   ,setter = layui.setter
   ,view = layui.view
-  ,admin = layui.admin
+  ,admin = layui.admin,
+  table = layui.table;
   
   //公共业务的逻辑处理可以写在此处，切换任何页面都会执行
-  //……
-  
+  table.set({
+    headers: { //通过 request 头传递
+      Authorization: layui.data(layui.setter.tableName)[layui.setter.request.tokenName]
+    }
+    ,where: { //通过参数传递
+      Authorization: layui.data(layui.setter.tableName)[layui.setter.request.tokenName]
+    }
+  });
+
   //退出
   admin.events.logout = function(){
     //执行退出接口
