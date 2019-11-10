@@ -5,8 +5,9 @@
     "\\src\\controller",
     "\\src\\views",
     "\\src\\views\\SysManage",
+    "\\src\\views\\SysManage\\ParameterSetting",
     "\\src\\views\\SysManage\\UserManange"
   ],
-  "SelectedNode": "\\src\\controller\\Copysee.js",
+  "SelectedNode": "\\src\\views\\SysManage\\ParameterSetting\\parameterTable.html",
   "PreviewInSolutionExplorer": false
 }
