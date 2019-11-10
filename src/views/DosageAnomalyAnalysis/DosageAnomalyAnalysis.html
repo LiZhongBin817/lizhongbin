@@ -53,9 +53,15 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="Button">
-                        查询
-                    </button>
+                    <script type="text/html" template>
+                        {{#
+                           var t_btn14 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(14)===-1?"none":"inline-block";
+                        }}
+
+                        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="Button" id="Button-DosageAnomaly" style="border-radius: 3px;display:{{t_btn14}};">
+                            查询
+                        </button>
+                    </script>
                 </div>
             </div>
 
@@ -70,8 +76,18 @@
     </div>
 
 </div>
+
+
+
+
+
+
+
+
 <script type="text/html" id="BarDemo">
-    <a class="layui-btn" id="detail01" lay-event="detail">地理位置查看</a>
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-sm " id="detail01" lay-event="detail">地理位置查看</a>
+    </div>
 </script>
 <script>
     layui.use('DosageAnomalyAnalysis', layui.factory('DosageAnomalyAnalysis')).use(['admin', 'DosageAnomalyAnalysis','laydate', 'table', 'view', 'form' ], function () {

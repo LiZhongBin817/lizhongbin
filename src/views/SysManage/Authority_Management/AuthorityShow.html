@@ -7,8 +7,11 @@
     <link href="{{layui.setter.base}}style/autocomplete.css?v={{ layui.admin.v }}-1" media="all" rel="stylesheet" />
 </script>
 <script type="text/html" id="toolbarDemo">
+    {{#
+        var t_btn31=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(31)===-1?"none":"inline-block";
+    }}
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="AddAuthority">增加按钮权限</button>
+        <button class="layui-btn layui-btn-sm" lay-event="AddAuthority" style="border-radius: 3px;display: {{t_btn31}}">增加按钮权限</button>
     </div>
 </script>
 
@@ -45,9 +48,14 @@
                 </div>
                 <div class="layui-inline">
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="polling">
-                            查询
-                        </button>
+                        <script type="text/html" template>
+                            {{#
+                            var t_btn32=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(32)===-1?"none":"inline-block";
+                            }}
+                            <button class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius: 3px;display:{{t_btn32}}" lay-submit lay-filter="polling">
+                                查询
+                            </button>
+                        </script>
                     </div>
                 </div>
             </div>
@@ -57,8 +65,11 @@
         </div>
     </div>
 </div>
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-warm " lay-event="edit">编辑</a>
+<script type="text/html" id="Authority_barDemo">
+    {{#
+       var t_btn33=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(33)===-1?"none":"inline-block";
+    }}
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="edit" style="border: 3px;display:{{t_btn33}}">编辑</a>
 </script>
 
 <script>
@@ -75,14 +86,14 @@
             url: layui.setter.requesturl+'/api/OprationManage/ShowInfor',//后台地址
             page: true,
             cols: [[
-                { field: 'ID', title: 'ID', width: 80, sort: true, fixed: 'left' },
-                { field: 'AuthorityName', title: '按钮名称', width: 150 },
-                { field: 'menuname', title: '菜单名称', width: 200 },
-                { field: 'MenuID', title: '菜单ID', width: 200,hide:true },
-                {field:'btnClassName',title:'按钮Class名称',width:200},
-                {field:'btneventName',title:'按钮事件名称',width:200},
-                {field:'btnContainer',title:'按钮容器属性',width:200},
-                { field: 'Type', title: '权限种类', width: 150 ,templet:function (d) {
+                { field: 'ID', title: 'ID', sort: true,width:50, fixed: 'left' },
+                { field: 'AuthorityName', title: '按钮名称'},
+                { field: 'menuname', title: '菜单名称' },
+                { field: 'MenuID', title: '菜单ID',hide:true },
+                {field:'btnClassName',title:'按钮Class名称'},
+                {field:'btneventName',title:'按钮事件名称'},
+                {field:'btnContainer',title:'按钮容器属性'},
+                { field: 'Type', title: '权限种类' ,templet:function (d) {
                         let a = "";
                         switch(d.Type) {
                             case 0:
@@ -107,13 +118,13 @@
                     }
                 },
                 {
-                    field: 'UseStatus', title: '使用状态', width: 150, unresize: true, event: 'Bidden',
+                    field: 'UseStatus', title: '使用状态', unresize: true, event: 'Bidden',
                     templet: function (d) {
                         var isCkecked = d.UseStatus === 0 ? "checked" : "";
                         return '<input type="checkbox" lay-skin="switch" lay-filter="Forbidden" lay-text="使用|作废" ' + isCkecked + '>';
                     }
                 },
-                { title: '编辑', width: 150, toolbar: '#barDemo', align: 'center', fixed: 'right' }
+                { title: '编辑', width: 150, toolbar: '#Authority_barDemo', align: 'center', fixed: 'right' }
             ]],
             limit: 10,
             toolbar: "#toolbarDemo",
@@ -174,7 +185,7 @@
                         var sendData = {
                             "OperationName": div.find("#OperationName").val(),//权限名称
                             "MenuID": div.find("#menuid-edit").val(),//菜单ID
-                            "operationclass": div.find("#operationclass").val(),
+                            "OperationType": div.find("#operationclass").val(),
                             "btnClassName": div.find("#btnClassName").val(),
                             "btneventName": div.find("#btneventName").val(),
                             "btnContainer":div.find('#btnContainer').val()

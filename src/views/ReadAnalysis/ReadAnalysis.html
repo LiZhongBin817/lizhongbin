@@ -21,10 +21,16 @@
                             </select>
                         </div>
                     </div>
-                    <div class="layui-inline">
-                        <button id="numberSearch" class="layui-btn layui-btn-normal  " style="border-radius:3px" lay-submit lay-filter="numberSearch">查询</button>
-                        <a class="layui-btn  layui-btn-normal " style="border-radius:3px" lay-filter="button_export" id="button_export">导出</a>
+                    <div class="layui-inline"id="ReadAnalysis_barDemo">
+                        <script type="text/html" template>
+                            {{#
+                             var t_btn1 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(15)===-1?"none":"inline-block";
+                             var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(16)===-1?"none":"inline-block";
+                            }} 
+                            <button id="numberSearch" class="layui-btn layui-btn-normal layui-btn-sm " style="border-radius:3px;display:{{t_btn1}};" lay-submit lay-filter="numberSearch">查询</button>
+                            <a class="layui-btn  layui-btn-normal layui-btn-sm" style="border-radius:3px;display:{{t_btn2}};" lay-filter="button_export" id="button_export">导出</a>
 
+                        </script> 
                     </div>
                 </div>
                 <div class="layui-card-body">

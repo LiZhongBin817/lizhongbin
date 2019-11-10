@@ -2,6 +2,8 @@
  * 用户管理
  * 李芊
  * 2019年8月7
+ * 李忠斌修改
+ * 2019.11.08
 */
 layui.define(['table', 'form', 'view'], function (exports) {
     var table = layui.table;
@@ -17,11 +19,11 @@ layui.define(['table', 'form', 'view'], function (exports) {
         cols: [[
             { type: 'checkbox', fixed: 'left' },
             { title: '#', width: 70, type: 'numbers' },
-            { field: 'FUserNumber', title: '用户编号', width: 180 },
-            { field: 'FUserName', title: '用户名称', width: 150 },
-            { field: 'LoginName', title: '登录账号', width: 150 },
+            { field: 'FUserNumber', title: '用户编号'},
+            { field: 'FUserName', title: '用户名称'},
+            { field: 'LoginName', title: '登录账号'},
             {
-                field: 'UserType', title: '用户类型', width: 150,
+                field: 'UserType', title: '用户类型',
                 templet: function (d) {
                     var intvalue = "";
                     if (d.UserType == "0") {
@@ -36,8 +38,8 @@ layui.define(['table', 'form', 'view'], function (exports) {
                     return '<div class="">' + intvalue + '</div>';
                 }
             },
-            { field: 'Sex', title: '性别', width: 80 },
-            { title: '操作', toolbar: '#barDemo', minWidth: 300, align: 'center' }
+            { field: 'Sex', title: '性别'},
+            { title: '操作', toolbar: '#barDemo', align: 'center'}
         ]],
         page: true,
         limit: 10,
@@ -72,7 +74,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                 role_mapper: obj.data.role_mapper
                             }).done(function () {//视图文件请求完毕，视图渲染完毕
                                 form.render(null, 'useredit');//渲染表单
-                                form.on('checkbox', function (obj) {     //form.on代表监听表单，checkbox(filter)则是监听表单中的复选框，此处没有写filter则是监听所有复选框                                               
+                                form('useredit').on('checkbox', function (obj) {     //form.on代表监听表单，checkbox(filter)则是监听表单中的复选框，此处没有写filter则是监听所有复选框                                               
                                     console.log(obj);
                                     if (obj.elem.checked == true) {//判断触发监听事件的是选中还是取消
                                         for (var i = 0; i < sendID.length; i++) {//判断存储选中数组中是否有该ID
@@ -188,10 +190,10 @@ layui.define(['table', 'form', 'view'], function (exports) {
                     success: function (layero, index) {
                         sendID = obj.data;
                         //渲染指定视图
-                        view(this.id).render('SysManage/UserManange/UserAdd', obj.data).done(function () {//视图文件请求完毕，视图渲染完毕
+                        view('UserManageAdd').render('SysManage/UserManange/UserAdd', obj.data).done(function () {//视图文件请求完毕，视图渲染完毕
                             form.render(null, 'useradd');//渲染表单
                             sendID.splice(0, sendID.length);
-                            form.on('checkbox', function (obj) {     //form.on代表监听表单，checkbox(filter)则是监听表单中的复选框，此处没有写filter则是监听所有复选框                                               
+                            form('useradd').on('checkbox', function (obj) {     //form.on代表监听表单，checkbox(filter)则是监听表单中的复选框，此处没有写filter则是监听所有复选框                                               
                                 if (obj.elem.checked == true) {//判断触发监听事件的是选中还是取消
                                     if (sendID.length != 0) {
                                         for (var i = 0; i < sendID.length; i++) {//判断存储选中数组中是否有该ID

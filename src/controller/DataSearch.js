@@ -9,11 +9,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
         , $ = layui.$
         , load = layer.load(3)
         , admin = layui.admin
-        , laydate = layui.laydate
-
-    //初始化
-
-
+        , laydate = layui.laydate 
 
     //表格渲染
     table.render({
@@ -37,7 +33,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
             { field: 'usewaternum', title: '本月用量', width: 110 },
             { field: 'omrdatetime', title: '抄表时间', width: 110 },
             {
-                field: 'readtype', title: '抄表状态', width: 110,
+                field: 'readtype', title: '抄表状态', width: 110 ,
                 templet: function (d) {
                     var intValue = "";
                     if (d.readtype == null) {
@@ -56,8 +52,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
                 }
             },
             { field: 'meterstatus', title: '表况', width: 110 },
-            { field: ' ', title: '图片', width: 110 },
-
+            { field: ' ', title: '图片', width: 110 }, 
         ]]
         , page: true
         , height: $(document).height() - $('#dataManageInfo_Table').offset().top - 330
@@ -68,8 +63,8 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
             layer.close(load);
         }
     });
-    //下拉框渲染
 
+    //下拉框渲染 
     admin.req({
         url: layui.setter.requesturl + '/api/DataSearch/render_regionInfo',
         type: "post",
@@ -83,10 +78,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
             $("#regionname").html(strs);
             form.render();
         }
-    });
-
-
-
+    }); 
     //监听区域下拉框
     form.on('select(regionnames)', function (d) {
         var nos = $("#regionname").val();
