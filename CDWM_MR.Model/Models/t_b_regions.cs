@@ -1,7 +1,4 @@
 ﻿using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CDWM_MR.Model.Models
 {
@@ -32,5 +29,9 @@ namespace CDWM_MR.Model.Models
         /// 状态(1:可用;2:注销)
         /// </summary>
         public System.Int16? regionstate { get; set; }
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public System.DateTime createtime { get; set; }
     }
 }

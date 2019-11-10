@@ -215,12 +215,13 @@
             services 层注入
             </summary>
         </member>
-        <member name="M:CDWM_MR.AuthHelper.PermissionHandler.#ctor(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider,CDWM_MR.IServices.IsysManageServices)">
+        <member name="M:CDWM_MR.AuthHelper.PermissionHandler.#ctor(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider,CDWM_MR.IServices.IsysManageServices,CDWM_MR_Common.Redis.IRedisHelper)">
             <summary>
             构造函数注入
             </summary>
             <param name="schemes"></param>
             <param name="roleModulePermissionServices"></param>
+            <param name="redishelper"></param>
         </member>
         <member name="M:CDWM_MR.AuthHelper.PermissionHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,CDWM_MR.AuthHelper.PermissionRequirement)">
             重载异步处理程序
@@ -446,7 +447,7 @@
             结转数据管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.#ctor(CDWM_MR.IServices.Content.Iv_carryoverdatainfoServices,CDWM_MR.IServices.Content.Irt_b_wateradjustServices,CDWM_MR.IServices.Content.Irt_b_watercarryovarcheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.It_b_usersServices)">
+        <member name="M:CDWM_MR.Controllers.CarryOverDataManageController.#ctor(CDWM_MR.IServices.Content.Iv_carryoverdatainfoServices,CDWM_MR.IServices.Content.Irt_b_wateradjustServices,CDWM_MR.IServices.Content.Irt_b_watercarryovarcheckServices,CDWM_MR.IServices.Content.Irt_b_watercarryoverServices,CDWM_MR.IServices.Content.It_b_usersServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数
             </summary>
@@ -574,7 +575,7 @@
             </summary>
             <returns></returns> 
         </member>
-        <member name="M:CDWM_MR.Controllers.DataSearchController.ReadAnalysis(System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.DataSearchController.ReadAnalysis(System.String,System.String,System.Int32,System.Int32)">
             <summary>
             抄表员量化分析
             </summary>
@@ -594,7 +595,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.DataSearchController.ReadAnalysis_Sum(System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.DataSearchController.ReadAnalysis_Sum(System.String,System.String,System.Int32,System.Int32)">
             <summary>
             抄表员量化汇总分析
             </summary>
@@ -789,7 +790,7 @@
             登陆控制器--无权限控制
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.LoginController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR_Common.Redis.IRedisHelper,CDWM_MR.AuthHelper.PermissionRequirement)">
+        <member name="M:CDWM_MR.Controllers.LoginController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR_Common.Redis.IRedisHelper,CDWM_MR.AuthHelper.PermissionRequirement,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <summary>
             构造函数注入
             </summary>
@@ -797,6 +798,7 @@
             <param name="sysManage"></param>
             <param name="addredis"></param>
             <param name="requirement"></param>
+            <param name="accessor"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.LoginController.ShowCode">
             <summary>
@@ -1081,7 +1083,7 @@
             抄表员管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.#ctor(CDWM_MR.IServices.Content.Imr_b_readerServices)">
+        <member name="M:CDWM_MR.Controllers.Mr_b_ReaderController.#ctor(CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数
             </summary>
@@ -1133,7 +1135,7 @@
             权限管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.OprationManageController.#ctor(CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.IServices.Content.Isys_menuServices,CDWM_MR.IServices.Content.Isys_interface_infoServices)">
+        <member name="M:CDWM_MR.Controllers.OprationManageController.#ctor(CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.IServices.Content.Isys_menuServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数
             </summary>
@@ -1192,7 +1194,7 @@
             参数管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.ParameterSettingController.#ctor(CDWM_MR.IServices.Content.Isys_parameter_settingServices)">
+        <member name="M:CDWM_MR.Controllers.ParameterSettingController.#ctor(CDWM_MR.IServices.Content.Isys_parameter_settingServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数
             </summary>
@@ -1219,12 +1221,81 @@
             <param name="ID"></param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.RegionManageController">
+            <summary>
+            区域管理
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.regionsShow(System.String,System.Int32,System.Int32)">
+            <summary>
+            显示区域信息
+            </summary>
+            <param name="regionname"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.areaShow(System.String,System.Int32,System.Int32)">
+            <summary>
+            点击查看时展示的小区信息
+            </summary>
+            <param name="regionno"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.editRegion(System.String)">
+            <summary>
+            编辑区域信息
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.editArea(System.String)">
+            <summary>
+            修改小区信息
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.deleteRegion(System.String)">
+            <summary>
+            删除一条区域信息
+            </summary>
+            <param name="regionno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.deleteArea(System.String)">
+            <summary>
+            删除一条小区信息
+            </summary>
+            <param name="areano"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.addRegion(System.String)">
+            <summary>
+            添加一条区域信息
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.addArea(System.String)">
+            <summary>
+            添加一条小区信息    
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.SysManangeController">
             <summary>
             系统管理
             </summary>
         </member>
+<<<<<<< HEAD
         <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.IServices.Content.Iv_interfaceServices,CDWM_MR.IServices.Content.Isys_menuServices)">
+=======
+        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.Common.HttpContextUser.IUser,CDWM_MR.IServices.Content.Iv_interfaceServices)">
+>>>>>>> d89bbdf1c32f250eaec685e6f3b9185703389b4b
             <summary>
             构造函数
             </summary>
@@ -1235,6 +1306,8 @@
             <param name="Isys_interface_info"></param>
             <param name="sysrolemenu"></param>
             <param name="sys_OperationServices"></param>
+            <param name="user"></param>
+            <param name="iv_InterfaceServices"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.ShowUserInfoDate(System.String,System.String,System.Int32,System.Int32)">
             <summary>
@@ -1293,8 +1366,8 @@
             <summary>
             显示接口数据
             </summary>
-            <param name="InterfaceUrl"></param>
             <param name="InterfaceName"></param>
+            <param name="menuid"></param>
             <param name="page"></param>
             <param name="limit"></param>
             <returns></returns>
@@ -1416,7 +1489,7 @@
             <param name="MenuID"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.GetOperation(System.Int32,System.Int32)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.GetOperation(System.Int32,System.Int32,System.Int32)">
             <summary>
             渲染权限
             </summary>
@@ -1424,7 +1497,7 @@
             <param name="menuID"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.EditOperations(System.Int32,System.Int32,System.String)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.EditOperations(System.Int32,System.Int32,System.String,System.Int32)">
             <summary>
             权限修改
             </summary>
@@ -1725,11 +1798,18 @@
             Web与APP公用参数接口
             </summary>
         </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppWebCommonController.SearchDictionary(System.Int32)">
+            <summary>
+            字典查询
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
         <member name="M:CDWM_MR.Controllers.v1.AppWebCommonController.SearchReaderDate01(System.String)">
             <summary>
             用户两年用水及水费查询
             </summary>
-            <param name="readernameid"></param>
+            <param name="autoaccount"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.WatermeterUserManageController">

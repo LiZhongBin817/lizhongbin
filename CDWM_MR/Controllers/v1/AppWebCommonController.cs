@@ -17,6 +17,8 @@ namespace CDWM_MR.Controllers.v1
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [AllowAnonymous]
+    [EnableCors("LimitRequests")]
     public class AppWebCommonController : ControllerBase
     {
 
@@ -34,10 +36,12 @@ namespace CDWM_MR.Controllers.v1
         #endregion
 
         #region 字典查询
-        [HttpPost]
-        [Route("SearchDictionary")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        /// <summary>
+        /// 字典查询
+        /// </summary>
+        /// <param name="JsonData"></param>
+        /// <returns></returns>
+        [HttpGet("{JsonData}")]
         public async Task<TableModel<object>> SearchDictionary(int JsonData)
         {
             List<sys_parameter> data = new List<sys_parameter>();
@@ -60,12 +64,9 @@ namespace CDWM_MR.Controllers.v1
         /// <summary>
         /// 用户两年用水及水费查询
         /// </summary>
-        /// <param name="readernameid"></param>
+        /// <param name="autoaccount"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("SearchReaderDate01")]
-        [AllowAnonymous]
-        [EnableCors("LimitRequests")]
+        [HttpGet("{autoaccount}")]
         public async Task<TableModel<object>> SearchReaderDate01(string  autoaccount)
         {  
             List<vrt_b_watercarryover_datainfo> data = new List<vrt_b_watercarryover_datainfo>();

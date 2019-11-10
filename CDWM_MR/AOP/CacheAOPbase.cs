@@ -52,9 +52,11 @@ namespace CDWM_MR.AOP
 
             if (arg != null)
             {
-                if (arg.GetType().IsClass)
+                var t1 = arg.GetType().IsClass;
+                if (t1)
                 {
-                    return Common.Helper.MD5Helper.MD5Encrypt16(Newtonsoft.Json.JsonConvert.SerializeObject(arg));
+                    var temp = Newtonsoft.Json.JsonConvert.SerializeObject(arg);
+                    return Common.Helper.MD5Helper.MD5Encrypt32(temp);
                 }
             }
 

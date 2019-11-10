@@ -589,11 +589,6 @@
             抄表计划单
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.mr_planinfo.ID">
-            <summary>
-            抄表计划单编号
-            </summary>
-        </member>
         <member name="P:CDWM_MR.Model.Models.mr_planinfo.mplannumber">
             <summary>
             抄表计划单编号
@@ -2306,6 +2301,11 @@
             状态(1:可用;2:注销)
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_areas.createtime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.t_b_factory.bftid">
             <summary>
             厂商代码
@@ -2394,6 +2394,11 @@
         <member name="P:CDWM_MR.Model.Models.t_b_regions.regionstate">
             <summary>
             状态(1:可用;2:注销)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_regions.createtime">
+            <summary>
+            创建时间
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.t_b_users">

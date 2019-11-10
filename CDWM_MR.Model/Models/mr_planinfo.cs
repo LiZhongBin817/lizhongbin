@@ -10,13 +10,6 @@ namespace CDWM_MR.Model.Models
     /// </summary>
     public class mr_planinfo:BaseModel
     {
-
-        /// <summary>
-        /// 抄表计划单编号
-        /// </summary>
-        [SugarColumn(IsNullable = true, Length = 50, ColumnDescription = "抄表计划单ID")]
-        public int ID { get; set; }
-
         /// <summary>
         /// 抄表计划单编号
         /// </summary>
