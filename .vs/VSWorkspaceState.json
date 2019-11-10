@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\start"
   ],
+  "SelectedNode": "\\src\\config.js",
   "PreviewInSolutionExplorer": false
 }
