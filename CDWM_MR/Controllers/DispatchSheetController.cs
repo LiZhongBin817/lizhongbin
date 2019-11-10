@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CDWM_MR.Common;
 using CDWM_MR.Common.Helper;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
@@ -39,6 +40,7 @@ namespace CDWM_MR.Controllers
         readonly Iv_rb_b_faultprocessServices v_rb_b_faultprocessServices;
         readonly Imr_datainfoServices imr_datainfoservices;
         readonly IMapper _mapper;
+        readonly IUser _user;
 
         #endregion
 
@@ -53,7 +55,7 @@ namespace CDWM_MR.Controllers
         /// <param name="iv_Rb_B_FaultprocessServices"></param>
         /// <param name="imr_Datainfo"></param>
         /// <param name="mapper"></param>
-        public DispatchSheetController(Irb_b_faultprocessServices B_FaultprocessServices, Irt_b_faultinfoServices B_FaultinfoServices, Irt_b_photoattachmentServices B_PhotoattachmentServices, Iv_rt_b_faultinfoServices iv_Rt_B_FaultinfoServices, Imr_b_readerServices imr_b_ReaderServices, Iv_rb_b_faultprocessServices iv_Rb_B_FaultprocessServices, Imr_datainfoServices imr_Datainfo, IMapper mapper)
+        public DispatchSheetController(Irb_b_faultprocessServices B_FaultprocessServices, Irt_b_faultinfoServices B_FaultinfoServices, Irt_b_photoattachmentServices B_PhotoattachmentServices, Iv_rt_b_faultinfoServices iv_Rt_B_FaultinfoServices, Imr_b_readerServices imr_b_ReaderServices, Iv_rb_b_faultprocessServices iv_Rb_B_FaultprocessServices, Imr_datainfoServices imr_Datainfo, IMapper mapper, IUser user)
         {
 
             _B_FaultprocessServices = B_FaultprocessServices;
@@ -64,6 +66,7 @@ namespace CDWM_MR.Controllers
             v_rb_b_faultprocessServices = iv_Rb_B_FaultprocessServices;
             imr_datainfoservices = imr_Datainfo;
             _mapper = mapper;
+            _user = user;
         }
 
         #region 故障表展示  
@@ -89,7 +92,7 @@ namespace CDWM_MR.Controllers
             Expression<Func<v_rt_b_faultinfo, bool>> wherelambda = c => true;
             if (!string.IsNullOrEmpty(DSMNumber))
             {
-                wherelambda = PredicateExtensions.And<v_rt_b_faultinfo>(wherelambda, c => c.faultnumber == DSMNumber);
+                wherelambda = PredicateExtensions.And<v_rt_b_faultinfo>(wherelambda, c => c.faultnumber.Contains(DSMNumber));
             }
             if (!string.IsNullOrEmpty(DSMType))
             {
@@ -157,7 +160,9 @@ namespace CDWM_MR.Controllers
             string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
             for (int i = 0; i < list.Count; i++)
             {
-                alllist.Add($"{ipadress}{list[i].photourl.Split("wwwroot")[1]}");
+               // alllist.Add($"{ipadress}{list[i].photourl.Split("wwwroot")[1]}");
+                var data = new {url= $"{ipadress}{list[i].photourl.Split("wwwroot")[1]}",phototype=list[i].phototype };
+                alllist.Add(data);
             }
             return new MessageModel<object>()
             {
@@ -394,7 +399,7 @@ namespace CDWM_MR.Controllers
                     data = 0
                 };
             }
-            FaultHandlinglist[0].createperson = Permissions.UersName;
+            FaultHandlinglist[0].createperson = _user.Name;
             FaultHandlinglist[0].createtime = DateTime.Now;
             int a = await _B_FaultprocessServices.Add(FaultHandlinglist[0]);
             string meternum = FaultHandlinglist[0].meternum, tasknumber = FaultHandlinglist[0].taskperiodname;
@@ -429,6 +434,13 @@ namespace CDWM_MR.Controllers
             List<rt_b_faultinfo> faultinfolist = await _B_FaultinfoServices.Query(c => c.id == id);
             List<rb_b_faultprocess> faultprocesslist = await _B_FaultprocessServices.Query(c => c.faultid == id && c.faulttype == 0);
             List<rb_b_faultprocess> faultprocessessecondlist = await _B_FaultprocessServices.Query(c => c.faultid == id && c.faulttype == 1);
+            //faultprocessessecondlist[0].createtime = DateTime.Now;
+            //faultprocessessecondlist[0].id = 0;
+            //faultprocessessecondlist[0].processdatetime = DateTime.Now;
+            //faultprocessessecondlist[0].processpreson = Permissions.UersName;
+            //faultprocessessecondlist[0].faulttype = 2;
+            //faultprocessessecondlist[0].processresult = 0;
+            //int a = await _B_FaultprocessServices.Add(faultprocessessecondlist[0]);
             List<rt_b_photoattachment> photolist = await _B_PhotoattachmentServices.Query(c => c.billid == id&&c.phototype==2);//现场照片
             string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
             if (photolist.Count!=0)

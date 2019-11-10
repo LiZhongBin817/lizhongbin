@@ -1,4 +1,5 @@
 ﻿using CDWM_MR.Common;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IRepository.Content;
 using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
@@ -25,8 +26,9 @@ namespace CDWM_MR.Services
         readonly Isys_operationRepository sys_operationDal;
         readonly IRedisHelper redis;
         readonly Isys_interface_infoServices _Interface_InfoServices;
+        readonly IUser _user;
 
-        public sysManageServices(Isys_userinfoRepository userinfodal, Isys_menuRepository sysmenudal, Isys_role_menuRepository sysrolemenudal, Isys_user_role_mapperRepository sysuserroledal, Isys_roleRepository sys_roledal,Isys_operationRepository sys_operationdal,Isys_operationRepository operationRepository, IRedisHelper redisHelper, Isys_interface_infoServices interface_InfoServices)
+        public sysManageServices(Isys_userinfoRepository userinfodal, Isys_menuRepository sysmenudal, Isys_role_menuRepository sysrolemenudal, Isys_user_role_mapperRepository sysuserroledal, Isys_roleRepository sys_roledal, Isys_operationRepository sys_operationdal, Isys_operationRepository operationRepository, IRedisHelper redisHelper, Isys_interface_infoServices interface_InfoServices, IUser user)
         {
             UserinfoDal = userinfodal;
             SysMenuDal = sysmenudal;
@@ -38,6 +40,7 @@ namespace CDWM_MR.Services
             sys_operationDal = sys_operationdal;
             redis = redisHelper;
             _Interface_InfoServices = interface_InfoServices;
+            _user = user;
         }
 
         #region  菜单管理
@@ -145,7 +148,7 @@ namespace CDWM_MR.Services
             List<int> roles = new List<int>();
             for (int i = 0; i < Roles.Count(); i++)
             {
-                if(Roles[i]!="")
+                if (Roles[i] != "")
                 {
                     roles.Add(Convert.ToInt32(Roles[i]));
                 }
@@ -185,8 +188,8 @@ namespace CDWM_MR.Services
                 Email = Edit.Email,
                 UserType = Edit.UserType,
                 updatetime = DateTime.Now,
-                updatepeople = "李芊"
-            }, c => c.id == Edit.id);
+                updatepeople = _user.Name
+            }, c => c.id == Edit.id) ;
             int ID = Edit.id;
             //将用户角色关联表数据先删除
             await SysUserRoleDal.DeleteTable(c => c.UserID == ID);
@@ -197,7 +200,7 @@ namespace CDWM_MR.Services
                 sys_user_role_mapper us = new sys_user_role_mapper();
                 us.UserID = ID;
                 us.RoleID = roleid[i];
-                us.CreatePeople = "李芊";
+                us.CreatePeople = _user.Name;
                 us.CreateTime = DateTime.Now;
                 user_role.Add(us);
             }
@@ -221,7 +224,7 @@ namespace CDWM_MR.Services
             string number = $"CDWM_MR{id.ToString().PadLeft(6, '0')}";
             Add.FUserNumber = number;
             Add.createtime = DateTime.Now;
-            Add.createpeople = "李芊";
+            Add.createpeople =_user.Name ;
             //取到添加进来的用户ID
             int UserID = await UserinfoDal.Add(Add);
             //将用户角色关联进用户角色关联表
@@ -232,7 +235,7 @@ namespace CDWM_MR.Services
                 sys_user_role_mapper us = new sys_user_role_mapper();
                 us.UserID = UserID;
                 us.RoleID = roleid[i];
-                us.CreatePeople = "李芊";
+                us.CreatePeople = _user.Name;
                 us.CreateTime = DateTime.Now;
                 user_role.Add(us);
             }
@@ -250,7 +253,7 @@ namespace CDWM_MR.Services
             //创建一个集合存放菜单id
             List<int> menuData = new List<int>();
             //根据角色id去角色菜单表里面查询菜单
-            var data = await SysRoleMenuDal.Query(c=>c.RoleID==id);
+            var data = await SysRoleMenuDal.Query(c => c.RoleID == id);
             foreach (var item in data)
             {
                 menuData.Add(item.MenuID);
@@ -295,11 +298,11 @@ namespace CDWM_MR.Services
                 menu.MenuType = item.MenuType;
                 menu.MenuNumber = item.MenuNumber;
                 plist.Add(menu);
-                var menuinfo = new { id = menu.id, pid = menu.ParentID, title = menu.MenuName, url = menu.MenuUrl ,menuType=menu.MenuType,menuNumber=menu.MenuNumber};
+                var menuinfo = new { id = menu.id, pid = menu.ParentID, title = menu.MenuName, url = menu.MenuUrl, menuType = menu.MenuType, menuNumber = menu.MenuNumber };
                 commonlist.Add(menuinfo);
             }
             var data = await SysMenuDal.Query();//拿到菜单表里的所有数据
-            await GetChildNode(data,plist);
+            await GetChildNode(data, plist);
             return new TableModel<object>()
             {
                 code = 0,
@@ -314,7 +317,7 @@ namespace CDWM_MR.Services
         /// <param name="Plist"></param>
         /// <returns></returns>
         public async Task GetChildNode(List<sys_menu> data, List<sys_menu> Plist)
-        {           
+        {
             foreach (var item in Plist)
             {
                 List<sys_menu> childlist = new List<sys_menu>();
@@ -343,10 +346,10 @@ namespace CDWM_MR.Services
                     menu.MenuType = item2.MenuType;
                     menu.MenuNumber = item2.MenuNumber;
                     plist.Add(menu);
-                    var menuinfo = new { id = menu.id, pid = menu.ParentID, title = menu.MenuName, url = menu.MenuUrl,menuType=menu.MenuType, menuNumber = menu.MenuNumber };
+                    var menuinfo = new { id = menu.id, pid = menu.ParentID, title = menu.MenuName, url = menu.MenuUrl, menuType = menu.MenuType, menuNumber = menu.MenuNumber };
                     commonlist.Add(menuinfo);
                 }
-                await GetChildNode(data,plist);
+                await GetChildNode(data, plist);
 
             }
         }
@@ -360,7 +363,7 @@ namespace CDWM_MR.Services
         /// <returns></returns>
         public async Task<TableModel<object>> Jude(int RoleID, int MenuID)
         {
-            var data = await SysRoleMenuDal.Query(c=>c.RoleID==RoleID&&c.MenuID==MenuID);
+            var data = await SysRoleMenuDal.Query(c => c.RoleID == RoleID && c.MenuID == MenuID);
             if (data.Count == 0)
             {
                 return new TableModel<object>()
@@ -402,8 +405,8 @@ namespace CDWM_MR.Services
                 //查询到菜单对应的权限
                 var Data = operationData.FindAll(c => c.MenuID.ToString() == item);
                 //查询到菜单对应得接口
-                var interfacedata = interfaceData.FindAll(c => c.menuid.ToString()== item);
-                if (Data.Count == 0&&interfacedata.Count==0)
+                var interfacedata = interfaceData.FindAll(c => c.menuid.ToString() == item);
+                if (Data.Count == 0 && interfacedata.Count == 0)
                 {
                     return new TableModel<object>()
                     {
@@ -423,7 +426,7 @@ namespace CDWM_MR.Services
                         role_Menu.MenuID = Convert.ToInt32(item);
                         role_Menu.OperationID = item1.id;
                         role_Menu.createtime = DateTime.Now;
-                        role_Menu.createpeople = Permissions.UersName;
+                        role_Menu.createpeople = _user.Name;
                         role_Menu.judgetype = 0;
                         commonData.Add(role_Menu);
                     }
@@ -434,7 +437,7 @@ namespace CDWM_MR.Services
                         role_Menu.MenuID = Convert.ToInt32(item);
                         role_Menu.OperationID = item2.ID;
                         role_Menu.createtime = DateTime.Now;
-                        role_Menu.createpeople = Permissions.UersName;
+                        role_Menu.createpeople = _user.Name;
                         role_Menu.judgetype = 1;
                         commonData.Add(role_Menu);
                     }
@@ -471,52 +474,60 @@ namespace CDWM_MR.Services
         /// </summary>
         /// <param name="menuID"></param>
         /// <returns></returns>
-        public async Task<TableModel<object>> GetOperation(int RoleID, int menuID)
+        public async Task<TableModel<object>> GetOperation(int RoleID, int menuID, int judgetype)
         {
             //查出菜单id相同的数据
-            var data = await SysRoleMenuDal.Query(c=>c.RoleID==RoleID&&c.MenuID==menuID);
-            //查出权限表里面的所有数据
-            var alldata = await OperationRepository.Query();
-            //创建一个集合来存放权限id
-            List<int> opID = new List<int>();
-            foreach (var item in data)
+            var data = await SysRoleMenuDal.Query(c => c.RoleID == RoleID && c.MenuID == menuID && c.judgetype == judgetype);
+            //查出权限表里面的所有数据               
+            if (judgetype==0)//返回按钮权限数据
             {
-                foreach (var item1 in alldata)
+                var alldata = await OperationRepository.Query(c => c.MenuID == menuID);
+                var temp = alldata.Select(c => new
                 {
-                    if (item.OperationID == item1.id)
-                    {
-                        sys_operation operation = new sys_operation();
-                        operation.id = item1.id;
-                        operation.OperationName = item1.OperationName;
-                        operation.OperationType = item1.OperationType;
-                        operation.remark = item.remark;
-                        var operationInfo = new { opID = operation.id, opName = operation.OperationName, opType = operation.OperationType, opRemark = operation.remark };
-                        commonlist.Add(operationInfo);
-                    }
-                }
+                    id = c.id,
+                    OperationName = c.OperationName,
+                    OperationType = c.OperationType,
+                    remark = c.remark,
+                    isshow = data.FindAll(s => s.OperationID == c.id).Count > 0 ? true : false
+                }).ToList();
+                return new TableModel<object>()
+                {
+                    code = 0,
+                    msg = "查询成功",
+                    count = temp.Count,
+                    data = temp
+                };
             }
+            //返回接口权限数据
+            var interfaceData = await _Interface_InfoServices.Query((c => c.menuid == menuID));
+            var temp1 = interfaceData.Select(c => new
+            {
+                id = c.ID,
+                InterfaceName = c.InterfaceName,
+                InterfaceUrl = c.InterfaceUrl,
+                isshow = data.FindAll(s => s.OperationID == c.ID).Count > 0 ? true : false
+            }).ToList();
             return new TableModel<object>()
             {
                 code = 0,
                 msg = "查询成功",
-                count = commonlist.Count,
-                data = commonlist
+                count = temp1.Count,
+                data = temp1
             };
         }
         #endregion
 
         #region 修改权限
-        public async Task<TableModel<sys_operation>> EditOperations(int RoleID, int MenuID, string OperationID)
+        [UseTran]
+        public async Task<TableModel<sys_operation>> EditOperations(int RoleID, int MenuID, string OperationID, int judgetype)
         {
             //用于在数据库更新操作的集合
-            List<sys_role_menu> commonlist1 = new List<sys_role_menu>();
-            //查询权限表，将权限表中的Remark全置为0
-            bool b = await SysRoleMenuDal.Update(c => new sys_role_menu
-            {
-                remark = "0"
-            }, c => c.MenuID == MenuID && c.RoleID == RoleID);
+            List<sys_role_menu> commonlist1 = new List<sys_role_menu>();           
             if (OperationID == null)
             {
+                List<sys_role_menu> role_Menus = await SysRoleMenuDal.Query(c => c.RoleID == RoleID && c.MenuID == MenuID && c.judgetype == judgetype);
+                var id = role_Menus.Select(c => c.id).ToList();
+                await SysRoleMenuDal.DeleteById(id);
                 return new TableModel<sys_operation>()
                 {
                     code = 0,
@@ -528,37 +539,23 @@ namespace CDWM_MR.Services
             else
             {
                 string[] OpId = OperationID.Split(',');
-                if (b)
+                //查出角色对应的菜单有哪些权限ID
+                List<sys_role_menu> role_Menus = await SysRoleMenuDal.Query(c => c.RoleID == RoleID && c.MenuID == MenuID && c.judgetype == judgetype);
+                var id = role_Menus.Select(c => c.id).ToList();
+                await SysRoleMenuDal.DeleteById(id);
+                foreach (var item in OpId)
                 {
-                    //查出角色对应的菜单有哪些权限ID
-                    List<sys_role_menu> role_Menus = await SysRoleMenuDal.Query(c => c.RoleID == RoleID && c.MenuID == MenuID);
-                    //查出权限表中的所有数据
-                    List<sys_operation> operations = await OperationRepository.Query();
-                    foreach (var item in role_Menus)
-                    {
-                        foreach (var item1 in OpId)
-                        {
-                            if (item.OperationID.ToString() == item1)
-                            {
-                                sys_role_menu data = new sys_role_menu();
-                                data.id = item.id;
-                                data.RoleID = item.RoleID;
-                                data.MenuID = item.MenuID;
-                                data.OperationID = item.OperationID;
-                                data.createtime = item.createtime;
-                                data.createpeople = item.createpeople;
-                                data.updatepeople = item.updatepeople;
-                                data.updatetime = item.updatetime;
-                                data.updatepeople = item.updatepeople;
-                                data.remark = "1";
-                                commonlist1.Add(data);
-                            }
-                        }
-                    }
-                    await SysRoleMenuDal.Updateable(commonlist1);
+                    sys_role_menu role_Menu = new sys_role_menu();
+                    role_Menu.RoleID = RoleID;
+                    role_Menu.MenuID = MenuID;
+                    role_Menu.OperationID = item.ObjToInt();
+                    role_Menu.createtime = DateTime.Now;
+                    role_Menu.createpeople = _user.Name;
+                    role_Menu.judgetype = (short)judgetype;
+                    commonlist1.Add(role_Menu);
                 }
+                await SysRoleMenuDal.Add(commonlist1);
             }
-
             return new TableModel<sys_operation>()
             {
                 code = 0,
@@ -618,7 +615,7 @@ namespace CDWM_MR.Services
         /// <returns></returns>
         public async Task<object> GetMenuInfo(int id)
         {
-            return await SysMenuDal.Getsinglemenuinfo(id);           
+            return await SysMenuDal.Getsinglemenuinfo(id);
         }
 
         /// <summary>
@@ -640,9 +637,9 @@ namespace CDWM_MR.Services
                     return false;
                 }
                 menu.createtime = DateTime.Now;
-                menu.createpeople = "1";
+                menu.createpeople = _user.Name;
                 menu.MenuType = menu.MenuLevel;
-                menu.MenuNumber = "M00" +ID;
+                menu.MenuNumber = "M00" + ID;
                 await SysMenuDal.Add(menu);
                 return true;
             }
@@ -651,7 +648,7 @@ namespace CDWM_MR.Services
 
                 return false;
             }
-            
+
         }
         /// <summary>
         /// 根据MenuID删除菜单及sys_role_menu中的role
@@ -663,7 +660,7 @@ namespace CDWM_MR.Services
             if (await SysMenuDal.DeleteById(id))
             {
                 var list = await SysRoleMenuDal.Query(c => c.MenuID == id);
-                await SysRoleMenuDal.DeleteTable(c=>c.MenuID==id);
+                await SysRoleMenuDal.DeleteTable(c => c.MenuID == id);
                 return true;
             }
             return false;
@@ -695,7 +692,7 @@ namespace CDWM_MR.Services
                         {
                             LinkUrl = LinkUrl,
                             OperationName = operationname,
-                            updatepeople = "1",
+                            updatepeople = _user.Name,
                             updatetime = DateTime.Now,
                             MenuID = id,
                             OperationType = 0
@@ -713,7 +710,7 @@ namespace CDWM_MR.Services
                         {
                             LinkUrl = LinkUrl,
                             OperationName = operationname,
-                            updatepeople = "1",
+                            updatepeople = _user.Name,
                             updatetime = DateTime.Now,
                             MenuID = id,
                             OperationType = 1
@@ -731,7 +728,7 @@ namespace CDWM_MR.Services
                         {
                             LinkUrl = LinkUrl,
                             OperationName = operationname,
-                            updatepeople = "1",
+                            updatepeople = _user.Name,
                             updatetime = DateTime.Now,
                             MenuID = id,
                             OperationType = 2
@@ -749,7 +746,7 @@ namespace CDWM_MR.Services
                         {
                             LinkUrl = LinkUrl,
                             OperationName = operationname,
-                            updatepeople = "1",
+                            updatepeople = _user.Name,
                             updatetime = DateTime.Now,
                             MenuID = id,
                             OperationType = 3

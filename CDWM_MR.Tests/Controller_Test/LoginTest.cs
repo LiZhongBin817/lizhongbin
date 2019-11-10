@@ -21,7 +21,7 @@ namespace CDWM_MR.Tests.Controller_Test
         {
             userinfo.Setup(r => r.Query());
             sysmanage.Setup(r => r.Query());
-            logincontroller = new LoginController(userinfo.Object, sysmanage.Object, rtedishelper.Object, permissionRequire.Object);
+            //logincontroller = new LoginController(userinfo.Object, sysmanage.Object, rtedishelper.Object, permissionRequire.Object);
         }
 
         [Fact]
