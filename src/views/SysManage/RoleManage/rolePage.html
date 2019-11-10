@@ -6,12 +6,20 @@
 <div class="layui-fluid">
     <div class="layui-row">
         <div class="layui-col-md*" style="height: 50px">
-            <div class="layui-btn-group" style="height: 3px;">
-                <button class="layui-btn  layui-btn-sm add " style="border-radius: 3px;" type="button" layui-filter="add"><i class="layui-icon">&#xe608</i>增加</button>
-                <button class="layui-btn  layui-btn-warm layui-btn-sm  edit" style="border-radius: 3px;" type="button" layui-filter="edit"> <i class="layui-icon">&#xe642</i>编辑</button>
-                <button class="layui-btn  layui-btn-danger layui-btn-sm delete" style="border-radius: 3px;" type="button" layui-filter="delete"> <i class="layui-icon">&#xe640</i>删除</button>
-                <button class="layui-btn  layui-btn-sm get-checked" style="border-radius: 3px;" type="button" layui-filter="save"> <i class="layui-icon">&#xe60a</i>保存</button>
-            </div>
+            <script type="text/html" template>
+                <div class="layui-btn-group" style="height: 3px;" id="roleManage_headerButton">
+                    {{#
+                        var t_btn27=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(27)===-1?"none":"inline-block";
+                        var t_btn28=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(28)===-1?"none":"inline-block";
+                        var t_btn29=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(29)===-1?"none":"inline-block";
+                        var t_btn30=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(30)===-1?"none":"inline-block";
+                    }}
+                    <button class="layui-btn  layui-btn-sm add " style="border-radius: 3px;display: {{t_btn27}}" type="button" layui-filter="add"><i class="layui-icon">&#xe608</i>增加</button>
+                    <button class="layui-btn  layui-btn-warm layui-btn-sm  edit" style="border-radius: 3px;display: {{t_btn28}}" type="button" layui-filter="edit"> <i class="layui-icon">&#xe642</i>编辑</button>
+                    <button class="layui-btn  layui-btn-danger layui-btn-sm delete" style="border-radius: 3px;display: {{t_btn29}}" type="button" layui-filter="delete"> <i class="layui-icon">&#xe640</i>删除</button>
+                    <button class="layui-btn  layui-btn-sm get-checked" style="border-radius: 3px;display: {{t_btn30}}" type="button" layui-filter="save"> <i class="layui-icon">&#xe60a</i>保存</button>
+                </div>
+            </script>
         </div>
     </div>
     <div class="layui-row layui-col-space5">
