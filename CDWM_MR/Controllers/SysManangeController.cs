@@ -751,6 +751,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <param name="RoleID"></param>
         /// <param name="menuID"></param>
+        /// <param name="judgetype"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("GetOperation")]        

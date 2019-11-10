@@ -719,7 +719,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.DispatchSheetController.FaultInformationDisplay(System.Int32)">
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.FaultInformationDisplay(System.Int32,System.Int32)">
             <summary>
             故障信息展示
             </summary>
@@ -1291,7 +1291,11 @@
             系统管理
             </summary>
         </member>
+<<<<<<< HEAD
+        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.IServices.Content.Iv_interfaceServices,CDWM_MR.IServices.Content.Isys_menuServices)">
+=======
         <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.Common.HttpContextUser.IUser,CDWM_MR.IServices.Content.Iv_interfaceServices)">
+>>>>>>> d89bbdf1c32f250eaec685e6f3b9185703389b4b
             <summary>
             构造函数
             </summary>

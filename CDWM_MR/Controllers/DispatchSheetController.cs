@@ -124,6 +124,7 @@ namespace CDWM_MR.Controllers
             Expression<Func<v_rt_b_faultinfo, object>> expression = c => new
             {
                 DSMID = c.id,
+                readerid=c.readerid,
                 DSMNumber = c.faultnumber,
                 DSMType = c.faulttype,
                 DSMContent = c.faultcontent,
@@ -227,7 +228,7 @@ namespace CDWM_MR.Controllers
                 data.faulttype = 0;
                 data.processdatetime = Latesttime;
                 data.processpreson = worker;
-                data.createperson = Permissions.UersName;
+                data.createperson =_user.Name;
                 data.taskperiodname = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString();
                 data.processresult = 0;
                 data.processsource = "后台管理系统";
@@ -426,7 +427,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("FaultInformationDisplay")]
-        public async Task<MessageModel<object>> FaultInformationDisplay(int id)
+        public async Task<MessageModel<object>> FaultInformationDisplay(int id,int DSMStatus)
         {
             List<object> list = new List<object>();
             List<object> firstphotolist = new List<object>();
@@ -434,13 +435,7 @@ namespace CDWM_MR.Controllers
             List<rt_b_faultinfo> faultinfolist = await _B_FaultinfoServices.Query(c => c.id == id);
             List<rb_b_faultprocess> faultprocesslist = await _B_FaultprocessServices.Query(c => c.faultid == id && c.faulttype == 0);
             List<rb_b_faultprocess> faultprocessessecondlist = await _B_FaultprocessServices.Query(c => c.faultid == id && c.faulttype == 1);
-            //faultprocessessecondlist[0].createtime = DateTime.Now;
-            //faultprocessessecondlist[0].id = 0;
-            //faultprocessessecondlist[0].processdatetime = DateTime.Now;
-            //faultprocessessecondlist[0].processpreson = Permissions.UersName;
-            //faultprocessessecondlist[0].faulttype = 2;
-            //faultprocessessecondlist[0].processresult = 0;
-            //int a = await _B_FaultprocessServices.Add(faultprocessessecondlist[0]);
+            List<rb_b_faultprocess> faultprocessthirdlist = await _B_FaultprocessServices.Query(c=>c.faultid==id&&c.faulttype==2);
             List<rt_b_photoattachment> photolist = await _B_PhotoattachmentServices.Query(c => c.billid == id&&c.phototype==2);//现场照片
             string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
             if (photolist.Count!=0)
@@ -464,6 +459,23 @@ namespace CDWM_MR.Controllers
             list.Add(faultprocessessecondlist);
             list.Add(firstphotolist);
             list.Add(secondphotolist);
+            list.Add(faultprocessthirdlist);
+            if (DSMStatus != 3)//未存档则添加一条数据
+            {
+                rb_b_faultprocess addfaultprocesslist = new rb_b_faultprocess();
+                addfaultprocesslist.taskperiodname = faultprocessessecondlist[0].taskperiodname;
+                addfaultprocesslist.faultid = faultprocessessecondlist[0].faultid;
+                addfaultprocesslist.faulttype = 2;
+                addfaultprocesslist.processresult = 1;
+                addfaultprocesslist.processsource = "后台管理系统";
+                addfaultprocesslist.createperson = _user.Name;
+                addfaultprocesslist.processdatetime = DateTime.Now;
+                addfaultprocesslist.processpreson = _user.Name;
+                addfaultprocesslist.createtime = DateTime.Now;
+                addfaultprocesslist.meternum = faultprocessessecondlist[0].meternum;
+                int addid = await _B_FaultprocessServices.Add(addfaultprocesslist);
+                list.Add(addid);
+            }
             return new MessageModel<object>()
             {
                 code = 0,
@@ -473,7 +485,66 @@ namespace CDWM_MR.Controllers
         }
         #endregion
 
-        # region 编辑操作
+        #region 故障信息审核 
+        [HttpPost]
+        [Route("Failureinformationreview")]
+        public async Task<MessageModel<object>> Failureinformationreview(int id,int result) {
+            try
+            {
+                List<rb_b_faultprocess> list = await _B_FaultprocessServices.Query(c => c.id == id);
+                await _B_FaultprocessServices.Update(c => new rb_b_faultprocess
+                {
+                    processpreson=_user.Name,
+                    processdatetime=DateTime.Now,
+                    processresult = result
+                }, c => c.id == id);
+                string str = await _B_FaultinfoServices.Update(c => new rt_b_faultinfo
+                {
+                    faultstatus = 3
+                }, c => c.id == list[0].faultid) == true ? "ok" : "error";//将状态改为已存档
+                //审核不通过重新处理
+                if (result==1)
+                {
+                    List<rt_b_faultinfo> alllist = await _B_FaultinfoServices.Query();
+                    List<rt_b_faultinfo> faultlist = await _B_FaultinfoServices.Query(c => c.id == list[0].faultid&&c.faultstatus==3);//查询之前处理的那条记录
+                    //将其改为新的处理
+                    rt_b_faultinfo newfaultdeal=new rt_b_faultinfo();
+                    newfaultdeal.readdataid = faultlist[0].readdataid;
+                    newfaultdeal.readerid = faultlist[0].readerid;
+                    newfaultdeal.reportpeople = faultlist[0].reportpeople;
+                    newfaultdeal.faultnumber = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + alllist[alllist.Count - 1].id + 1;
+                    newfaultdeal.reporttime = faultlist[0].reporttime;
+                    newfaultdeal.taskperiodname = faultlist[0].taskperiodname;
+                    newfaultdeal.meterstatus = faultlist[0].meterstatus;
+                    newfaultdeal.meternum = faultlist[0].meternum;
+                    newfaultdeal.gisinfo = faultlist[0].gisinfo;
+                    newfaultdeal.faulttype = faultlist[0].faulttype;
+                    newfaultdeal.faultstatus = 0;
+                    newfaultdeal.faultcontent = faultlist[0].faultcontent;
+                    newfaultdeal.autoaccount = faultlist[0].autoaccount;
+                    int resid = await _B_FaultinfoServices.Add(newfaultdeal);
+                }
+                return new MessageModel<object>()
+                {
+                    code = 0,
+                    msg = "审核成功",
+                    data = null
+                };
+            }
+            catch (Exception)
+            {
+                return new MessageModel<object>()
+                {
+                    code = 1,
+                    msg = "审核失败",
+                    data = null
+                };
+            }
+            
+        }
+        #endregion
+
+        #region 编辑操作
         /// <summary>
         /// 编辑操作
         /// </summary>
