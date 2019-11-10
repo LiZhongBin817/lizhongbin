@@ -341,21 +341,7 @@ namespace CDWM_MR.Controllers
         {
             sys_interface_info Jsondata = Common.Helper.JsonHelper.GetObject<sys_interface_info>(JsonData);
             Jsondata.ID = ID;
-            #region 判重
-            Expression<Func<sys_interface_info, bool>> wherelambda = c =>c.ID==ID&&(c.InterfaceName == Jsondata.InterfaceName|| c.InterfaceUrl == Jsondata.InterfaceUrl);
-            var listQuery = await _Isys_interface_infoServices.Query(wherelambda);
-            string massage = "";
-            if (listQuery.Count != 0)
-            {
-                return new MessageModel<object>()
-                {
-                    data = null,
-                    code = 0,
-                    msg = "The same TnterfaceUrl or InterfaceName exists"
-                };
-            }
-            #endregion
-            massage = await _Isys_interface_infoServices.Update(Jsondata) == true ? "ok" : "error";
+            string massage = await _Isys_interface_infoServices.Update(Jsondata) == true ? "ok" : "error";
             return new MessageModel<object>()
             {
                 data = null,
