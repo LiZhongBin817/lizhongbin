@@ -326,8 +326,8 @@ namespace CDWM_MR.Controllers
                      metermonth = c.metermonth,
                      meternum = c.meternum,
                      mindatatime = c.mindatatime,
-                     mrreadername = c.mrreadername,
-                     readmetertime = c.readmetertime*1.00 / 3600,
+                     mrreadername = c.mrreadername, 
+                     readmetertime = Math.Round(Convert.ToDecimal(c.readmetertime * 1.00 / 3600), 2),
                      readtime = c.readtime
                  });
             return new TableModel<object>
@@ -464,8 +464,7 @@ namespace CDWM_MR.Controllers
                      meternum = c.meternum,
                      mindatatime = c.mindatatime,
                      mrreadername = c.mrreadername,
-                     readmetertime = c.readmetertime / 3600  ,
-                      
+                     readmetertime = Math.Round(Convert.ToDecimal(c.readmetertime  / 3600), 2),  
                  });
             return new TableModel<object>
             {
