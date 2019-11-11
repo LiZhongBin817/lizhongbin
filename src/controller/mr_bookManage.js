@@ -39,18 +39,18 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
                     }
                 }
             },
-            { title: '操作', minWidth: 420, toolbar: '#barDemo', align: 'center', fixed: 'right' }
+            { title: '操作', minWidth: 420, toolbar: '#book_barDemo', align: 'center', fixed: 'right' }
         ]],
         page: true,
         limit: 10,
-        toolbar: '#toolbarDemo',
+        toolbar: '#book_toolbarDemo',
         limits: [10, 20, 30],
         done: function () {
             layer.close(load);
         }
     });
     //监听抄表册查询
-    form.on('submit(polling)', function (obj) {
+    form.on('submit(book_polling)', function (obj) {
         var field = obj.field;
         table.reload('Book', {
             url: layui.setter.requesturl + '/api/BookManage/t_b_bookinfoShow',
