@@ -443,7 +443,7 @@ namespace CDWM_MR.Controllers
                 
                 for (int i = 0; i < photolist.Count; i++)
                 {
-                    firstphotolist.Add($"{ipadress}{photolist[i].photourl.Split("wwwroot")[1]}");
+                    firstphotolist.Add($"{ipadress}/{photolist[i].photourl.Split("wwwroot")[1]}");
                 }
             }
             List<rt_b_photoattachment> dealphotolist = await _B_PhotoattachmentServices.Query(c=>c.billid==id&&c.phototype==3);//处理后照片
@@ -451,7 +451,7 @@ namespace CDWM_MR.Controllers
             {
                 for (int j = 0; j < dealphotolist.Count; j++)
                 {
-                    secondphotolist.Add($"{ipadress}{dealphotolist[j].photourl.Split("wwwroot")[1]}");
+                    secondphotolist.Add($"{ipadress}/{dealphotolist[j].photourl.Split("wwwroot")[1]}");
                 }
             }
             list.Add(faultinfolist);

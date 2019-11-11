@@ -1799,7 +1799,7 @@
             <summary>
             字典查询
             </summary>
-            <param name="JsonData"></param>
+            <param name="typeid"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppWebCommonController.SearchReaderDate01(System.String)">

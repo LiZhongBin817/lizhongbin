@@ -75,7 +75,7 @@ namespace CDWM_MR.Controllers.v1
                 {
                     mr_datainfo updatemodel = UserData[i];
                     updatemodel.readstatus = 1;
-                    List<string> updatefield = new List<string>() { "uploadgisplace", "readDateTime", "readstatus", "remark", "inputdata", "uploadtime", "readtype" };
+                    List<string> updatefield = new List<string>() { "uploadgisplace", "readDateTime", "readstatus", "remark", "inputdata", "uploadtime", "readtype", "meterstatus" };
                     await _mr_datainfoServices.Update(updatemodel, updatefield);
 
                 }

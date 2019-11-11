@@ -39,24 +39,23 @@ namespace CDWM_MR.Controllers.v1
         /// <summary>
         /// 字典查询
         /// </summary>
-        /// <param name="JsonData"></param>
+        /// <param name="typeid"></param>
         /// <returns></returns>
-        [HttpGet("{JsonData}")]
-        public async Task<TableModel<object>> SearchDictionary(int JsonData)
+        [HttpGet("{typeid}")]
+        public async Task<MessageModel<object>> SearchDictionary(int typeid)
         {
             List<sys_parameter> data = new List<sys_parameter>();
-            var list = await _ParameterServices.Query(c => c.parametertype == JsonData);
+            var list = await _ParameterServices.Query(c => c.parametertype == typeid);
             var temp = list.Select(c => new {
-                parameterkey = c.parameterkey,
+                parameterkey = c.id,
                 parametervalue = c.parametervalue
             });
-            return new TableModel<object>
+            return new MessageModel<object>
             {
                 code = 0,
                 msg = "OK",
                 data = temp
             };
-
         }
         #endregion
 
