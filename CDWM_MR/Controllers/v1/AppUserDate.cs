@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CDWM_MR.IServices.Content;
+using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,23 +33,25 @@ namespace CDWM_MR.Controllers.v1
 
         #region  修改用户联系电话接口
         /// <summary>
-        /// 
+        /// 修改用户联系电话接口
         /// </summary>
         /// <param name="autoaccount">用户自动编号</param>
         /// <param name="Newphone">新号码</param>
-        /// <returns></returns>
+        /// <returns>成功返回1,失败返回0</returns>
         [HttpPost]
         [Route("ModifyUserPhone")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<int> ModifyUserPhone(string autoaccount, string Newphone)
+        public async Task<MessageModel<int>> ModifyUserPhone(string autoaccount, string Newphone)
         {
-            int Status=0;
-            await _t_b_usersServices.OUpdate(c => new t_b_users
+            bool b = await _t_b_usersServices.OUpdate(c => new t_b_users
             {
                 telephone= Newphone
             }, c => c.autoaccount == autoaccount);
-            Status = 1;
-            return Status;
+            return new MessageModel<int>(){
+                code = 0,
+                msg = "成功",
+                data = b?1:0
+            };
         }
         #endregion
 
@@ -59,20 +62,23 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="autoaccount">用户自动编号</param>
         /// <param name="areano">用户所在小区</param>
         /// <param name="address">用户所在地址</param>
-        /// <returns></returns>
+        /// <returns>成功返回1,失败返回0</returns>
         [HttpPost]
         [Route("ModifyUserAddress")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<int> ModifyUserAddress(string autoaccount, string areano, string address)
+        public async Task<MessageModel<int>> ModifyUserAddress(string autoaccount, string areano, string address)
         {
-            int Status = 0;
-            await _t_b_usersServices.OUpdate(c => new t_b_users
+            bool b = await _t_b_usersServices.OUpdate(c => new t_b_users
             {
                 areano = areano,
                 address = address
             }, c => c.autoaccount == autoaccount);
-            Status = 1;
-            return Status;
+            return new MessageModel<int>()
+            {
+                code = 0,
+                msg = "成功",
+                data = b?1:0
+            };
         }
         #endregion
     }

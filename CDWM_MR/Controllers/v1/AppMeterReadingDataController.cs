@@ -17,7 +17,7 @@ namespace CDWM_MR.Controllers.v1
     /// <summary>
     /// 抄表数据接口
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     //或者是写[Route("api/[controller]/[action]")]，下面就不要写Route啥的了
     public class AppMeterReadingDataController : Controller
     {
@@ -56,7 +56,6 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="UserData">用户抄表数据接口对象</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("UpdateUserData")]
         [AllowAnonymous]//允许所有都访问
         public async Task<MessageModel<int>> UpdateUserData([FromBody]List<mr_datainfo> UserData)
         {
@@ -103,7 +102,6 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="taskid">任务单ID</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("GetcheckedReadingWaterDate")]
         [AllowAnonymous]//允许所有都访问
         public async Task<object> GetcheckedReadingWaterDate(string taskperiodname, int taskid)
         {
@@ -150,8 +148,7 @@ namespace CDWM_MR.Controllers.v1
         /// </summary>
         /// <param name="readerid"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("readdatastatistics")]
+        [HttpGet("{readerid}")]
         [AllowAnonymous]//允许所有都访问
         public async Task<TableModel<object>> readdatastatistics(int readerid )
         {
