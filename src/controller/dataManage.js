@@ -113,7 +113,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                     else if (d.recheckstatus != 1 && d.carrystatus == null && d.rtrecheckstatus != 1) {
                         return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen"  style="border-radius:3px">审核</button>' +'<button  class="layui-btn layui-btn-sm"  style="border-radius:3px" lay-event="SeeRecheckHistoryData">查看</button>';
                     }
-                    else if (d.recheckstatus != 1 && d.carrystatus == null && d.rtrecheckstatus == 1) {
+                    else if (d.recheckstatus == 1 && d.carrystatus == null && d.rtrecheckstatus == 1) {
                         return '<button  class="layui-btn  layui-btn-sm" lay-event="dataManageOpen"  style="border-radius:3px">再次审核</button>' +'<button  class="layui-btn  layui-btn-sm"  style="border-radius:3px" lay-event="SeeRecheckHistoryData">查看</button>';
                     }
                     else {
@@ -142,7 +142,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                 "username": field.username,
                 "address": field.address,
                 "mrreadername": field.mrreadername,
-                "rtrecheckstatus": field.rtrecheckstatus,
+                "recheckstatus": field.recheckstatus,
                 "bookno": field.bookno,
                 "page": 1,
             }
@@ -244,7 +244,6 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                                 layer.msg("请选中是否通过！！")
                             }
                             else {
-                                load = layer.load(3);
                                 admin.req({
                                     url: layui.setter.requesturl + '/api/MRManage/SubmitChecked',
                                     method: 'post',
@@ -329,9 +328,6 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                             , page: true
                             , limit: 5
                             , limits: [5, 10, 15]
-                            , done: function () {
-                                layer.close(load);
-                            }
                         });
                     })
                 }
