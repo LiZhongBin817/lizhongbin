@@ -52,7 +52,7 @@ namespace CDWM_MR.Controllers
         /// <param name="sys_OperationServices"></param>
         /// <param name="user"></param>
         /// <param name="iv_InterfaceServices"></param>
-        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices, IUser user, Iv_interfaceServices iv_InterfaceServices)
+        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices, IUser user, Iv_interfaceServices iv_InterfaceServices, Isys_menuServices Isys_menuservices)
         {
             _sysuserinfoservices = sysuserinfo;
             _sysManageServices = sysusermanage;
@@ -63,7 +63,7 @@ namespace CDWM_MR.Controllers
             _Role_MenuServices = sysrolemenu;
             _user = user;
             _InterfaceServices = iv_InterfaceServices;
-            _Isys_menuServices = isys_MenuServices;
+            _Isys_menuServices = Isys_menuservices;
         }
 
         #region  用户管理
