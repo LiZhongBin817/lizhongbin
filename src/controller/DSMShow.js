@@ -374,8 +374,6 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                 $("#DSMShowProcessinformation_submit").attr("style", "display:none;");
                                             }
                                             //单选框的值
-                                            console.log("来咯");
-                                            console.log(resdata.data[2][0].processresult);
                                             if (resdata.data[5].length!=0) {
                                                 if (resdata.data[5][0].processresult == 0) {
                                                     var result = document.getElementById('ProcessResult_pass');
@@ -406,15 +404,14 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                 }
                                             }
                                             $("#DSMSHOWPIphotoshow").html(rhtml);
-                                                var rhtml2 = "";
-                                                for (var j = 0; j < resdata.data[4].length; j++) {
-                                                    rhtml2 += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[4][j]}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
-                                                }
-                                                $("#DSMShowPIpictureshow").html(rhtml2);
-                                            form.render(resdata.data[6]);
+                                            var rhtml2 = "";
+                                            for (var j = 0; j < resdata.data[4].length; j++) {
+                                                rhtml2 += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[4][j]}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                                            }
+                                            $("#DSMShowPIpictureshow").html(rhtml2);
+                                            form.render();
                                             form.on('submit(DSMShowProcessinformation_submit)', function (obj) {
                                                 var fields = obj.field;
-                                                console.log();
                                                 var faultprocessid = resdata.data[6];
                                                 console.log(fields.ProcessResult);
                                                 console.log(faultprocessid);
@@ -526,7 +523,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
  
     form.on('select(DSMShowProcessingOperationShow_DealPeople)', function (data) {
         DispatchedWorker = data.value;
-    })
+    });
 
     //时间
     laydate.render({
