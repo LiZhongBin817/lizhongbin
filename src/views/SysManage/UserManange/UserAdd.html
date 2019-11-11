@@ -73,10 +73,10 @@
         <fieldset class="layui-elem-field layui-field-title " style="margin-top: 20px;">
             <legend>用户角色</legend>
         </fieldset>
-        <div class="layui-input-block" id="userroles">
+        <div class="layui-input-block" id="adduserroles">
             <script type="text/html" template>
                 {{# layui.each(d.params,function(index,item){}}
-                <input type="checkbox" title="{{item.RoleName}}" name="role" value="{{item.ID}}"/>
+                <input type="checkbox" title="{{item.RoleName}}" name="role" class="user_add" value="{{item.id}}"/>
                 {{# })}}
 
             </script>
