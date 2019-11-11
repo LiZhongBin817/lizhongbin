@@ -35,7 +35,13 @@
                     </div>
                     <div class="layui-inline">
                         <div class="layui-inline">
-                            <button class="layui-btn layui-btn-normal layui-btn-sm" lay-submit lay-filter="Search" style="border-radius:3px">查询</button>
+                            <script type="text/html" template>
+                                {{#
+                                    var t_btn37=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(37)===-1?"none":"inline-block";
+                                }}
+                                <button class="layui-btn layui-btn-normal layui-btn-sm" lay-submit lay-filter="Search" style="border-radius:3px;display: {{t_btn37}}">查询</button>
+                            </script>
+
                         </div>
                     </div>                  
                 </div>
@@ -46,15 +52,22 @@
         </div>           
     </div>
 </div>
-<script type="text/html" id="toolbarDemo2">
-    <div class="layui-btn-container">
-        <button class="layui-btn  layui-btn-sm" lay-event="AddMrInfo" style="border-radius:3px"><i class="layui-icon">&#xe608;</i>添加</button>
-    </div>
+<script type="text/html" id="toolbarDemo2" >
+    {{#
+    var t_btn41=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(41)===-1?"none":"inline-block";
+    }}
+        <button class="layui-btn  layui-btn-sm" lay-event="AddMrInfo" style="border-radius:3px;display: {{t_btn41}}"><i class="layui-icon">&#xe608;</i>添加</button>
+
 </script>
-<script type="text/html" id="barDemo1">
-        <button type="button" class="layui-btn layui-btn-warm  layui-btn-sm" lay-event="edit" style="border-radius:3px">修改</button>
-        <button type="button" class="layui-btn layui-btn-danger  layui-btn-sm " lay-event="delete" style="border-radius:3px">删除</button>
-        <button type="button" class="layui-btn layui-btn-warm layui-btn-sm " lay-event="reset" style="border-radius:3px">重置密码</button>
+<script type="text/html" id="barDemo1" >
+        {{#
+        var t_btn38=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(38)===-1?"none":"inline-block";
+        var t_btn39=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(39)===-1?"none":"inline-block";
+        var t_btn40=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(40)===-1?"none":"inline-block";
+        }}
+        <button type="button" class="layui-btn layui-btn-warm  layui-btn-sm" lay-event="edit" style="border-radius:3px;display: {{t_btn38}}">修改</button>
+        <button type="button" class="layui-btn layui-btn-danger  layui-btn-sm " lay-event="delete" style="border-radius:3px;display: {{t_btn39}}">删除</button>
+        <button type="button" class="layui-btn layui-btn-warm layui-btn-sm " lay-event="reset" style="border-radius:3px;display: {{t_btn40}}">重置密码</button>
 </script>
 <script>
     layui.use('MeterReader', layui.factory('MeterReader')).use(['admin', 'MeterReader', 'table', 'form', 'view'], function () {
