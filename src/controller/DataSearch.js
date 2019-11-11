@@ -13,7 +13,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
 
     //表格渲染
     table.render({
-        elem: '#dataManageInfo_Table',
+        elem: '#dataSearchInfo_Table',
         method: 'post',
         url: layui.setter.requesturl + '/api/DataSearch/ShowDataSearchInfo',
         cols: [[
@@ -55,7 +55,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
             { field: ' ', title: '图片', width: 110 }, 
         ]]
         , page: true
-        , height: $(document).height() - $('#dataManageInfo_Table').offset().top - 330
+        , height: $(document).height() - $('#dataSearchInfo_Table').offset().top - 330
         , toolbar: true
         , limit: 10
         , limits: [5, 10, 15]
@@ -106,7 +106,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
     //监听查询
     form.on('submit(numSearch)', function (obj) {
         var field = obj.field;
-        table.reload('dataManageInfo_Table', {
+        table.reload('dataSearchInfo_Table', {
             where: {
                 'account': field.account,
                 'username': field.username,
