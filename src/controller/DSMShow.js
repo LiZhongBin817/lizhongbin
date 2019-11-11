@@ -239,10 +239,11 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                             value: new Date(),
                                         });
                                         //监听受理操作中的该表抄户员
-                                        //form.on('submit(DSMShowReader)', function (obj) {
-                                        //    DispatchedWorker = data.readerid;
-                                        //});
-                                        console.log(Resdata);
+                                        $("#DSMShowOperation-btn").click(function () {
+                                            DispatchedWorker = data.readerid;
+                                            $("#ShowOperation_select").val(DispatchedWorker);
+                                        });
+                                        console.log(Resdata[2]);
                                         form.render();
                                         form.on('submit(DSMShowAcceptance_submit)', function (Data) {
                                             console.log(DispatchedWorker);
@@ -327,7 +328,6 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                     FaultArray.push(senddata);
                                                     console.log(FaultArray);
                                                     admin.req({
-                                                        //dataType:'json',
                                                         url: layui.setter.requesturl + '/api/DispatchSheet/Processingoperations',
                                                         data: {
                                                             "FaultHandlinglist": JSON.stringify(FaultArray)
