@@ -14,10 +14,10 @@
                         var t_btn29=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(29)===-1?"none":"inline-block";
                         var t_btn30=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(30)===-1?"none":"inline-block";
                     }}
-                    <button class="layui-btn  layui-btn-sm add " style="border-radius: 3px;display: {{t_btn27}}" type="button" layui-filter="add"><i class="layui-icon">&#xe608</i>增加</button>
-                    <button class="layui-btn  layui-btn-warm layui-btn-sm  edit" style="border-radius: 3px;display: {{t_btn28}}" type="button" layui-filter="edit"> <i class="layui-icon">&#xe642</i>编辑</button>
-                    <button class="layui-btn  layui-btn-danger layui-btn-sm delete" style="border-radius: 3px;display: {{t_btn29}}" type="button" layui-filter="delete"> <i class="layui-icon">&#xe640</i>删除</button>
-                    <button class="layui-btn  layui-btn-sm get-checked" style="border-radius: 3px;display: {{t_btn30}}" type="button" layui-filter="save"> <i class="layui-icon">&#xe60a</i>保存</button>
+                    <button class="layui-btn  layui-btn-sm add" lay-submit style="border-radius: 3px;display: {{t_btn27}}" type="button" layui-filter="add"><i class="layui-icon">&#xe608</i>增加</button>
+                    <button class="layui-btn  layui-btn-warm layui-btn-sm  edit" lay-submit style="border-radius: 3px;display: {{t_btn28}}" type="button" layui-filter="edit"> <i class="layui-icon">&#xe642</i>编辑</button>
+                    <button class="layui-btn  layui-btn-danger layui-btn-sm delete" lay-submit style="border-radius: 3px;display: {{t_btn29}}" type="button" layui-filter="delete"> <i class="layui-icon">&#xe640</i>删除</button>
+                    <button class="layui-btn  layui-btn-sm get-checked" lay-submit style="border-radius: 3px;display: {{t_btn30}}" type="button" layui-filter="save"> <i class="layui-icon">&#xe60a</i>保存</button>
                 </div>
             </script>
         </div>
@@ -71,13 +71,17 @@
             });
         };
         $(document).off('click',".singclick");//事件解绑
+        $(document).off('click',".add");//事件解绑
+        $(document).off('click',".edit");//事件解绑
+        $(document).off('click',".delete");//事件解绑
+        $(document).off('click',".get-checked");//事件解绑
         $(document).on('click', ".singclick", function () {
             console.log($(this).attr('id'));
             $(".singclick").css("background-color", "");
             $(this).css("background-color", "#ECFFFF");
             SingClick($(this));
         });
-        $('.add').click(function () {
+        $(document).on('click', ".add", function (){
             admin.popup({
                 title: '增加'
                 , id: 'AddPage'
@@ -122,7 +126,7 @@
                 }
             });
         });
-        $('.edit').click(function () {
+        $(document).on('click', ".edit", function (){
             if (RoleName == null) {
                 layer.msg("请选择您要编辑的对象");
             }
@@ -176,7 +180,7 @@
                 });
             }
         });
-        $('.delete').click(function () {
+        $(document).on('click', ".delete", function (){
             if (RoleName == null) {
                 layer.msg("请选择您要删除的对象")
             }
@@ -215,10 +219,10 @@
                 });
             }
         });
-        $('.get-checked').click(function () {
+        $(document).on('click', ".get-checked", function (){
+            console.log("触发了");
             var selectData = treeTable.checked(ptable).join(',');
             var Data = JSON.stringify(treeTable.checked(ptable));
-            console.log(selectData);
             if (RoleName == null) {
                 layer.msg("请选择您要保存的的对象");
                 return;

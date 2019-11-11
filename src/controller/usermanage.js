@@ -219,8 +219,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                             //监听提交
                             form.on('submit(LAY-user-front-submit)', function (Data) {
                                 console.log(sendID);
-                                var field = Data.field; //获取提交的字段,如果前台没有写name属性，field将吧包括这个表单元素的值                              
-                                var load = layer.load(3);
+                                var field = Data.field; //获取提交的字段,如果前台没有写name属性，field将吧包括这个表单元素的值
                                 admin.req({
                                     url: layui.setter.requesturl +'/api/SysManange/AddUser',
                                     type: 'post',
