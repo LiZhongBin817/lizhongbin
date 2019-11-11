@@ -1,0 +1,75 @@
+﻿<title>抄见率分析</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<div class="layui-col-md12">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item" id="wx">
+                <div class="layui-inline">
+                    <label class="layui-form-label">年月选择器</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="taskperiodname" class="layui-input" id="taskperiodname" lay-verify="required" placeholder="请选择年月" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">抄表员</label>
+                    <div class="layui-input-inline">
+                        <select name="bookman" lay-filter="" id="bookman">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <script type="text/html" template>
+                        {{#
+                           var t_btn1 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(12)===-1?"none":"inline-block";
+                        }}
+                        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="Buttonone" id="Buttonone" style="border-radius: 3px;display:{{t_btn1}};">
+                            查询
+                        </button>
+                    </script>
+                </div>
+
+                <div class="layui-inline">
+                    <script type="text/html" template>
+                        {{#
+                           var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(13)===-1?"none":"inline-block";
+                        }}
+                        <a class="layui-btn layui-btn-sm layui-btn-normal" lay-filter="Buttontow" id="Buttontow" style="border-radius: 3px;display:{{t_btn2}};"> 导出数据</a>
+                    </script>
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-card-body">
+            <table class="layui-hide" id="Copyseetable" lay-filter="test"></table>
+            <div class="layui-form">
+                <table class="layui-table" id="allcopyseetable">
+
+
+                    <tbody class="jingtai" id="jingtai">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<script>
+    layui.use('Copysee', layui.factory('Copysee')).use(
+        ['admin', 'Copysee', 'laydate', 'table', 'view', 'form'], function () {
+            var admin = layui.admin,
+                view = layui.view,
+                table = layui.table,
+                laydate = layui.laydate,
+                form = layui.form;
+            form.render();
+
+        });
+</script>

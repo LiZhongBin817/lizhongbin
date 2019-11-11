@@ -1,0 +1,65 @@
+﻿<title>查看抄表计划</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<script type="text/html" id="MRtoolbarDemo">
+    <div class="layui-btn-container">
+        <a class=" layui-btn layui-btn-sm layui-btn-sm" style="border-radius:3px" lay-event="MRInData" href="http://localhost:8081/api/MeterReadingPlan/OutExcel"> 导出EXCEL</a>
+    </div>
+</script>
+
+<script type="text/html" id="MRbarDemo">
+    <a class="layui-btn layui-btn-sm layui-btn-warm " style="border-radius:3px" lay-event="MRedit">编辑</a>
+</script>
+
+<div class="layui-fiuld" lay-filter="ShowMeterPlan">
+    <div class="layui-col-md12">
+        <div class="layui-card ">
+            <div class="layui-card-header layui-form layuiadmin-card-header-auto">
+                <div class="layui-inline">
+                    <label class="layui-form-label">抄表员: </label>
+                    <div class="layui-inline">
+                        <input type="text" class="layui-input" id="MeterReader" name="MeterReader" autocomplete="off" placeholder="请输入抄表员" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">表册号: </label>
+                    <div class="layui-inline">
+                        <input type="text" class="layui-input" id="MeterNumber" name="MeterNumber" autocomplete="off" placeholder="请输入表册号" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">表册名: </label>
+                    <div class="layui-inline">
+                        <input type="text" class="layui-input" id="MeterName" name="MeterName" autocomplete="off" placeholder="请输入表册名" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-sm layui-btn-normal " style="border-radius:3px" lay-submit lay-filter="ShowMeterPlan_polling">
+                            查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card-body">
+                <table class="layui-hide" id="MaterReaderPlan" lay-filter="MRP"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    layui.use('MeterReadPlan', layui.factory('MeterReadPlan')).use(['admin', 'MeterReadPlan', 'table', 'view', 'form', 'layer', 'laydate', 'carousel', 'index', 'layedit'], function () {
+        var admin = layui.admin,
+            view = layui.view,
+            table = layui.table,
+            form = layui.form;
+        form.render();
+        function u() {
+            
+        }
+    })
+</script>

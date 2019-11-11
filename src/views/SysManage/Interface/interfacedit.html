@@ -1,0 +1,75 @@
+﻿
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-form" lay-filter="interfaceeditform" id="interfaceeditform" style="padding: 15px 0 0 0;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">接口地址</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input type="text" id="InterfaceUrl" name="InterfaceUrl" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.params.InterfaceUrl || '' }}">
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">接口名称</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input type="text" name="InterfaceName" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.params.InterfaceName }}">
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">接口版本</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input type="text" id="OperationVersion" name="OperationVersion" autocomplete="off" class="layui-input" value="{{d.params.OperationVersion}}">
+            </script>
+        </div>接口管理
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属菜单:</label>
+        <div class="layui-input-inline">
+            <select name="InterfaceEdit_menuid" id="InterfaceEdit_menuid" lay-search="">
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否为第三方接口</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input type="checkbox" name="ExternalInterface" id="ExternalInterface" {{d.params.ExternalInterface==0?"checked":""}} title="是">
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否需要权限验证</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input type="checkbox" name="Verify" id="Verify" {{d.params.Verify==0?"checked":""}} title="是">
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <script type="text/html" template>
+                <textarea name="Remark" class="layui-textarea" id="Remark">{{d.params.Remark==null?"":d.params.Remark}}</textarea>
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item" style="text-align:center">
+            <input type="button" lay-submit lay-filter="interface-edit-submit" value="提交" class="layui-btn layui-btn-sm layui-btn-normal">
+    </div>
+</div>
+<script>
+
+    layui.use(['admin', 'form','view','InterFace'], function () {
+        var $ = layui.$
+            , form = layui.form,
+            view = layui.view,
+            InterFace = layui.InterFace;
+
+    });
+</script>

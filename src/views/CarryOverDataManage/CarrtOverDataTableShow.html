@@ -1,0 +1,31 @@
+﻿<title>结转数据管理</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <table id="CarryDataShowTable" name="CarryDataShowTable" lay-filter="CarryDataShow"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="headerbutton">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="CreateBills" style="border-radius:3px">批量生成账单</button>
+        <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="ManyChanges" style="border-radius:3px">批量调整用量</button>
+    </div>
+</script>
+<script>
+
+    layui.use('CarryOverDataManage', layui.factory('CarryOverDataManage')).use(['admin', 'CarryOverDataManage', 'table', 'form', 'view'], function () {
+        var admin = layui.admin
+            , table = layui.table
+            , form = layui.form
+            , view = layui.view;
+        form.render();
+    });
+</script>

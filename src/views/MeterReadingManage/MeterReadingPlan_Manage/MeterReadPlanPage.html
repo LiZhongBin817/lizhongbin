@@ -1,0 +1,87 @@
+﻿<title> </title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-form" lay-filter="MeterReadPlanPage" id="MeterReadPlanPage" lay-verify="required">
+    <div class="layui-form-item">
+        <label class="layui-form-label">抄表员:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <select name="MeterReader" lay-filter="MRPMeterReader" id="MeterReader">
+                    {{# layui.each(d.params[1],function(index, item){ }}
+                    <option value="{{ item.ID }}" {{# if(d.params[0].MRPeople==item.name){}} selected="selected" {{# } }}>{{item.name}}</option>
+                    {{# }); }}
+                </select>
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">抄表册:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="MeterReadBook" id="MeterReadBook" autocomplete="off" value="{{d.params[0].MRName }}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属月份:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input type="text" class="layui-input" name="Month" id="MonthMonth" autocomplete="off" value="{{d.params[0].MRMonth }}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">起抄日期:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input type="text" class="layui-input" name="MRPPStartTime" id="MRPPStartTime" autocomplete="off" value="{{d.params[0].MRStartTime }}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">止抄日期:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input type="text" class="layui-input" name="MRPPEndTime" id="MRPPEndTime" autocomplete="off" value="{{d.params[0].MREndTime }}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">下载开始日期:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input type="text" class="layui-input" name="StartDownLoadTime" id="StartDownLoadTime" autocomplete="off" value="{{d.params[0].MRStartTime }}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">下载结束时间: </label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input type="text" class="layui-input" name="EndDownLoadTime" id="EndDownLoadTime" autocomplete="off" value="{{d.params[0].MREndTime }}" />
+            </script>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"></label>
+        <div class="layui-input-inline" style="text-align:center">
+            <input type="button" lay-submit lay-filter="MRPP_submit" value="提交" style="border-radius:3px" class="layui-btn layui-btn-sm layui-btn-normal">
+        </div>
+    </div>
+</div>
+
+<script>
+
+    layui.use(['admin', 'form', 'view', 'MeterReadPlan', 'laydate'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            view = layui.view,
+            admin = layui.admin,
+            laydate = layui.laydate,
+            MeterReadPlan = layui.MeterReadPlan;
+        form.render();
+    });
+</script>

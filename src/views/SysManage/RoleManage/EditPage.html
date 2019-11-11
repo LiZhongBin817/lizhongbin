@@ -1,0 +1,24 @@
+﻿<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<div class="layui-form" id="RoleEdit">
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色名称:</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input type="text" name="RoleName" class="layui-input" placeholder="请输入角色名称" lay-verify="required" id="RoleName" value="{{d.params}}">
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+        <input class="layui-btn layui-btn-sm layui-btn-normal" name="submit" lay-submit lay-filter="submit" id="submit" value="确认" style="border-radius:3px">
+    </div>
+</div>
+<script type="text/javascript">
+    layui.use(['form', 'admin', 'view'], function () {
+        var form = layui.form
+            , admin = layui.admin,
+            view = layui.view;
+
+    });
+</script>

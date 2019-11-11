@@ -1,0 +1,356 @@
+﻿<title>抄表轨迹管理</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+<div id="container" style="height:100%;width:60%;position:absolute;"></div>
+<div class="layui-fluid" style="height:100%;width:38%;margin-right
+    :0">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card" style="background-color:#FBFBFF;">
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                    <div class="layui-input-block">
+                        <label class="layui-form-label">抄表周期</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="month" id="month" autocomplete="off" placeholder="输入抄表周期" style="width:116%"/>
+                        </div>
+                    </div>
+                    <div class="layui-input-block">
+                        <label class="layui-form-label">抄表员</label>
+                        <div class="layui-inline" >
+                            <select name="meterReader" id="meterReader" lay-filter="meterReader" class="select">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-input-block">
+                        <label class="layui-form-label">抄表日期</label>
+                        <div class="layui-inline">
+                            <input name="date" id="date" autocomplete="off" placeholder="××××-××-××" class="layui-input"  style="width:116%"/>
+                        </div>
+                    </div>
+                    <div class="layui-input-block" style="text-align:center">
+                        <button class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius:3px"id="See" lay-submit lay-filter="See">查看</button>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <label style="width:100%;text-align:center;font-weight:900;font-size:x-large;position:absolute;top:-20px">本周期共抄表<span id="MeterSum" style="color:red"></span>块</label>
+                    <table class="layui-table" id="MeterCount" lay-filter="MeterCount">
+                        <thead>
+                            <tr>
+                                <th>抄表日期</th>
+                                <th>抄表数量</th>
+                            </tr>
+                        </thead>
+                        <tbody id="MeterCountBody">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="MeterReadingInfo" lay-filter="MeterReadingInfo1"></table>
+                    <div id="controller" align="center">
+                        <input id="follow" type="checkbox"><span style="font-size:20px;">画面跟随</span>
+                        <input id="Play" class="layui-btn layui-btn-xs Play" onclick="play();" value="播放" disabled style="width:50px;border-radius:3px" />
+                        <input id="pause" class="layui-btn layui-btn-xs pause" value="暂停" disabled style="width:50px;border-radius:3px" />
+                        <input id="reset" class="layui-btn layui-btn-xs reset" value="重置" disabled style="width:50px;border-radius:3px" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    var tableData = new Array();// 用于存放表格数据
+    var tableData1 = new Array();// 用于存放表格数据
+    var points = [];  // 添加海量点数据
+    var map;
+    var car;   //汽车图标
+    var label; //信息标签
+    var centerPoint;
+    var timer;     //定时器
+    var index = 0; //记录播放到第几个point
+    var followChk, playBtn, pauseBtn, resetBtn; //几个控制按钮
+
+    layui.use(['admin', 'table', 'form', 'view', 'bMap', 'laydate', 'jquery'], function () {
+        var admin = layui.admin
+            , table = layui.table
+            , form = layui.form
+            , view = layui.view
+            , bMap = layui.bMap
+            , laydate = layui.laydate
+            , $ = layui.jquery;
+          var load = layer.load(3);
+        SelectRender();
+        var uploadGPS = "";
+        MapInit();
+        //渲染下拉框
+        function SelectRender() {
+            //渲染下拉框
+            admin.req({
+                url: layui.setter.requesturl + '/api/MRManage/RenderSelect',
+                method: 'post',
+                success: function (d) {
+                    data = d.data;
+                    for (var i = 0; i < data.length; i++) {
+                        $("#meterReader").append("<option value=\"" + data[i] + "\">" + data[i] + "</option>");
+                    }
+                    layui.form.render("select");
+                }
+
+            });
+        }
+        //表单渲染
+        form.render();
+        //日历渲染
+        laydate.render({
+            elem: '#date'
+        });
+        //监听查看按钮
+        form.on('submit(See)', function (d) {
+             $("#MeterSum").text("0");
+            MapInit();
+            var data = d.field;         
+            admin.req({
+                url: layui.setter.requesturl + '/api/MRManage/ShowMRPath',
+                type: 'get',
+                data: {
+                    'month': data.month,
+                    'name': data.meterReader,
+                    'date': data.date,
+                    "page": 1,
+                },
+                success: function (d) {
+                    if (d.msg == "ok") {
+
+                        tableData1 = d.data[0].counts;
+                        tableData = d.data;
+                        uploadGPS = d.data[0].uploadGPS;
+                        GPS(uploadGPS);
+
+                        if (tableData1.date == null) {
+                            $("#MeterSum").text(tableData1.SumCounts);
+                        }
+                        else {
+                            $("#MeterSum").text(tableData1.Counts);
+                        }
+                        RenderTable(tableData1.date, tableData1.SumCounts);
+                        DyTable(tableData);
+
+                    }
+                    else if (d.msg == "NO") {
+                        layer.msg("无数据");
+                        layer.close(load);
+                        var array = new Array();//初始化表格
+                        DyTable(array);
+                        RenderTable(array,array);
+                        MapInit();                      
+                    }
+                }
+            });
+        });
+
+        //渲染静态表格
+        function RenderTable(date, count) {
+            var data = [
+                {
+                    id: date,
+                    value: count
+                }
+            ];
+
+            var tr = $("#MeterCountBody tr");
+            var len = tr.length;
+            for (var i = 0; i < len; i++) {
+                if (i >= data.length) {
+                    break;
+                }
+                var td = $(tr[i]).find("td");
+                $(td[0]).html(data[i]['id']);
+                $(td[1]).html(data[i]['value']);
+            }
+        }
+
+        //渲染动态表格
+        function DyTable(tableData) {
+            table.render({
+                elem: '#MeterReadingInfo',
+                data: tableData,
+                cols: [[
+                    { field: 'account', title: '用户编号', width: 120 },
+                    { field: 'username', title: '用户名称', width: 120 },
+                    { field: 'uploadtime', title: '抄表时间', width: 281 },
+                ]]
+                , page: true
+                , limit: 5
+                , limits: [5, 10, 15]
+                , done: function () {
+                    layer.close(load);
+                }
+            });
+
+        }
+        //PGS轨迹
+        function GPS(uploadGPS) {
+
+            //百度地图渲染
+            bMap.render({
+                ak: 'D2b4558ebed15e52558c6a766c35ee73'//一旦设置了全局，此（发起请求的相关）参数就会失效。
+                , https: true
+                , done: function () {//这种方式回调函数叫做
+                    points = [];
+                    index = 0;
+                    var data = [];
+                    for (var i = 0; i < uploadGPS.length; i++) {
+                        var obj = uploadGPS[i];
+                        var ll = obj.split(",");
+                        var arr = [ll[0], ll[1]];
+                        data[data.length] = arr;
+                    }
+                    for (var i = 0; i < data.length; i++) {
+                        points.push(new BMap.Point(data[i][0], data[i][1]));
+                    }
+                    var options = {
+                        size: BMAP_POINT_SIZE_SMALL,
+                        shape: BMAP_POINT_SHAPE_STAR,
+                        color: '#0f0'
+                    }
+                    map = new BMap.Map("container");
+                    map.centerAndZoom("常德", 12);
+                    map.enableScrollWheelZoom(true);//开启鼠标滚轮缩放
+                    map.addControl(new BMap.NavigationControl());
+                    map.addControl(new BMap.ScaleControl());
+                    map.addControl(new BMap.OverviewMapControl({ isOpen: true }));
+                    var polyline = new BMap.Polyline(points, options);
+                    map.addOverlay(polyline);  // 添加Overlay
+                    //添加海量点
+                    for (var i = 0, pointslen = points.length; i < pointslen; i++) {
+                        var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
+                        var marker = new BMap.Marker(point); //将点转化成标注点
+                        map.addOverlay(marker);  //将标注点添加到地图上
+
+                        //通过drivingroute获取一条路线的point
+                    }
+                    Driving(uploadGPS);
+                }
+
+            });
+        }
+        function MapInit() {
+            followChk = document.getElementById("follow");
+            playBtn = document.getElementById("Play");
+            pauseBtn = document.getElementById("pause");
+            resetBtn = document.getElementById("reset");
+            bMap.render({
+                ak: 'D2b4558ebed15e52558c6a766c35ee73'//一旦设置了全局，此（发起请求的相关）参数就会失效。
+                , https: true
+                , done: function () {//这种方式回调函数叫做
+                    var points = [new BMap.Point()];
+                    var options = {
+                        size: BMAP_POINT_SIZE_SMALL,
+                        shape: BMAP_POINT_SHAPE_STAR,
+                        color: '#0f0'
+                    }
+                    map = new BMap.Map("container");
+                    map.centerAndZoom("常德", 12);
+                    map.enableScrollWheelZoom(true);//开启鼠标滚轮缩放
+                    map.addControl(new BMap.NavigationControl());
+                    map.addControl(new BMap.ScaleControl());
+                    map.addControl(new BMap.OverviewMapControl({ isOpen: true }));
+                    var polyline = new BMap.Polyline(points, options);
+                    map.addOverlay(polyline);  // 添加Overlay
+                }
+            });
+            layer.close(load);
+        }
+
+
+        $('.Play').click(function () {
+            play();
+        });
+
+
+        $('.pause').click(function () {
+            play();
+        });
+
+        $('.reset').click(function () {
+            reset();
+        });
+    });
+    function Driving(uploadGPS) {
+        var driving = new BMap.DrivingRoute(map);
+        console.log(map);
+        driving.search(new BMap.Point(uploadGPS[0]), new BMap.Point(uploadGPS[uploadGPS.length - 1]));
+        driving.setSearchCompleteCallback(function () {
+            console.log(driving);
+            // points = driving.getResults().getPlan(0).getRoute(0).getPath();
+            //画面移动到起点和终点的中间
+            centerPoint = new BMap.Point((points[0].lng + points[points.length - 1].lng) / 2, (points[0].lat + points[points.length - 1].lat) / 2);
+            map.panTo(centerPoint);
+            //连接所有点
+            //map.addOverlay(new BMap.Polyline(points, { strokeColor: "black", strokeWeight: 5, strokeOpacity: 1 }));
+
+            //显示小车子
+            label = new BMap.Label("", { offset: new BMap.Size(-20, -20) });
+            car = new BMap.Marker(points[0], { icon: new BMap.Icon("Mario.png", new BMap.Size(48, 48), { imageOffset: new BMap.Size(0, 0) }) });
+            car.setLabel(label);
+            map.addOverlay(car);
+
+            //点亮操作按钮
+            playBtn.disabled = false;
+            resetBtn.disabled = false;
+
+        });
+    }
+    //回放路径
+    function play() {
+        playBtn.disabled = true;
+        pauseBtn.disabled = false;
+
+        var point = points[index];
+        if (index > 0) {
+            map.addOverlay(new BMap.Polyline([points[index - 1], point], { strokeColor: "red", strokeWeight: 1, strokeOpacity: 1 }));
+        }
+        label.setContent("经度: " + point.lng + "<br>纬度: " + point.lat);
+        car.setPosition(point);
+        index++;
+        if (followChk.checked) {
+            map.panTo(point);
+        }
+        if (index < points.length) {
+            timer = window.setTimeout("play(" + index + ")", 2000);
+        } else {
+            playBtn.disabled = true;
+            pauseBtn.disabled = true;
+            map.panTo(point);
+
+        }
+    }
+
+    //暂停
+    function pause() {
+        playBtn.disabled = false;
+        pauseBtn.disabled = true;
+
+        if (timer) {
+            window.clearTimeout(timer);
+        }
+    }
+
+    //重置
+    function reset() {
+        followChk.checked = false;
+        playBtn.disabled = false;
+        pauseBtn.disabled = true;
+
+        if (timer) {
+            window.clearTimeout(timer);
+        }
+        index = 0;
+        car.setPosition(points[0]);
+        map.panTo(centerPoint);
+    }
+</script>

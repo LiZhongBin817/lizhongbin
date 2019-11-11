@@ -1,0 +1,98 @@
+﻿
+<title>用户管理</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<div class="layui-fluid">
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto" id="list" lay-filter="selectform">
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <input class="layui-input" name="account" id="account" autocomplete="off" placeholder="户号">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <input class="layui-input" name="username" id="username" autocomplete="off" placeholder="户名">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <input class="layui-input" name="meternum" id="meternum" autocomplete="off" placeholder="表号">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <select id="optname" name="optname">
+                            <option value="">抄表员</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <select id="bookno" name="bookno">
+                            <option value="">抄表册号</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline" id="">
+                        <select id="regionplace" name="regionplace">
+                            <option value="">所属区域</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline" id="">
+                        <select id="areaname" name="areaname">
+                            <option value="">所属小区</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="P_User">
+                            查询
+                        </button>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="import" id="import">
+                            导入
+                        </button>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <a class="layui-btn layui-btn-normal" href="http://localhost:8081/api/WatermeterUserManage/DownloadOrderTemplet">下载模板</a>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="adduserinfo">
+                            新增
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card-body">
+                <table class="layui-hide" id="watermeteruser" lay-filter="watermeteruserManage"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="watermeteruser_barDemo">
+    <a class="layui-btn layui-btn-warm " lay-event="User_edit">编辑</a>
+    <a class="layui-btn layui-btn-warm " lay-event="User_delete">删除</a>
+</script>
+<script>
+    layui.use('watermeterManage', layui.factory('watermeterManage')).use(['admin', 'watermeterManage', 'table', 'view', 'form'], function () {
+        var admin = layui.admin,
+            view = layui.view,
+            table = layui.table,
+            form = layui.form;
+        form.render();
+    })
+</script>

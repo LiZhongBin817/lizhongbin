@@ -1,0 +1,292 @@
+﻿<title>处理操作</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-form" layui-filter="DSMShowProcessingOperationShow" id="DSMShowProcessingOperationShow">
+    <div class="layui-form-item">
+        <table class="layui-hide" id="DSMShowProcessingOperationtable" lay-filter="DSMSPO">  </table>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">故障id:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessingOperationShow_FaultinfoID" id="DSMShowProcessingOperationShow_FaultinfoID" value="{{d.params[1][0].faultid}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">水表编号:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessingOperationShow_WaterNum" id="DSMShowProcessingOperationShow_WaterNum" value="{{d.params[1][0].meternum}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">抄表员编号:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessingOperationShow_ReaderNum" id="DSMShowProcessingOperationShow_ReaderNum" value="{{d.params[1][0].mrreadernumber}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户编号:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessingOperationShow_UserNum" id="DSMShowProcessingOperationShow_UserNum" value="{{d.params[1][0].autoaccount}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">故障编号:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessingOperationShow_number" value="{{d.params[1][0].faultnumber}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">故障内容:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessingOperationShow_content" value="{{d.params[1][0].faultcontent}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">上报时间:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessingOperationShow_time" value="{{d.params[1][0].reporttime}}" autocomplete="off" disabled="disabled" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">派工:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessingOperationShow_Dispatched" autocomplete="off" disabled="disabled" value="{{d.params[1][0].processpreson}}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">最迟处理时间:</label>
+        <div class="layui-inline">
+            <script type="text/html" template>
+                <input class="layui-input" type="text" name="DSMShowProcessingOperationShow_endtime" autocomplete="off" disabled="disabled" value="{{d.params[1][0].reporttime}}" />
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">派工操作人:</label>
+        <div class="layui-inline">
+            <input class="layui-input" type="text" name="DSMShowProcessingOperationShow_Dispatchedworker" autocomplete="off" disabled="disabled" value="登录操作员" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作时间:</label>
+        <div class="layui-inline">
+            <input class="layui-input" type="text" name="DSMShowProcessingOperationShow_operationtime" id="DSMShowProcessingOperationShow_operationtime" autocomplete="off" disabled="disabled" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理结果:</label>
+        <div class="layui-input-block">
+            <input type="radio" name="Processed" value="1" title="已处理" />
+            <input type="radio" name="Processed" value="0" title="未处理" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理情况:</label>
+        <div class="layui-inline">
+            <textarea class="layui-textarea" id="Handlingsituation"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理人:</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <select name="DSMShowProcessingOperationShow_DealPeople" id="DSMShowProcessingOperationShow_DealPeople" lay-filter="DSMShowProcessingOperationShow_DealPeople">
+                    <option value="">请选择</option>
+                    {{# layui.each(d.params[0],function(index,item){ }}
+                    <option value="{{ item.ID }}">{{ item.Name }}</option>
+                    {{# }); }}
+                </select>
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理附件:</label>
+        <div class="layui-inline">
+            <input class="layui-input" type="text" name="DSMShowProcessingAccessories" id="DSMShowProcessingAccessories" autocomplete="off" />
+        </div>
+        <div class="layui-inline">
+            <button type="button" class="layui-btn" id="layuiupload">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-upload">
+            <div class="layui-upload-list" id="DSMShowOpdemo1">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-inline">
+            <label class="layui-form-label"></label>
+            <input type="button" lay-submit id="DSMShowPO_submit" lay-filter="DSMShowPO_submit" value="提交" class="layui-btn">
+        </div>
+        <div class="layui-input-inline">
+            <input type="button" lay-submit lay-filter="DSMShowPO_cancel" value="取消" class="layui-btn">
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    layui.use(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'layedit', 'upload', 'jquery', 'DSMSHOW'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            view = layui.view,
+            admin = layui.admin,
+            upload = layui.upload,
+            table = layui.table,
+            util=layui.util,
+            DSMSHOW = layui.DSMSHOW;
+        var pictures = new Array();
+        var UploadPhotoModel = new Array();
+        var id;
+        var now = new Date();
+        $("#layuiupload").click(function () {
+            id = document.getElementById('DSMShowProcessingOperationShow_FaultinfoID').value;
+            console.log(id);
+            var data = {
+                "billid":id,
+                "isreadupdate": 0,
+                "photocode": "处理结果" + now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate(),
+                "photonname": "处理结果" + now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate(),
+                "phototype": 3,
+                "taskperiodname": now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate(),
+                "readercode":document.getElementById('DSMShowProcessingOperationShow_ReaderNum').value,//抄表员编号
+                "metercode": document.getElementById('DSMShowProcessingOperationShow_WaterNum').value,//水表编号
+                "usercode": document.getElementById('DSMShowProcessingOperationShow_UserNum').value,//用户编号
+                "phototime": now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()
+            };
+            UploadPhotoModel.push(data);
+            uploadInst.reload({
+                data: {
+                "UploadPhotoModel": JSON.stringify(UploadPhotoModel)
+                }
+            });
+        });
+        var uploadInst = upload.render({
+            elem: '#layuiupload',
+            auto: false,
+            bindAction: '#DSMShowPO_submit',
+            url: layui.setter.requesturl + '/api/DispatchSheet/GetPhoto',
+            multiple: true,
+            number: 7,
+            choose: function (obj) {
+                var files = obj.pushFile();
+                console.log("文件：" + files);
+                obj.preview(function (index, file, result) {
+                    pictures.push(file.name);
+                    console.log(pictures);
+                    $('#DSMShowProcessingAccessories').attr('value', pictures);
+                    $('#DSMShowOpdemo1').append('<img src="' + result
+                        + '" alt="' + file.name
+                        + '"height="200px"  class="layui-upload-img uploadImgPreView">');
+                });
+            },
+            before: function (obj) {
+            },
+            done: function (res) {
+                pictures.splice(0, pictures.length);//清空图片路径
+                if (res.code > 0) {
+                    return layer.msg('上传失败');
+                }
+            },
+            error: function () {
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+        table.render({
+        elem: '#DSMShowProcessingOperationtable',
+        url: layui.setter.requesturl + '/api/DispatchSheet/ShowFaultTable',
+        method: 'post',
+        cols: [[
+            { field: 'DSMID', title: '序号', width: 100, sort: true, fixed: 'left' },
+            { field: 'DSMNumber', title: '故障编号', width: 150 },
+            {
+                field: 'DSMType', title: '故障类型', width: 100,
+                templet: function (d) {
+                    if (d.DSMType == 6) {
+                        return "表埋"
+                    }
+                    else if (d.DSMType == 7) {
+                        return "表坏"
+                    }
+                    else if (d.DSMType == 8) {
+                        return "井盖坏"
+                    }
+                    else if (d.DSMType == 10) {
+                        return "漏水"
+                    }
+                    else {
+                        return "其他"
+                    }
+                }
+            },
+            { field: 'DSMContent', title: '故障内容', width: 100 },
+            {
+                field: 'DSMTime', title: '上报时间', width: 100,
+                templet: function (d) {
+                    return util.toDateString(d.DSMTime);
+                }
+            },
+            { field: 'DSMReportPerson', title: '上报人', width: 100 },
+            {
+                field: 'DSMEnclosure', title: '附件', width: 100, event: 'Enclosure',
+                templet: function (d) {
+                    return '<a  style="color: #c00;text-decoration:underline">' + d.DSMEnclosure + '</a>'
+                }
+            },
+            {
+                field: 'DSMStatus', title: '状态', width: 100,
+                templet: function (d) {
+                    if (d.DSMStatus == 0) {
+                        return "未受理"
+                    }
+                    else if (d.DSMStatus == 1) {
+                        return "已受理"
+                    }
+                    else if (d.DSMStatus == 2) {
+                        return "已处理"
+                    }
+                    else {
+                        return "已存档"
+                    }
+                }
+            },
+            {
+                field: 'DSMAddress', title: '位置信息', width: 100, event: 'Address',
+                templet: function (d) {
+                    return '<a style="color: #c00;text-decoration:underline">' + d.DSMAddress + '</a>'
+                }
+            }
+        ]],
+        page: true,
+        limit: 10,
+        limits: [10, 15, 20],
+    });
+        form.render();
+    });
+</script>

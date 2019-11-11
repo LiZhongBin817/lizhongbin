@@ -1,0 +1,88 @@
+﻿<title>抄表数据管理</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header layui-form layuiadmin-card-header-auto">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">户号</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="account" id="account" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">表号</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="meternum" id="meternum" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">户名</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="username" id="username" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">地址</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="address" id="address" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">抄表员</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="mrreadername" id="mrreadername" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">审核状态</label>
+                        <div class="layui-inline">
+                            <select name="rtrecheckstatus" id="rtrecheckstatus" autocomplete="off">
+                                <option value="">请选择</option>
+                                <option value="0">已审</option>
+                                <option value="1">未审</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">抄表册编号</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="bookno" id="bookno" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button id="DataInfoSearch" class="layui-btn layui-btn-sm layui-btn-normal "  style="border-radius:3px"lay-submit lay-filter="DataInfoSearch">查询</button>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table id="dataManageInfo_Table" lay-filter="dataManageInfo" class="layui-hide "></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .layui-table-cell {
+        height: auto;
+    }
+</style>
+
+<script type="text/html" id="toolDemo_Carry">
+    <button class="layui-btn layui-btn-sm layui-btn-normal  site-demo-active" lay-event="Start_Carry" data-type="loading" style="border-radius:3px">开始结转</button>
+    <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
+        <div class="layui-progress-bar layui-bg-green" lay-percent="0%"></div>
+    </div>
+
+</script>
+<script>
+    layui.use('dataManage', layui.factory('dataManage')).use(['admin', 'dataManage', 'table', 'form', 'view'], function () {
+        var admin = layui.admin
+            , table = layui.table
+            , form = layui.form
+            , view = layui.view;
+        form.render();
+    });
+</script>

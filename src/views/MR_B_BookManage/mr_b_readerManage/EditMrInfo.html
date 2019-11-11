@@ -1,0 +1,81 @@
+﻿<title>编辑</title>
+
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-form" id="Mr_EditInfo">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">抄表员名称</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_Name" id="Mr_Name" autocomplete="off" value="{{d.params.mrreadername}}" lay-verify="required" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">电话号码</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_Telephone" id="Mr_Telephone" autocomplete="off" value="{{d.params.telephone}}" lay-verify="required" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">住址</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_Address" id="Mr_Address" autocomplete="off" value="{{d.params.address}}" lay-verify="required" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">身份证号码</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_idcard" id="Mr_idcard" autocomplete="off" value="{{d.params.idcard}}" lay-verify="required" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_Sex" id="Mr_Sex" autocomplete="off" value="{{d.params.sex==0?'男':'女'}}" lay-verify="required" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">角色名称</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_Roles" id="Mr_Roles" autocomplete="off" value="{{d.params.roles}}" lay-verify="required" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <textarea name="Remark" id="Remark" class="layui-textarea">{{d.params.Remark}}</textarea>
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="text-align:center">
+                    <input type="button" class="layui-btn layui-btn-sm  layui-btn-normal" name="MR_submit" lay-submit lay-filter="MR_submit" value="提交" style="border-radius:3px"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['admin', 'form', 'view'], function () {
+        var $ = layui.$
+            , form = layui.form
+            , view = layui.view;
+
+    });
+</script>

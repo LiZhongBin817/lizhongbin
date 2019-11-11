@@ -1,0 +1,40 @@
+﻿<title>显示地理位置</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-form" layui-filter="ShowAddress" id="ShowAddress">
+    <div class="layui-card">
+        <div class="layui-card-header layui-bg-green">
+            <div class="layui-inline">
+                <label class="layui-inline-label">附件页面</label>
+            </div>
+        </div>
+        <div class="layui-card-body">
+            <div class="layui-inline">
+                <label class="layui-inline-label">故障编号</label>
+                <div class="layui-inline">
+                    <script type="text/html" template>
+                        <input class="layui-input" type="text" name="DSMSANumber" autocomplete="off" value="{{d.params}}">
+                    </script>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="icontainer" style="height:100%;width:100%">
+
+</div>
+<script>
+    layui.use(['admin', 'form', 'view', 'DSMSHOW', 'bMap'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            view = layui.view,
+            admin = layui.admin,
+            bMap = layui.bMap,
+            DSMSHOW = layui.DSMSHOW;
+        form.render();
+       
+    });
+</script>

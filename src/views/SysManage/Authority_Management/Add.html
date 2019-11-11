@@ -1,0 +1,68 @@
+﻿<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<script type="text/html" template>
+    <link href="{{layui.setter.base}}style/autocomplete.css?v={{ layui.admin.v }}-1" media="all" rel="stylesheet" />
+</script>
+
+<div class="layui-form" lay-filter="layui-Page-Add" id="layui-Page-Add">
+    <div class="layui-form-item">
+        <label class="layui-form-label">权限名称：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input"  id="OperationName" name="OperationName" placeholder="请输入权限名称" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">菜单名称：</label>
+        <div class="layui-input-inline">
+            <select name="MenuID" id="MenuID-add" lay-search="">
+
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">权限种类：</label>
+        <div class="layui-input-inline">
+            <select name="OperationType" lay-filter="OperationType" id="OperationType">
+                <option value="-1">请选择</option>
+                <option value="0">增加</option>
+                <option value="1">删除</option>
+                <option value="2">修改</option>
+                <option value="3">查看</option>
+                <option value="4">其他种类</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">按钮Class：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="btnClassName" name="btnClassName" placeholder="请输入按钮Class" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">按钮事件名称：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="btneventName" name="btneventName" placeholder="请输入事件名称" autocomplete="off" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">按钮容器属性：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="btnContainer" name="btnContainer" placeholder="请输入容器属性" autocomplete="off" />
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit lay-filter="LAY-Add-submit" id="LAY-Add-submit" value="确认">
+    </div>
+</div>
+<script>
+    layui.use(['admin', 'table', 'form', 'view', 'jquery'], function () {
+        var $ = layui.$
+            , admin = layui.admin
+            , table = layui.table
+            , view = layui.view
+            , form = layui.form;
+    });
+</script>

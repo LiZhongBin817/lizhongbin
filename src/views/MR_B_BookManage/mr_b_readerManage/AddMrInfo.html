@@ -1,0 +1,97 @@
+﻿<title>添加</title>
+
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-form" id="Mr_AddInfo">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">抄表员名称</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_Name" id="Mr_Name" autocomplete="off" placeholder="请输入姓名" lay-verify="required" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">电话号码</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_Telephone" id="Mr_Telephone" autocomplete="off" placeholder="请输入电话号码" lay-verify="required" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">住址</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_Address" id="Mr_Address" autocomplete="off" placeholder="请输入住址" lay-verify="required" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">身份证号码</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_idcard" id="Mr_idcard" autocomplete="off" placeholder="请输入身份证号码" lay-verify="required" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_Sex" id="Mr_Sex" autocomplete="off" placeholder="请输入性别" lay-verify="required" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">角色名称</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_Roles" id="Mr_Roles" autocomplete="off" placeholder="请输入角色身份" lay-verify="required" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_password" id="Mr_password" autocomplete="off" placeholder="请输入密码" lay-verify="required"  type="password"/>
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">确认密码</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <input class="layui-input" name="Mr_password_True" id="Mr_password_True" autocomplete="off" placeholder="再次输入密码" lay-verify="required" type="password" />
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <textarea name="Remark" id="Remark" class="layui-textarea"></textarea>
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="text-align:center">
+                    <input class="layui-btn layui-btn-normal layui-btn-sm " name="AddMR_submit" lay-submit lay-filter="AddMR_submit" value="确认"style="border-radius:3px" type="button"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['admin', 'form','view'], function () {
+        var $ = layui.$
+            , form = layui.form
+            ,view=layui.view;
+
+    });
+</script>

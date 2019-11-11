@@ -1,0 +1,72 @@
+﻿
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-form" id="reCarryForm">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户编号：</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <label class="layui-form-label" style="width:auto">{{d.params.account}}</label>
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">水表编号：</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <label class="layui-form-label" style="width:auto">{{d.params.meternum}}</label>
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">结转月份：</label>
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            <label class="layui-form-label" style="width:auto">{{d.params.taskperiodname}}</label>
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">结转信息：</label>
+                    <div class="layui-inline">
+                        <textarea name="carryInfo" class="layui-textarea" id="carryInfo"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">结转状态：</label>
+                    <div class="layui-inline">
+                        <input type="radio" name="CarryStatus"  value="0"  title="通过"/>
+                        <input type="radio" name="CarryStatus" value="1" title="不通过" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">结转时间：</label>
+                    <div class="layui-inline">
+                        <input class="layui-input" name="CarryDate" id="CarryDate" lay-filter="CarryDate" autocomplete="off" placeholder="输入结转时间" />
+                    </div>
+                </div>
+                <div class="layui-form-item" style="text-align:center">
+                    <input type="button" style="width:250px;border-radius:3px" class="layui-btn layui-btn-normal" id="ReCarryDataSubmit" name="ReCarryDataSubmit" lay-submit lay-filter="ReCarryDataSubmit" value="提交" />
+                    <input type="button" style="width:250px;border-radius:3px" class="layui-btn layui-btn layui-btn-primary" id="ReCarryDataSubmitClose" name="ReCarryDataSubmitClose" lay-submit lay-filter="ReCarryDataSubmitClose" value="关闭" />
+                </div>                 
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    layui.use(['admin', 'form','view','laydate'], function () {
+        var admin = layui.admin,
+            form =layui.form,
+            view = layui.view,
+            laydate = layui.laydate;
+        form.render();
+        laydate.render({
+            elem:'#CarryDate'
+        });
+        
+    });
+</script>

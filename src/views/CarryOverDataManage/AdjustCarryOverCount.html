@@ -1,0 +1,64 @@
+﻿<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-form" id="adjustForm">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户编号：</label>
+                <div class="layui-inline">
+                    <script type="text/html" template>
+                        <label class="layui-form-label" style="width:auto">{{d.params.account}}</label>
+                    </script>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">调整类型：</label>
+                <div class="layui-inline">
+                    <input type="radio" name="AdjustType" value="减免水量" title="减免水量" />
+                    <input type="radio" name="AdjustType" value="多摊水量" title="多摊水量" />
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">调整用量：</label>
+                <div class="layui-inline">
+                    <input class="layui-input" name="adjustcounts" lay-filter="adjustcounts" autocomplete="off" placeholder="输入调整用量" />
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">调整原因：</label>
+                <div class="layui-inline">
+                    <textarea name="adjustResults" class="layui-textarea" id="adjustResults"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">调整人员：</label>
+                <div class="layui-inline">
+                    <input class="layui-input" name="adjustPerson" id="adjustPerson" lay-filter="adjustPerson" autocomplete="off" placeholder="输入调整人员" />
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">调整时间：</label>
+                <div class="layui-inline">
+                    <input class="layui-input" name="adjustDate" id="adjustDate" lay-filter="adjustDate" autocomplete="off" placeholder="输入调整时间" />
+                </div>
+            </div>
+            <div class="layui-form-item" style="text-align:center">
+                <input type="button"  style="width:250px;border-radius:3px" class="layui-btn layui-btn-normal" id="adjustDataSubmit" name="adjustDataSubmit" lay-submit lay-filter="adjustDataSubmit" value="提交" />
+                <input  type="button" style="width:250px;border-radius:3px" class="layui-btn  layui-btn-primary" id="adjustDataSubmitClose" name="adjustDataSubmitClose" lay-submit lay-filter="adjustDataSubmitClose" value="关闭" />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['admin','form','view','laydate'], function () {
+        var admin = layui.admin,
+            form =layui.form,
+            view = layui.view,
+            laydate = layui.laydate;
+        laydate.render({
+            elem:'#adjustDate'
+        });
+        form.render();
+    });
+</script>

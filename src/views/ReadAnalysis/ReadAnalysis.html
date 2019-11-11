@@ -1,0 +1,64 @@
+﻿<title>抄表量化分析</title>
+
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+<div class="layui-fluid ">
+    <div class="layui-row" lay-filter="test">
+        <div class="layui-col-md12">
+            <div class=" layui-card">
+                <div class="layui-card-header layui-form layuiadmin-card-header-auto">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">抄表日期</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="readDatetime01" autocomplete="off" width="140" id="date_toshort01" placeholder="yyyy-MM-dd" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">抄表员</label>
+                        <div class="layui-inline" id="readername">
+                            <select id="mrreadername" name="mrreadername" width="140">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline"id="ReadAnalysis_barDemo">
+                        <script type="text/html" template>
+                            {{#
+                             var t_btn1 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(15)===-1?"none":"inline-block";
+                             var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(16)===-1?"none":"inline-block";
+                            }} 
+                            <button id="numberSearch" class="layui-btn layui-btn-normal layui-btn-sm " style="border-radius:3px;display:{{t_btn1}};" lay-submit lay-filter="numberSearch">查询</button>
+                            <a class="layui-btn  layui-btn-normal layui-btn-sm" style="border-radius:3px;display:{{t_btn2}};" lay-filter="button_export" id="button_export">导出</a>
+
+                        </script> 
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table id="dataAnalysisInfo_Table" lay-filter="dataAnalysisInfo" class="layui-hide"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15" id="Histogramcontainer">
+
+    </div>
+</div>
+<script type="text/javascript">
+    layui.use('ReadAnalysis', layui.factory('ReadAnalysis')).use(['admin', 'table', 'form', 'view', 'laydate'], function () {
+        var admin = layui.admin
+            , table = layui.table
+            , form = layui.form
+            , view = layui.view
+            , laydate = layui.laydate
+            , $ = layui.$;
+
+
+
+        form.render();
+        laydate.render({
+            elem: '#date_toshort01'
+        });
+    });
+</script>

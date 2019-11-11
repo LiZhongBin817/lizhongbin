@@ -1,0 +1,313 @@
+﻿<title>权限管理</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<script type="text/html" template>
+    <link href="{{layui.setter.base}}style/autocomplete.css?v={{ layui.admin.v }}-1" media="all" rel="stylesheet" />
+</script>
+<script type="text/html" id="toolbarDemo">
+    {{#
+        var t_btn31=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(31)===-1?"none":"inline-block";
+    }}
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="AddAuthority" style="border-radius: 3px;display: {{t_btn31}}">增加按钮权限</button>
+    </div>
+</script>
+
+<div class="layui-fiuld">
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-card-header layui-form layuiadmin-card-header-auto">
+                <div class="layui-inline">
+                    <label class="layui-form-label">按钮名称:</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" name="OperationName" id="OperationName" autocomplete="off" placeholder="请输入按钮名称">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">菜单名称:</label>
+                    <div class="layui-input-block">
+                        <select name="menuid" id="menuid" lay-search="">
+
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">按钮种类:</label>
+                    <div class="layui-input-block">
+                        <select name="operationclass" lay-filter="operationclass">
+                            <option value="-1">请选择</option>
+                            <option value="0">增加</option>
+                            <option value="1">删除</option>
+                            <option value="2">修改</option>
+                            <option value="3">查看</option>
+                            <option value="4">其他种类</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-inline">
+                        <script type="text/html" template>
+                            {{#
+                            var t_btn32=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(32)===-1?"none":"inline-block";
+                            }}
+                            <button class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius: 3px;display:{{t_btn32}}" lay-submit lay-filter="polling">
+                                查询
+                            </button>
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card-body">
+                <table class="layui-hide" id="power" lay-filter="test"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="Authority_barDemo">
+    {{#
+       var t_btn33=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(33)===-1?"none":"inline-block";
+    }}
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="edit" style="border: 3px;display:{{t_btn33}}">编辑</a>
+</script>
+
+<script>
+
+    layui.use(['admin', 'table', 'form', 'view', 'jquery'], function () {
+        let admin = layui.admin,
+            form = layui.form,
+            view = layui.view,
+            $ = layui.jquery,
+            table = layui.table;
+        table.render({
+            elem: '#power',
+            method: 'post',
+            url: layui.setter.requesturl+'/api/OprationManage/ShowInfor',//后台地址
+            page: true,
+            cols: [[
+                { field: 'ID', title: 'ID', sort: true,width:50, fixed: 'left' },
+                { field: 'AuthorityName', title: '按钮名称'},
+                { field: 'menuname', title: '菜单名称' },
+                { field: 'MenuID', title: '菜单ID',hide:true },
+                {field:'btnClassName',title:'按钮Class名称'},
+                {field:'btneventName',title:'按钮事件名称'},
+                {field:'btnContainer',title:'按钮容器属性'},
+                { field: 'Type', title: '权限种类' ,templet:function (d) {
+                        let a = "";
+                        switch(d.Type) {
+                            case 0:
+                                a = "增加";
+                                break;
+                            case 1:
+                                a = "删除";
+                                break;
+                            case 2:
+                                a = "修改";
+                                break;
+                            case 3:
+                                a = "查看";
+                                break;
+                            case 4:
+                                 a = "其他";
+                                break;
+                            default:
+                                a = "异常";
+                        }
+                        return a;
+                    }
+                },
+                {
+                    field: 'UseStatus', title: '使用状态', unresize: true, event: 'Bidden',
+                    templet: function (d) {
+                        var isCkecked = d.UseStatus === 0 ? "checked" : "";
+                        return '<input type="checkbox" lay-skin="switch" lay-filter="Forbidden" lay-text="使用|作废" ' + isCkecked + '>';
+                    }
+                },
+                { title: '编辑', width: 150, toolbar: '#Authority_barDemo', align: 'center', fixed: 'right' }
+            ]],
+            limit: 10,
+            toolbar: "#toolbarDemo",
+            limits: [5, 10, 15],
+            done:function(){
+                let p = new Promise((resolve, reject) => {
+                    admin.req({
+                        url:layui.setter.requesturl+'/api/OprationManage/ShowSelectInfor',
+                        type:'post',
+                        success:function(data){
+                            let htmlstr = `<option value="0">请选择</option>`;
+                            let htmlarr = data.data.map((item,index) => {
+                                return `<option value="${item.ID}">${item.Name}</option>`
+                            });
+                            htmlstr += htmlarr.join('');
+                            $("#menuid").html(htmlstr);
+                            resolve(htmlstr);
+                        }
+                    });
+                });
+                p.then((htmlstr) => {
+                    form.render('select');
+                });
+            }
+        });
+        //监听查询
+        form.on('submit(polling)', function (data) {
+            var field = data.field;
+            console.log(field);
+            //执行重载
+            table.reload('power', {
+                where: {
+                    "OperationName": field.OperationName,
+                    "menuid": field.menuid,
+                    "operationclass": field.operationclass,
+                }
+                , page: {
+                    "curr": 1,
+                    "nums": 10
+                }
+            });
+        });
+        //监听表格操作
+        table.on('tool(test)', function (obj) {
+            var data = obj.data,
+                $ = layui.$,
+                layEvent = obj.event;
+            console.log(data);
+            var form = layui.form;
+            if (layEvent === 'edit') {
+                admin.popup({
+                    title: '编辑按钮',
+                    area: ['600px', '500px'],
+                    maxmin: true,
+                    btn: ['确认', '取消'],
+                    yes: function (index, layero) {
+                        var div = layero.contents().find('#layui-Page-Edit');
+                        var sendData = {
+                            "OperationName": div.find("#OperationName").val(),//权限名称
+                            "MenuID": div.find("#menuid-edit").val(),//菜单ID
+                            "OperationType": div.find("#operationclass").val(),
+                            "btnClassName": div.find("#btnClassName").val(),
+                            "btneventName": div.find("#btneventName").val(),
+                            "btnContainer":div.find('#btnContainer').val()
+                        };
+                        var jsonData = JSON.stringify(sendData);
+                        admin.req({
+                            url: layui.setter.requesturl+'/api/OprationManage/ModifyInfor ',
+                            type: "post",
+                            data: {
+                                "data": jsonData,
+                                "ID": data.ID
+                            },
+                            success: function (data) {
+                                if (data.code == 0) {
+                                    layer.msg("编辑成功");
+                                    table.reload('power', {});
+                                }
+                                else {
+                                    layer.msg("编辑失败");
+                                }
+                            }
+                        });
+                    },
+                    success: function (layero, index) {
+                        view(this.id).render('SysManage/Authority_Management/Edit', null).done(function () {
+                            admin.req({
+                                url:layui.setter.requesturl+'/api/OprationManage/ShowSelectInfor',
+                                type:'post',
+                                success:function(rdata){
+                                    let htmlstr = `<option value="0">请选择</option>`;
+                                    let htmlarr = rdata.data.map((item,index) => {
+                                        var t = data.MenuID === item.ID?"selected":"";
+                                        return `<option value="${item.ID}" ${t}>${item.Name}</option>`
+                                    });
+                                    htmlstr += htmlarr.join('');
+                                    $("#menuid-edit").html(htmlstr);
+                                    var div = layero.contents().find('#layui-Page-Edit');
+                                    div.find("#OperationName").val(data.AuthorityName);//权限名称
+                                    div.find("#btnClassName").val(data.btnClassName);
+                                    div.find("#btneventName").val(data.btneventName);
+                                    div.find("#btnContainer").val(data.btnContainer);
+                                    div.find("#operationclass").val(data.Type);//权限种类
+                                    form.render(null, 'layui-Page-Edit');
+                                }
+                            });
+                        });
+
+                    }
+                });
+            }
+            //使用状态
+            else if (layEvent === 'Bidden') {
+                console.log(data.UseStatus);
+                $.ajax({
+                    url: layui.setter.requesturl+'/api/OprationManage/GetStatus',
+                    type: "post",
+                    data: {
+                        "ID": data.ID,
+                        "status": data.UseStatus
+                    },
+                    success: function (msg) {
+                        if (msg.msg == "ok") {
+                            table.reload('power');
+                        }
+                        else {
+                            layer.msg("更新失败");
+                        }
+                    }
+                });
+            }
+        });
+        //监听添加
+        table.on('toolbar(test)', function (obj) {
+            var layEvent = obj.event;
+            if (layEvent === "AddAuthority") {
+                admin.popup({
+                    title: '添加权限',
+                    area: ['600px', '500px'],
+                    maxmin: true,
+                    btn: ['确认', '取消'],
+                    yes: function (index, layero) {
+                        submitID = 'LAY-Add-submit',
+                            submit = layero.contents().find('#' + submitID);
+                        //监听提交
+                        form.on('submit(' + submitID + ')', function (data) {
+                            var fields = JSON.stringify(data.field); //获取提交的字段
+                            admin.req({
+                                url: layui.setter.requesturl+'/api/OprationManage/AddData',
+                                type: 'post',
+                                data: { "JsonDate": fields },
+                                success: function (data) {
+                                    if (data.code == 1) {
+                                        layer.msg("添加失败");
+                                    }
+                                    else {
+                                        layer.msg("添加成功");
+                                        table.reload('power', {});
+                                    }
+                                }
+                            });
+                        });
+                        submit.trigger('click');
+                    },
+                    success: function (layero, index) {
+                        view(this.id).render('SysManage/Authority_Management/Add', null).done(function () {
+                            admin.req({
+                                url:layui.setter.requesturl+'/api/OprationManage/ShowSelectInfor',
+                                type:'post',
+                                success:function(rdata){
+                                    let htmlstr = `<option value="0">请选择</option>`;
+                                    let htmlarr = rdata.data.map((item,index) => {
+                                        return `<option value="${item.ID}" >${item.Name}</option>`
+                                    });
+                                    htmlstr += htmlarr.join('');
+                                    $("#MenuID-add").html(htmlstr);
+                                    form.render(null, 'layui-Page-Add');
+                                }
+                            });
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>

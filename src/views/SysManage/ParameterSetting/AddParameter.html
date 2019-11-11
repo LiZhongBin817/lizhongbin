@@ -1,0 +1,53 @@
+﻿<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all" />
+</script>
+<div class="layui-form" id="addparameter" lay-filter="addparameter" style="padding: 15px 0 0 0;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">参数名称</label>
+        <div class="layui-input-inline">
+            <input class="layui-input" name="parameterName" id="parameterName" autocomplete="off" placeholder="请输入参数名称" lay-verify="required" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">参数类型</label>
+        <div class="layui-input-inline">
+            <input class="layui-input" name="parameterType" id="parameterType" autocomplete="off" placeholder="请输入参数类型" lay-verify="required" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">&nbsp;&nbsp;&nbsp;&nbsp;参数类型名称</label>
+        <div class="layui-input-inline">
+            <input class="layui-input" name="parameterTypeName" id="parameterTypeName" autocomplete="off" placeholder="请输入参数类型名称" lay-verify="required" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">Code</label>
+        <div class="layui-input-inline">
+            <input class="layui-input" name="parameterKey" id="parameterKey" autocomplete="off" placeholder="请输入code" lay-verify="required" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">参数值</label>
+        <div class="layui-input-inline">
+            <input class="layui-input" name="parameterValue" id="parameterValue" autocomplete="off" placeholder="请输入参数值" lay-verify="required" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注:</label>
+        <div class="layui-input-inline">
+            <textarea name="Remark" class="layui-textarea" id="Remark"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-inline">
+            <input type="button" class="layui-btn layui-btn-sm layui-btn-normal" style="border-radius:3px;float:right" id="Submit" lay-submit lay-filter="Submit" value="提交"  />
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['admin', 'form'], function () {
+        var $ = layui.$
+            , form = layui.form;
+
+    });
+</script>
