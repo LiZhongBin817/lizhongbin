@@ -15,9 +15,27 @@
 </div>
 <script type="text/html" id="headerbutton">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="CreateBills" style="border-radius:3px">批量生成账单</button>
-        <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="ManyChanges" style="border-radius:3px">批量调整用量</button>
+        {{#
+        var t_btn47=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(47)===-1?"none":"inline-block";
+        var t_btn49=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(49)===-1?"none":"inline-block";
+        }}
+        <button class="layui-btn layui-btn-sm" lay-event="CreateBills" style="border-radius:3px;display: {{t_btn47}}">批量生成账单</button>
+        <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="ManyChanges" style="border-radius:3px;display: {{t_btn49}}">批量调整用量</button>
     </div>
+</script>
+<script type="text/html" id="CarrtOverData_btnContainer">
+    {{#
+        var t_btn51=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(51)===-1?"none":"inline-block";
+        var t_btn52=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(52)===-1?"none":"inline-block";
+        var t_btn53=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(53)===-1?"none":"inline-block";
+        if (d.bookkeepingcount == null) {
+    }}
+        <button  class="layui-btn layui-btn-warm layui-btn-sm" lay-event="Change" style="border-radius:3px;display: {{t_btn51}}">调整用量</button>
+        <button  class="layui-btn  layui-btn-sm" lay-event="ReCarryOver"style="border-radius:3px;display: {{t_btn52}}" >重新结转</button>
+        <button class="layui-btn  layui-btn-sm" lay-event="ReCreateBill" style="border-radius:3px;display: {{t_btn53}}">重新生成账单</button>
+    {{# }else { }}
+    <button class="layui-btn layui-btn-sm" lay-event="ReCreateBill" style="border-radius:3px;display: {{t_btn53}}">重新生成账单</button>
+    {{# } }}
 </script>
 <script>
 

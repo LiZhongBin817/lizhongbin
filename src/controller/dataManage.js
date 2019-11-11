@@ -105,22 +105,8 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                 }
             },
             {
-                title: '操作', width: 180, align: 'center',
-                templet: function (d) {
-                    if (d.rtrecheckstatus == 0) {
-                        return '<button  class="layui-btn  layui-btn-sm" lay-event="SeeRecheckHistoryData"  style="border-radius:3px">查看</button>';
-                    }
-                    else if (d.recheckstatus != 1 && d.carrystatus == null && d.rtrecheckstatus != 1) {
-                        return '<button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen"  style="border-radius:3px">审核</button>' +'<button  class="layui-btn layui-btn-sm"  style="border-radius:3px" lay-event="SeeRecheckHistoryData">查看</button>';
-                    }
-                    else if (d.recheckstatus == 1 && d.carrystatus == null && d.rtrecheckstatus == 1) {
-                        return '<button  class="layui-btn  layui-btn-sm" lay-event="dataManageOpen"  style="border-radius:3px">再次审核</button>' +'<button  class="layui-btn  layui-btn-sm"  style="border-radius:3px" lay-event="SeeRecheckHistoryData">查看</button>';
-                    }
-                    else {
-                        return '<button  class="layui-btn  layui-btn-sm" lay-event="SeeRecheckHistoryData"  style="border-radius:3px">查看</button>';
-
-                    }
-                }
+                title: '操作', width: 200, align: 'center',
+                templet: "#dataManage_btn"
             },
         ]]
         , page: true
