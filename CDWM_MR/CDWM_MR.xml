@@ -1221,6 +1221,21 @@
             <param name="ID"></param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.RecordpaidController">
+            <summary>
+            待缴记录
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RecordpaidController.Waittopay(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            显示全部数据
+            </summary>
+            <param name="starttime"></param>
+            <param name="endtime"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.SysManangeController">
             <summary>
             系统管理
