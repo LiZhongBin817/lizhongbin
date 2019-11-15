@@ -92,7 +92,7 @@ layui.define('jquery', function (exports) {
                     window.BMap && window.BMap.Map ? config.done(BMap) : setTimeout(poll, 4);//通过核心类Map判断是否加载成功
                 }());
         }
-    }
+    };
 
     //拼接url
     Class.prototype.url = function () {
@@ -103,14 +103,14 @@ layui.define('jquery', function (exports) {
         config.autolite && (device.android || device.weixin || device.ios) ? v = '1.0' : '';
         v == '1.0' ? isLite = '&type=lite' : '';
         return (config.https ? 'https' : 'http') + "://api.map.baidu.com/api?v=" + v + "&ak=" + config.ak + "&callback=" + bMap.callbackName + isLite;
-    }
+    };
 
     //加载百度地图
     Class.prototype.load = function () {
         var script = document.createElement("script");
         script.src = this.url();
         document.body.appendChild(script);
-    }
+    };
 
     //核心入口
     bMap.render = function (options) {
@@ -123,7 +123,7 @@ layui.define('jquery', function (exports) {
 
     bMap.init = function () {
         bMap.render();
-    }
+    };
 
     if (isSetter) {
         //提前请求
@@ -131,4 +131,4 @@ layui.define('jquery', function (exports) {
     }
 
     exports(MOD_NAME, bMap);
-})
+});

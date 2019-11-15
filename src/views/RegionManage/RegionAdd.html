@@ -3,12 +3,6 @@
 </script>
 <div class="layui-form" lay-filter="addregionform" id="addregionform" style="padding: 15px 0 0 0;">
     <div class="layui-form-item">
-        <label class="layui-form-label">区域编号</label>
-        <div class="layui-input-inline">
-            <input type="text" id="regionno" name="regionno" lay-verify="required" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
         <label class="layui-form-label">区域名称</label>
         <div class="layui-input-inline">
             <input type="text" id="regionname" name="regionname" lay-verify="required" autocomplete="off" class="layui-input">
@@ -21,10 +15,9 @@
         </div>
     </div>
 <script>
-    layui.use(['admin', 'form','RegionManage'], function () {
+    layui.use(['admin', 'form'], function () {
         var $ = layui.$
-            , form = layui.form
-            , RegionManage = layui.RegionManage;
+            , form = layui.form;
         form.render();
     });
 </script>
