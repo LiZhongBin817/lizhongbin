@@ -8,7 +8,6 @@ layui.define(['table', 'form','view'], function (exports) {
     var view = layui.view;
     var table = layui.table;
     var form = layui.form;
-    var load = layer.load(3);
     //渲染表格
     table.render({
         elem: '#Interface',
@@ -55,7 +54,6 @@ layui.define(['table', 'form','view'], function (exports) {
         limits: [5, 10, 15],
         height: $(document).height() - $('#Interface').offset().top - 200,
         done: function () {
-            layer.close(load);
             let p = new Promise((resolve, reject) => {
                 admin.req({
                     url: layui.setter.requesturl + '/api/OprationManage/ShowSelectInfor',
@@ -105,18 +103,18 @@ layui.define(['table', 'form','view'], function (exports) {
                                 form.render(null, 'interfaceeditform');//渲染表单
                                 //监听提交
                                 form.on('submit(interface-edit-submit)', function (Data) {
-                                    var field = Data.field; //获取提交的字段  
-                                    var load = layer.load(3);
+                                    var field = Data.field; //获取提交的字段
+                                    console.log(field);
                                     var sendData = {
                                         "OperationVersion:": field.OperationVersion,
                                         "menuid": field.InterfaceEdit_menuid,
                                         "InterfaceName": field.InterfaceName,
                                         "InterfaceUrl": field.InterfaceUrl,
                                         "ExternalInterface": field.ExternalInterface == "on" ? 0 : 1,
+                                        "OperationVersion":field.OperationVersion,
                                         "Verify": field.Verify == "on" ? 0 : 1,
                                         "Remark": field.Remark
                                     };
-                                    console.log(sendData);
                                     admin.req({
                                         url: layui.setter.requesturl + '/api/SysManange/ModifyInterface',
                                         type: 'post',
@@ -129,7 +127,7 @@ layui.define(['table', 'form','view'], function (exports) {
                                                 case "The same TnterfaceUrl or InterfaceName exists":
                                                     layer.msg("存在相同的接口地址或接口名称");
                                                     layer.close(load);
-                                                case "edit error":
+                                                case "error":
                                                     layer.msg("编辑异常");
                                                     layer.close(load);
                                                 case "ok":
@@ -150,7 +148,7 @@ layui.define(['table', 'form','view'], function (exports) {
         }
     });
     //监听查询按钮
-    form.on('submit(polling)', function (obj) {
+    form.on('submit(Interface_polling)', function (obj) {
         var field = obj.field;
         table.reload('Interface', {
             where: {

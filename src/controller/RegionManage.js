@@ -2,6 +2,8 @@
 /*Title:区域管理
  *Creator:李黎东
  * Date:2019.11.07
+ * Modified:ZK
+ * 2019.11.15
  */
 layui.define(['table', 'form', 'view'], function (exports) {
     var $ = layui.$;
@@ -59,7 +61,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                     "JsonData": JSON.stringify(sendData)
                                 },
                                 success: function (obj) {
-                                    if (obj.msg == "ok") {
+                                    if (obj.msg === "ok") {
                                         layer.msg("成功操作一条数据");
                                         table.reload('region_table');
                                     }
@@ -71,13 +73,14 @@ layui.define(['table', 'form', 'view'], function (exports) {
             })
         }
         //显示下属小区
-        if (layEvent == 'ShowArea') {
+        if (layEvent === 'ShowArea') {
             admin.popup({
                 id: 'areaShow',
                 title: '小区显示界面',
                 area: ['800px', '500px'],
                 success: function (index, layero) {
                     view('areaShow').render('RegionManage/AreaShow', null).done(function () {
+                        //表格渲染
                         table.render({
                             url: layui.setter.requesturl + '/api/RegionManage/areaShow',
                             elem: '#area_table',
@@ -97,15 +100,50 @@ layui.define(['table', 'form', 'view'], function (exports) {
                             toolbar: "#area_toolbarDemo",
                             limits: [5, 10, 15]
                         });
-                        form.render(null, 'Areashowform');
+                        //监听小区添加
+                        table.on('toolbar(area_table)', function (obj) {
+                            if (obj.event === "area_add") {
+                                admin.popup({
+                                    id: 'area_add',
+                                    title: '小区添加界面',
+                                    area:['500px','400px'],
+                                    success: function (layero, index) {
+                                        view('area_add').render('RegionManage/AreaAdd', null).done(function () {
+                                            form.render(null, 'Areaaddform');
+                                            form.on('submit(area-add-submit)', function (addareaobj) {
+                                                var sendData = {
+                                                    "areano": addareaobj.field.areano,
+                                                    "areaname": addareaobj.field.areaname,
+                                                    "regionno": data.regionno,
+                                                    "areastate":1
+                                                };
+                                                admin.req({
+                                                    url: layui.setter.requesturl + '/api/RegionManage/addArea',
+                                                    type: 'post',
+                                                    data: {
+                                                        "JsonData": JSON.stringify(sendData)
+                                                    },
+                                                    success: function (msg) {
+                                                        if (msg.msg === "ok") {
+                                                            layer.close(index);
+                                                            table.reload('area_table');
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    }
+                                });
+                            }
+                        });
 
-
+                        //form.render(null, 'Areashowform');
                     });
                 }
             });
         }
         //删除区域
-        if (layEvent == 'region_delete') {
+        if (layEvent === 'region_delete') {
             layer.confirm('确定删除吗？', {
                 btn: ['确定', '取消'] //按钮
             }, function () {
@@ -116,7 +154,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                         "regionno": data.regionno
                     },
                     success: function (msg) {
-                        if (msg.msg == 'ok') {
+                        if (msg.msg === 'ok') {
                             layer.msg("成功操作一条是数据");
                             table.reload('region_table');
                         }
@@ -158,7 +196,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
             "regionno": obj.field.regionno,
             "regionname": obj.field.regionname,
             "regionstate":1
-        }
+        };
         admin.req({
             url: layui.setter.requesturl + '/api/RegionManage/addRegion',
             data: {
@@ -166,11 +204,11 @@ layui.define(['table', 'form', 'view'], function (exports) {
             },
             type: 'post',
             success: function (msg) {
-                if (msg.msg == 'ok') {
+                if (msg.msg === 'ok') {
                     layer.msg("成功操作一条数据");
                     table.reload('region_table');
                 }
-                if (msg.msg = "error") {
+                if (msg.msg === "error") {
                     layer.msg("已存在重复区域名称");
                 }
             }
@@ -180,8 +218,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
     table.on('tool(area_table)', function (obj) {
         var layEvent = obj.event;
         var Data = obj.data;
-        console.log(Data);
-        if (layEvent == "area_edit") {
+        if (layEvent === "area_edit") {
             admin.popup({
                 id: 'area_edit',
                 area: ['500px', '400px'],
@@ -195,7 +232,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                 "areano": submitobj.field.areano,
                                 "areaname": submitobj.field.areaname,
                                 "areastate":1
-                            }
+                            };
                             admin.req({
                                 url: layui.setter.requesturl + '/api/RegionManage/editArea',
                                 data: {
@@ -203,7 +240,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                 },
                                 type: 'post',
                                 success: function (msg) {
-                                    if (msg.msg == "ok") {
+                                    if (msg.msg === "ok") {
                                         layer.msg("成功操作一条数据");
                                         table.reload('area_table');
                                     }
@@ -214,7 +251,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                 }
             });
         }
-        if (layEvent == "area_delete") {
+        if (layEvent === "area_delete") {
             layer.confirm('确定删除吗？', {
                 btn: ['确定', '取消'] //按钮
             }, function () {
@@ -225,7 +262,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                     },
                     type:'post',
                     success: function (msg) {
-                        if (msg.msg == "ok") {
+                        if (msg.msg === "ok") {
                             layer.msg("成功操作一条数据");
                             table.reload("area_table");
                         }
@@ -234,40 +271,6 @@ layui.define(['table', 'form', 'view'], function (exports) {
             })
         }
     });
-    table.on('toolbar(area_table)', function (obj) {
-        if (obj.event == "area_add") {
-            admin.popup({
-                id: 'area_add',
-                title: '小区添加界面',
-                area:['500px','400px'],
-                success: function (layero, index) {
-                    view('area_add').render('RegionManage/AreaAdd', null).done(function () {
-                        form.render(null, 'Areaaddform');
-                        form.on('submit(area-add-submit)', function (addareaobj) {
-                            var sendData = {
-                                "areano": addareaobj.field.areano,
-                                "areaname": addareaobj.field.areaname,
-                                "regionno": addareaobj.field.regionno,
-                                "areastate":1
-                            }
-                            admin.req({
-                                url: layui.setter.requesturl + '/api/RegionManage/addArea',
-                                type: 'post',
-                                data: {
-                                    "JsonData": JSON.stringify(sendData)
-                                },
-                                success: function (msg) {
-                                    if (msg.msg == "ok") {
-                                        layer.msg("成功操作一条数据");
-                                        table.reload('area_table');
-                                    }
-                                }
-                            });
-                        });
-                    });
-                }
-            });
-        }
-    });
+
     exports('RegionManage', {})
-})
+});

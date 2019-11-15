@@ -45,14 +45,7 @@ layui.define(['table', 'view', 'form', 'admin', 'jquery'], function (exports) {
             { field: 'endtime', title: '止码抄表时间', width: 200 },
             {
                 title: '操作', width: 350, fixed: 'right', align: 'center',
-                templet: function (d) {
-                    if (d.bookkeepingcount == null) {
-                        return '<button  class="layui-btn layui-btn-warm layui-btn-sm" lay-event="Change" style="border-radius:3px">调整用量</button>' + '<button  class="layui-btn  layui-btn-sm" lay-event="ReCarryOver"style="border-radius:3px" >重新结转</button>' + '<button class="layui-btn  layui-btn-sm" lay-event="ReCreateBill" style="border-radius:3px">重新生成账单</button>'
-                    }
-                    else {
-                        return '<button class="layui-btn  layui-btn-sm" lay-event="ReCreateBill" style="border-radius:3px">重新生成账单</button>'
-                    }
-                }
+                templet: "#CarrtOverData_btnContainer"
             }
         ]]
         , toolbar: '#headerbutton'

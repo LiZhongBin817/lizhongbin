@@ -29,6 +29,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
         method: 'post',
         cols: [[
             { field: 'DSMID', title: '序号', width: 100, sort: true, fixed: 'left' },
+            { field: 'readerid', title: '抄表员ID', width: 50, hide: true },
             { field: 'DSMNumber', title: '故障编号', width: 150 },
             {
                 field: 'DSMType', title: '故障类型', width: 100,
@@ -91,19 +92,23 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                 field: 'DSMOperation', title: '操作', width: 250, fixed: 'right', align: 'center',
                 templet: function (d) {
                     if (d.DSMStatus == 0) {
-                        return '<a class="layui-btn layui-btn-warm " lay-event="DSMAcceptance">受理</a><a class="layui-btn layui-btn-warm " lay-event="DSMEdit">编辑</a><a class="layui-btn layui-btn-warm " lay-event="DSMDelte">删除</a>'
+                        return '<a class="layui-btn layui-btn-sm " lay-event="DSMAcceptance">受理</a><a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="DSMEdit">编辑</a><a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="DSMDelte">删除</a>'
                     }
                     else if (d.DSMStatus == 1) {
-                        return '<a class="layui-btn layui-btn-warm " lay-event="DSMHandle">处理</a><a class="layui-btn layui-btn-warm " lay-event="DSMEdit">编辑</a><a class="layui-btn layui-btn-warm " lay-event="DSMDelte">删除</a>'
+                        return '<a class="layui-btn layui-btn-sm " lay-event="DSMHandle">处理</a><a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="DSMEdit">编辑</a><a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="DSMDelte">删除</a>'
                     }
                     else if (d.DSMStatus == 2) {
-                        return '<a class="layui-btn layui-btn-warm " lay-event="DSMHandleinformation">处理信息</a><a class="layui-btn layui-btn-warm " lay-event="DSMEdit">编辑</a><a class="layui-btn layui-btn-warm " lay-event="DSMDelte">删除</a>'
+                        return '<a class="layui-btn layui-btn-sm " lay-event="DSMHandleinformation">处理信息</a><a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="DSMEdit">编辑</a><a class="layui-btn layui-btn-danger layui-btn-sm " lay-event="DSMDelte">删除</a>'
+                    }
+                    else {
+                        return '<a class="layui-btn layui-btn-sm " lay-event="DSMHandleinformation">处理信息</a><a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="DSMEdit">编辑</a><a class="layui-btn layui-btn-danger layui-btn-sm " lay-event="DSMDelte">删除</a>'
                     }
                 }
             }
         ]],
         page: true,
         limit: 10,
+        height: $(document).height() - $('#DSMShowtable').offset().top - 250,
         limits: [10, 15, 20],
     });
 
@@ -217,6 +222,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                 else if (event == "DSMAcceptance") {
                     if (Resdata.push(resdata.data)) {
                         if (resdata.code == 0) {
+                            console.log(data);
                             admin.popup({
                                 title: "受理操作",
                                 area: ['700px', '500px'],
@@ -232,6 +238,10 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                             elem: '#ShowOperation_operationtime',
                                             value: new Date(),
                                         });
+                                        //监听受理操作中的该表抄户员
+                                        //form.on('submit(DSMShowReader)', function (obj) {
+                                        //    DispatchedWorker = data.readerid;
+                                        //});
                                         console.log(Resdata);
                                         form.render();
                                         form.on('submit(DSMShowAcceptance_submit)', function (Data) {
@@ -345,7 +355,8 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                     admin.req({
                         url: layui.setter.requesturl + '/api/DispatchSheet/FaultInformationDisplay',
                         data: {
-                            "id": ID
+                            "id": ID,
+                            "DSMStatus": obj.data.DSMStatus
                         },
                         type: "post",
                         success: function (resdata) {
@@ -358,26 +369,70 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                     success: function (layero, index) {
                                         console.log(resdata.data);
                                         view('Processinformation').render('DispatchSheetManagement/DSMShowProcessinformation', resdata.data).done(function () {
-                                            // for (var i = 0; i < resdata.data[3].length; i++) {
-                                            //     console.log(resdata.data[3][0]);
-                                            //$("#DSMSHOWPIphotoshow").append('<img src="' + resdata.data[3][i] + '" height="200px"/>');
+                                            //隐藏提交按钮
+                                            if (obj.data.DSMStatus==3) {
+                                                $("#DSMShowProcessinformation_submit").attr("style", "display:none;");
+                                            }
+                                            //单选框的值
+                                            if (resdata.data[5].length!=0) {
+                                                if (resdata.data[5][0].processresult == 0) {
+                                                    var result = document.getElementById('ProcessResult_pass');
+                                                    result.checked = true;
+                                                }
+                                                else {
+                                                    var result = document.getElementById('ProcessResult_unpass');
+                                                    result.checked = true;
+                                                }
+                                            }
                                             var rhtml = "";
+                                            console.log(resdata.data[3]);
                                             for (var i = 0; i < resdata.data[3].length; i++) {
-                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i]}" title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--现场图片</div></div>`;
+                                                if (resdata.data[3][i].phototype == 1) {
+                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;
+                                                }
+                                                else if (resdata.data[3][i].phototype == 2) {
+                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--现场图片</div></div>`;
+                                                }
+                                                else if (resdata.data[3][i].phototype == 3) {
+                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                                                }
+                                                else if (resdata.data[3][i].phototype == 4) {
+                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="故障图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障图片</div></div>`;
+                                                }
+                                                else {
+                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="其他类型图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--其他类型图片</div></div>`;
+                                                }
                                             }
                                             $("#DSMSHOWPIphotoshow").html(rhtml);
-                                            //}
-                                            //for (var j = 0; j < resdata.data[4].length; j++) {
-                                            //    console.log(resdata.data[4][j]);
-                                                //$("#DSMShowPIpictureshow").append('<img src="' + resdata.data[4][j] + '" height="200px"/>');
-                                                var rhtml2 = "";
-                                                for (var j = 0; j < resdata.data[4].length; j++) {
-                                                    rhtml2 += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[4][j]}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
-                                                }
-                                                $("#DSMShowPIpictureshow").html(rhtml2);
-                                           // }
+                                            var rhtml2 = "";
+                                            for (var j = 0; j < resdata.data[4].length; j++) {
+                                                rhtml2 += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[4][j]}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                                            }
+                                            $("#DSMShowPIpictureshow").html(rhtml2);
                                             form.render();
-
+                                            form.on('submit(DSMShowProcessinformation_submit)', function (obj) {
+                                                var fields = obj.field;
+                                                var faultprocessid = resdata.data[6];
+                                                console.log(fields.ProcessResult);
+                                                console.log(faultprocessid);
+                                                admin.req({
+                                                    url: layui.setter.requesturl + '/api/DispatchSheet/Failureinformationreview',
+                                                    type: "post",
+                                                    data: {
+                                                        "result": fields.ProcessResult,
+                                                        "id": faultprocessid
+                                                    },
+                                                    success: function (resdate) {
+                                                        if (resdate.code==0) {
+                                                            layer.msg(resdate.msg);
+                                                            table.reload('DSMShowtable');
+                                                        }
+                                                        else {
+                                                            layer.msg(resdate.msg);
+                                                        }
+                                                    }
+                                                });
+                                            });
                                         });
                                     }
                                 });
@@ -465,13 +520,10 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
         console.log(data.value);
         console.log(DispatchedWorker);
     });
-    //监听受理操作中的该表抄户员
-    form.on('submit(DSMShowReader)', function (obj) {
-        DispatchedWorker = 0;
-    });
+ 
     form.on('select(DSMShowProcessingOperationShow_DealPeople)', function (data) {
         DispatchedWorker = data.value;
-    })
+    });
 
     //时间
     laydate.render({

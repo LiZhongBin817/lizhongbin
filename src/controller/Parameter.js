@@ -7,7 +7,6 @@ layui.define(['table', 'form', 'view'], function (exports) {
         , table = layui.table
         , form = layui.form
         , view = layui.view
-        , load = layer.load(3)
         , admin = layui.admin;
     //表格渲染
     table.render({
@@ -29,9 +28,6 @@ layui.define(['table', 'form', 'view'], function (exports) {
         , limit: 10
         , toolbar: '#toolbarDemo1'
         , limits: [5, 10, 15]
-        , done: function () {
-            layer.close(load);
-        }
     });
 
     //监听表格查询

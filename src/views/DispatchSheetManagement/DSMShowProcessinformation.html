@@ -7,7 +7,7 @@
     <div class="layui-form-item">
         <table class="layui-hide" id="DSMShowProcessinformationtable" lay-filter="DSMSP"></table>
     </div>
-    <div class="layui-form-item" >
+    <div class="layui-form-item">
         <label class="layui-form-label">故障信息:</label>
     </div>
     <div class="layui-form-item">
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    <div class="layui-form-item" >
+    <div class="layui-form-item">
         <label class="layui-form-label">受理信息:</label>
     </div>
     <div class="layui-form-item">
@@ -72,7 +72,7 @@
         <label class="layui-form-label">受理时间:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowProcessinfomation_Acceptancetime" value="{{d.params[1][0].createtime}}" />
+                <input class="layui-input" type="text" name="DSMShowProcessinfomation_Acceptancetime" value="{{d.params[1][0].createtime}}" disabled="disabled"/>
             </script>
         </div>
     </div>
@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    <div class="layui-form-item" >
+    <div class="layui-form-item">
         <label class="layui-form-label">处理信息:</label>
     </div>
     <div class="layui-form-item">
@@ -106,7 +106,7 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">处理状态:</label>
-        <div class="layui-inline"`>
+        <div class="layui-inline" `>
             <script type="text/html" template>
                 <input class="layui-input" type="text" name="DSMShowPIdealstatus" value="{{d.params[2][0].processresult==0?"通过":"不通过"}}" autocomplete="off" disabled="disabled" />
             </script>
@@ -133,6 +133,16 @@
         <div class="layui-inline" id="DSMShowPIpictureshow">
 
         </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理结果:</label>
+        <div class="layui-input-block">
+            <input type="radio" id="ProcessResult_unpass" name="ProcessResult" value="1" title="不通过" />
+            <input type="radio" id="ProcessResult_pass" name="ProcessResult" value="0" title="通过" />
+        </div>
+    </div>
+    <div class="layui-form-item" style="text-align:center">
+        <input type="button" lay-submit id="DSMShowProcessinformation_submit" lay-filter="DSMShowProcessinformation_submit" value="提交" class="layui-btn layui-btn-sm layui-btn-normal">
     </div>
 </div>
 

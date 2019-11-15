@@ -46,6 +46,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
         ]],
         limit: 10,
         toolbar: '#Show_toolbarDemo',
+        height: $(document).height() - $('#MeterReading').offset().top - 180,
         limits: [5, 10, 15],
     });
 
