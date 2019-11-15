@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using CDWM_MR.Common.Helper;
+﻿using CDWM_MR.Common.Helper;
 using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IServices;
 using CDWM_MR.IServices.Content;
@@ -11,8 +6,12 @@ using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -52,7 +51,7 @@ namespace CDWM_MR.Controllers
         /// <param name="sys_OperationServices"></param>
         /// <param name="user"></param>
         /// <param name="iv_InterfaceServices"></param>
-        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices, IUser user, Iv_interfaceServices iv_InterfaceServices, Isys_menuServices Isys_menuservices)
+        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info, Isys_role_menuServices sysrolemenu, Isys_operationServices sys_OperationServices, IUser user, Iv_interfaceServices iv_InterfaceServices, Isys_menuServices Isys_menuservices)
         {
             _sysuserinfoservices = sysuserinfo;
             _sysManageServices = sysusermanage;
@@ -78,7 +77,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit">每页显示数量</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ShowUserInfoDate")]       
+        [Route("ShowUserInfoDate")]
         public async Task<TableModel<object>> ShowUserInfoDate(string FUserName, string LoginName, int page = 1, int limit = 5)
         {
             PageModel<object> user = new PageModel<object>();
@@ -86,11 +85,11 @@ namespace CDWM_MR.Controllers
             Expression<Func<sys_userinfo, bool>> wherelambda = c => c.DeleteFlag != 1;
             if (!string.IsNullOrEmpty(FUserName))
             {
-                wherelambda = PredicateExtensions.And<sys_userinfo>(wherelambda, c => c.FUserName .Contains( FUserName));
+                wherelambda = PredicateExtensions.And<sys_userinfo>(wherelambda, c => c.FUserName.Contains(FUserName));
             }
             if (!string.IsNullOrEmpty(LoginName))
             {
-                wherelambda = PredicateExtensions.And<sys_userinfo>(wherelambda, c => c.LoginName.Contains( LoginName));
+                wherelambda = PredicateExtensions.And<sys_userinfo>(wherelambda, c => c.LoginName.Contains(LoginName));
             }
             #endregion
             Expression<Func<sys_userinfo, object>> expression = c => new
@@ -124,7 +123,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("roleDate")]       
+        [Route("roleDate")]
         public async Task<TableModel<List<sys_role>>> roleDate()
         {
             //用户角色表
@@ -144,7 +143,7 @@ namespace CDWM_MR.Controllers
         /// <param name="roleid">用户角色ID</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("AddUser")]     
+        [Route("AddUser")]
         public async Task<TableModel<object>> AddUser(string JsonDate, int[] roleid)
         {
             await _sysManageServices.AddUserinfo(JsonDate, roleid);
@@ -165,7 +164,7 @@ namespace CDWM_MR.Controllers
         /// <param name="ID">用户ID</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("DeleteUser")]      
+        [Route("DeleteUser")]
         public async Task<TableModel<object>> DeleteUser(int ID)
         {
             sys_userinfo user = await _sysuserinfoservices.QueryById(ID);
@@ -186,7 +185,7 @@ namespace CDWM_MR.Controllers
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("DeleteUsers")]      
+        [Route("DeleteUsers")]
         public async Task<TableModel<object>> DeleteUsers(string ids)
         {
             object[] IDs = ids.Split(',');
@@ -214,7 +213,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("ModifyData")]
-        
+
         public async Task<TableModel<object>> ModifyData(int ID)
         {
             return await _sysManageServices.Modify(ID);
@@ -228,7 +227,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ModifyUserInfo")]
-       
+
         public async Task<TableModel<object>> ModifyUserInfo(string JsonDate, int[] roleid)
         {
             await _sysManageServices.ModifyInfo(JsonDate, roleid);
@@ -255,19 +254,19 @@ namespace CDWM_MR.Controllers
         /// <param name="limit"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("InterfaceInfoShow")]        
+        [Route("InterfaceInfoShow")]
         public async Task<TableModel<object>> InterfaceInfoShow(string InterfaceName, int menuid, int page = 1, int limit = 10)
         {
             PageModel<object> Interface = new PageModel<object>();
             #region lambda拼接式
-            Expression<Func<v_interface, bool>>wherelambda=c=>true;
-            if(!string .IsNullOrEmpty(InterfaceName))
+            Expression<Func<v_interface, bool>> wherelambda = c => true;
+            if (!string.IsNullOrEmpty(InterfaceName))
             {
                 wherelambda = PredicateExtensions.And<v_interface>(wherelambda, c => c.InterfaceName.Contains(InterfaceName));
             }
-            if(menuid!=0)
+            if (menuid != 0)
             {
-                wherelambda = PredicateExtensions.And<v_interface>(wherelambda, c => c.menuid==menuid);
+                wherelambda = PredicateExtensions.And<v_interface>(wherelambda, c => c.menuid == menuid);
             }
             #endregion
             Expression<Func<v_interface, object>> expression = c => new
@@ -276,8 +275,8 @@ namespace CDWM_MR.Controllers
                 InterfaceUrl = c.InterfaceUrl,
                 InterfaceName = c.InterfaceName,
                 OperationVersion = c.OperationVersion,
-                MenuName=c.MenuName,
-                MenuID=c.menuid,
+                MenuName = c.MenuName,
+                MenuID = c.menuid,
                 ExternalInterface = c.ExternalInterface,
                 Verify = c.Verify,
                 Remark = c.Remark
@@ -300,16 +299,16 @@ namespace CDWM_MR.Controllers
         /// <param name="JsonData">前台传来的Json对象</param>
         /// <returns>总数目</returns>
         [HttpPost]
-        [Route("AddInterface")]      
+        [Route("AddInterface")]
         public async Task<MessageModel<object>> AddInterface(string JsonData)
         {
-           sys_interface_info Jsondata = Common.Helper.JsonHelper.GetObject<sys_interface_info>(JsonData);
+            sys_interface_info Jsondata = Common.Helper.JsonHelper.GetObject<sys_interface_info>(JsonData);
             #region 判重
             String InterfaceName = Jsondata.InterfaceName;
             string InterfaceUrl = Jsondata.InterfaceUrl;
-            var listInter= await _Isys_interface_infoServices.Query(c => c.InterfaceName.Contains(InterfaceName)|| c.InterfaceUrl.Contains(InterfaceUrl));
+            var listInter = await _Isys_interface_infoServices.Query(c => c.InterfaceName.Contains(InterfaceName) || c.InterfaceUrl.Contains(InterfaceUrl));
             var msg = "";
-            if (listInter.Count()>0)
+            if (listInter.Count() > 0)
             {
                 return new MessageModel<object>()
                 {
@@ -319,7 +318,7 @@ namespace CDWM_MR.Controllers
                 };
             }
             #endregion
-            msg= await _Isys_interface_infoServices.Add(Jsondata)>0?"ok":"error";
+            msg = await _Isys_interface_infoServices.Add(Jsondata) > 0 ? "ok" : "error";
             return new MessageModel<object>()
             {
                 code = 0,
@@ -338,8 +337,8 @@ namespace CDWM_MR.Controllers
         /// <param name="ID">编辑的ID</param>
         /// <returns>返回是否成功</returns>
         [HttpPost]
-        [Route("ModifyInterface")]       
-        public async Task<MessageModel<object>> ModifyInterface(string JsonData,int ID)
+        [Route("ModifyInterface")]
+        public async Task<MessageModel<object>> ModifyInterface(string JsonData, int ID)
         {
             sys_interface_info Jsondata = Common.Helper.JsonHelper.GetObject<sys_interface_info>(JsonData);
             Jsondata.ID = ID;
@@ -362,16 +361,17 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("GetTrees")]        
+        [Route("GetTrees")]
         public async Task<MessageModel<object>> GetTrees()
         {
-            var data=await _sysManageServices.GetTree(0);
-            return new MessageModel<object>() {
-                code=0,
-                msg="ok",
-                data=data
+            var data = await _sysManageServices.GetTree(0);
+            return new MessageModel<object>()
+            {
+                code = 0,
+                msg = "ok",
+                data = data
             };
-           
+
         }
         #endregion
 
@@ -382,15 +382,15 @@ namespace CDWM_MR.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("ShowInfo")]       
+        [Route("ShowInfo")]
         public async Task<TableModel<object>> ShowInfo(int id)
         {
             var data = await _sysManageServices.GetMenuInfo(id);
             return new TableModel<object>()
             {
-               code=0,
-               msg="ok",
-               data=data
+                code = 0,
+                msg = "ok",
+                data = data
             };
         }
         #endregion
@@ -402,7 +402,7 @@ namespace CDWM_MR.Controllers
         /// <param name="json"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("SaveMenu")]       
+        [Route("SaveMenu")]
         public async Task<TableModel<object>> SaveMenu(string json)
         {
             sys_menu Data = Common.Helper.JsonHelper.GetObject<sys_menu>(json);
@@ -430,17 +430,17 @@ namespace CDWM_MR.Controllers
                 {
                     code = 0,
                     msg = "添加成功",
-                    data=null
+                    data = null
 
                 };
             }
-                return new TableModel<object>
-                {
-                    code = 1,
-                    msg = "添加失败",
-                    data=null
-                    
-                };
+            return new TableModel<object>
+            {
+                code = 1,
+                msg = "添加失败",
+                data = null
+
+            };
         }
         #endregion
 
@@ -451,7 +451,7 @@ namespace CDWM_MR.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("DeleMenu")]        
+        [Route("DeleMenu")]
         public async Task<TableModel<object>> DeleMenu(int id)
         {
             if (await _sysManageServices.DelMenu(id))
@@ -459,16 +459,16 @@ namespace CDWM_MR.Controllers
                 return new TableModel<object>
                 {
                     code = 0,
-                    msg="删除成功",
-                    data=null
+                    msg = "删除成功",
+                    data = null
                 };
             }
-                return new TableModel<object>
-                {
-                    code = 0,
-                    msg = "删除失败",
-                    data=null
-                };
+            return new TableModel<object>
+            {
+                code = 0,
+                msg = "删除失败",
+                data = null
+            };
         }
         #endregion
 
@@ -483,25 +483,25 @@ namespace CDWM_MR.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("AuthorityManagement")]       
-        public async Task<TableModel<object>> AuthorityManagement(string adddata,string deldata,string modifdata,string seedata,int id)
+        [Route("AuthorityManagement")]
+        public async Task<TableModel<object>> AuthorityManagement(string adddata, string deldata, string modifdata, string seedata, int id)
         {
-            if (await _sysManageServices.Power(adddata,deldata,modifdata,seedata,id))
+            if (await _sysManageServices.Power(adddata, deldata, modifdata, seedata, id))
             {
                 return new TableModel<object>
                 {
                     code = 0,
                     msg = "分配成功",
-                    data=null
+                    data = null
                 };
             }
-                return new TableModel<object>
-                {
-                    code = 1,
-                    msg = "分配失败",
-                    data=null
-                };
-            
+            return new TableModel<object>
+            {
+                code = 1,
+                msg = "分配失败",
+                data = null
+            };
+
         }
         #endregion
 
@@ -512,7 +512,7 @@ namespace CDWM_MR.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetInfo")]       
+        [Route("GetInfo")]
         public async Task<TableModel<object>> GetInfo(int id)
         {
             try
@@ -525,7 +525,7 @@ namespace CDWM_MR.Controllers
                 return new TableModel<object>
                 {
                     code = 0,
-                    msg="ok",
+                    msg = "ok",
                     data = new { addstr = addlist, delstr = dellist, modifstr = modlist, seestr = seelist }
                 };
             }
@@ -535,11 +535,11 @@ namespace CDWM_MR.Controllers
                 return new TableModel<object>
                 {
                     code = 1,
-                    msg="false",
-                    data=null
+                    msg = "false",
+                    data = null
                 };
             }
-            
+
 
         }
         #endregion
@@ -554,19 +554,19 @@ namespace CDWM_MR.Controllers
         /// <param name="RoleName">角色名称</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("AddRole")]      
-        public async Task<MessageModel<object>> AddRole( string RoleName)
+        [Route("AddRole")]
+        public async Task<MessageModel<object>> AddRole(string RoleName)
         {
             sys_role role = new sys_role();
             #region 自动生成编号
             //查询表中最后一条数据
-             var data = await _sys_roleServices.Query();
+            var data = await _sys_roleServices.Query();
             string RoleNumber = data[data.Count - 1].RoleNumber;
-            int NewRoleNumber = Convert.ToInt32(RoleNumber.Substring(RoleNumber.Length - 1, 1))+1;
+            int NewRoleNumber = Convert.ToInt32(RoleNumber.Substring(RoleNumber.Length - 1, 1)) + 1;
             #endregion
-            role.RoleNumber = "RN-000"+NewRoleNumber.ToString();
+            role.RoleNumber = "RN-000" + NewRoleNumber.ToString();
             role.RoleName = RoleName;
-            role.createpeople =_user.Name;
+            role.createpeople = _user.Name;
             role.createtime = DateTime.Now;
             role.DeleteFlag = 0;
             foreach (var item in data)
@@ -602,7 +602,7 @@ namespace CDWM_MR.Controllers
         /// <param name="RoleName">删除的角色名称</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("DeleteRole")]        
+        [Route("DeleteRole")]
         public async Task<MessageModel<object>> DeleteRole(string RoleName)
         {
             //寻找到RoleName相等的数据对应的ID
@@ -645,7 +645,7 @@ namespace CDWM_MR.Controllers
         /// <param name="NewRoleName">新角色名称</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("EditRole")]      
+        [Route("EditRole")]
         public async Task<MessageModel<object>> EditRole(string RoleName, string NewRoleName)
         {
             //查找到角色表中的所有数据
@@ -678,7 +678,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("ShowRole")]       
+        [Route("ShowRole")]
         public async Task<TableModel<object>> ShowRole()
         {
             //查询角色表中的所有数据
@@ -716,7 +716,7 @@ namespace CDWM_MR.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetMenuID")]      
+        [Route("GetMenuID")]
         public async Task<TableModel<object>> GetMenuID(int id)
         {
             return await _sysManageServices.GetMenuID(id);
@@ -729,7 +729,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetMenu")]       
+        [Route("GetMenu")]
         public async Task<TableModel<object>> GetMenu()
         {
             return await _sysManageServices.GetMenu();
@@ -744,7 +744,7 @@ namespace CDWM_MR.Controllers
         /// <param name="MenuID"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("Jude")]        
+        [Route("Jude")]
         public async Task<TableModel<object>> Jude(int RoleID, int MenuID)
         {
             return await _sysManageServices.Jude(RoleID, MenuID);
@@ -759,7 +759,7 @@ namespace CDWM_MR.Controllers
         /// <param name="MenuID"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("SaveOperation")]      
+        [Route("SaveOperation")]
         public async Task<TableModel<object>> SaveOperation(int RoleID, string MenuID)
         {
             return await _sysManageServices.SaveOperation(RoleID, MenuID);
@@ -775,8 +775,8 @@ namespace CDWM_MR.Controllers
         /// <param name="judgetype"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetOperation")]        
-        public async Task<TableModel<object>> GetOperation(int RoleID, int menuID,int judgetype)
+        [Route("GetOperation")]
+        public async Task<TableModel<object>> GetOperation(int RoleID, int menuID, int judgetype)
         {
             return await _sysManageServices.GetOperation(RoleID, menuID, judgetype);
         }
@@ -791,7 +791,7 @@ namespace CDWM_MR.Controllers
         /// <param name="OperationID"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("EditOperations")]        
+        [Route("EditOperations")]
         public async Task<TableModel<sys_operation>> EditOperations(int RoleID, int MenuID, string OperationID, int judgetype)
         {
             return await _sysManageServices.EditOperations(RoleID, MenuID, OperationID, judgetype);

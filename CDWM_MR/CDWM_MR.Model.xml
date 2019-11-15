@@ -834,6 +834,11 @@
             备注
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo_history.taskperiodname">
+            <summary>
+            任务账期
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.rb_b_faultprocess">
             <summary>
             故障处理记录表
@@ -957,6 +962,11 @@
         <member name="P:CDWM_MR.Model.Models.rb_b_faultprocess_history.meternum">
             <summary>
             水表编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.rb_b_faultprocess_history.taskperiodname">
+            <summary>
+            任务周期
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.rt_b_faultinfo">
@@ -1144,6 +1154,11 @@
             使用用时时间：秒
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.rt_b_ocrlog.taskperiodname">
+            <summary>
+            任务周期
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.rt_b_ocrlog_history">
             <summary>
             OCR识别记录历史表
@@ -1207,6 +1222,11 @@
         <member name="P:CDWM_MR.Model.Models.rt_b_ocrlog_history.remark">
             <summary>
             备注
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.rt_b_ocrlog_history.taskperiodname">
+            <summary>
+            任务周期
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.rt_b_photoattachment">
@@ -1519,6 +1539,11 @@
             创建人(来源于sys_userinfo)
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.rt_b_wateradjust.taskperiodname">
+            <summary>
+            任务周期
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.rt_b_wateradjust_history">
             <summary>
             
@@ -1562,6 +1587,11 @@
         <member name="P:CDWM_MR.Model.Models.rt_b_wateradjust_history.createperson">
             <summary>
             创建人(来源于sys_userinfo)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.rt_b_wateradjust_history.taskperiodname">
+            <summary>
+            任务周期
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.rt_b_watercarryovarcheck">
@@ -2816,6 +2846,16 @@
             类型
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.Models.t_b_watermodel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermodel.bmlid">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.t_b_watermodel.modelname">
             <summary>
             型号名称
@@ -4021,6 +4061,16 @@
             当前月份抄表读数
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.readDateTime">
+            <summary>
+            抄表详细时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.remark">
+            <summary>
+            抄表数据备注
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_mr_date_reader">
             <summary>
             VIEW
@@ -4789,6 +4839,16 @@
         <member name="P:CDWM_MR.Model.Models.v_taskinfo.readperiod">
             <summary>
             抄表周期
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.taskperiodname">
+            <summary>
+            任务周期
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.mplannumber">
+            <summary>
+            计划单编号
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover">

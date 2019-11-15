@@ -75,5 +75,10 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         public string meternum { get; set; }
 
+        /// <summary>
+        /// 任务周期
+        /// </summary>
+        public string taskperiodname { get; set; }
+
     }
 }

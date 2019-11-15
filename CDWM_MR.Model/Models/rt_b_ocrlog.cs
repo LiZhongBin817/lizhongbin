@@ -45,6 +45,12 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = true,ColumnDescription = "使用用时时间：秒")]
         public int ocrusesecond { get; set; }
-        
+
+        /// <summary>
+        /// 任务周期
+        /// </summary>
+        public string taskperiodname { get; set; }
+
+
     }
 }

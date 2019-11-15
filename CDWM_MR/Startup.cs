@@ -263,7 +263,8 @@ namespace CDWM_MR
             //注入 Quartz调度类
             services.AddSingleton<QuartzManager>();
             // 这里使用瞬时依赖注入
-            services.AddTransient<AutoTask_plansheet>();      
+            services.AddTransient<AutoTask_plansheet>();
+            services.AddTransient<AutoTask_CarryOverData>();
             //注册ISchedulerFactory的实例。
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             services.AddSingleton<IJobFactory, IOCJobFactory>();

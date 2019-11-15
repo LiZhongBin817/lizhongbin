@@ -83,7 +83,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("ListData")]       
+        [Route("ListData")]
         public async Task<TableModel<object>> ListData()
         {
             List<t_b_factory> factorylist = new List<t_b_factory>();//存储生产厂商的集合
@@ -93,7 +93,7 @@ namespace CDWM_MR.Controllers
             List<object> DataList = new List<object>();//存储返回的数据
             factorylist = await _t_b_factoryServices.OQuery(c => true);
             watermetertypelist = await _t_b_watermetertypeServices.OQuery(c => true);
-            installposlist = await _t_b_installposServices.OQuery(c => true);           
+            installposlist = await _t_b_installposServices.OQuery(c => true);
             watermodellist = await _t_b_watermodelServices.OQuery(c => true);
             DataList.Add(factorylist);
             DataList.Add(installposlist);
@@ -124,7 +124,7 @@ namespace CDWM_MR.Controllers
         /// <param name="limit">页面大小</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("ShowWaterUserinfo")]        
+        [Route("ShowWaterUserinfo")]
         public async Task<TableModel<List<v_wateruserinfo>>> ShowWaterUserinfo(string account, string username, string meternum, string optname, string bookno, string regionplace, string areaname, int page = 1, int limit = 5)
         {
             PageModel<v_wateruserinfo> showdate = new PageModel<v_wateruserinfo>();
@@ -174,7 +174,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("SelectValue")]       
+        [Route("SelectValue")]
         public async Task<TableModel<object>> SelectValue()
         {
             List<mr_b_bookinfo> bookinfo = await _mr_b_bookinfoServices.Query();
@@ -229,7 +229,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("ShowEditAreasDate")]       
+        [Route("ShowEditAreasDate")]
         public async Task<TableModel<object>> ShowEditAreasDate(string regionno)
         {
             List<t_b_areas> areas = await _t_b_areasServices.OQuery(c => c.regionno == regionno);
@@ -246,7 +246,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         ///  <param name="JsonDate">户名+电话+小区编号+家庭住址</param>
         [HttpPost]
-        [Route("EditUserInfo")]       
+        [Route("EditUserInfo")]
         public async Task<TableModel<object>> EditUserInfo(string JsonDate)
         {
             t_b_users Edit = Common.Helper.JsonHelper.GetObject<t_b_users>(JsonDate);
@@ -271,7 +271,7 @@ namespace CDWM_MR.Controllers
         /// <param name="JsonDate">水表信息JsonDate</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("EditWaterMater")]       
+        [Route("EditWaterMater")]
         public async Task<TableModel<object>> EditWaterMater(string JsonDate)
         {
             t_b_watermeters Edit = Common.Helper.JsonHelper.GetObject<t_b_watermeters>(JsonDate);
@@ -297,7 +297,7 @@ namespace CDWM_MR.Controllers
         /// <param name="meternum1">水表编号</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("showaddmeterinfo")]      
+        [Route("showaddmeterinfo")]
         public async Task<TableModel<object>> showaddmeterinfo(string meternum1)
         {
             string GISPlace = "";
@@ -316,7 +316,7 @@ namespace CDWM_MR.Controllers
                 c.account
             };
             List<t_b_watermeters> last = await _t_b_watermetersServices.OQuery(c => true);
-            if(meternum1==null)
+            if (meternum1 == null)
             {
 
             }
@@ -324,11 +324,11 @@ namespace CDWM_MR.Controllers
             {
                 List<t_b_watermeters> GISPlacelist = await _t_b_watermetersServices.OQuery(c => c.meternum == meternum1);
                 GISPlace = GISPlacelist[0].GISPlace;
-            }          
+            }
             //生成自动表号
             string lastnumber = last[last.Count() - 1].meternum;
             string SNumber = (last.Count).ToString();
-            string meternum = Convert.ToString(Convert.ToDouble(lastnumber) + 1);           
+            string meternum = Convert.ToString(Convert.ToDouble(lastnumber) + 1);
             List<string> Data = new List<string>();
             Data.Add(meternum);
             Data.Add(SNumber);
@@ -354,21 +354,21 @@ namespace CDWM_MR.Controllers
         /// <param name="autoaccount">用户自动编号</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("AddWaterMeter")]        
+        [Route("AddWaterMeter")]
         public async Task<TableModel<object>> AddWaterMeter(string JsonDate, string autoaccount)
         {
             //转换对象
             t_b_watermeters adduwatermeter = Common.Helper.JsonHelper.GetObject<t_b_watermeters>(JsonDate);
             adduwatermeter.autoaccount = autoaccount;
-            List<t_b_watermeters>judge=await _t_b_watermetersServices.OQuery(c => c.autoaccount == autoaccount);
-            if(judge.Count!=0)
+            List<t_b_watermeters> judge = await _t_b_watermetersServices.OQuery(c => c.autoaccount == autoaccount);
+            if (judge.Count != 0)
             {
                 adduwatermeter.meterstate = 0;//状态为未使用
             }
             else
             {
                 adduwatermeter.meterstate = 1;//状态为使用
-            }     
+            }
             //添加
             await _t_b_watermetersServices.OAdd(adduwatermeter);
             return new TableModel<object>()
@@ -389,7 +389,7 @@ namespace CDWM_MR.Controllers
         /// <param name="JsonDate"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("Adduser")]        
+        [Route("Adduser")]
         public async Task<TableModel<object>> Adduser(string JsonDate)
         {
             long autoaccount = 0;
@@ -419,7 +419,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("AdduserDataShow")]      
+        [Route("AdduserDataShow")]
         public async Task<TableModel<object>> AdduserDataShow()
         {
             List<t_b_nature> natureslist = new List<t_b_nature>();
@@ -449,7 +449,7 @@ namespace CDWM_MR.Controllers
         /// <param name="account">用户编号</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ShowChangemeter")]       
+        [Route("ShowChangemeter")]
         public async Task<TableModel<object>> ShowChangemeter(string account)
         {
             List<v_wateruserinfo> waterinfolist = await _v_wateruserinfoServices.Query(c => c.account == account);
@@ -486,8 +486,8 @@ namespace CDWM_MR.Controllers
         /// <param name="lastmodifyby">修改人</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("Changemeter")]      
-        public async Task<TableModel<object>> Changemeter(string Oldmeternum, string Newmeternum,string lastmodifyby)
+        [Route("Changemeter")]
+        public async Task<TableModel<object>> Changemeter(string Oldmeternum, string Newmeternum, string lastmodifyby)
         {
             //旧表状态变成 未使用
             await _t_b_watermetersServices.OUpdate(c => new t_b_watermeters
@@ -497,8 +497,8 @@ namespace CDWM_MR.Controllers
             //新表状态变成正常
             await _t_b_watermetersServices.OUpdate(c => new t_b_watermeters
             {
-                meterstate = 1,               
-                lastmodifyby=lastmodifyby//正常
+                meterstate = 1,
+                lastmodifyby = lastmodifyby//正常
             }, c => c.meternum == Newmeternum);
             return new TableModel<object>()
             {
@@ -517,7 +517,7 @@ namespace CDWM_MR.Controllers
         /// <param name="autoaccount"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("DelUser")]       
+        [Route("DelUser")]
         public async Task<TableModel<object>> DelUser(string autoaccount)
         {
             await _t_b_usersServices.OUpdate(c => new t_b_users { accstate = 2 }, c => c.autoaccount == autoaccount);
@@ -537,11 +537,11 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("DownloadOrderTemplet")]        
+        [Route("DownloadOrderTemplet")]
         public IActionResult DownloadOrderTemplet()
         {
-            string a=System.Environment.CurrentDirectory;   //当前路径
-            string filePath = a+"\\"+"wwwroot\\WatermeterManage\\userinfo.xls";//路径
+            string a = System.Environment.CurrentDirectory;   //当前路径
+            string filePath = a + "\\" + "wwwroot\\WatermeterManage\\userinfo.xls";//路径
             //获取文件的ContentType
             var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
             var memi = provider.Mappings[".xls"];
@@ -616,7 +616,7 @@ namespace CDWM_MR.Controllers
                     }
                     else
                     {
-                        autoaccount = Convert.ToInt64((User[User.Count - 1].autoaccount))+ 1;
+                        autoaccount = Convert.ToInt64((User[User.Count - 1].autoaccount)) + 1;
                     }
                     t_b_users userobj = new t_b_users();
                     for (int j = 0; j < areas.Count; j++)

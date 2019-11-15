@@ -232,6 +232,16 @@ namespace CDWM_MR.Model.Models
         /// 当前月份抄表读数
         /// </summary>
         public System.Decimal? nowmonthdata { get { return this._nowmonthdata; } set { this._nowmonthdata = value; } }
+
+        /// <summary>
+        /// 抄表详细时间
+        /// </summary>
+        public DateTime readDateTime { get; set; }
+
+        /// <summary>
+        /// 抄表数据备注
+        /// </summary>
+        public string remark { get; set; }
     }
 }
 

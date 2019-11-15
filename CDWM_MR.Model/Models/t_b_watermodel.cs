@@ -2,8 +2,14 @@
 
 namespace CDWM_MR.Model.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class t_b_watermodel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [SugarColumn(IsPrimaryKey = true)]
         public System.Int16 bmlid { get; set; }
         /// <summary>

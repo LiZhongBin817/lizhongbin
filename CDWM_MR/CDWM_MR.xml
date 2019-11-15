@@ -436,12 +436,6 @@
             <param name="bookno"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.BookManageController.BuildExcel">
-            <summary>
-            生成EXCEL文件
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:CDWM_MR.Controllers.CarryOverDataManageController">
             <summary>
             结转数据管理
@@ -1226,6 +1220,13 @@
             区域管理
             </summary>
         </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.#ctor(CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices)">
+            <summary>
+            
+            </summary>
+            <param name="It_b_regionsService"></param>
+            <param name="It_b_areasService"></param>
+        </member>
         <member name="M:CDWM_MR.Controllers.RegionManageController.regionsShow(System.String,System.Int32,System.Int32)">
             <summary>
             显示区域信息
@@ -1781,14 +1782,19 @@
             <param name="Newphone">新号码</param>
             <returns>成功返回1,失败返回0</returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppUserDate.ModifyUserAddress(System.String,System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.v1.AppUserDate.ModifyUserAddress(System.String,System.String)">
             <summary>
             修改用户用水地址接口
             </summary>
             <param name="autoaccount">用户自动编号</param>
-            <param name="areano">用户所在小区</param>
             <param name="address">用户所在地址</param>
             <returns>成功返回1,失败返回0</returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppUserDate.AppInterfaceTest">
+            <summary>
+            APP接口测试
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppWebCommonController">
             <summary>

@@ -135,5 +135,15 @@ namespace CDWM_MR.Model.Models
         /// 抄表周期
         /// </summary>
         public int readperiod { get; set; }
+
+        /// <summary>
+        /// 任务周期
+        /// </summary>
+        public string taskperiodname { get; set; }
+
+        /// <summary>
+        /// 计划单编号
+        /// </summary>
+        public string mplannumber { get; set; }
     }
 }
