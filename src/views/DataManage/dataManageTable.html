@@ -54,7 +54,12 @@
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <button id="DataInfoSearch" class="layui-btn layui-btn-sm layui-btn-normal "  style="border-radius:3px"lay-submit lay-filter="DataInfoSearch">查询</button>
+                        <script type="text/html" template>
+                            {{#
+                            var t_btn58=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(58)===-1?"none":"inline-block";
+                            }}
+                            <button id="DataInfoSearch" class="layui-btn layui-btn-sm layui-btn-normal "  style="border-radius:3px;display: {{t_btn58}}"lay-submit lay-filter="DataInfoSearch">查询</button>
+                        </script>
                     </div>
                 </div>
                 <div class="layui-card-body">
@@ -71,11 +76,31 @@
 </style>
 
 <script type="text/html" id="toolDemo_Carry">
-    <button class="layui-btn layui-btn-sm layui-btn-normal  site-demo-active" lay-event="Start_Carry" data-type="loading" style="border-radius:3px">开始结转</button>
+    {{#
+    var t_btn59=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(59)===-1?"none":"inline-block";
+    }}
+    <button class="layui-btn layui-btn-sm layui-btn-normal  site-demo-active" lay-event="Start_Carry" data-type="loading" style="border-radius:3px;display: {{t_btn59}}">开始结转</button>
     <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
         <div class="layui-progress-bar layui-bg-green" lay-percent="0%"></div>
     </div>
 
+</script>
+<script type="text/html" id="dataManage_btn">
+    {{#
+    var t_btn60=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(60)===-1?"none":"inline-block";
+    var t_btn61=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(61)===-1?"none":"inline-block";
+    if (d.rtrecheckstatus == 0){
+    }}
+    <button  class="layui-btn  layui-btn-sm" lay-event="SeeRecheckHistoryData"  style="border-radius:3px;display: {{t_btn60}}">查看</button>';
+    {{# }else if (d.recheckstatus != 1 && d.carrystatus == null && d.rtrecheckstatus != 1) { }}
+    <button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen"  style="border-radius:3px;display: {{t_btn61}}">审核</button>
+    <button  class="layui-btn layui-btn-sm"  style="border-radius:3px;display: {{t_btn60}}" lay-event="SeeRecheckHistoryData">查看</button>;
+    {{#}else if (d.recheckstatus == 1 && d.carrystatus == null && d.rtrecheckstatus == 1) { }}
+    <button  class="layui-btn  layui-btn-sm" lay-event="dataManageOpen"  style="border-radius:3px;display: {{t_btn61}}">再次审核</button>
+    <button  class="layui-btn  layui-btn-sm"  style="border-radius:3px;display: {{t_btn60}}" lay-event="SeeRecheckHistoryData">查看</button>;
+    {{#} else { }}
+    return '<button  class="layui-btn  layui-btn-sm" lay-event="SeeRecheckHistoryData"  style="border-radius:3px;display: {{t_btn60}}">查看</button>';
+    {{# } }}
 </script>
 <script>
     layui.use('dataManage', layui.factory('dataManage')).use(['admin', 'dataManage', 'table', 'form', 'view'], function () {

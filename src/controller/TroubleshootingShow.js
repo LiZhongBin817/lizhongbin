@@ -36,13 +36,84 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
             where: {
                 "TroubleStarTime": field.TroubleStarTime,
                 "TroubleEndTime": field.TroubleEndTime,
-                "TroubleType": field.TroubleType_Select
+                "TroubleType": field.TroubleType_Select,
+                "autoaccount": field.Trouble_autoaccount
             },
              page: {
                 "curr": 1,
                 "nums": 10
             }
         });
+    });
+
+    //监听表格操作
+    table.on('tool(Trouble_tab)', function (obj) {
+        var data = obj.data;
+        event = obj.event;
+        if (event == TroubleshootingShow_Search) {
+            admin.req({
+                url: layui.setter.requesturl + '/api/DispatchSheet/FaultInformationDisplay',
+                data: {
+                    "id": data.TroubleID,
+                    "DSMStatus": obj.data.DSMStatus
+                },
+                type: "post",
+                success: function (resdata) {
+                    if (resdata.code == 0) {
+                        admin.popup({
+                            title: "处理信息",
+                            area: ['700px', '500px'],
+                            maxmin: true,
+                            id: 'Processinformation',
+                            success: function (layero, index) {
+                                console.log(resdata.data);
+                                view('Processinformation').render('DispatchSheetManagement/DSMShowProcessinformation', resdata.data).done(function () {
+                                    //隐藏提交按钮
+                                        $("#DSMShowProcessinformation_submit").attr("style", "display:none;");
+                                    //单选框的值
+                                    if (resdata.data[5].length != 0) {
+                                        if (resdata.data[5][0].processresult == 0) {
+                                            var result = document.getElementById('ProcessResult_pass');
+                                            result.checked = true;
+                                        }
+                                        else {
+                                            var result = document.getElementById('ProcessResult_unpass');
+                                            result.checked = true;
+                                        }
+                                    }
+                                    var rhtml = "";
+                                    for (var i = 0; i < resdata.data[3].length; i++) {
+                                        if (resdata.data[3][i].phototype == 1) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;
+                                        }
+                                        else if (resdata.data[3][i].phototype == 2) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--现场图片</div></div>`;
+                                        }
+                                        else if (resdata.data[3][i].phototype == 3) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                                        }
+                                        else if (resdata.data[3][i].phototype == 4) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="故障图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障图片</div></div>`;
+                                        }
+                                        else {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="其他类型图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--其他类型图片</div></div>`;
+                                        }
+                                    }
+                                    $("#DSMSHOWPIphotoshow").html(rhtml);
+                                    var rhtml2 = "";
+                                    for (var j = 0; j < resdata.data[4].length; j++) {
+                                        rhtml2 += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[4][j]}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                                    }
+                                    $("#DSMShowPIpictureshow").html(rhtml2);
+                                    form.render();
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+
+        }
     });
 
     exports('TroubleshootingShow', {});

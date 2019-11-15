@@ -34,7 +34,13 @@
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <button id="DetailInfoSearch" class="layui-btn layui-btn-sm layui-btn-normal " style="border-radius:3px" lay-submit lay-filter="DetailInfoSearch">查询</button>
+                        <script type="text/html" template>
+                            {{#
+                            var t_btn50=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(50)===-1?"none":"inline-block";
+                            }}
+                            <button id="DetailInfoSearch" class="layui-btn layui-btn-sm layui-btn-normal " style="border-radius:3px;display:{{t_btn50}}" lay-submit lay-filter="DetailInfoSearch">查询</button>
+                        </script>
+
                     </div>
                 </div>
                 <div class="layui-card-body">

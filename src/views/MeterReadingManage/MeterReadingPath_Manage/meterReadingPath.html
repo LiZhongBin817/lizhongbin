@@ -30,7 +30,13 @@
                         </div>
                     </div>
                     <div class="layui-input-block" style="text-align:center">
-                        <button class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius:3px"id="See" lay-submit lay-filter="See">查看</button>
+                        <script type="text/html" template>
+                            {{#
+                            var t_btn54=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(54)===-1?"none":"inline-block";
+                            }}
+                            <button class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius:3px;display: {{t_btn54}}"id="See" lay-submit lay-filter="See">查看</button>
+                        </script>
+
                     </div>
                 </div>
                 <div class="layui-card-body">
@@ -52,9 +58,17 @@
                     <table id="MeterReadingInfo" lay-filter="MeterReadingInfo1"></table>
                     <div id="controller" align="center">
                         <input id="follow" type="checkbox"><span style="font-size:20px;">画面跟随</span>
-                        <input id="Play" class="layui-btn layui-btn-xs Play" onclick="play();" value="播放" disabled style="width:50px;border-radius:3px" />
-                        <input id="pause" class="layui-btn layui-btn-xs pause" value="暂停" disabled style="width:50px;border-radius:3px" />
-                        <input id="reset" class="layui-btn layui-btn-xs reset" value="重置" disabled style="width:50px;border-radius:3px" />
+                        <script type="text/html" template>
+                            {{#
+                            var t_btn55=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(55)===-1?"none":"inline-block";
+                            var t_btn56=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(56)===-1?"none":"inline-block";
+                            var t_btn57=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(57)===-1?"none":"inline-block";
+                            }}
+                            <input id="Play" class="layui-btn layui-btn-xs Play" onclick="play();" value="播放" disabled style="width:50px;border-radius:3px;display: {{t_btn55}}" />
+                            <input id="pause" class="layui-btn layui-btn-xs pause" value="暂停" disabled style="width:50px;border-radius:3px;display: {{t_btn56}}" />
+                            <input id="reset" class="layui-btn layui-btn-xs reset" value="重置" disabled style="width:50px;border-radius:3px;display: {{t_btn57}}" />
+                        </script>
+
                     </div>
                 </div>
             </div>
