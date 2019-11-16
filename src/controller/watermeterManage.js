@@ -7,17 +7,17 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
         admin = layui.admin,
         view = layui.view,
         $ = layui.$,
-        bookinfo = new Array(),
-        readerinfo = new Array(),
-        regionlist = new Array(),
-        arealist = new Array(),
-        factorylist = new Array(),
-        installposlist = new Array(),
-        watermetertypelist = new Array(),
-        metermodel = new Array(),//存储水表型号，来显示最大量程
+        bookinfo = [],
+        readerinfo = [],
+        regionlist = [],
+        arealist = [],
+        factorylist = [],
+        installposlist = [],
+        watermetertypelist = [],
+        metermodel = [],//存储水表型号，来显示最大量程
         laydate = layui.laydate,
         upload = layui.upload,
-        meternumber = "";
+        meternumber = "",
     form = layui.form;
     //执行一个laydate实例
     laydate.render({
@@ -67,19 +67,21 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
             "address": obj.field.address,
             "areano": obj.field.areano,
             "sex": obj.field.sex,
+            "identification":obj.field.identification,
+            "workplace":obj.field.workplace,
             "telephone": obj.field.telephone,
             "usemetertype": obj.field.usemetertype,
             "username": obj.field.username,
             "accstate": 1
         };
-        $.ajax({
+        admin.req({
             url: layui.setter.requesturl + '/api/WatermeterUserManage/Adduser',
             type: 'get',
             data: {
                 "JsonDate": JSON.stringify(sendData)
             },
             success: function (msg) {
-                if (msg.msg == "ok") {
+                if (msg.msg === "ok") {
                     layer.msg("操作成功");
                     table.reload('watermeteruser');
                 }
@@ -95,23 +97,14 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
 
             },
             success: function (dataobj) {
-                console.log(dataobj.data[0]);
-                var areanohtml = "";
-                var naturehtml = "";
                 admin.popup({
-                    title: '新增用户界面',
+                    title: '新增用水用户界面',
                     id: 'AddUser',
                     area: ['1000px', '500px'],
                     success: function (layero, index) {
-
                         view('AddUser').render('watermeterManage/AddUser', null).done(function () {
-                            for (var i = 0; i < dataobj.data[1].length; i++) {
-                                areanohtml += '<option value=' + dataobj.data[1][i].areano + '>' + dataobj.data[1][i].areaname + '</option>';
-                            }
-                            for (var i = 0; i < dataobj.data[0].length; i++) {
-                                naturehtml += '<option value=' + dataobj.data[0][i].bntid + '>' + dataobj.data[0][i].naturename + '</option>';
-                            }
-                            console.log(areanohtml);
+                            var areanohtml=dataobj.data[1].map((item,index) => `<option value='${item.areano}'>${item.areaname}</option>`).join('');
+                            var naturehtml = dataobj.data[0].map((item,index) => `<option value='${item.bntid}'>${item.naturename}</option>`).join('');
                             $('#areano').append(areanohtml);
                             $('#usemetertype').append(naturehtml);
                             form.render();
@@ -137,24 +130,18 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
             readerinfo = obj.data[1];
             regionlist = obj.data[2];
             arealist = obj.data[3];
-            for (var i = 0; i < bookinfo.length; i++) {
-
-                var bookno = bookinfo[i].bookno;
-                bookhtml += '<option value=' + bookno + '>' + bookno + '</option>';
-
-            }
-            for (var i = 0; i < readerinfo.length; i++) {
-                var mrreadername = readerinfo[i].mrreadername;
-                readerhtml += '<option value=' + mrreadername + '>' + mrreadername + '</option>';
-            }
-            for (var i = 0; i < regionlist.length; i++) {
-                var regionname = regionlist[i].regionname;
-                regionhtml += '<option value=' + regionname + '>' + regionname + '</option>'
-            }
-            for (var i = 0; i < arealist.length; i++) {
-                var areaname = arealist[i].areaname;
-                areahtml += '<option value=' + areaname + '>' + areaname + '</option>'
-            }
+            bookhtml = bookinfo.map((item,index) => {
+                return `<option value='${item.bookno}'>${item.bookno}</option>`;
+            }).join('');
+            readerhtml = readerinfo.map((item,index) => {
+                return `<option value='${item.mrreadername}'>${item.mrreadername}</option>`;
+            }).join('');
+            regionhtml = regionlist.map((item,index) => {
+                return `<option value='${item.regionno}'>${item.regionname}</option>`;
+            }).join('');
+            areahtml = arealist.map((item,index) => {
+                return `<option value='${item.areano}'>${item.areaname}</option>`;
+            }).join('');
             $('#optname').append(readerhtml);
             $('#regionplace').append(regionhtml);
             $('#bookno').append(bookhtml);
@@ -168,9 +155,7 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
             url: layui.setter.requesturl + '/api/WatermeterUserManage/ShowWaterUserinfo',
             method: 'get',
             where: {
-                "account": obj.field.account,
-                "username": obj.field.username,
-                "meternum": obj.field.meternum,
+                "accountmeternum": obj.field.accountmeternum,
                 "optname": obj.field.optname,
                 "bookno": obj.field.bookno,
                 "regionplace": obj.field.regionplace,
@@ -188,7 +173,7 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
                 "Newmeternum": obj.field.meternum
             },
             success: function (msg) {
-                if (msg.msg == "ok") {
+                if (msg.msg === "ok") {
                     layer.msg("操作成功");
                 }
             }
@@ -215,7 +200,7 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
                     "JsonDate": JSON.stringify(sendData)
                 },
                 success: function (msg) {
-                    if (msg.msg == "ok") {
+                    if (msg.msg === "ok") {
                         layer.msg("操作成功");
                         table.reload('watermeteruser');
                     }
@@ -223,7 +208,7 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
             });
         });
         //监听主界面的编辑按钮
-        if (obj.event == "User_edit") {
+        if (obj.event === "User_edit") {
             var load = layer.load(3);
             meternumber = obj.data.meternum;
             admin.req({
@@ -390,7 +375,7 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
                 }
             });
         }
-        if (obj.event == "User_delete") {
+        if (obj.event === "User_delete") {
             admin.req({
                 url: layui.setter.requesturl + '/api/WatermeterUserManage/DelUser',
                 data: {
@@ -435,7 +420,7 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
     });
     //监听编辑界面的表格中的操作
     table.on('tool(editwatermeter)', function (obj) {
-        if (obj.event == "editWatermeter") {
+        if (obj.event === "editWatermeter") {
             admin.req({
                 url: layui.setter.requesturl + '/api/WatermeterUserManage/ListData',
                 type: 'get',
@@ -497,7 +482,7 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
                 "JsonDate": JSON.stringify(obj.field)
             },
             success: function (msg) {
-                if (msg.msg == "ok") {
+                if (msg.msg === "ok") {
                     layer.msg("操作成功");
                     table.reload('editwatermeter');
                 }
@@ -506,4 +491,4 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
     });
     //暴露成接口
     exports('watermeterManage', {})
-})
+});

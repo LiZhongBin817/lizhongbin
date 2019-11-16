@@ -8,7 +8,7 @@
         <label class="layui-form-label">小区编号</label>
         <div class="layui-input-inline">
             <script type="text/html" template>
-                <input type="text" name="areano" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.params.areano || '' }}">
+                <input type="text" name="areano" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.params.areano || '' }}" disabled>
             </script>
         </div>
     </div>
@@ -24,7 +24,7 @@
         <label class="layui-form-label">所属区域编号</label>
         <div class="layui-input-inline">
             <script type="text/html" template>
-                <input type="text" name="regionno" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.params.regionno || '' }}">
+                <input type="text" name="regionno" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.params.regionno || '' }}" disabled>
             </script>
         </div>
     </div>
@@ -36,11 +36,10 @@
     </div>
 <script>
 
-    layui.use(['admin', 'form', 'view', 'RegionManage'], function () {
+    layui.use(['admin', 'form', 'view'], function () {
         var $ = layui.$
             , form = layui.form,
-            view = layui.view,
-            RegionManage = layui.RegionManage;
+            view = layui.view;
         form.render();
 
     });

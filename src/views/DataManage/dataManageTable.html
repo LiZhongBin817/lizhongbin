@@ -91,15 +91,15 @@
     var t_btn61=layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(61)===-1?"none":"inline-block";
     if (d.rtrecheckstatus == 0){
     }}
-    <button  class="layui-btn  layui-btn-sm" lay-event="SeeRecheckHistoryData"  style="border-radius:3px;display: {{t_btn60}}">查看</button>';
+    <button  class="layui-btn  layui-btn-sm" lay-event="SeeRecheckHistoryData"  style="border-radius:3px;display: {{t_btn60}}">查看</button>
     {{# }else if (d.recheckstatus != 1 && d.carrystatus == null && d.rtrecheckstatus != 1) { }}
     <button  class="layui-btn layui-btn-radius layui-btn-sm" lay-event="dataManageOpen"  style="border-radius:3px;display: {{t_btn61}}">审核</button>
-    <button  class="layui-btn layui-btn-sm"  style="border-radius:3px;display: {{t_btn60}}" lay-event="SeeRecheckHistoryData">查看</button>;
+    <button  class="layui-btn layui-btn-sm"  style="border-radius:3px;display: {{t_btn60}}" lay-event="SeeRecheckHistoryData">查看</button>
     {{#}else if (d.recheckstatus == 1 && d.carrystatus == null && d.rtrecheckstatus == 1) { }}
     <button  class="layui-btn  layui-btn-sm" lay-event="dataManageOpen"  style="border-radius:3px;display: {{t_btn61}}">再次审核</button>
-    <button  class="layui-btn  layui-btn-sm"  style="border-radius:3px;display: {{t_btn60}}" lay-event="SeeRecheckHistoryData">查看</button>;
+    <button  class="layui-btn  layui-btn-sm"  style="border-radius:3px;display: {{t_btn60}}" lay-event="SeeRecheckHistoryData">查看</button>
     {{#} else { }}
-    return '<button  class="layui-btn  layui-btn-sm" lay-event="SeeRecheckHistoryData"  style="border-radius:3px;display: {{t_btn60}}">查看</button>';
+    return '<button  class="layui-btn  layui-btn-sm" lay-event="SeeRecheckHistoryData"  style="border-radius:3px;display: {{t_btn60}}">查看</button>
     {{# } }}
 </script>
 <script>
