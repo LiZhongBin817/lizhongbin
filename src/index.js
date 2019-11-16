@@ -212,4 +212,10 @@ layui.extend({
   exports('index', {
     render: renderPage
   });
+
+
+
+
+
+
 });
