@@ -547,6 +547,16 @@ namespace CDWM_MR.Repository.BASE
         }
 
         /// <summary>
+        /// 批量写入另一数据库数据
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
+        public async Task<int> OAdd(List<TEntity> listEntity)
+        {
+            return await _entityDb.AsSugarClient().Insertable(listEntity.ToArray()).ExecuteCommandAsync();
+        }
+
+        /// <summary>
         /// 不根据名称执行存储过程
         /// </summary>
         /// <param name="prostr">传入要执行的存储过程字符</param>

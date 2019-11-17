@@ -64,6 +64,7 @@ namespace CDWM_MR.IServices.BASE
         Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TEntity>> selfield, string strOrderByFileds, int intTop);
         Task<bool> OUpdate(TEntity entity);
         Task<int> OAdd(TEntity entity);
+        Task<int> OAdd(List<TEntity> listEntity);
 
         Task<int> ExecutePro(string prostr, object obj);
     }

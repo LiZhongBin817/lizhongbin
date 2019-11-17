@@ -384,6 +384,16 @@ namespace CDWM_MR.Services.BASE
         }
 
         /// <summary>
+        /// 批量写入另一数据库
+        /// </summary>
+        /// <param name="listEntity"></param>
+        /// <returns></returns>
+        public async Task<int> OAdd(List<TEntity> listEntity)
+        {
+            return await BaseDal.OAdd(listEntity);
+        }
+
+        /// <summary>
         /// 不根据名称执行存储过程
         /// </summary>
         /// <param name="prostr"></param>
