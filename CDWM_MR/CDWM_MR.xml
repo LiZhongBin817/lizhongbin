@@ -1690,7 +1690,7 @@
             </summary>
             <param name="count">登录账号</param>
             <param name="newphone">新号码</param>
-            <returns></returns>
+            <returns>成功为1,失败为0</returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppMeterReadingDataController">
             <summary>
@@ -1819,11 +1819,11 @@
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppUserDate.ModifyUserPhone(System.String,System.String)">
             <summary>
-            
+            修改用户联系电话接口
             </summary>
             <param name="autoaccount">用户自动编号</param>
             <param name="Newphone">新号码</param>
-            <returns></returns>
+            <returns>成功返回1,失败返回0</returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppUserDate.ModifyUserAddress(System.String,System.String,System.String)">
             <summary>
@@ -1832,7 +1832,7 @@
             <param name="autoaccount">用户自动编号</param>
             <param name="areano">用户所在小区</param>
             <param name="address">用户所在地址</param>
-            <returns></returns>
+            <returns>成功返回1,失败返回0</returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppWebCommonController">
             <summary>

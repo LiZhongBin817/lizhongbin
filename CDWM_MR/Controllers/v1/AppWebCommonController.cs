@@ -66,7 +66,7 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="autoaccount"></param>
         /// <returns></returns>
         [HttpGet("{autoaccount}")]
-        public async Task<TableModel<object>> SearchReaderDate01(string  autoaccount)
+        public async Task<MessageModel<object>> SearchReaderDate01(string  autoaccount)
         {  
             List<vrt_b_watercarryover_datainfo> data = new List<vrt_b_watercarryover_datainfo>();
             var list01 = await _B_Watercarryover_DatainfoServices.Query(c => c.autoaccount == autoaccount);
@@ -79,7 +79,7 @@ namespace CDWM_MR.Controllers.v1
                     break;
                 }
             }
-            return new TableModel<object>
+            return new MessageModel<object>
             {
                 code = 0,
                 msg = "OK",
