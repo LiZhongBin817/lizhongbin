@@ -785,6 +785,50 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.#ctor(CDWM_MR.IServices.Content.Iv_home_userinfoServices,CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="home_UserinfoServices"></param>
+            <param name="b_RegionsServices"></param>
+            <param name="b_AreasServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.RegionSelectRender">
+            <summary>
+            渲染区域下拉框
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.AreaSelectRender(System.String)">
+            <summary>
+            渲染小区下拉框
+            </summary>
+            <param name="regionno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.UserInfoSearch(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            用户信息查询
+            </summary>
+            <param name="account"></param>
+            <param name="username"></param>
+            <param name="meternum"></param>
+            <param name="address"></param>
+            <param name="telephone"></param>
+            <param name="region"></param>
+            <param name="area"></param>
+            <param name="bookno"></param>
+            <param name="mrreadername"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.UserInfoShow(System.String)">
+            <summary>
+            用户信息显示
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.LoginController">
             <summary>
             登陆控制器--无权限控制
