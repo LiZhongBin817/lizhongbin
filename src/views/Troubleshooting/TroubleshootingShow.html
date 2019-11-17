@@ -1,0 +1,241 @@
+﻿<title>故障维修页面</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-fiuld" id="TroubleshootingShow">
+    <div class="layui-card">
+        <div class="layui-card-header layui-form layuiadmin-card-header-auto">
+            <div class="layui-inline">
+                <label class="layui-form-label">上报时间:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="TroubleStarTime" id="TroubleStarTime" lay-verify="TroubleStarTime" placeholder="开始时间" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-input-inline">-</div>
+                <div class="layui-input-inline">
+                    <input type="text" name="TroubleEndTime" id="TroubleEndTime" lay-verify="TroubleEndTime" placeholder="完成时间" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <select name="TroubleType_Select" id="TroubleType_Select" lay-filter="TroubleType_Select">
+                    <option value="">请选择</option>
+                    <option value="6">表埋</option>
+                    <option value="7">表坏</option>
+                    <option value="8">井盖坏</option>
+                    <option value="10">漏水</option>
+                    <option value="11">其他</option>
+                </select>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius:3px;" lay-submit lay-filter="Trouble_Seek">
+                    查询
+                </button>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">户号:</label>
+                    <div class="layui-inline">
+                        <input class="layui-input" type="text" name="Trouble_autoaccount" id="Trouble_autoaccount" autocomplete="off" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">户名:</label>
+                    <div class="layui-inline">
+                        <input class="layui-input" type="text" name="Trouble_autoaccountname" id="Trouble_autoaccountname" autocomplete="off" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">表号:</label>
+                    <div class="layui-inline">
+                        <input class="layui-input" type="text" name="Trouble_WaterNumber" id="Trouble_WaterNumber" autocomplete="off" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">地址:</label>
+                    <div class="layui-inline">
+                        <input class="layui-input" type="text" name="Trouble_Address" id="Trouble_Address" autocomplete="off" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div layui-card-body>
+            <table class="layui-hide" id="Troubletable" lay-filter="Trouble_tab"></table>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="TroubleshootingShowbarDemo">
+    <a class="layui-btn layui-btn-warm layui-btn-sm" style="border-radius:3px;" lay-event="TroubleshootingShow_Search">查看</a>
+</script>
+
+<script>
+    layui.use(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'layedit', 'upload', 'jquery'], function () {
+        var form = layui.form,
+            table = layui.table,
+            admin = layui.admin,
+            laydate = layui.laydate,
+            view = layui.view,
+            util = layui.util,
+            upload = layui.upload,
+            $ = layui.$;
+        form.render();
+        table.render({
+            elem: '#Troubletable',
+            url: layui.setter.requesturl + '/api/Troubleshooting/ShowTroubleshootingTable',
+            method: 'post',
+            cols: [[
+                { field: 'TroubleID', title: '序号', width: 100, sort: true, fixed: 'left' },
+                {
+                    field: 'TroubleStatus', title: '状态', width: 150,
+                    templet: function (d) {
+                        if (d.TroubleStatus == 0) {
+                            return "未受理"
+                        }
+                        else if (d.TroubleStatus == 1) {
+                            return "已受理"
+                        }
+                        else if (d.TroubleStatus == 2) {
+                            return "已处理"
+                        }
+                        else {
+                            return "已存档"
+                        }
+                    }
+                },
+                {
+                    field: 'TroubleType', title: '故障种类', width: 150,
+                    templet: function (d) {
+                        if (d.TroubleType == 6) {
+                            return "表埋"
+                        }
+                        else if (d.TroubleType == 7) {
+                            return "表坏"
+                        }
+                        else if (d.TroubleType == 8) {
+                            return "井盖坏"
+                        }
+                        else if (d.TroubleType == 10) {
+                            return "漏水"
+                        }
+                        else {
+                            return "其他"
+                        }
+                    }
+                },
+                {
+                    field: 'TroubleReportTime', title: '上报时间', width: 200,
+                    templet: function (d) {
+                        return util.toDateString(d.TroubleReportTime);
+                    }
+                },
+                { field: 'TroubleReporter', title: '上报人', width: 200 },
+                { field: 'ToubleReason', title: '故障原因', width: 300 },
+                { field: 'TroubleSearch', title: '详情', toolbar: '#TroubleshootingShowbarDemo', width: 100, fixed: 'right', align: 'center' }
+            ]],
+            where: {
+                "TroubleStarTime": document.getElementById('TroubleStarTime').value,
+                "TroubleEndTime": document.getElementById('TroubleEndTime').value,
+                "TroubleType": "0",
+                "autoaccount": document.getElementById('acconut').value
+            },
+            page: true,
+            limit: 10,
+            limits: [10, 15, 20],
+        });
+
+        //监听查询
+        form.on('submit(Trouble_Seek)', function (obj) {
+            var field = obj.field;
+            table.reload('Troubletable', {
+                where: {
+                    "TroubleStarTime": field.TroubleStarTime,
+                    "TroubleEndTime": field.TroubleEndTime,
+                    "TroubleType": field.TroubleType_Select,
+                    "autoaccount": field.Trouble_autoaccount
+                },
+                page: {
+                    "curr": 1,
+                    "nums": 10
+                }
+            });
+        });
+
+        //监听表格操作
+        table.on('tool(Trouble_tab)', function (obj) {
+            var data = obj.data;
+            event = obj.event;
+            if (event == "TroubleshootingShow_Search") {
+
+                admin.req({
+                    url: layui.setter.requesturl + '/api/DispatchSheet/FaultInformationDisplay',
+                    data: {
+                        "id": data.TroubleID,
+                        "DSMStatus":"0"
+                    },
+                    type: "post",
+                    success: function (resdata) {
+                        if (resdata.code == 0) {
+                            admin.popup({
+                                title: "处理信息",
+                                area: ['700px', '500px'],
+                                maxmin: true,
+                                id: 'Processinformation',
+                                success: function (layero, index) {
+                                    console.log(resdata.data);
+                                    view('Processinformation').render('DispatchSheetManagement/DSMShowProcessinformation', resdata.data).done(function () {
+                                        //隐藏提交按钮
+                                        $("#DSMShowProcessinformation_submit").attr("style", "display:none;");
+                                        //单选框的值
+                                        if (resdata.data[5].length != 0) {
+                                            if (resdata.data[5][0].processresult == 0) {
+                                                var result = document.getElementById('ProcessResult_pass');
+                                                result.checked = true;
+                                            }
+                                            else {
+                                                var result = document.getElementById('ProcessResult_unpass');
+                                                result.checked = true;
+                                            }
+                                        }
+                                        var rhtml = "";
+                                        for (var i = 0; i < resdata.data[3].length; i++) {
+                                            if (resdata.data[3][i].phototype == 1) {
+                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;
+                                            }
+                                            else if (resdata.data[3][i].phototype == 2) {
+                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--现场图片</div></div>`;
+                                            }
+                                            else if (resdata.data[3][i].phototype == 3) {
+                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                                            }
+                                            else if (resdata.data[3][i].phototype == 4) {
+                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="故障图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障图片</div></div>`;
+                                            }
+                                            else {
+                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="其他类型图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--其他类型图片</div></div>`;
+                                            }
+                                        }
+                                        $("#DSMSHOWPIphotoshow").html(rhtml);
+                                        var rhtml2 = "";
+                                        for (var j = 0; j < resdata.data[4].length; j++) {
+                                            rhtml2 += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[4][j]}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                                        }
+                                        $("#DSMShowPIpictureshow").html(rhtml2);
+                                        form.render();
+                                    });
+                                }
+                            });
+                        }
+                    }
+                });
+
+            }
+        });
+
+        //时间
+        laydate.render({
+            elem: '#TroubleStarTime',
+        });
+        laydate.render({
+            elem: '#TroubleEndTime',
+        });
+    });
+</script>
