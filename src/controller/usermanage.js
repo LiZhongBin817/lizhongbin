@@ -209,7 +209,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                         "roleid": roleid
                                     },
                                     success: function (message) {
-                                        if (message.msg == "ok") {
+                                        if (message.msg === "ok") {
                                             layui.table.reload('Sys_User'); //重载表格
                                             layer.close(index); //执行关闭 
                                             layer.msg("添加成功");
