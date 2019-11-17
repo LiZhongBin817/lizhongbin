@@ -3691,6 +3691,111 @@
             上期抄表异常
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.Models.v_home_userinfo">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_home_userinfo.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.account">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.telephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.address">
+            <summary>
+            家庭住址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.areaname">
+            <summary>
+            小区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.regionname">
+            <summary>
+            片区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.meternum">
+            <summary>
+            水表自动表号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.caliber">
+            <summary>
+            口径(190808新增)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.bwcode">
+            <summary>
+            初始读数（初始表码）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.posname">
+            <summary>
+            安装位置(t_b_installpos::bipid)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.GISPlace">
+            <summary>
+            GIS位置(190808新增)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.lastwaternum">
+            <summary>
+            截止用水量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.meterstate">
+            <summary>
+            状态(0:未使用1:正常2:暂停用水3:注销)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.bookno">
+            <summary>
+            抄表册编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.bookname">
+            <summary>
+            抄表册名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.mrreadernumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.mrreadername">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.maxrange">
+            <summary>
+            最大量程
+            </summary>
+        </member>
         <member name="M:CDWM_MR.Model.Models.v_interface.#ctor">
             <summary>
             VIEW
