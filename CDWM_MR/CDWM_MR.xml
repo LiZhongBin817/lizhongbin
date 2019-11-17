@@ -1504,6 +1504,32 @@
             <param name="OperationID"></param>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.TroubleshootingController.ShowTroubleshootingTable(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            显示表格
+            </summary>
+            <param name="autoaccount"></param>
+            <param name="TroubleStarTime"></param>
+            <param name="TroubleEndTime"></param>
+            <param name="TroubleType"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.TroubleshootingController.GetAutoaccountinfo(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            显示用户信息及图片
+            </summary>
+            <param name="autoaccount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.TroubleshootingController.Getinfo(System.String)">
+            <summary>
+            显示用户信息
+            </summary>
+            <param name="autoaccount"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.v1.AppDownloadMRPlanController">
             <summary>
             APP下载抄表计划

@@ -4971,6 +4971,26 @@
             照片附件id
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_userwatermetersinfo.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)(关联水表用户信息)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_userwatermetersinfo.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_userwatermetersinfo.meternum">
+            <summary>
+            水表编号,（t_b_watermeters::meternum）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_userwatermetersinfo.address">
+            <summary>
+            家庭住址
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_user_water_bookinfo">
             <summary>
             用户水表抄表册信息
