@@ -33,7 +33,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
         limits: [5, 10, 15],
 
     });
-    form.on('submit(Button001)', function (obj) {
+    form.on('submit(#Button001)', function (obj) {
 
         var field = obj.field;
         admin.req({

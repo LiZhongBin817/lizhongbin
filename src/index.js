@@ -208,14 +208,10 @@ layui.extend({
     layui.extend(mods);
   });
 
+  
   //对外输出
   exports('index', {
     render: renderPage
   });
-
-
-
-
-
 
 });
