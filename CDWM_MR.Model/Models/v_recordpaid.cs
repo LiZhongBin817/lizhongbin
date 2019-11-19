@@ -62,17 +62,17 @@ namespace CDWM_MR.Model.Models
             /// </summary>
             public System.Decimal? carrywatercount { get { return this._carrywatercount; } set { this._carrywatercount = value; } }
 
-            private System.DateTime? _starttime;
+            private System.String _starttime;
             /// <summary>
             /// 上期抄表时间
             /// </summary>
-            public System.DateTime? starttime { get { return this._starttime; } set { this._starttime = value; } }
+            public System.String starttime { get { return this._starttime; } set { this._starttime = value; } }
 
-            private System.DateTime? _endtime;
+            private System.String _endtime;
             /// <summary>
             /// 本期抄表时间
             /// </summary>
-            public System.DateTime? endtime { get { return this._endtime; } set { this._endtime = value; } }
+            public System.String endtime { get { return this._endtime; } set { this._endtime = value; } }
 
             private System.Int32? _bmttype;
             /// <summary>
@@ -85,6 +85,24 @@ namespace CDWM_MR.Model.Models
             /// 
             /// </summary>
             public System.Decimal? cbalance { get { return this._cbalance; } set { this._cbalance = value; } }
+
+            private System.String _autoaccount;
+            /// <summary>
+            /// 自动帐号(系统自动生成)
+            /// </summary>
+            public System.String autoaccount { get { return this._autoaccount; } set { this._autoaccount = value; } }
+
+            private System.String _username;
+            /// <summary>
+            /// 
+            /// </summary>
+            public System.String username { get { return this._username; } set { this._username = value; } }
+
+            private System.String _address;
+            /// <summary>
+            /// 家庭住址
+            /// </summary>
+            public System.String address { get { return this._address; } set { this._address = value; } }
         }
     }
 

@@ -153,6 +153,7 @@ namespace CDWM_MR.Controllers
                 parametertype=Jsondata.parametertype,
                 parametertypename=Jsondata.parametertypename,
                 parameterkey=Jsondata.parameterkey,
+                parametervalue= Jsondata.parametervalue,
                 updatepeople = _user.Name,
                 updatetime=DateTime.Now,
                 remark=Jsondata.remark,

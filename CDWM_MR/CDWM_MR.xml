@@ -322,6 +322,21 @@
             基类控制器
             </summary>
         </member>
+        <member name="T:CDWM_MR.Controllers.BillrecordController">
+            <summary>
+            账单记录
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BillrecordController.billread(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            显示全部数据
+            </summary>
+            <param name="starttime"></param>
+            <param name="endtime"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.BookManageController">
             <summary>
             抄表册管理
@@ -719,7 +734,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.DispatchSheetController.FaultInformationDisplay(System.Int32)">
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.FaultInformationDisplay(System.Int32,System.Int32)">
             <summary>
             故障信息展示
             </summary>
@@ -1236,12 +1251,77 @@
             <param name="limit"></param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.RegionManageController">
+            <summary>
+            区域管理
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.regionsShow(System.String,System.Int32,System.Int32)">
+            <summary>
+            显示区域信息
+            </summary>
+            <param name="regionname"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.areaShow(System.String,System.Int32,System.Int32)">
+            <summary>
+            点击查看时展示的小区信息
+            </summary>
+            <param name="regionno"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.editRegion(System.String)">
+            <summary>
+            编辑区域信息
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.editArea(System.String)">
+            <summary>
+            修改小区信息
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.deleteRegion(System.String)">
+            <summary>
+            删除一条区域信息
+            </summary>
+            <param name="regionno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.deleteArea(System.String)">
+            <summary>
+            删除一条小区信息
+            </summary>
+            <param name="areano"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.addRegion(System.String)">
+            <summary>
+            添加一条区域信息
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.addArea(System.String)">
+            <summary>
+            添加一条小区信息    
+            </summary>
+            <param name="JsonData"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.SysManangeController">
             <summary>
             系统管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.Common.HttpContextUser.IUser,CDWM_MR.IServices.Content.Iv_interfaceServices)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.Common.HttpContextUser.IUser,CDWM_MR.IServices.Content.Iv_interfaceServices,CDWM_MR.IServices.Content.Isys_menuServices)">
             <summary>
             构造函数
             </summary>
@@ -1441,6 +1521,7 @@
             </summary>
             <param name="RoleID"></param>
             <param name="menuID"></param>
+            <param name="judgetype"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.EditOperations(System.Int32,System.Int32,System.String,System.Int32)">
@@ -1595,7 +1676,7 @@
             </summary>
             <param name="count">登录账号</param>
             <param name="newphone">新号码</param>
-            <returns></returns>
+            <returns>成功为1,失败为0</returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppMeterReadingDataController">
             <summary>
@@ -1724,11 +1805,11 @@
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppUserDate.ModifyUserPhone(System.String,System.String)">
             <summary>
-            
+            修改用户联系电话接口
             </summary>
             <param name="autoaccount">用户自动编号</param>
             <param name="Newphone">新号码</param>
-            <returns></returns>
+            <returns>成功返回1,失败返回0</returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppUserDate.ModifyUserAddress(System.String,System.String,System.String)">
             <summary>
@@ -1737,7 +1818,7 @@
             <param name="autoaccount">用户自动编号</param>
             <param name="areano">用户所在小区</param>
             <param name="address">用户所在地址</param>
-            <returns></returns>
+            <returns>成功返回1,失败返回0</returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppWebCommonController">
             <summary>
@@ -1748,7 +1829,7 @@
             <summary>
             字典查询
             </summary>
-            <param name="JsonData"></param>
+            <param name="typeid"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppWebCommonController.SearchReaderDate01(System.String)">

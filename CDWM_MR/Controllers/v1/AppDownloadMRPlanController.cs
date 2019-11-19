@@ -54,20 +54,20 @@ namespace CDWM_MR.Controllers.v1
         /// <returns></returns>
         [HttpGet("{ID}")]
         [EnableCors("LimitRequests")]
-        public async Task<object> DownLoadMR(int? ID)
+        public async Task<MessageModel<List<v_taskinfo>>> DownLoadMR(int? ID)
         {
             var t = await vtaskinfo.Query(c => c.readerid == ID && c.dowloadstatus == 1);
             if (t == null || t?.Count <= 0)
             {
-                return new
+                return new MessageModel<List<v_taskinfo>>()
                 {
                     code = 1001,
                     msg = "无数据！",
-                    data = 0
+                    data = null
                 };
             }
 
-            return new
+            return new MessageModel<List<v_taskinfo>>()
             {
                 code = 0,
                 msg = "成功",

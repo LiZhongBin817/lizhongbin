@@ -20,17 +20,17 @@ using NPOI.SS.UserModel;
 namespace CDWM_MR.Controllers
 {
     /// <summary>
-    /// 待缴记录
+    /// 账单记录
     /// </summary>
     [Route("api/Recordpaid")]
     [AllowAnonymous]
     [EnableCors("AllRequests")]
-
-    public class RecordpaidController : ControllerBase
+    public class BillrecordController : ControllerBase
     {
+
         readonly Iv_recordpaidServices _v_recordServices;
 
-        public RecordpaidController(Iv_recordpaidServices v_recordpaid)
+        public BillrecordController(Iv_recordpaidServices v_recordpaid)
         {
             _v_recordServices = v_recordpaid;
         }
@@ -42,47 +42,46 @@ namespace CDWM_MR.Controllers
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        [Route("Waittopay")]
+        [Route("billread")]
         [HttpGet]
-        public async Task<TableModel<object>> Waittopay(string starttime, string endtime, int page = 1, int limit = 5)
+        public async Task<TableModel<object>> billread(string starttime, string endtime, int page = 1, int limit = 5)
         {
             PageModel<v_recordpaid> data1 = new PageModel<v_recordpaid>();
-            Expression<Func<v_recordpaid, bool>> wherelambda = c => true;
             List<object> datalist = new List<object>();
+            Expression<Func<v_recordpaid, bool>> wherelambda = c => true;
             if (!string.IsNullOrEmpty(starttime))
             {
-                wherelambda = PredicateExtensions.And<v_recordpaid>(wherelambda, c => c.starttime == starttime);
+               wherelambda = PredicateExtensions.And<v_recordpaid>(wherelambda, c => c.starttime == starttime);
             }
             if (!string.IsNullOrEmpty(endtime))
             {
-                wherelambda = PredicateExtensions.And<v_recordpaid>(wherelambda, c => c.endtime== endtime);
+                wherelambda = PredicateExtensions.And<v_recordpaid>(wherelambda, c => c.endtime == endtime);
             }
             data1 = await _v_recordServices.QueryPage(wherelambda, page, limit);
 
-            for (int i = 0; i < data1.data.Count(); i++)
+            for(int i=0;i<data1.data.Count();i++)
             {
-                if (Convert.ToInt32(data1.data[i].starttime) >= Convert.ToInt32(starttime) && Convert.ToInt32(data1.data[i].endtime) <= Convert.ToInt32(endtime))
+               if(Convert.ToInt32(data1.data[i].starttime)>=Convert.ToInt32(starttime)&& Convert.ToInt32(data1.data[i].endtime) <= Convert.ToInt32(endtime))
                 {
-                   
                     var data = new
                     {
-                        payseq = data1.data[i].payseq,
-                        waterfee = data1.data[i].waterfee,
-                        taskperiodname = data1.data[i].taskperiodname,
-                        startnum = data1.data[i].startnum,
-                        endnum = data1.data[i].endnum,
-                        lastwaternum = data1.data[i].lastwaternum,
-                        carrywatercount = data1.data[i].carrywatercount,
-                        starttime = data1.data[i].starttime,
-                        endtime = data1.data[i].endtime,
-                        bmttype = data1.data[i].bmttype,
-                        cbalance = data1.data[i].cbalance,
-                        autoaccount = data1.data[i].autoaccount,
-                        username = data1.data[i].username,
-                        address = data1.data[i].address
+                        payseq=data1.data[i].payseq,
+                        waterfee= data1.data[i].waterfee,
+                        taskperiodname= data1.data[i].taskperiodname,
+                        startnum= data1.data[i].startnum,
+                        endnum= data1.data[i].endnum,
+                        lastwaternum= data1.data[i].lastwaternum,
+                        carrywatercount= data1.data[i].carrywatercount,
+                        starttime= data1.data[i].starttime,
+                        endtime= data1.data[i].endtime,
+                        bmttype= data1.data[i].bmttype,
+                        cbalance= data1.data[i].cbalance,
+                        autoaccount= data1.data[i].autoaccount,
+                        username= data1.data[i].username,
+                        address= data1.data[i].address
                     };
                     datalist.Add(data);
-                }
+                }        
             }
 
             return new TableModel<object>
@@ -90,12 +89,10 @@ namespace CDWM_MR.Controllers
                 code = 0,
                 msg = "OK",
                 count = datalist.Count(),
+
                 data = datalist
             };
         }
 
-
     }
-
-
 }

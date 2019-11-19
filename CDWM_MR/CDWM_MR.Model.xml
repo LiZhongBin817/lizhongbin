@@ -2301,6 +2301,11 @@
             状态(1:可用;2:注销)
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_areas.createtime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.t_b_factory.bftid">
             <summary>
             厂商代码
@@ -2389,6 +2394,11 @@
         <member name="P:CDWM_MR.Model.Models.t_b_regions.regionstate">
             <summary>
             状态(1:可用;2:注销)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_regions.createtime">
+            <summary>
+            创建时间
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.t_b_users">
@@ -4474,6 +4484,21 @@
         <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.cbalance">
             <summary>
             
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.address">
+            <summary>
+            家庭住址
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_rt_b_faultinfo">

@@ -10,6 +10,7 @@ using CDWM_MR_Common.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -650,7 +651,7 @@ namespace CDWM_MR.Services
         {
             try
             {
-                await redis.KeyDeleteAsync("CDWM_MR_sysManageServices:GetMenuTree");
+                await redis.KeyDeleteAsync("sysManageServices:GetMenuTree");
                 var alllist = await SysMenuDal.Query();
                 int ID = alllist[alllist.Count - 1].id + 1;
                 sys_menu menu = Common.Helper.JsonHelper.GetObject<sys_menu>(json);

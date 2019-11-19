@@ -36,6 +36,7 @@ namespace CDWM_MR.Controllers
         readonly Isys_role_menuServices _Role_MenuServices;
         readonly IUser _user;
         readonly Iv_interfaceServices _InterfaceServices;
+        readonly Isys_menuServices _Isys_menuServices;
         #endregion
 
 
@@ -51,7 +52,7 @@ namespace CDWM_MR.Controllers
         /// <param name="sys_OperationServices"></param>
         /// <param name="user"></param>
         /// <param name="iv_InterfaceServices"></param>
-        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices, IUser user, Iv_interfaceServices iv_InterfaceServices)
+        public SysManangeController(Isys_userinfoServices sysuserinfo, IsysManageServices sysusermanage, Isys_user_role_mapperServices sys_user_role_mapper, Isys_roleServices sys_role, Isys_interface_infoServices Isys_interface_info,Isys_role_menuServices sysrolemenu,Isys_operationServices sys_OperationServices, IUser user, Iv_interfaceServices iv_InterfaceServices, Isys_menuServices Isys_menuservices)
         {
             _sysuserinfoservices = sysuserinfo;
             _sysManageServices = sysusermanage;
@@ -62,6 +63,7 @@ namespace CDWM_MR.Controllers
             _Role_MenuServices = sysrolemenu;
             _user = user;
             _InterfaceServices = iv_InterfaceServices;
+            _Isys_menuServices = Isys_menuservices;
         }
 
         #region  用户管理
@@ -341,21 +343,7 @@ namespace CDWM_MR.Controllers
         {
             sys_interface_info Jsondata = Common.Helper.JsonHelper.GetObject<sys_interface_info>(JsonData);
             Jsondata.ID = ID;
-            #region 判重
-            Expression<Func<sys_interface_info, bool>> wherelambda = c =>c.ID!=ID&&(c.InterfaceName == Jsondata.InterfaceName|| c.InterfaceUrl == Jsondata.InterfaceUrl);
-            var listQuery = await _Isys_interface_infoServices.Query(wherelambda);
-            string massage = "";
-            if (listQuery.Count != 0)
-            {
-                return new MessageModel<object>()
-                {
-                    data = null,
-                    code = 0,
-                    msg = "The same TnterfaceUrl or InterfaceName exists"
-                };
-            }
-            #endregion
-            massage = await _Isys_interface_infoServices.Update(Jsondata) == true ? "ok" : "error";
+            string massage = await _Isys_interface_infoServices.Update(Jsondata) == true ? "ok" : "error";
             return new MessageModel<object>()
             {
                 data = null,
@@ -417,6 +405,25 @@ namespace CDWM_MR.Controllers
         [Route("SaveMenu")]       
         public async Task<TableModel<object>> SaveMenu(string json)
         {
+            sys_menu Data = Common.Helper.JsonHelper.GetObject<sys_menu>(json);
+            var list = await _Isys_menuServices.Query(c => c.id == Data.id);
+            if (list.Count != 0)
+            {
+                string message = await _Isys_menuServices.Update(c => new sys_menu
+                {
+                    MenuName = Data.MenuName,
+                    MenuLevel = Data.MenuLevel,
+                    MenuOrder = Data.MenuOrder,
+                    MenuUrl = Data.MenuUrl,
+                    remark = Data.remark
+                }, c => c.id == Data.id) == true ? "ok" : "error";
+                return new TableModel<object>()
+                {
+                    code = 0,
+                    msg = "编辑成功",
+                    data = null
+                };
+            }
             if (await _sysManageServices.AddMenu(json))
             {
                 return new TableModel<object>
@@ -765,6 +772,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <param name="RoleID"></param>
         /// <param name="menuID"></param>
+        /// <param name="judgetype"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("GetOperation")]        
