@@ -1,4 +1,5 @@
 ﻿using CDWM_MR.IServices.Content;
+using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -79,19 +80,21 @@ namespace CDWM_MR.Controllers.v1
         /// </summary>
         /// <param name="count">登录账号</param>
         /// <param name="newphone">新号码</param>
-        /// <returns></returns>
+        /// <returns>成功为1,失败为0</returns>
         [HttpPost]
         [Route("ModifyMeterReaderPhone")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<int> ModifyMeterReaderPhone(string count, string newphone)
+        public async Task<MessageModel<int>> ModifyMeterReaderPhone(string count, string newphone)
         {
-            int Status = 0;
-            await _mr_b_readerServices.Update(c => new mr_b_reader
+            bool b= await _mr_b_readerServices.Update(c => new mr_b_reader
             {
                 telephone = newphone
             }, c => c.appcount == count);
-            Status = 1;
-            return Status;
+            return new MessageModel<int>() { 
+                code = 0,
+                msg = "成功",
+                data = b?1:0
+            };
         }
         #endregion
        

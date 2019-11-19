@@ -39,24 +39,23 @@ namespace CDWM_MR.Controllers.v1
         /// <summary>
         /// 字典查询
         /// </summary>
-        /// <param name="JsonData"></param>
+        /// <param name="typeid"></param>
         /// <returns></returns>
-        [HttpGet("{JsonData}")]
-        public async Task<TableModel<object>> SearchDictionary(int JsonData)
+        [HttpGet("{typeid}")]
+        public async Task<MessageModel<object>> SearchDictionary(int typeid)
         {
             List<sys_parameter> data = new List<sys_parameter>();
-            var list = await _ParameterServices.Query(c => c.parametertype == JsonData);
+            var list = await _ParameterServices.Query(c => c.parametertype == typeid);
             var temp = list.Select(c => new {
-                parameterkey = c.parameterkey,
+                parameterkey = c.id,
                 parametervalue = c.parametervalue
             });
-            return new TableModel<object>
+            return new MessageModel<object>
             {
                 code = 0,
                 msg = "OK",
                 data = temp
             };
-
         }
         #endregion
 
@@ -67,7 +66,7 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="autoaccount"></param>
         /// <returns></returns>
         [HttpGet("{autoaccount}")]
-        public async Task<TableModel<object>> SearchReaderDate01(string  autoaccount)
+        public async Task<MessageModel<object>> SearchReaderDate01(string  autoaccount)
         {  
             List<vrt_b_watercarryover_datainfo> data = new List<vrt_b_watercarryover_datainfo>();
             var list01 = await _B_Watercarryover_DatainfoServices.Query(c => c.autoaccount == autoaccount);
@@ -80,7 +79,7 @@ namespace CDWM_MR.Controllers.v1
                     break;
                 }
             }
-            return new TableModel<object>
+            return new MessageModel<object>
             {
                 code = 0,
                 msg = "OK",

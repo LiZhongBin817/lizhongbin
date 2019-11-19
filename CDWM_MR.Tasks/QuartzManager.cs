@@ -1,10 +1,13 @@
-﻿using CDWM_MR.Tasks.Job;
+﻿using CDWM_MR.IServices.Content;
+using CDWM_MR.Model.Models;
+using CDWM_MR.Tasks.Job;
 //using CDWM_MR.Tasks.Log;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Logging;
 using Quartz.Spi;
 using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace CDWM_MR.Tasks
@@ -20,6 +23,7 @@ namespace CDWM_MR.Tasks
         #region 相关变量
         private readonly ISchedulerFactory _schedulerFactory;
         private readonly IJobFactory _iocJobfactory;
+        private readonly Isys_parameterServices _sys_parmeter;
         private IScheduler _scheduler;
         #endregion
 
@@ -28,10 +32,11 @@ namespace CDWM_MR.Tasks
         /// </summary>
         /// <param name="iocJobfactory">job工厂类</param>
         /// <param name="schedulerFactory"></param>
-        public QuartzManager(IJobFactory iocJobfactory, ISchedulerFactory schedulerFactory)
+        public QuartzManager(IJobFactory iocJobfactory, ISchedulerFactory schedulerFactory, Isys_parameterServices sysparmeter)
         {
             this._schedulerFactory = schedulerFactory;
             this._iocJobfactory = iocJobfactory;
+            _sys_parmeter = sysparmeter;
         }
 
         /// <summary>
@@ -44,12 +49,16 @@ namespace CDWM_MR.Tasks
             //LogProvider.SetCurrentLogProvider(new CustomerLogProvider());
             #endregion
 
+            #region 从数据库中获取定时任务触发
+            var plansheettime = await _sys_parmeter.QueryById(1);
+            #endregion
+
             _scheduler = await _schedulerFactory.GetScheduler();
             _scheduler.JobFactory = this._iocJobfactory;//  替换默认工厂
             await _scheduler.Start();//启动单元
             #region 任务一 生成计划单
             //创建作业
-            IJobDetail plansheet = JobBuilder.Create<BuildBookExcel>()
+            IJobDetail plansheet = JobBuilder.Create<AutoTask_plansheet>()
                 .WithIdentity("AutoTask_plansheet", "task1")
                 .WithDescription("生成计划单")
                 .Build();
@@ -59,12 +68,37 @@ namespace CDWM_MR.Tasks
                               .WithIdentity("AutoTask_plansheettigger", "task1")
                               .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(10)))
                              //.StartNow()//StartAt  Cron
-                             .WithCronSchedule("0 0/2 * * * ?")
+                             .WithCronSchedule(plansheettime.parametervalue)
                              .WithDescription("生成计划单！")
                              .Build();
             await _scheduler.ScheduleJob(plansheet, triggerplansheet);
             #endregion
 
+            #region 任务二 图像识别图片
+
+            #endregion
+
+            #region 任务三 结转数据到历史表
+            //创建作业
+            IJobDetail carryoverhistory = JobBuilder.Create<AutoTask_CarryOverData>()
+                .WithIdentity("AutoTask_carryoverhistory", "task3")
+                .WithDescription("结转数据到历史表!")
+                .Build();
+
+            //创建时间策略
+            ITrigger triggercarryoverhistory = TriggerBuilder.Create()
+                              .WithIdentity("AutoTask_carryoverhistorytigger", "task3")
+                              .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(10)))
+                             //.StartNow()//StartAt  Cron
+                             .WithCronSchedule(plansheettime.parametervalue)
+                             .WithDescription("结转数据到历史表！")
+                             .Build();
+            await _scheduler.ScheduleJob(carryoverhistory,triggercarryoverhistory);
+            #endregion
+
+            #region 任务四 结转其他表单数据
+
+            #endregion
         }
 
         public void Stop()

@@ -22,6 +22,12 @@ namespace CDWM_MR.Controllers
     {
         private readonly It_b_regionsServices _t_b_regionsServices;
         private readonly It_b_areasServices _t_b_areasServices;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="It_b_regionsService"></param>
+        /// <param name="It_b_areasService"></param>
         public RegionManageController(It_b_regionsServices It_b_regionsService, It_b_areasServices It_b_areasService)
         {
             _t_b_regionsServices = It_b_regionsService;
@@ -86,16 +92,15 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("editRegion")]
-        public async Task<TableModel<object>> editRegion(string JsonData)
+        public async Task<MessageModel<object>> editRegion(string JsonData)
         {
             t_b_regions EditObj = Common.Helper.JsonHelper.GetObject<t_b_regions>(JsonData);
-            await _t_b_regionsServices.OUpdate(EditObj);
-            return new TableModel<object>()
+            await _t_b_regionsServices.OUpdate(c => new t_b_regions() {regionname = EditObj.regionname },c => c.regionno == EditObj.regionno);
+            return new MessageModel<object>()
             {
                 msg = "ok",
                 code = 0,
-                data = null,
-                count = 0
+                data = null
             };
         }
         /// <summary>
@@ -105,16 +110,15 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("editArea")]
-        public async Task<TableModel<object>> editArea(string JsonData)
+        public async Task<MessageModel<object>> editArea(string JsonData)
         {
             t_b_areas EditObj = Common.Helper.JsonHelper.GetObject<t_b_areas>(JsonData);
-            await _t_b_areasServices.OUpdate(EditObj);
-            return new TableModel<object>()
+            await _t_b_areasServices.OUpdate(c => new t_b_areas() { areaname = EditObj.areaname},c => c.areano == EditObj.areano);
+            return new MessageModel<object>()
             {
                 msg = "ok",
                 code = 0,
-                data = null,
-                count = 0
+                data = null
             };
         }
         /// <summary>
@@ -166,34 +170,29 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("addRegion")]
-        public async Task<TableModel<object>> addRegion(string JsonData)
+        public async Task<MessageModel<object>> addRegion(string JsonData)
         {
-            List<t_b_regions> regions = new List<t_b_regions>();
-            regions = await _t_b_regionsServices.OQuery(c => true);
-            List<string> regionname = new List<string>();
-            for (int i = 0; i < regions.Count; i++)
-            {
-                regionname.Add(regions[i].regionname);
-            }
             t_b_regions AddObj = Common.Helper.JsonHelper.GetObject<t_b_regions>(JsonData);
-            if (regionname.Contains(AddObj.regionname))
-            {
-                return new TableModel<object>()
-                {
-                    msg = "error",
-                    code = 0,
-                    data = null,
-                    count = 0
-                };
-            }
+            var addid = await _t_b_regionsServices.OQuery(c => true,s => new t_b_regions() {
+                regionno = s.regionno
+            }, "regionno desc",1);
             AddObj.createtime = DateTime.Now;
+            if (addid == null || addid.Count <= 0)
+            {
+                AddObj.regionno = "1000001";
+            }
+            else 
+            {
+                var tempnum = Convert.ToInt32(addid[0].regionno);
+                tempnum += 1;
+                AddObj.regionno = tempnum.ObjToString();
+            }
             await _t_b_regionsServices.OAdd(AddObj);
-            return new TableModel<object>()
+            return new MessageModel<object>()
             {
                 msg = "ok",
                 code = 0,
-                data = null,
-                count = 0
+                data = null
             };
         }
         /// <summary>
@@ -203,17 +202,30 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("addArea")]
-        public async Task<TableModel<object>> addArea(string JsonData)
+        public async Task<MessageModel<object>> addArea(string JsonData)
         {
             t_b_areas AddObj = Common.Helper.JsonHelper.GetObject<t_b_areas>(JsonData);
+            var addid = await _t_b_areasServices.OQuery(c => true, s => new t_b_areas()
+            {
+                areano = s.areano
+            }, "areano desc", 1);
             AddObj.createtime = DateTime.Now;
+            if (addid == null || addid.Count <= 0)
+            {
+                AddObj.areano = "100001";
+            }
+            else
+            {
+                var tempnum = Convert.ToInt32(addid[0].areano);
+                tempnum += 1;
+                AddObj.areano = tempnum.ObjToString();
+            }
             await _t_b_areasServices.OAdd(AddObj);
-            return new TableModel<object>()
+            return new MessageModel<object>()
             {
                 msg = "ok",
                 code = 0,
-                data = null,
-                count = 0
+                data = null
             };
         }
     }

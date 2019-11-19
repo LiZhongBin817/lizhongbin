@@ -436,12 +436,6 @@
             <param name="bookno"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.BookManageController.BuildExcel">
-            <summary>
-            生成EXCEL文件
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:CDWM_MR.Controllers.CarryOverDataManageController">
             <summary>
             结转数据管理
@@ -719,7 +713,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.DispatchSheetController.FaultInformationDisplay(System.Int32)">
+        <member name="M:CDWM_MR.Controllers.DispatchSheetController.FaultInformationDisplay(System.Int32,System.Int32)">
             <summary>
             故障信息展示
             </summary>
@@ -782,6 +776,50 @@
         <member name="M:CDWM_MR.Controllers.DosageAnomalyAnalysis.Serchbookno">
             <summary>
             给抄表册传值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.#ctor(CDWM_MR.IServices.Content.Iv_home_userinfoServices,CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="home_UserinfoServices"></param>
+            <param name="b_RegionsServices"></param>
+            <param name="b_AreasServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.RegionSelectRender">
+            <summary>
+            渲染区域下拉框
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.AreaSelectRender(System.String)">
+            <summary>
+            渲染小区下拉框
+            </summary>
+            <param name="regionno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.UserInfoSearch(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            用户信息查询
+            </summary>
+            <param name="account"></param>
+            <param name="username"></param>
+            <param name="meternum"></param>
+            <param name="address"></param>
+            <param name="telephone"></param>
+            <param name="region"></param>
+            <param name="area"></param>
+            <param name="bookno"></param>
+            <param name="mrreadername"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.UserInfoShow(System.String)">
+            <summary>
+            用户信息显示
             </summary>
             <returns></returns>
         </member>
@@ -1251,6 +1289,13 @@
             区域管理
             </summary>
         </member>
+        <member name="M:CDWM_MR.Controllers.RegionManageController.#ctor(CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices)">
+            <summary>
+            
+            </summary>
+            <param name="It_b_regionsService"></param>
+            <param name="It_b_areasService"></param>
+        </member>
         <member name="M:CDWM_MR.Controllers.RegionManageController.regionsShow(System.String,System.Int32,System.Int32)">
             <summary>
             显示区域信息
@@ -1316,7 +1361,7 @@
             系统管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.Common.HttpContextUser.IUser,CDWM_MR.IServices.Content.Iv_interfaceServices)">
+        <member name="M:CDWM_MR.Controllers.SysManangeController.#ctor(CDWM_MR.IServices.Content.Isys_userinfoServices,CDWM_MR.IServices.IsysManageServices,CDWM_MR.IServices.Content.Isys_user_role_mapperServices,CDWM_MR.IServices.Content.Isys_roleServices,CDWM_MR.IServices.Content.Isys_interface_infoServices,CDWM_MR.IServices.Content.Isys_role_menuServices,CDWM_MR.IServices.Content.Isys_operationServices,CDWM_MR.Common.HttpContextUser.IUser,CDWM_MR.IServices.Content.Iv_interfaceServices,CDWM_MR.IServices.Content.Isys_menuServices)">
             <summary>
             构造函数
             </summary>
@@ -1516,6 +1561,7 @@
             </summary>
             <param name="RoleID"></param>
             <param name="menuID"></param>
+            <param name="judgetype"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.SysManangeController.EditOperations(System.Int32,System.Int32,System.String,System.Int32)">
@@ -1525,6 +1571,32 @@
             <param name="RoleID"></param>
             <param name="MenuID"></param>
             <param name="OperationID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.TroubleshootingController.ShowTroubleshootingTable(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            显示表格
+            </summary>
+            <param name="autoaccount"></param>
+            <param name="TroubleStarTime"></param>
+            <param name="TroubleEndTime"></param>
+            <param name="TroubleType"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.TroubleshootingController.GetAutoaccountinfo(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            显示用户信息及图片
+            </summary>
+            <param name="autoaccount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.TroubleshootingController.Getinfo(System.String)">
+            <summary>
+            显示用户信息
+            </summary>
+            <param name="autoaccount"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppDownloadMRPlanController">
@@ -1670,7 +1742,7 @@
             </summary>
             <param name="count">登录账号</param>
             <param name="newphone">新号码</param>
-            <returns></returns>
+            <returns>成功为1,失败为0</returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppMeterReadingDataController">
             <summary>
@@ -1799,19 +1871,24 @@
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppUserDate.ModifyUserPhone(System.String,System.String)">
             <summary>
-            
+            修改用户联系电话接口
             </summary>
             <param name="autoaccount">用户自动编号</param>
             <param name="Newphone">新号码</param>
-            <returns></returns>
+            <returns>成功返回1,失败返回0</returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppUserDate.ModifyUserAddress(System.String,System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.v1.AppUserDate.ModifyUserAddress(System.String,System.String)">
             <summary>
             修改用户用水地址接口
             </summary>
             <param name="autoaccount">用户自动编号</param>
-            <param name="areano">用户所在小区</param>
             <param name="address">用户所在地址</param>
+            <returns>成功返回1,失败返回0</returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.v1.AppUserDate.AppInterfaceTest">
+            <summary>
+            APP接口测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.v1.AppWebCommonController">
@@ -1823,7 +1900,7 @@
             <summary>
             字典查询
             </summary>
-            <param name="JsonData"></param>
+            <param name="typeid"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppWebCommonController.SearchReaderDate01(System.String)">
@@ -1838,9 +1915,9 @@
             用户管理(档案管理)
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.#ctor(CDWM_MR.IServices.Content.Iv_wateruserinfoServices,CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices,CDWM_MR.IServices.Content.It_b_usersServices,CDWM_MR.IServices.Content.It_b_watermetersServices,CDWM_MR.IServices.Content.Iv_watermeterinfoServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.It_b_watermetertypeServices,CDWM_MR.IServices.It_b_factoryServices,CDWM_MR.IServices.It_b_installposServices,CDWM_MR.IServices.It_b_watermodelServices,CDWM_MR.IServices.It_b_natureServices)">
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.#ctor(CDWM_MR.IServices.Content.Iv_wateruserinfoServices,CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices,CDWM_MR.IServices.Content.It_b_usersServices,CDWM_MR.IServices.Content.It_b_watermetersServices,CDWM_MR.IServices.Content.Iv_watermeterinfoServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.It_b_watermetertypeServices,CDWM_MR.IServices.It_b_factoryServices,CDWM_MR.IServices.It_b_installposServices,CDWM_MR.IServices.It_b_watermodelServices,CDWM_MR.IServices.It_b_natureServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
-            
+            构造函数注入
             </summary>
             <param name="v_wateruserinfoServices"></param>
             <param name="t_b_regionsServices"></param>
@@ -1855,8 +1932,9 @@
             <param name="t_b_installposService"></param>
             <param name="t_b_watermodelService"></param>
             <param name="t_b_natureService"></param>
+            <param name="users"></param>
         </member>
-        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ListData">
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ListData(System.String)">
             <summary>
             拿到下拉框的值
             </summary>
@@ -1866,21 +1944,28 @@
             <summary>
             显示用户管理
             </summary>
-            <param name="account">用户编号</param>
-            <param name="username">用户名称</param>
-            <param name="meternum">表号</param>
-            <param name="optname">抄表员</param>
-            <param name="bookno">抄表册号</param>
-            <param name="regionplace">所属区域</param>
-            <param name="areaname">所属小区</param>
-            <param name="page">页号</param>
-            <param name="limit">页面大小</param>
+            <param name="account"></param>
+            <param name="meternum"></param>
+            <param name="username"></param>
+            <param name="readername"></param>
+            <param name="bookno"></param>
+            <param name="regionplace"></param>
+            <param name="areaname"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.SelectValue">
             <summary>
-            
+            展示页面下拉框所需数据
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.RegionSelShow(System.String)">
+            <summary>
+            区域选择触发
+            </summary>
+            <param name="regionno"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.ShowEditRegionDate(System.String)">
@@ -1909,11 +1994,17 @@
             <param name="JsonDate">水表信息JsonDate</param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.showaddmeterinfo(System.String)">
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.showaddmeterinfo">
             <summary>
             新增水表时返回的数据
             </summary>
-            <param name="meternum1">水表编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.CarialSeltigger(System.Int32)">
+            <summary>
+            口径下拉框触发
+            </summary>
+            <param name="bmlid"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.AddWaterMeter(System.String,System.String)">
@@ -1933,7 +2024,7 @@
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.AdduserDataShow">
             <summary>
-            
+            添加弹窗后台所需下拉框数据
             </summary>
             <returns></returns>
         </member>
@@ -1944,13 +2035,12 @@
             <param name="account">用户编号</param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.Changemeter(System.String,System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.Changemeter(System.String,System.String)">
             <summary>
-            换表
+            换表操作
             </summary>
-            <param name="Oldmeternum">旧表编号</param>
-            <param name="Newmeternum">新表编号</param>
-            <param name="lastmodifyby">修改人</param>
+            <param name="Oldmeterinfo">旧表信息</param>
+            <param name="Newmeterinfo">新表信息</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.WatermeterUserManageController.DelUser(System.String)">

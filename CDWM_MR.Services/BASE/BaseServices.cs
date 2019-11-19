@@ -103,8 +103,7 @@ namespace CDWM_MR.Services.BASE
          TEntity entity,
          List<string> lstColumns = null,
          List<string> lstIgnoreColumns = null,
-         string strWhere = ""
-            )
+         string strWhere = "")
         {
             return await BaseDal.Update(entity, lstColumns, lstIgnoreColumns, strWhere);
         }
@@ -309,10 +308,61 @@ namespace CDWM_MR.Services.BASE
         {
             return await BaseDal.QueryMuch(joinExpression, selectExpression, whereLambda);
         }
+
+        /// <summary>
+        /// 判断是否存在某一个条件的对象
+        /// </summary>
+        /// <param name="wherelambda"></param>
+        /// <returns></returns>
+        public async Task<bool> ExistModel(Expression<Func<TEntity, bool>> wherelambda)
+        {
+            return await BaseDal.ExistModel(wherelambda);
+        }
+
+        /// <summary>
+        /// 判断是否存在某一个条件的对象
+        /// </summary>
+        /// <param name="wherelambda"></param>
+        /// <returns></returns>
+        public async Task<bool> OExistModel(Expression<Func<TEntity, bool>> wherelambda)
+        {
+            return await BaseDal.OExistModel(wherelambda);
+        }
+
+        /// <summary>
+        /// 根据条件查询
+        /// </summary>
+        /// <param name="whereExpression"></param>
+        /// <returns></returns>
         public async Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression)
         {
             return await BaseDal.OQuery(whereExpression);
         }
+
+        /// <summary>
+        /// 查询(另外一个数据库的查询)
+        /// </summary>
+        /// <param name="whereExpression"></param>
+        /// <param name="selfield"></param>
+        /// <returns></returns>
+        public async Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TEntity>> selfield)
+        {
+            return await BaseDal.OQuery(whereExpression,selfield);
+        }
+
+        /// <summary>
+        /// 查询前N条数据
+        /// </summary>
+        /// <param name="whereExpression">查询条件</param>
+        /// <param name="selfield">查询字段</param>
+        /// <param name="strOrderByFileds">排序字段</param>
+        /// <param name="intTop">钱N条数据</param>
+        /// <returns></returns>
+        public async Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TEntity>> selfield, string strOrderByFileds,int intTop)
+        {
+            return await BaseDal.OQuery(whereExpression, selfield, strOrderByFileds, intTop);
+        }
+
         /// <summary>
         /// 更新其他数据库实体数据
         /// </summary>
@@ -322,6 +372,7 @@ namespace CDWM_MR.Services.BASE
         {
             return await BaseDal.OUpdate(entity);
         }
+
         /// <summary>
         /// 写入实体数据在其他数据库
         /// </summary>
@@ -330,6 +381,16 @@ namespace CDWM_MR.Services.BASE
         public async Task<int> OAdd(TEntity entity)
         {
             return await BaseDal.OAdd(entity);
+        }
+
+        /// <summary>
+        /// 批量写入另一数据库
+        /// </summary>
+        /// <param name="listEntity"></param>
+        /// <returns></returns>
+        public async Task<int> OAdd(List<TEntity> listEntity)
+        {
+            return await BaseDal.OAdd(listEntity);
         }
 
         /// <summary>

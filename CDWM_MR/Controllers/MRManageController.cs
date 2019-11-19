@@ -83,7 +83,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Show_CB_DataInfo")]      
-        public async Task<TableModel<object>> Show_CB_DataInfo(string username, string account, string meternum, string address, string mrreadername, string bookno, int rtrecheckstatus = 3, int page = 1, int limit = 20)
+        public async Task<TableModel<object>> Show_CB_DataInfo(string username, string account, string meternum, string address, string mrreadername, string bookno, int recheckstatus = 3, int page = 1, int limit = 20)
         {
             //跟踪登录用户
             string FUserName = _user.Name;
@@ -92,13 +92,9 @@ namespace CDWM_MR.Controllers
             PageModel<object> pageModel = new PageModel<object>();
             #region lambda拼接式 
             Expression<Func<v_mr_datainfo, bool>> wherelambda = c => true;
-            if (rtrecheckstatus != 3 && rtrecheckstatus != 1)
+            if (recheckstatus != 3)
             {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.rtrecheckstatus ==rtrecheckstatus);
-            }
-            if (rtrecheckstatus == 1)
-            {
-                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.rtrecheckstatus == null);
+                wherelambda = PredicateExtensions.And<v_mr_datainfo>(wherelambda, c => c.recheckstatus == recheckstatus);
             }
             if (!string.IsNullOrEmpty(username))
             {
@@ -173,7 +169,6 @@ namespace CDWM_MR.Controllers
                 count = pageModel.dataCount
 
             };
-
         }
 
         /// <summary>
@@ -410,6 +405,10 @@ namespace CDWM_MR.Controllers
             b_Recheck.createpeople = _user.Name;
             AddData.Add(b_Recheck);
             int b = await _B_RecheckServices.Add(AddData);
+            //将抄表数据表中的审核状态改为了已审
+            await _DatainfoServices.Update(c => new mr_datainfo {
+                recheckstatus=1
+            },c => c.autoaccount == b_Recheck.userid && c.taskperiodname == b_Recheck.taskperiodname);
             return new TableModel<object>
             {
                 code = 0,

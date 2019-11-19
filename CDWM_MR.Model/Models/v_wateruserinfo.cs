@@ -5,6 +5,9 @@ namespace CDWM_MR.Model.Models
     /// <summary>
     /// VIEW
     /// </summary>
+    /// <summary>
+    /// VIEW
+    /// </summary>
     public class v_wateruserinfo
     {
         /// <summary>
@@ -40,14 +43,9 @@ namespace CDWM_MR.Model.Models
         public System.String meternum { get; set; }
 
         /// <summary>
-        /// 口径(190808新增)
+        /// 口径
         /// </summary>
-        public System.String caliber { get; set; }
-
-        /// <summary>
-        /// 用户名
-        /// </summary>
-        public System.String optname { get; set; }
+        public System.Int32? caliber { get; set; }
 
         /// <summary>
         /// 抄表册编号（t_c_readmeterbook::bookno）
@@ -55,14 +53,29 @@ namespace CDWM_MR.Model.Models
         public System.String bookno { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public System.String readername { get; set; }
+
+        /// <summary>
         /// 小区名称
         /// </summary>
         public System.String areaname { get; set; }
 
         /// <summary>
-        /// 
+        /// 小区编号
+        /// </summary>
+        public string areano { get; set; }
+
+        /// <summary>
+        /// 所属区域名称
         /// </summary>
         public System.String regionplace { get; set; }
+
+        /// <summary>
+        /// 所属区域编号
+        /// </summary>
+        public string regionno { get; set; }
 
         /// <summary>
         /// 用水性质名称

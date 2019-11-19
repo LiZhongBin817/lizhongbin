@@ -17,7 +17,7 @@ namespace CDWM_MR.Controllers.v1
     /// <summary>
     /// 抄表数据接口
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     //或者是写[Route("api/[controller]/[action]")]，下面就不要写Route啥的了
     public class AppMeterReadingDataController : Controller
     {
@@ -56,7 +56,6 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="UserData">用户抄表数据接口对象</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("UpdateUserData")]
         [AllowAnonymous]//允许所有都访问
         public async Task<MessageModel<int>> UpdateUserData([FromBody]List<mr_datainfo> UserData)
         {
@@ -75,7 +74,7 @@ namespace CDWM_MR.Controllers.v1
                 {
                     mr_datainfo updatemodel = UserData[i];
                     updatemodel.readstatus = 1;
-                    List<string> updatefield = new List<string>() { "uploadgisplace", "readDateTime", "readstatus", "remark", "inputdata", "uploadtime", "readtype" };
+                    List<string> updatefield = new List<string>() { "uploadgisplace", "readDateTime", "readstatus", "remark", "inputdata", "uploadtime", "readtype", "meterstatus" };
                     await _mr_datainfoServices.Update(updatemodel, updatefield);
 
                 }
@@ -103,7 +102,6 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="taskid">任务单ID</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("GetcheckedReadingWaterDate")]
         [AllowAnonymous]//允许所有都访问
         public async Task<object> GetcheckedReadingWaterDate(string taskperiodname, int taskid)
         {
@@ -150,10 +148,9 @@ namespace CDWM_MR.Controllers.v1
         /// </summary>
         /// <param name="readerid"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("readdatastatistics")]
+        [HttpGet("{readerid}")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<TableModel<object>> readdatastatistics(int readerid )
+        public async Task<MessageModel<object>> readdatastatistics(int readerid )
         {
             List<object > li = new List<object>();
             List<object> li01 = new List<object>();
@@ -204,7 +201,7 @@ namespace CDWM_MR.Controllers.v1
                 data01.First().faultalreadyCumulative, 
             };
 
-            return new TableModel<object>
+            return new MessageModel<object>
             {
                 code = 0,
                 msg = "OK",

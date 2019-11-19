@@ -87,5 +87,10 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(Length = 500, IsNullable = true,ColumnDescription = "备注")]
         public string remark { get; set; }
+
+        /// <summary>
+        /// 任务账期
+        /// </summary>
+        public string taskperiodname { get; set; }
     }
 }

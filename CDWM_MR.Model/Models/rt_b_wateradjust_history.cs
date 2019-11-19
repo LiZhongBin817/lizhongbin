@@ -57,5 +57,10 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = false, Length = 20, ColumnDescription = "创建人")]
         public string createperson { get; set; }
+
+        /// <summary>
+        /// 任务周期
+        /// </summary>
+        public string taskperiodname { get; set; }
     }
 }
