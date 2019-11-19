@@ -5,27 +5,19 @@
 </script>
 <div class="layui-fluid">
     <div class="layui-row" lay-filter="test">
-        <div class="layui-col-md12">
-            <div class=" layui-card">
-                <div class="layui-card-header layui-form layuiadmin-card-header-auto">
-                    
-                </div>
-                <div class="layui-card-body">
-                    <table id="ChangeWater_Table" lay-filter="ChangeWater" class="layui-hide"></table>
-                </div>
-            </div>
+        <div class="layui-col">
+            <table id="ChangeWater_Table" lay-filter="ChangeWater" class="layui-hide"></table>
         </div>
     </div>
-  
+
 </div>
 
-<script type="text/javascript">
-    layui.use('ChangeWater', layui.factory('ChangeWater')).use(['admin', 'table', 'form', 'view', 'ChangeWater' ], function () {
+<script>
+    layui.use(['admin', 'table', 'form', 'view'], function () {
         var admin = layui.admin
             , table = layui.table
             , form = layui.form
-            , view = layui.view 
-            , $ = layui.$;
-        form.render(); 
+            , view = layui.view;
+       
     });
 </script>

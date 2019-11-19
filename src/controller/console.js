@@ -32,21 +32,41 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
     });
 
     //监听换表记录按钮
-    form.on('submit(change_meter_record_button)',function () {
-        admin.req({
-            url:layui.setter.request+'',
-            method:'',
-            data:{
-                "account": account,
-            },
-            success:function (d) {
-                //页面渲染，地址自己填
-                view('UserSel_Home_Conterior').render('',d).done(function () {
-
-                });
-            }
+    form.on('submit(change_meter_record_button)', function () {
+        view('UserSel_Home_Conterior').render('OneUserManagement/ChangeWater', null).done(function () {
+            console.log(document.getElementById('acconut').value);
+            table.render({
+                elem: '#ChangeWater_Table',
+                method: 'post',  
+                url: layui.setter.requesturl + '/api/OneUserManagement/changewater', 
+                where: {
+                    "autoaccount": "100000000001",
+                    "page": 1,
+                    "limit": 10
+                },
+                cols: [[
+                    { title: '序号', type: 'numbers' },
+                    { field: 'autoaccount', title: '用户编号' },
+                    { field: 'meternum', title: '水表编号' },
+                    { field: 'caliber', title: '口径' },
+                    { field: 'bwcode', title: '初始底数' },
+                    { field: 'posname', title: '安装位置' },
+                    { field: 'lastwaternum', title: '截止底数' },
+                    { field: 'meterstate', title: '状态' },
+                    { field: 'installtime', title: '安装时间' },
+                    { field: 'readername', title: '安装人' },
+                    { field: 'remark', title: '换表原因' },
+                    { field: 'updatemetertime', title: '更换时间' },
+                    { field: 'GISPlace', title: 'Gis位置' },
+                    { field: 'processpreson', title: '换表人' },
+                    { title: 'maxrange', title:'最大量程'},
+                ]]
+                , page: true
+                , limit: 10
+            });
         });
-        modelinfo="换表记录";
+        modelinfo = "换表记录";
+        console.log("key");
         $("#modelinfo").html(modelinfo);
     });
 
