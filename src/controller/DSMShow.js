@@ -239,10 +239,11 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                             value: new Date(),
                                         });
                                         //监听受理操作中的该表抄户员
-                                        //form.on('submit(DSMShowReader)', function (obj) {
-                                        //    DispatchedWorker = data.readerid;
-                                        //});
-                                        console.log(Resdata);
+                                        $("#DSMShowOperation-btn").click(function () {
+                                            DispatchedWorker = data.readerid;
+                                            $("#ShowOperation_select").val(DispatchedWorker);
+                                        });
+                                        console.log(Resdata[2]);
                                         form.render();
                                         form.on('submit(DSMShowAcceptance_submit)', function (Data) {
                                             console.log(DispatchedWorker);
@@ -327,7 +328,6 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                     FaultArray.push(senddata);
                                                     console.log(FaultArray);
                                                     admin.req({
-                                                        //dataType:'json',
                                                         url: layui.setter.requesturl + '/api/DispatchSheet/Processingoperations',
                                                         data: {
                                                             "FaultHandlinglist": JSON.stringify(FaultArray)
@@ -385,7 +385,6 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                 }
                                             }
                                             var rhtml = "";
-                                            console.log(resdata.data[3]);
                                             for (var i = 0; i < resdata.data[3].length; i++) {
                                                 if (resdata.data[3][i].phototype == 1) {
                                                     rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;

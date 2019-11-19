@@ -22,11 +22,10 @@
     <a class="layui-btn layui-btn-warm " lay-event="area_add">添加小区</a>
 </script>
 <script>
-    layui.use('RegionManage', layui.factory('RegionManage')).use(['admin', 'RegionManage', 'table', 'view', 'form'], function () {
+    layui.use(['admin', 'table', 'view', 'form'], function () {
         var admin = layui.admin,
             view = layui.view,
             table = layui.table,
-            RegionManage = layui.RegionManage,
             form = layui.form;
         form.render();
     })

@@ -1,0 +1,128 @@
+﻿<title>照片记录页面</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/login.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-fiuld">
+    <div class="layui-card">
+        <div class="layui-card-header layui-form layuiadmin-card-header-auto" id="CameraRecord">
+            <div class="layui-inline">
+                <label class="layui-form-label">上报时间:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="CameraRecordStarTime" id="CameraRecordStarTime" lay-verify="CameraRecordStarTime" placeholder="开始时间" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-input-inline">-</div>
+                <div class="layui-input-inline">
+                    <input type="text" name="CameraRecordEndTime" id="CameraRecordEndTime" lay-verify="CameraRecordEndTime" placeholder="完成时间" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                    <select name="CameraRecord_Select" id="CameraRecord_Select" lay-filter="CameraRecord_Select"s>
+                        <option value="5">请选择</option>
+                        <option value="1">表盘抄表</option>
+                        <option value="2">现场照片</option>
+                        <option value="3">故障处理后</option>
+                        <option value="4">故障照片</option>
+                        <option value="0">其他类型</option>
+                    </select>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius:3px;" lay-submit lay-filter="CameraRecord_Seek">
+                    查询
+                </button>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">户号:</label>
+                    <div class="layui-inline">
+                        <input class="layui-input" type="text" name="CameraRecord_autoaccount" id="CameraRecord_autoaccount" autocomplete="off" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">户名:</label>
+                    <div class="layui-inline">
+                        <input class="layui-input" type="text" name="CameraRecord_autoaccountname" id="CameraRecord_autoaccountname" autocomplete="off" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">表号:</label>
+                    <div class="layui-inline">
+                        <input class="layui-input" type="text" name="CameraRecord_WaterNumber" id="CameraRecord_WaterNumber" autocomplete="off" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">地址:</label>
+                    <div class="layui-inline">
+                        <input class="layui-input" type="text" name="CameraRecord_Address" id="CameraRecord_Address" autocomplete="off" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div layui-card-body>
+            <div id="CameraRecord_Photo">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'layedit', 'upload', 'jquery'], function () {
+        var form = layui.form,
+            table = layui.table,
+            admin = layui.admin,
+            laydate = layui.laydate,
+            view = layui.view,
+            upload = layui.upload,
+            $ = layui.$;
+        form.render();
+        //监听查询
+        form.on('submit(CameraRecord_Seek)', function (obj) {
+            var field = obj.field;
+            admin.req({
+                url: layui.setter.requesturl + '/api/Troubleshooting/GetAutoaccountinfo',
+                type: 'post',
+                data: {
+                    "autoaccount": document.getElementById('CameraRecord_autoaccount').value,
+                    "starttime": document.getElementById('CameraRecordStarTime').value,
+                    "endtime": document.getElementById('CameraRecordEndTime').value,
+                    "type": document.getElementById('CameraRecord_Select').value
+                },
+                success: function (d) {
+                    $("#CameraRecord_autoaccount").val(d.data[0].autoaccount);
+                    $("#CameraRecord_autoaccountname").val(d.data[0].username);
+                    $("#CameraRecord_WaterNumber").val(d.data[0].meternum);
+                    $("#CameraRecord_Address").val(d.data[0].address);
+                    var rhtml = "";
+                    for (var i = 0; i < d.data[1].length; i++) {
+                        if (d.data[1][i].phototype == 1) {
+                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;
+                        }
+                        else if (d.data[1][i].phototype == 2) {
+                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--现场图片</div></div>`;
+                        }
+                        else if (d.data[1][i].phototype == 3) {
+                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                        }
+                        else if (d.data[1][i].phototype == 4) {
+                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="故障图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障图片</div></div>`;
+                        }
+                        else {
+                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="其他类型图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--其他类型图片</div></div>`;
+                        }
+                    }
+                    $("#CameraRecord_Photo").html(rhtml);
+                    form.render(null, 'CameraRecord');
+                }
+            });
+        });
+
+        //时间
+        laydate.render({
+            elem: '#CameraRecordStarTime',
+        });
+        laydate.render({
+            elem: '#CameraRecordEndTime',
+        });
+    });
+</script>
