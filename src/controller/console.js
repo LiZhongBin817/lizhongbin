@@ -210,8 +210,8 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
         }
         else{
             admin.req({
-                url:layui.setter.request+'',
-                method:'',
+                url:layui.setter.requesturl+"",
+                method:'post',
                 data:{
                     "autoaccount": autoaccount,
                 },
@@ -234,15 +234,85 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
         }
         else{
             admin.req({
-                url:layui.setter.request+'',
-                method:'',
+                url:layui.setter.requesturl+'/api/HomePageMeterReadingRecord/MeterReadingRecordInfo',
+                method:'post',
                 data:{
                     "autoaccount": autoaccount,
                 },
                 success:function (d) {
                     //页面渲染，地址自己填
-                    view('UserSel_Home_Conterior').render('',d).done(function () {
+                    view('UserSel_Home_Conterior').render('homemeterreadingrecord/meterreadingrecord',d.data).done(function () {
 
+                        homepagetablerender(d.data);
+                        //渲染表格
+                        function homepagetablerender(data){
+                            table.render({
+                                elem:'#mr_recordinfo'
+                                ,data:data
+                                ,cols:[[
+                                    {field:'account',title:'用户编号',width:100,fixed:'left',align:'center'},
+                                    {field:'taskperiodname',title:'月份',width:100,align:'center'},
+                                    {field:'lastmonthdata',title:'起码',width:100,align:'center'},
+                                    {field:'inputdata',title:'抄回止码',width:100,align:'center'},
+                                    {field:'ocrdata',title:'图像识别',width:100,align:'center'},
+                                    {field:'readcheckdata',title:'复审读数',width:100,align:'center'},
+                                    {field:'readDateTime',title:'抄表时间',width:200,align:'center'},
+                                    {field:'mrreadername',title:'抄表人',width:100,align:'center'},
+                                    {field:'checkor',title:'审核人',width:100,align:'center'},
+                                    {title:'审核记录',width:100,fixed:'right',align:'center',
+                                        templet:function (d) {
+                                            return `<a  style="border-radius: 3px" lay-submit  lay-event="see_recheckedrecord">查看</a>`
+                                        }
+                                    },
+                                    {field:'pircture',title:'图片',width:100,fixed:'right',align:'center',
+                                        templet:function (d) {
+                                            if(d.pircture==""){
+                                                return  `<a style="text-decoration: unset">暂无图片</a>`
+                                            }
+                                            else{
+                                                return `<a  style="text-decoration: unset" lay-submit lay-filter="see_checkedpircure">点击查看图片</a>`
+                                            }
+                                        }
+                                    },
+                                ]]
+                                , page: true
+                                , limit: 10
+                                , limits: [5, 10, 15]
+                            });
+                        }
+
+                        //监听查看按钮
+                        table.on('tool(mr_recordinfo)',function (d) {
+                           var data=d.data;
+                           var event=d.event;
+                            if(event=='see_recheckedrecord'){
+                                console.log(data);
+
+                            }
+                        })
+
+                        //查询按钮
+                        form.on('submit(mr_record_search)',function (d) {
+                            var startdate=$("#startdate").val();
+                            var enddate=$("#enddate").val();
+                            admin.req({
+                                url:layui.setter.requesturl+'/api/HomePageMeterReadingRecord/MeterReadingRecordInfo',
+                                method:'post',
+                                data:{
+                                    "autoaccount": autoaccount,
+                                    "startdate":startdate,
+                                    "enddate":enddate,
+                                },
+                                success:function (d) {
+                                    if(d.msg=="OK"){
+                                        homepagetablerender(d.data)
+                                    }
+                                    else{
+                                        layer.msg("出现错误！");
+                                    }
+                                }
+                            });
+                        })
                     });
                 }
             });

@@ -1,0 +1,61 @@
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col">
+            <div class="layui-form">
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">抄表时间：</label>
+                    <div class="layui-inline">
+                        <input type="text" class="layui-input" name="startdate" id="startdate" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label  class="layui-form-label" style="left: -31%;width:5%">至</label>
+                    </div>
+                    <div class="layui-inline" style="left: -5%">
+                        <input type="text" class="layui-input" name="enddate" id="enddate" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-sm layui-btn-normal " style="border-radius: 3px" lay-submit lay-filter="mr_record_search">查询</button>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">户号:</label>
+                        <div class="layui-inline" >
+                            <script type="text/html" template>
+                               <label class="layui-form-label" style="width:auto">{{d.params[0].account}}--{{d.params[0].username}}</label>
+                            </script>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">表号:</label>
+                        <div class="layui-inline">
+                            <script type="text/html" template>
+
+                                <label class="layui-form-label" style="width:auto">{{d.params[0].meternum}}--{{d.params[0].regionname}}--{{d.params[0].areaname}}--{{d.params[0].address}}</label>
+                            </script>
+                        </div>
+                    </div>
+                    <div class="layui-block">
+                        <table class="layui-table" name="mr_recordinfo" id="mr_recordinfo" lay-filter="mr_recordinfo"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['admin', 'table', 'form', 'view','jquery','laydate'], function (){
+        var admin=layui.admin,
+            table=layui.table,
+            form=layui.form,
+            view=layui.view,
+            $=layui.jquery,
+            laydate=layui.laydate;
+        form.render();
+        laydate.render({elem:'#startdate'});
+        laydate.render({elem:'#enddate'});
+    });
+</script>
