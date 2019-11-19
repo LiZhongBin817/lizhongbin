@@ -177,21 +177,6 @@ namespace CDWM_MR.Repository.BASE
           string strWhere = ""
             )
         {
-            //IUpdateable<TEntity> up = await Task.Run(() => _db.Updateable(entity));
-            //if (lstIgnoreColumns != null && lstIgnoreColumns.Count > 0)
-            //{
-            //    up = await Task.Run(() => up.IgnoreColumns(it => lstIgnoreColumns.Contains(it)));
-            //}
-            //if (lstColumns != null && lstColumns.Count > 0)
-            //{
-            //    up = await Task.Run(() => up.UpdateColumns(it => lstColumns.Contains(it)));
-            //}
-            //if (!string.IsNullOrEmpty(strWhere))
-            //{
-            //    up = await Task.Run(() => up.Where(strWhere));
-            //}
-            //return await Task.Run(() => up.ExecuteCommand()) > 0;
-
             IUpdateable<TEntity> up = _db.Updateable(entity);
             if (lstIgnoreColumns != null && lstIgnoreColumns.Count > 0)
             {
@@ -215,8 +200,6 @@ namespace CDWM_MR.Repository.BASE
         /// <returns></returns>
         public async Task<bool> Delete(TEntity entity)
         {
-            //var i = await Task.Run(() => _db.Deleteable(entity).ExecuteCommand());
-            //return i > 0;
             return await _db.Deleteable(entity).ExecuteCommandHasChangeAsync();
         }
 
@@ -227,8 +210,6 @@ namespace CDWM_MR.Repository.BASE
         /// <returns></returns>
         public async Task<bool> DeleteById(object id)
         {
-            //var i = await Task.Run(() => _db.Deleteable<TEntity>(id).ExecuteCommand());
-            //return i > 0;
             return await _db.Deleteable<TEntity>(id).ExecuteCommandHasChangeAsync();
         }
 
@@ -239,8 +220,6 @@ namespace CDWM_MR.Repository.BASE
         /// <returns></returns>
         public async Task<bool> DeleteByIds(object[] ids)
         {
-            //var i = await Task.Run(() => _db.Deleteable<TEntity>().In(ids).ExecuteCommand());
-            //return i > 0;
             return await _db.Deleteable<TEntity>().In(ids).ExecuteCommandHasChangeAsync();
         }
 
@@ -260,7 +239,6 @@ namespace CDWM_MR.Repository.BASE
         /// <returns>数据列表</returns>
         public async Task<List<TEntity>> Query()
         {
-            //return await Task.Run(() => _entityDb.GetList());
             return await _db.Queryable<TEntity>().ToListAsync();
         }
 
@@ -272,7 +250,6 @@ namespace CDWM_MR.Repository.BASE
         /// <returns>数据列表</returns>
         public async Task<List<TEntity>> Query(string strWhere)
         {
-            //return await Task.Run(() => _db.Queryable<TEntity>().WhereIF(!string.IsNullOrEmpty(strWhere), strWhere).ToList());
             return await _db.Queryable<TEntity>().WhereIF(!string.IsNullOrEmpty(strWhere), strWhere).ToListAsync();
         }
 
@@ -285,8 +262,6 @@ namespace CDWM_MR.Repository.BASE
         public async Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression)
         {
             return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
-            //return await Task.Run(() => _entityDb.GetList(whereExpression));
-            //return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
         }
 
         /// <summary>
@@ -298,8 +273,6 @@ namespace CDWM_MR.Repository.BASE
         public async Task<List<TEntity>> Queryfield(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TEntity>> sellambda)
         {
             return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).Select(sellambda).ToListAsync();
-            //return await Task.Run(() => _entityDb.GetList(whereExpression));
-            //return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
         }
 
         /// <summary>
@@ -311,7 +284,6 @@ namespace CDWM_MR.Repository.BASE
         /// <returns>数据列表</returns>
         public async Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression, string strOrderByFileds)
         {
-            //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(whereExpression != null, whereExpression).ToList());
             return await _db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).OrderByIF(strOrderByFileds != null, strOrderByFileds).ToListAsync();
         }
         /// <summary>
@@ -323,7 +295,6 @@ namespace CDWM_MR.Repository.BASE
         /// <returns></returns>
         public async Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, object>> orderByExpression, bool isAsc = true)
         {
-            //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(orderByExpression != null, orderByExpression, isAsc ? OrderByType.Asc : OrderByType.Desc).WhereIF(whereExpression != null, whereExpression).ToList());
             return await _db.Queryable<TEntity>().OrderByIF(orderByExpression != null, orderByExpression, isAsc ? OrderByType.Asc : OrderByType.Desc).WhereIF(whereExpression != null, whereExpression).ToListAsync();
         }
 
@@ -336,7 +307,6 @@ namespace CDWM_MR.Repository.BASE
         /// <returns>数据列表</returns>
         public async Task<List<TEntity>> Query(string strWhere, string strOrderByFileds)
         {
-            //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(!string.IsNullOrEmpty(strWhere), strWhere).ToList());
             return await _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(!string.IsNullOrEmpty(strWhere), strWhere).ToListAsync();
         }
 
@@ -354,7 +324,6 @@ namespace CDWM_MR.Repository.BASE
             int intTop,
             string strOrderByFileds)
         {
-            //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(whereExpression != null, whereExpression).Take(intTop).ToList());
             return await _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(whereExpression != null, whereExpression).Take(intTop).ToListAsync();
         }
 
@@ -371,7 +340,6 @@ namespace CDWM_MR.Repository.BASE
             int intTop,
             string strOrderByFileds)
         {
-            //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(!string.IsNullOrEmpty(strWhere), strWhere).Take(intTop).ToList());
             return await _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(!string.IsNullOrEmpty(strWhere), strWhere).Take(intTop).ToListAsync();
         }
 
@@ -393,7 +361,6 @@ namespace CDWM_MR.Repository.BASE
             int intPageSize,
             string strOrderByFileds)
         {
-            //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(whereExpression != null, whereExpression).ToPageList(intPageIndex, intPageSize));
             return await _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(whereExpression != null, whereExpression).ToPageListAsync(intPageIndex, intPageSize);
         }
 
@@ -414,7 +381,6 @@ namespace CDWM_MR.Repository.BASE
 
           string strOrderByFileds)
         {
-            //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(!string.IsNullOrEmpty(strWhere), strWhere).ToPageList(intPageIndex, intPageSize));
             return await _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(!string.IsNullOrEmpty(strWhere), strWhere).ToPageListAsync(intPageIndex, intPageSize);
         }
 
@@ -478,6 +444,7 @@ namespace CDWM_MR.Repository.BASE
             int pageCount = (Math.Ceiling(totalCount.ObjToDecimal() / intPageSize.ObjToDecimal())).ObjToInt();
             return new PageModel<TEntity>() { dataCount = totalCount, pageCount = pageCount, page = intPageIndex, PageSize = intPageSize, data = list };
         }
+
         /// <summary> 
         ///查询-多表查询
         /// </summary> 
@@ -500,11 +467,61 @@ namespace CDWM_MR.Repository.BASE
             }
             return await _db.Queryable(joinExpression).Where(whereLambda).Select(selectExpression).ToListAsync();
         }
+
+        /// <summary>
+        /// 判断是否存在某一个条件的对象
+        /// </summary>
+        /// <param name="wherelambda"></param>
+        /// <returns></returns>
+        public async Task<bool> ExistModel(Expression<Func<TEntity, bool>> wherelambda)
+        {
+            return await _db.Queryable<TEntity>().AnyAsync(wherelambda);
+        }
+
+        /// <summary>
+        /// 判断是否存在某一个条件的对象
+        /// </summary>
+        /// <param name="wherelambda"></param>
+        /// <returns></returns>
+        public async Task<bool> OExistModel(Expression<Func<TEntity, bool>> wherelambda)
+        {
+            return await _entityDb.AsSugarClient().Queryable<TEntity>().AnyAsync(wherelambda);
+        }
+
+        /// <summary>
+        /// 根据条件查询
+        /// </summary>
+        /// <param name="whereExpression"></param>
+        /// <returns></returns>
         public async Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression)
         {
-            //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(whereExpression != null, whereExpression).Take(intTop).ToList());
             return await _entityDb.AsSugarClient().Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
         }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="whereExpression"></param>
+        /// <param name="selfield"></param>
+        /// <returns></returns>
+        public async Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TEntity>> selfield)
+        {
+            return await _entityDb.AsSugarClient().Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).Select(selfield).ToListAsync();
+        }
+
+        /// <summary>
+        /// 查询前N条数据
+        /// </summary>
+        /// <param name="whereExpression">查询条件</param>
+        /// <param name="selfield">查询字段</param>
+        /// <param name="strOrderByFileds">排序字段</param>
+        /// <param name="intTop">钱N条数据</param>
+        /// <returns></returns>
+        public async Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TEntity>> selfield,string strOrderByFileds,int intTop = 1) 
+        {
+            return await _entityDb.AsSugarClient().Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFileds), strOrderByFileds).WhereIF(whereExpression != null, whereExpression).Take(intTop).ToListAsync();
+        }
+
         /// <summary>
         /// 更新其他数据库实体数据
         /// </summary>
@@ -512,12 +529,10 @@ namespace CDWM_MR.Repository.BASE
         /// <returns></returns>
         public async Task<bool> OUpdate(TEntity entity)
         {
-            ////这种方式会以主键为条件
-            //var i = await Task.Run(() => _db.Updateable(entity).ExecuteCommand());
-            //return i > 0;
             //这种方式会以主键为条件
             return await _entityDb.AsSugarClient().Updateable(entity).ExecuteCommandHasChangeAsync();
         }
+
         /// <summary>
         /// 写入实体数据在其他数据库
         /// </summary>
@@ -525,7 +540,6 @@ namespace CDWM_MR.Repository.BASE
         /// <returns></returns>
         public async Task<int> OAdd(TEntity entity)
         {
-            //var i = await Task.Run(() => _db.Insertable(entity).ExecuteReturnBigIdentity());
             ////返回的i是long类型,这里你可以根据你的业务需要进行处理
             //return (int)i;
             var insert = _entityDb.AsSugarClient().Insertable(entity);
@@ -533,11 +547,21 @@ namespace CDWM_MR.Repository.BASE
         }
 
         /// <summary>
+        /// 批量写入另一数据库数据
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
+        public async Task<int> OAdd(List<TEntity> listEntity)
+        {
+            return await _entityDb.AsSugarClient().Insertable(listEntity.ToArray()).ExecuteCommandAsync();
+        }
+
+        /// <summary>
         /// 不根据名称执行存储过程
         /// </summary>
         /// <param name="prostr">传入要执行的存储过程字符</param>
         /// <param name="obj">传入的参数对应的值</param>
-        /// <returns></returns>
+        /// <returns></returns>   
         public async Task<int> ExecutePro(string prostr,object obj)
         {
             return await _db.Ado.GetIntAsync(prostr, obj);

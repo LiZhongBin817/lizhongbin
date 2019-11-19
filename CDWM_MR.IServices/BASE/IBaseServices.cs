@@ -57,9 +57,14 @@ namespace CDWM_MR.IServices.BASE
             Expression<Func<T, T2, T3, object[]>> joinExpression,
             Expression<Func<T, T2, T3, TResult>> selectExpression,
             Expression<Func<T, T2, T3, bool>> whereLambda = null) where T : class, new();
+        Task<bool> ExistModel(Expression<Func<TEntity, bool>> wherelambda);
+        Task<bool> OExistModel(Expression<Func<TEntity, bool>> wherelambda);
         Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression);
+        Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TEntity>> selfield);
+        Task<List<TEntity>> OQuery(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TEntity>> selfield, string strOrderByFileds, int intTop);
         Task<bool> OUpdate(TEntity entity);
         Task<int> OAdd(TEntity entity);
+        Task<int> OAdd(List<TEntity> listEntity);
 
         Task<int> ExecutePro(string prostr, object obj);
     }

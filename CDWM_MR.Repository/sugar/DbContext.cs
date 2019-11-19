@@ -347,7 +347,7 @@ namespace {Namespace}
         {
             ConnectionConfig config = new ConnectionConfig()
             {
-                ConnectionString = "Server=220.248.173.29;Port=3303;Database=marketing_sw;Uid=root;Pwd=root;",
+                ConnectionString = "Server=220.248.173.29;Port=3303;Database=marketing_bjwk;Uid=root;Pwd=root;",
                 DbType = _dbType,
                 IsAutoCloseConnection = blnIsAutoCloseConnection,
                 ConfigureExternalServices = new ConfigureExternalServices()

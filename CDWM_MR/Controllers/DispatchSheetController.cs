@@ -161,7 +161,6 @@ namespace CDWM_MR.Controllers
             string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
             for (int i = 0; i < list.Count; i++)
             {
-               // alllist.Add($"{ipadress}{list[i].photourl.Split("wwwroot")[1]}");
                 var data = new {url= $"{ipadress}{list[i].photourl.Split("wwwroot")[1]}",phototype=list[i].phototype };
                 alllist.Add(data);
             }
@@ -460,6 +459,16 @@ namespace CDWM_MR.Controllers
             list.Add(firstphotolist);
             list.Add(secondphotolist);
             list.Add(faultprocessthirdlist);
+            //在故障记录界面使用
+            if (DSMStatus==0)
+            {
+                return new MessageModel<object>()
+                {
+                    code = 0,
+                    msg = "",
+                    data = list
+                };
+            }
             if (DSMStatus != 3)//未存档则添加一条数据
             {
                 rb_b_faultprocess addfaultprocesslist = new rb_b_faultprocess();

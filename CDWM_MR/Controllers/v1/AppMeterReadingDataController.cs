@@ -150,7 +150,7 @@ namespace CDWM_MR.Controllers.v1
         /// <returns></returns>
         [HttpGet("{readerid}")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<TableModel<object>> readdatastatistics(int readerid )
+        public async Task<MessageModel<object>> readdatastatistics(int readerid )
         {
             List<object > li = new List<object>();
             List<object> li01 = new List<object>();
@@ -201,7 +201,7 @@ namespace CDWM_MR.Controllers.v1
                 data01.First().faultalreadyCumulative, 
             };
 
-            return new TableModel<object>
+            return new MessageModel<object>
             {
                 code = 0,
                 msg = "OK",

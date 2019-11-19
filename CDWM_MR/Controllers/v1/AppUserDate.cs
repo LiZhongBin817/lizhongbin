@@ -60,17 +60,15 @@ namespace CDWM_MR.Controllers.v1
         /// 修改用户用水地址接口
         /// </summary>
         /// <param name="autoaccount">用户自动编号</param>
-        /// <param name="areano">用户所在小区</param>
         /// <param name="address">用户所在地址</param>
         /// <returns>成功返回1,失败返回0</returns>
         [HttpPost]
         [Route("ModifyUserAddress")]
         [AllowAnonymous]//允许所有都访问
-        public async Task<MessageModel<int>> ModifyUserAddress(string autoaccount, string areano, string address)
+        public async Task<MessageModel<int>> ModifyUserAddress(string autoaccount, string address)
         {
             bool b = await _t_b_usersServices.OUpdate(c => new t_b_users
             {
-                areano = areano,
                 address = address
             }, c => c.autoaccount == autoaccount);
             return new MessageModel<int>()
@@ -81,5 +79,21 @@ namespace CDWM_MR.Controllers.v1
             };
         }
         #endregion
+
+        /// <summary>
+        /// APP接口测试
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AppInterfaceTest")]
+        public MessageModel<string> AppInterfaceTest()
+        {
+            return new MessageModel<string>()
+            {
+                code = 0,
+                msg = "成功",
+                data = "测试成功,可以连接！"
+            };
+        }
     }
 }

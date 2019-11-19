@@ -834,6 +834,11 @@
             备注
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.mr_taskinfo_history.taskperiodname">
+            <summary>
+            任务账期
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.rb_b_faultprocess">
             <summary>
             故障处理记录表
@@ -957,6 +962,11 @@
         <member name="P:CDWM_MR.Model.Models.rb_b_faultprocess_history.meternum">
             <summary>
             水表编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.rb_b_faultprocess_history.taskperiodname">
+            <summary>
+            任务周期
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.rt_b_faultinfo">
@@ -1144,6 +1154,11 @@
             使用用时时间：秒
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.rt_b_ocrlog.taskperiodname">
+            <summary>
+            任务周期
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.rt_b_ocrlog_history">
             <summary>
             OCR识别记录历史表
@@ -1207,6 +1222,11 @@
         <member name="P:CDWM_MR.Model.Models.rt_b_ocrlog_history.remark">
             <summary>
             备注
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.rt_b_ocrlog_history.taskperiodname">
+            <summary>
+            任务周期
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.rt_b_photoattachment">
@@ -1519,6 +1539,11 @@
             创建人(来源于sys_userinfo)
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.rt_b_wateradjust.taskperiodname">
+            <summary>
+            任务周期
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.rt_b_wateradjust_history">
             <summary>
             
@@ -1562,6 +1587,11 @@
         <member name="P:CDWM_MR.Model.Models.rt_b_wateradjust_history.createperson">
             <summary>
             创建人(来源于sys_userinfo)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.rt_b_wateradjust_history.taskperiodname">
+            <summary>
+            任务周期
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.rt_b_watercarryovarcheck">
@@ -2816,6 +2846,16 @@
             类型
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.Models.t_b_watermodel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.t_b_watermodel.bmlid">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.t_b_watermodel.modelname">
             <summary>
             型号名称
@@ -3651,6 +3691,111 @@
             上期抄表异常
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.Models.v_home_userinfo">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_home_userinfo.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.account">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.telephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.address">
+            <summary>
+            家庭住址
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.areaname">
+            <summary>
+            小区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.regionname">
+            <summary>
+            片区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.meternum">
+            <summary>
+            水表自动表号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.caliber">
+            <summary>
+            口径(190808新增)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.bwcode">
+            <summary>
+            初始读数（初始表码）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.posname">
+            <summary>
+            安装位置(t_b_installpos::bipid)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.GISPlace">
+            <summary>
+            GIS位置(190808新增)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.lastwaternum">
+            <summary>
+            截止用水量
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.meterstate">
+            <summary>
+            状态(0:未使用1:正常2:暂停用水3:注销)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.bookno">
+            <summary>
+            抄表册编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.bookname">
+            <summary>
+            抄表册名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.mrreadernumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.mrreadername">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.maxrange">
+            <summary>
+            最大量程
+            </summary>
+        </member>
         <member name="M:CDWM_MR.Model.Models.v_interface.#ctor">
             <summary>
             VIEW
@@ -4019,6 +4164,16 @@
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.nowmonthdata">
             <summary>
             当前月份抄表读数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.readDateTime">
+            <summary>
+            抄表详细时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.remark">
+            <summary>
+            抄表数据备注
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_mr_date_reader">
@@ -4871,6 +5026,16 @@
             抄表周期
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.taskperiodname">
+            <summary>
+            任务周期
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_taskinfo.mplannumber">
+            <summary>
+            计划单编号
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover">
             <summary>
             
@@ -4991,6 +5156,26 @@
             照片附件id
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_userwatermetersinfo.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)(关联水表用户信息)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_userwatermetersinfo.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_userwatermetersinfo.meternum">
+            <summary>
+            水表编号,（t_b_watermeters::meternum）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_userwatermetersinfo.address">
+            <summary>
+            家庭住址
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_user_water_bookinfo">
             <summary>
             用户水表抄表册信息
@@ -5071,6 +5256,11 @@
             VIEW
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.meternum">
+            <summary>
+            水表自动表号
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.updatemetertime">
             <summary>
             更换水表时间
@@ -5081,29 +5271,34 @@
             使用标记 (0:否；1:是)
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.meternum">
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.autoaccount">
             <summary>
-            水表自动表号
+            水户自动帐号（t_b_users:: autoaccount）
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.posname">
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.metermodel">
             <summary>
-            安装位置
+            水表型号(t_b_watermodel::bmlid)
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.account">
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.metertype">
+            <summary>
+            水表类型（t_b_watermetertype::bwtid）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.factory">
+            <summary>
+            生产厂商(t_b_factory::bftid)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.installpos">
+            <summary>
+            安装位置(t_b_installpos::bipid)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.readername">
             <summary>
             
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.address">
-            <summary>
-            家庭住址
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.caliber">
-            <summary>
-            口径(190808新增)
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.bwcode">
@@ -5116,24 +5311,19 @@
             最大量程
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.caliber">
+            <summary>
+            口径
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.adress">
             <summary>
             安装地址
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.mrreader">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.bookno">
             <summary>
             抄表册编号（t_c_readmeterbook::bookno）
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.telephone">
-            <summary>
-            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.GISPlace">
@@ -5146,12 +5336,20 @@
             截止用水量
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.installpos">
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.meterstate">
             <summary>
-            安装位置
+            状态(0:未使用1:正常2:暂停用水3:注销)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.posname">
+            <summary>
+            名称
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_wateruserinfo">
+            <summary>
+            VIEW
+            </summary>
             <summary>
             VIEW
             </summary>
@@ -5188,12 +5386,7 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.v_wateruserinfo.caliber">
             <summary>
-            口径(190808新增)
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_wateruserinfo.optname">
-            <summary>
-            用户名
+            口径
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_wateruserinfo.bookno">
@@ -5201,14 +5394,29 @@
             抄表册编号（t_c_readmeterbook::bookno）
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_wateruserinfo.readername">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.v_wateruserinfo.areaname">
             <summary>
             小区名称
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_wateruserinfo.areano">
+            <summary>
+            小区编号
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.v_wateruserinfo.regionplace">
             <summary>
-            
+            所属区域名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_wateruserinfo.regionno">
+            <summary>
+            所属区域编号
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_wateruserinfo.naturename">

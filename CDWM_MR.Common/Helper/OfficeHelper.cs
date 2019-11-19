@@ -22,6 +22,7 @@
 *
 ****************************************************************************/
 
+using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
@@ -146,7 +147,7 @@ namespace CDWM_MR.Common.Helper
                 }
                 return lists;
             }
-            catch
+            catch(Exception ex)
             {
                 //myLog.Error("读取Excel中的数据时发生错误，可能Excel数据格式与指定格式不一致。" + ee.Message + "\r\n");
                 return null;

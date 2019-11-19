@@ -422,7 +422,7 @@ namespace CDWM_MR.Controllers
         }
         #endregion
 
-        /// <summary>
+        /*/// <summary>
         /// 生成EXCEL文件
         /// </summary>
         /// <returns></returns>
@@ -431,27 +431,27 @@ namespace CDWM_MR.Controllers
         public async Task<string> BuildExcel()
         {
 
-            StdSchedulerFactory factory = new StdSchedulerFactory();
-            IScheduler scheduler = await factory.GetScheduler();
-            await scheduler.Start();//启动单元
-            #region 任务一 创建任务单Excel文件
-            //创建作业
-            IJobDetail buildexcel = JobBuilder.Create<BuildBookExcel>()
-                .WithIdentity("BuildBookExcel", "task1")
-                .WithDescription("创建抄表册Excel文件")
-                .Build();
-            //buildexcel.JobDataMap.Add("buildService", _buildservices);//为方法传入参数
-            //创建时间策略
-            ITrigger triggerbuildexcel = TriggerBuilder.Create()
-                              .WithIdentity("BuildBookExceltigger", "task1")
-                              .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(10)))
-                             .WithCronSchedule("0 0/2 * * * ?")
-                             .WithDescription("生成抄表册EXCEL文件！")
-                             .Build();
-            await scheduler.ScheduleJob(buildexcel, triggerbuildexcel);
-            return "OK";
-            #endregion
-        }
+            */
+        /*StdSchedulerFactory factory = new StdSchedulerFactory();
+        IScheduler scheduler = await factory.GetScheduler();
+        await scheduler.Start();//启动单元
+        #region 任务一 创建任务单Excel文件
+        //创建作业
+        IJobDetail buildexcel = JobBuilder.Create<BuildBookExcel>()
+            .WithIdentity("BuildBookExcel", "task1")
+            .WithDescription("创建抄表册Excel文件")
+            .Build();
+        //buildexcel.JobDataMap.Add("buildService", _buildservices);//为方法传入参数
+        //创建时间策略
+        ITrigger triggerbuildexcel = TriggerBuilder.Create()
+                            .WithIdentity("BuildBookExceltigger", "task1")
+                            .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(10)))
+                            .WithCronSchedule("0 0/2 * * * ?")
+                            .WithDescription("生成抄表册EXCEL文件！")
+                            .Build();
+        await scheduler.ScheduleJob(buildexcel, triggerbuildexcel);
+        return "OK";
+        #endregion*/
     }
     
 }
