@@ -315,7 +315,7 @@ namespace CDWM_MR.Controllers
             pagemodel01 = await _Date_ReaderServices.QueryPage(wherelambda,page,limit);
             for (int i = 0; i < pagemodel01.data.Count; i++)
             {
-                date_list.Add(pagemodel01.data[i]);
+                date_list.Add(pagemodel01.data[i]);     
             }
             var t = date_list
                  .OrderBy(c => c.readtime)
