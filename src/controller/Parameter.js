@@ -7,7 +7,6 @@ layui.define(['table', 'form', 'view'], function (exports) {
         , table = layui.table
         , form = layui.form
         , view = layui.view
-        , load = layer.load(3)
         , admin = layui.admin;
     //表格渲染
     table.render({
@@ -15,23 +14,20 @@ layui.define(['table', 'form', 'view'], function (exports) {
         , method: 'Get'
         , url: layui.setter.requesturl +'/api/ParameterSetting/ParameterShow'
         , cols: [[
-            { field: 'ID', title: 'ID', width: 50, fixed: 'left' },
-            { field: 'parameternumber', title: '参数编号', width: 150 },
-            { field: 'parametername', title: '参数名称', width: 150 },
-            { field: 'parametertype', title: '参数类型', width: 150 },
-            { field: 'parametertypename', title: '参数类型名', width: 150 },
-            { field: 'parameterkey', title: 'Code', width: 150 },
-            { field: 'parametervalue', title: '参数值', width: 150 },
-            { field: 'Remark', title: '描述', width: 150 },
-            { title: '操作', width: 125, toolbar: '#barDemo0', align: 'center', fixed: 'right' }
+            { field: 'ID', title: 'ID' , fixed: 'left' },
+            { field: 'parameternumber', title: '参数编号' },
+            { field: 'parametername', title: '参数名称'  },
+            { field: 'parametertype', title: '参数类型'  },
+            { field: 'parametertypename', title: '参数类型名'  },
+            { field: 'parameterkey', title: 'Code'  },
+            { field: 'parametervalue', title: '参数值' },
+            { field: 'Remark', title: '描述' },
+            { title: '操作' , toolbar: '#barDemo0', align: 'center', fixed: 'right' }
         ]]
         , page: true
-        , limit: 20
+        , limit: 10
         , toolbar: '#toolbarDemo1'
-        , limits: [20, 30, 40]
-        , done: function () {
-            layer.close(load);
-        }
+        , limits: [5, 10, 15]
     });
 
     //监听表格查询

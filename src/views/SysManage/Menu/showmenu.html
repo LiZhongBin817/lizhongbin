@@ -294,13 +294,14 @@
                 var URLAddress = document.getElementById('GetURL').value;//url地址
                 var MRemark = textarea[0].value;//详细描述
                 var sendData = {
+                    "id":CurrentID,
                     "MenuLevel": MenuLevel,
                     "ParentID": CurrentID,
                     "MenuName": MName,
                     "MenuOrder": PaiXu,
                     "MenuUrl": URLAddress,
                     "Remark": MRemark,
-                }
+                };
                 admin.req({
                     url: layui.setter.requesturl + '/api/SysManange/SaveMenu',
                     type: 'Post',
@@ -309,10 +310,10 @@
                     },
                     success: function (obj) {
                         if (obj.code == 0) {
-                            layer.msg("添加成功");
+                            layer.msg(obj.msg);
                         }
                         else {
-                            layer.msg("添加失败");
+                            layer.msg(obj.msg);
                         }
                     }
                 });

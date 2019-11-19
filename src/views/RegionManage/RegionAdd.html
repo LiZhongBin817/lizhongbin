@@ -1,0 +1,23 @@
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+<div class="layui-form" lay-filter="addregionform" id="addregionform" style="padding: 15px 0 0 0;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">区域名称</label>
+        <div class="layui-input-inline">
+            <input type="text" id="regionname" name="regionname" lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"></label>
+        <div class="layui-input-inline">
+            <input type="button" lay-submit lay-filter="addregion_submit" id="addregion_submit" class="layui-btn" value="提交">
+        </div>
+    </div>
+<script>
+    layui.use(['admin', 'form'], function () {
+        var $ = layui.$
+            , form = layui.form;
+        form.render();
+    });
+</script>

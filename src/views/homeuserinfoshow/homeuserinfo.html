@@ -1,0 +1,162 @@
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-form" id="mr_userinfo">
+                <ul class="retailinfo" style="list-style: unset">
+                    <li style="font-size: large;color: #01AAED;font-weight: bold">用户信息:</li>
+                    <li>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">户号:</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="Account" id="Account" autocomplete="off" >
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">户名:</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="userName" id="userName"  autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">电话：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input" name="Telephone" id="Telephone" autocomplete="off ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">地址：</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="Region" id="Region" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="Area" id="Area" autocomplete="off">
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <input type="text" class="layui-input" name="Address" id="Address" autocomplete="off">
+                            </div>
+                        </div>
+                    </li>
+                    <li style="font-size: large;color: #01AAED;font-weight: bold">水表信息:</li>
+                    <li>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">表号：</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="Meternum" id="Meternum" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">口径：</label>
+                                <div class="layui-inline">
+                                    <div class="layui-inline">
+                                        <input type="text" class="layui-input" name="caliber" id="caliber" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">初始底数：</label>
+                                <div class="layui-inline">
+                                    <div class="layui-inline">
+                                        <input type="text" class="layui-input" name="init_number" id="init_number"  autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">最大量程：</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="max_number" id="max_number" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">安装位置：</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="install_place" id="install_place" autocomplete="off" style="width: 385%">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">GPS位置：</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="GPSplace" id="GPSplace" autocomplete="off" style="width: 385%">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">截止底数：</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="end_number" id="end_number" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">状态：</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="status" id="status" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="font-size: large;color: #01AAED;font-weight: bold">抄表员信息:</li>
+                    <li>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">表册号：</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="Bookno" id="Bookno" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">表册名称：</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="bookName" id="bookName" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">抄表员编号：</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="merterReadernum" id="merterReadernum" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label  class="layui-form-label">抄表员：</label>
+                                <div class="layui-inline">
+                                    <input type="text" class="layui-input" name="mrreaderName" id="mrreaderName" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['admin','form'],function () {
+        var admin=layui.admin,
+            form=layui.form;
+        form.render();
+
+    });
+</script>

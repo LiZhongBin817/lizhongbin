@@ -1,5 +1,5 @@
 ﻿
-<title>用户管理</title>
+<title>水户管理</title>
 <script type="text/html" template>
     <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
 </script>
@@ -37,14 +37,14 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <div class="layui-inline" id="">
-                        <select id="regionplace" name="regionplace">
+                    <div class="layui-inline">
+                        <select id="regionplace" name="regionplace" lay-filter="regionseltigger">
                             <option value="">所属区域</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <div class="layui-inline" id="">
+                    <div class="layui-inline">
                         <select id="areaname" name="areaname">
                             <option value="">所属小区</option>
                         </select>
@@ -66,7 +66,9 @@
                 </div>
                 <div class="layui-inline">
                     <div class="layui-inline">
-                        <a class="layui-btn layui-btn-normal" href="http://localhost:8081/api/WatermeterUserManage/DownloadOrderTemplet">下载模板</a>
+                        <script type="text/html" template>
+                            <a class="layui-btn layui-btn-normal" href="{{layui.setter.requesturl}}/api/WatermeterUserManage/DownloadOrderTemplet">下载模板</a>
+                        </script>
                     </div>
                 </div>
                 <div class="layui-inline">

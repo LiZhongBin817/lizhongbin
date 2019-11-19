@@ -7,14 +7,14 @@
     <div class="layui-form-item">
         <table class="layui-hide" id="DSMShowProcessinformationtable" lay-filter="DSMSP"></table>
     </div>
-    <div class="layui-form-item" >
+    <div class="layui-form-item">
         <label class="layui-form-label">故障信息:</label>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">故障编号:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowProcessinformation_number" value="{{d.params[0][0].faultnumber}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_number" value="{{d.params[0][0]==null?"暂无数据":d.params[0][0].faultnumber}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
@@ -22,7 +22,7 @@
         <label class="layui-form-label">故障类型:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowProcessinformation_type" value="{{d.params[0][0].faulttype==6?"表埋":"d.params[0][0].faulttype==7"?"表坏":"d.params[0][0].faulttype==8"?"井盖坏":"d.params[0][0].faulttype==10"?"漏水":"其他"}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_type" value="{{d.params[0][0]==null?"暂无数据":d.params[0][0].faulttype==6?"表埋":"d.params[0][0].faulttype==7"?"表坏":"d.params[0][0].faulttype==8"?"井盖坏":"d.params[0][0].faulttype==10"?"漏水":"其他"}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
@@ -30,7 +30,7 @@
         <label class="layui-form-label">故障内容:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowProcessinformation_content" value="{{d.params[0][0].faultcontent}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_content" value="{{d.params[0][0]==null?"暂无数据":d.params[0][0].faultcontent}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
@@ -38,7 +38,7 @@
         <label class="layui-form-label">上报人:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowProcessinformation_reporter" value="{{d.params[0][0].reportpeople}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_reporter" value="{{d.params[0][0]==null?"暂无数据":d.params[0][0].reportpeople}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
@@ -46,7 +46,7 @@
         <label class="layui-form-label">上报时间:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowProcessinformation_reporttime" value="{{d.params[0][0].reporttime}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_reporttime" value="{{d.params[0][0]==null?"暂无数据":d.params[0][0].reporttime}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
@@ -57,14 +57,14 @@
         </div>
     </div>
 
-    <div class="layui-form-item" >
+    <div class="layui-form-item">
         <label class="layui-form-label">受理信息:</label>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">派工:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowProcessinformation_Dispatchedworker" value="{{d.params[1][0].processpreson}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_Dispatchedworker" value="{{d.params[1][0]==null?"暂无数据":d.params[1][0].processpreson}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
@@ -72,7 +72,7 @@
         <label class="layui-form-label">受理时间:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowProcessinfomation_Acceptancetime" value="{{d.params[1][0].createtime}}" />
+                <input class="layui-input" type="text" name="DSMShowProcessinfomation_Acceptancetime" value="{{d.params[1][0]==null?"暂无数据":d.params[1][0].createtime}}" disabled="disabled"/>
             </script>
         </div>
     </div>
@@ -80,19 +80,19 @@
         <label class="layui-form-label">最迟处理时间:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowProcessinformation_lasttime" value="{{d.params[1][0].processdatetime}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowProcessinformation_lasttime" value="{{d.params[1][0]==null?"暂无数据":d.params[1][0].processdatetime}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
 
-    <div class="layui-form-item" >
+    <div class="layui-form-item">
         <label class="layui-form-label">处理信息:</label>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">处理人:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowPIDealingpeople" value="{{d.params[2][0].processpreson}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowPIDealingpeople" value="{{d.params[2][0]==null?"暂无数据":d.params[2][0].processpreson}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
@@ -100,15 +100,15 @@
         <label class="layui-form-label">处理时间:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowPIprocessingtime" value="{{d.params[2][0].createtime}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowPIprocessingtime" value="{{d.params[2][0]==null?"暂无数据":d.params[2][0].createtime}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">处理状态:</label>
-        <div class="layui-inline"`>
+        <div class="layui-inline" `>
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowPIdealstatus" value="{{d.params[2][0].processresult==0?"通过":"不通过"}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowPIdealstatus" value="{{d.params[2][0]==null?"暂无数据":d.params[2][0].processresult==0?"通过":"不通过"}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
@@ -116,7 +116,7 @@
         <label class="layui-form-label">处理内容:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowPIdealcontent" value="{{d.params[2][0].processmark}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowPIdealcontent" value="{{d.params[2][0]==null?"暂无数据":d.params[2][0].processmark}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
@@ -124,7 +124,7 @@
         <label class="layui-form-label">处理来源:</label>
         <div class="layui-inline">
             <script type="text/html" template>
-                <input class="layui-input" type="text" name="DSMShowPISourceoftreatment" value="{{d.params[2][0].processsource}}" autocomplete="off" disabled="disabled" />
+                <input class="layui-input" type="text" name="DSMShowPISourceoftreatment" value="{{d.params[2][0]==null?"暂无数据":d.params[2][0].processsource}}" autocomplete="off" disabled="disabled" />
             </script>
         </div>
     </div>
@@ -133,6 +133,16 @@
         <div class="layui-inline" id="DSMShowPIpictureshow">
 
         </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理结果:</label>
+        <div class="layui-input-block">
+            <input type="radio" id="ProcessResult_unpass" name="ProcessResult" value="1" title="不通过" />
+            <input type="radio" id="ProcessResult_pass" name="ProcessResult" value="0" title="通过" />
+        </div>
+    </div>
+    <div class="layui-form-item" style="text-align:center">
+        <input type="button" lay-submit id="DSMShowProcessinformation_submit" lay-filter="DSMShowProcessinformation_submit" value="提交" class="layui-btn layui-btn-sm layui-btn-normal">
     </div>
 </div>
 
@@ -210,7 +220,85 @@
         page: true,
         limit: 10,
         limits: [10, 15, 20],
-    });
+        });
+
+        //监听表格事件
+        table.on('tool(DSMSP)', function (obj) {
+            var data = obj.data,
+                event = obj.event;
+            console.log(event);
+            ID = obj.data.DSMID;
+            //监听附件
+            if (event == "Enclosure") {
+                admin.req({
+                    url: layui.setter.requesturl + '/api/DispatchSheet/ShowPhoto',//后台获取图片
+                    type: "post",
+                    data: {
+                        "id": ID
+                    },
+                    success: function (resdata) {
+                        admin.popup({
+                            title: "图片弹出层",
+                            area: ['700px', '500px'],
+                            maxmin: true,
+                            id: 'showphoto',
+                            shadeClose: true, //点击遮罩关闭
+                            // content: '<div id="photoForm1"></div>',
+                            success: function (layero, index) {
+                                view('showphoto').render('DispatchSheetManagement/DSMShowPhoto', Number).done(function () {
+                                    var rhtml = "";
+                                    for (var i = 0; i < resdata.data.length; i++) {
+                                        if (resdata.data[i].phototype == 1) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;
+                                        }
+                                        else if (resdata.data[i].phototype == 2) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--现场图片</div></div>`;
+                                        }
+                                        else if (resdata.data[i].phototype == 3) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                                        }
+                                        else if (resdata.data[i].phototype == 4) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="故障图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障图片</div></div>`;
+                                        }
+                                        else {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="其他类型图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--其他类型图片</div></div>`;
+                                        }
+                                    }
+                                    $("#DSMShowShowPhoto").html(rhtml);
+                                    form.render(null, 'DSMShowOperation');
+                                });
+                            }
+                        });
+                    }
+
+                });
+            }
+            //监听地理位置
+            else if (event == "Address") {
+                admin.req({
+                    url: layui.setter.requesturl + '/api/DispatchSheet/ShowAddress',//后台地址图片
+                    type: "post",
+                    data: {
+                        "id": ID
+                    },
+                    success: function (data) {
+                        admin.popup({
+                            title: "地址信息",
+                            area: ['1000px', '700px'],
+                            maxmin: true,
+                            id: 'showaddress',
+                            success: function (layero, index) {
+                                view('showaddress').render('DispatchSheetManagement/DSMShowAddress', Number).done(function () {
+                                    GPS(data.data);
+                                    form.render(null, 'ShowAddress');
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
         form.render();
     });
 </script>

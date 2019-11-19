@@ -8,60 +8,60 @@
             <div class="layui-form layui-card-header layuiadmin-card-header-auto" id="watermeteruserAddform" lay-filter="Adduserinfoform">
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">用户编号</label>
-                    </div>
-                    <div class="layui-inline">
-                        <input class="layui-input" name="account" id="account" autocomplete="off" type="text">
-                    </div>
-                    <div class="layui-inline">
                         <label class="layui-form-label">用户名称</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" name="username" id="username" autocomplete="off" type="text">
+                        </div>
                     </div>
                     <div class="layui-inline">
-                        <input class="layui-input" name="username" id="username" autocomplete="off" type="text">
+                        <label class="layui-form-label">身份证号</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" name="identification" id="identification" autocomplete="off" type="text">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">电话</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" name="telephone" id="telephone" autocomplete="off" type="text">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-inline">
+                            <select name="sex" required>
+                                <option value="">请选择</option>
+                                <option value="0">男</option>
+                                <option value="1">女</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">地址</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" name="address" id="address" autocomplete="off" type="text">
+                        </div>
                     </div>
                     <div class="layui-inline">
-                        <input class="layui-input" name="address" id="address" autocomplete="off" type="text">
+                        <label class="layui-form-label">工作单位</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" name="workplace" id="workplace" autocomplete="off" type="text">
+                        </div>
                     </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">电话</label>
-                    </div>
-                    <div class="layui-inline">
-                        <input class="layui-input" name="telephone" id="telephone" autocomplete="off" type="text">
-                    </div>
-                </div>
-                <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">所属小区</label>
-                    </div>
-                    <div class="layui-inline">
-                        <select name="areano" lay-search id="areano">
-                            <option value="">请选择</option>
-                        </select>
+                        <div class="layui-input-inline">
+                            <select name="areano" lay-search id="areano">
+                            </select>
+                        </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">用水类型</label>
-                    </div>
-                    <div class="layui-inline">
-                        <select name="usemetertype" lay-search id="usemetertype">
-                            <option value="">请选择</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">性别</label>
-                    </div>
-                    <div class="layui-inline">
-                        <select name="sex" required>
-                            <option value="">请选择</option>
-                            <option value="0">男</option>
-                            <option value="1">女</option>
-                        </select>
+                        <div class="layui-input-inline">
+                            <select name="usemetertype" lay-search id="usemetertype">
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -72,11 +72,11 @@
             </div>
         </div>
     </div>
-    <script>
-        layui.use('watermeterManage', layui.factory('watermeterManage')).use(['admin', 'watermeterManage', 'table', 'view', 'form'], function () {
+    <script type="text/javascript">
+        layui.use(['admin', 'table', 'view', 'form'], function () {
             var admin = layui.admin,
                 view = layui.view,
                 table = layui.table,
                 form = layui.form;
-           
-        })</script>
+        });
+    </script>

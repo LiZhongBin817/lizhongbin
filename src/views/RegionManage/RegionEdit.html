@@ -1,0 +1,36 @@
+
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{ layui.setter.base }}style/admin.css?v={{ layui.admin.v }}-1" media="all">
+</script>
+
+<div class="layui-form" lay-filter="Regioneditform" id="Regioneditform" style="padding: 15px 0 0 0;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">区域编号</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input type="text" name="regionno" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.params.regionno || '' }}" disabled>
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">区域名称</label>
+        <div class="layui-input-inline">
+            <script type="text/html" template>
+                <input type="text" name="regionname" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.params.regionname }}">
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item" style="text-align:center">
+        <input type="button" lay-submit lay-filter="region-edit-submit" value="提交" class="layui-btn">
+    </div>
+</div>
+<script>
+
+    layui.use(['admin', 'form', 'view'], function () {
+        var $ = layui.$
+            , form = layui.form,
+            view = layui.view;
+        form.render();
+
+    });
+</script>
