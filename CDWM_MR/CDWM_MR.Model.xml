@@ -266,22 +266,17 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.contectusernum">
             <summary>
-            分配状态(0--已分配;1--未分配)
+            关联抄表数量
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.allotstatus">
             <summary>
-            
+            分配状态(0--已分配;1--未分配)
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.mr_b_reader">
             <summary>
             抄表员
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_reader.ID">
-            <summary>
-            ID
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_reader.mrreadernumber">
@@ -3126,6 +3121,11 @@
             抄表册名称
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.booktype">
+            <summary>
+            普表、数码表、远传表、混合等，来源：数据字典
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.contectusernum">
             <summary>
             关联用户数量
@@ -3133,17 +3133,22 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.mrreadername">
             <summary>
-            
+            抄表员姓名
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.mrreadernumber">
             <summary>
-            
+            抄表员编号
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.regionname">
             <summary>
-            
+            区域名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.booktypename">
+            <summary>
+            抄表册类型名称
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_b_bookuserinfo">
@@ -3173,7 +3178,7 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.username">
             <summary>
-            
+            用户名称
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.address">
@@ -3198,12 +3203,17 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.regionname">
             <summary>
-            
+            区域名称
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.telephone">
             <summary>
-            
+            电话号码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.regionno">
+            <summary>
+            区域编号
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_b_datasearch_history">

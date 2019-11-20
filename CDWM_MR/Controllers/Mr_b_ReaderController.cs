@@ -122,7 +122,7 @@ namespace CDWM_MR.Controllers
             jsonData.deleteflag = 0;
             jsonData.lastlogintime = DateTime.Now;
             jsonData.appcount = jsonData.mrreadernumber;
-            jsonData.apppassword = MD5Helper.MD5Encrypt32(jsonData.apppassword);
+            jsonData.apppassword = MD5Helper.MD5Encrypt32(MD5Helper.MD5Encrypt32(jsonData.apppassword));
             jsonData.createpeople =_user.Name;
             jsonData.createtime = DateTime.Now;
 
@@ -216,7 +216,7 @@ namespace CDWM_MR.Controllers
         {
             string Msg = await _B_ReaderServices.Update(c=>new mr_b_reader
             {
-                apppassword=MD5Helper.MD5Encrypt32("123456")
+                apppassword = MD5Helper.MD5Encrypt32(MD5Helper.MD5Encrypt32("12345"))
             },c=>c.id==ID) ? "OK" : "Error";
             return new TableModel<object>
             {

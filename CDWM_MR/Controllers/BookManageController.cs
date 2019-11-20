@@ -1,4 +1,5 @@
 ﻿using CDWM_MR.Common.Helper;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -34,6 +35,7 @@ namespace CDWM_MR.Controllers
         private readonly Iv_b_bookuserinfoServices _Iv_b_bookuserinfoServices;
         private readonly It_b_watermetersServices _It_b_watermetersServices;
         private readonly IRedisHelper _redishelpr;
+        private readonly IUser _users;
 
         #region 构造函数注入
         /// <summary>
@@ -49,7 +51,8 @@ namespace CDWM_MR.Controllers
         /// <param name="Imr_b_bookinfoService"></param>
         /// <param name="It_b_watermetersService"></param>
         /// <param name="It_b_regionsService"></param>
-        public BookManageController(IRedisHelper redis, Iv_b_bookinfoServices Iv_b_bookinfoService, Imr_book_meterServices Imr_book_meterService, Iv_wateruserinfoServices Iv_wateruserinfoService, Imr_book_readerServices Imr_book_readerService, Imr_b_readerServices Imr_b_readerService, Iv_b_bookuserinfoServices v_b_bookuserinfoService, Imr_b_bookinfoServices Imr_b_bookinfoService, It_b_watermetersServices It_b_watermetersService, It_b_regionsServices It_b_regionsService)
+        /// <param name="users"></param>
+        public BookManageController(IRedisHelper redis, Iv_b_bookinfoServices Iv_b_bookinfoService, Imr_book_meterServices Imr_book_meterService, Iv_wateruserinfoServices Iv_wateruserinfoService, Imr_book_readerServices Imr_book_readerService, Imr_b_readerServices Imr_b_readerService, Iv_b_bookuserinfoServices v_b_bookuserinfoService, Imr_b_bookinfoServices Imr_b_bookinfoService, It_b_watermetersServices It_b_watermetersService, It_b_regionsServices It_b_regionsService, IUser users)
         {
             _Iv_b_bookinfoServices = Iv_b_bookinfoService;
             _Imr_book_meterServices = Imr_book_meterService;
@@ -61,6 +64,7 @@ namespace CDWM_MR.Controllers
             _It_b_watermetersServices = It_b_watermetersService;
             _It_b_regionsServices = It_b_regionsService;
             _redishelpr = redis;
+            _users = users;
         }
         #endregion
 
@@ -104,33 +108,41 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 分配用户
         /// </summary>
-        /// <param name="meternum">水表编号</param>
-        /// <param name="bookid">抄表册ID</param>
-        /// <param name="account">用户编号</param>
-        /// <param name="bookno">抄表册编号</param>
+        /// <param name="meternum"></param>
+        /// <param name="bookid"></param>
+        /// <param name="autoaccount"></param>
+        /// <param name="bookno"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("SelectUser")]       
-        public async Task<MessageModel<object>> SelectUser(List<string> meternum, int bookid, string[] account, string bookno)
+        public async Task<MessageModel<object>> SelectUser(List<string> meternum, int bookid, List<string> autoaccount, string bookno)
         {
             List<mr_book_meter> list = new List<mr_book_meter>();
             for (int i = 0; i < meternum.Count; i++)
             {
                 mr_book_meter selectuser = new mr_book_meter();
-                selectuser.meterseq = 1;
+                selectuser.meterseq = i+1;
                 selectuser.bookid = bookid;
                 selectuser.watermeternumber = meternum[i];
-                selectuser.useraccount = account[i];
-                selectuser.createpeople = "李忠斌";
-                selectuser.createtime = DateTime.Now;
+                selectuser.useraccount = autoaccount[i];
+                selectuser.createpeople = _users.Name;
                 list.Add(selectuser);
             }
+            await _Imr_book_meterServices.DeleteTable(c => c.bookid == bookid);//先删除中间表中的所有表册的所有id
+            //添加进入中间表
             await _Imr_book_meterServices.Add(list);
-            int length = account.Length;
+            int length = autoaccount.Count;
+            //更新抄表册中的关联数量
             await _Imr_b_bookinfoServices.Update(c => new mr_b_bookinfo
             {
                 contectusernum = length
             }, c => c.id == bookid);
+            //首先应该全部还原成null,避免过多的嵌套查询
+            await _It_b_watermetersServices.OUpdate(c => new t_b_watermeters
+            {
+                bookno = null
+            }, c =>c.bookno == bookno);
+            //更新t_b_watermeters表中的bookno字段,避免过多的嵌套查询
             await _It_b_watermetersServices.OUpdate(c => new t_b_watermeters
             {
                 bookno = bookno
@@ -149,27 +161,31 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 添加一条抄表册信息
         /// </summary>
-        /// <param name="bookno">抄表册编号</param>
-        /// <param name="bookname">抄表册名称</param>
-        /// <param name="regionno">区域编号</param>
-        /// <param name="readperiod">抄表周期</param>
+        /// <param name="bookinfo"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("AddBook")]       
-        public async Task<MessageModel<object>> AddBook(string bookno, string bookname, string regionno, int readperiod)
+        public async Task<MessageModel<object>> AddBook(mr_b_bookinfo bookinfo)
         {
-            int bookid;
-            mr_b_bookinfo bookinfo = new mr_b_bookinfo();
-            List<mr_b_bookinfo> LastID = new List<mr_b_bookinfo>();
-            bookinfo.bookname = bookname;
-            bookinfo.bookno = bookno;
-            bookinfo.allotstatus = 0;
-            bookinfo.createpeople = "李忠斌";
+            var temp = DateTime.Now.ToString("yyyyMMdd");
+            var Data = await _Imr_b_bookinfoServices.Query(c => c.bookno.Contains(temp), 1, "id desc");
+            if (Data.Count <= 0)
+            {
+                bookinfo.bookno = $"{temp}001";
+            }
+            else 
+            {
+                var temp2 = Data[0].bookno;
+                int a = temp2.Substring(temp2.Length -3).ObjToInt();
+                a++;
+                bookinfo.bookno = $"{temp}{a.ToString("000")}";
+            }
+            bookinfo.allotstatus = 1;
+            bookinfo.createpeople = _users.Name;
             bookinfo.createtime = DateTime.Now;
             bookinfo.contectusernum = 0;
-            bookinfo.regionno = regionno;
-            bookinfo.readperiod = readperiod;
-            #region 在mr_book_reader这个中间表中添加数据
+            await _Imr_b_bookinfoServices.Add(bookinfo);
+            /*#region 在mr_book_reader这个中间表中添加数据
             await _Imr_b_bookinfoServices.Add(bookinfo);
             LastID = await _Imr_b_bookinfoServices.Query();
             bookid = LastID[LastID.Count - 1].id;
@@ -182,7 +198,7 @@ namespace CDWM_MR.Controllers
 
             await _redishelpr.ListLeftPushAsync<string>("CDWM_BuildExcel", bookno);//添加一个任务进入队列
 
-            #endregion
+            #endregion*/
             return new MessageModel<object>()
             {
                 data = null,
@@ -196,21 +212,18 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 显示所有的区域信息
         /// </summary>
-        /// <param name="page">分页参数</param>
-        /// <param name="limit">分页参数</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         [Route("RegionShow")]       
-        public async Task<TableModel<object>> RegionShow(int page = 1, int limit = 10)
+        public async Task<MessageModel<object>> RegionShow()
         {
-            PageModel<t_b_regions> regions = new PageModel<t_b_regions>();
-            regions = await _It_b_regionsServices.OQueryPage(c => true, page, limit, "");
-            return new TableModel<object>()
+            List<t_b_regions> regions = new List<t_b_regions>();
+            regions = await _It_b_regionsServices.OQuery(c => true);
+            return new MessageModel<object>()
             {
                 code = 0,
-                data = regions.data,
-                msg = "ok",
-                count = regions.dataCount
+                data = regions,
+                msg = "ok"
             };
         }
         #endregion
@@ -226,14 +239,16 @@ namespace CDWM_MR.Controllers
         [Route("SelectReader")]       
         public async Task<MessageModel<object>> SelectReader(int bookid, int readerid)
         {
-            await _Imr_book_readerServices.Update(c => new mr_book_reader
+            /*await _Imr_book_readerServices.Update(c => new mr_book_reader
             {
                 readerid = readerid
             }, c => c.bookid == bookid);
+            如果要更新t_b_users中的抄表员字段,可以但很麻烦
+            */
             await _Imr_b_bookinfoServices.Update(c => new mr_b_bookinfo
             {
                 readmanid = readerid
-            }, c => c.id == bookid); ;
+            }, c => c.id == bookid);
             return new MessageModel<object>()
             {
                 msg = "ok",
@@ -265,11 +280,11 @@ namespace CDWM_MR.Controllers
             }
             if (!string.IsNullOrEmpty(mrreadernumber))
             {
-                wherelamda = PredicateExtensions.And<mr_b_reader>(wherelamda, c => c.mrreadernumber == mrreadernumber);
+                wherelamda = PredicateExtensions.And<mr_b_reader>(wherelamda, c => c.mrreadernumber.Contains(mrreadernumber));
             }
             if (!string.IsNullOrEmpty(mrreadername))
             {
-                wherelamda = PredicateExtensions.And<mr_b_reader>(wherelamda, c => c.mrreadername == mrreadername);
+                wherelamda = PredicateExtensions.And<mr_b_reader>(wherelamda, c => c.mrreadername.Contains(mrreadername));
             }
             readerinfo = await _Imr_b_readerServices.QueryPage(wherelamda, page, limit, "");
             return new TableModel<object>()
@@ -298,14 +313,14 @@ namespace CDWM_MR.Controllers
         public async Task<TableModel<object>> AllUserInfoShow(string regionplace, string areaname, int disstatus = 3, int page = 1, int limit = 10)
         {
             PageModel<v_wateruserinfo> userinfo = new PageModel<v_wateruserinfo>();//分页的对象
-            Expression<Func<v_wateruserinfo, bool>> wherelamda = c => true;
+            Expression<Func<v_wateruserinfo, bool>> wherelamda = c => c.meternum != null;
             if (!string.IsNullOrEmpty(regionplace))
             {
-                wherelamda = PredicateExtensions.And<v_wateruserinfo>(wherelamda, c => c.regionplace == regionplace);
+                wherelamda = PredicateExtensions.And<v_wateruserinfo>(wherelamda, c => c.regionno == regionplace);
             }
             if (!string.IsNullOrEmpty(areaname))
             {
-                wherelamda = PredicateExtensions.And<v_wateruserinfo>(wherelamda, c => c.areaname == areaname);
+                wherelamda = PredicateExtensions.And<v_wateruserinfo>(wherelamda, c => c.areano == areaname);
             }
             if (disstatus == 0)
             {
@@ -323,6 +338,29 @@ namespace CDWM_MR.Controllers
                 count = userinfo.dataCount,
                 msg = "ok"
 
+            };
+        }
+        #endregion
+
+        #region 渲染已经被选中的用水户
+        /// <summary>
+        /// 渲染已经被选中的用水户
+        /// </summary>
+        /// <param name="bookid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("RenderSelectedUsers")]
+        public async Task<MessageModel<object>> RenderSelectedUsers(int bookid)
+        {
+            var rdata = await _Imr_book_meterServices.Queryfield(c => c.bookid == bookid, c=> new mr_book_meter() { 
+                watermeternumber = c.watermeternumber,
+                useraccount = c.useraccount
+            });
+            return new MessageModel<object>()
+            {
+                code = 0,
+                msg = "成功",
+                data = rdata
             };
         }
         #endregion
@@ -362,19 +400,18 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 修改抄表册信息
         /// </summary>
-        /// <param name="ID">抄表册ID</param>
-        /// <param name="bookname">抄表册名称</param>
-        /// <param name="regionno">区域</param>
+        /// <param name="bookinfo"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("EditBook")]     
-        public async Task<MessageModel<object>> EditBook(int ID, string bookname, string regionno)
+        public async Task<MessageModel<object>> EditBook(mr_b_bookinfo bookinfo)
         {
             await _Imr_b_bookinfoServices.Update(c => new mr_b_bookinfo
             {
-                bookname = bookname,
-                regionno = regionno
-            }, c => c.id == ID);
+                bookname = bookinfo.bookname,
+                regionno = bookinfo.regionno,
+                booktype=bookinfo.booktype
+            }, c => c.id == bookinfo.id);
             return new MessageModel<object>()
             {
                 code = 0,

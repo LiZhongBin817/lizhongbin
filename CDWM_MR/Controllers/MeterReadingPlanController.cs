@@ -175,7 +175,7 @@ namespace CDWM_MR.Controllers
                 MRStartTime = c.taskstarttime,
                 MREndTime = c.taskendtime,
                 MRMonth = c.mplanmonth,
-                MRTaskStatus = c.taskstatus == 0 ? "已下载" : "未下载"
+                MRTaskStatus = c.taskstatus == 0 ? "未下载" : "已下载"
             };
 
             datainfor = await v_taskinfoServices.QueryPage(wherelambda, expression, page, limit, "");
