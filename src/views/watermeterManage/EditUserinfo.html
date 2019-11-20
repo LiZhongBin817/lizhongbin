@@ -10,7 +10,7 @@
                     <label class="layui-form-label">户号</label>
                     <div class="layui-input-inline">
                         <script type="text/html" template>
-                            <input type="text" name="autoaccount" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.params[0].autoaccount }}" disabled />
+                            <input type="text" name="autoaccount" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.params[0].autoaccount }}">
                         </script>
                     </div>
                     <label class="layui-form-label">户名</label>
@@ -18,6 +18,11 @@
                         <script type="text/html" template>
                             <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.params[0].username }}">
                         </script>
+                    </div>
+                    <div class="layui-input-inline">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="Edit_Sub">
+                            提交
+                        </button>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -30,14 +35,14 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">地址</label>
-                    <div class="layui-inline">
-                        <select id="editregionplace" name="regionplace" lay-filter="edit_region">
-                            <option value="">所属区域</option>
+                    <div class="layui-inline" id="">
+                        <select id="editregionplace" name="regionplace">
+                            <option value="">所属小区</option>
                         </select>
                     </div>
-                    <div class="layui-inline">
+                    <div class="layui-inline" id="">
                         <select id="editareaname" name="areaname">
-                            <option value="">所属小区</option>
+                            <option value="">所属区域</option>
                         </select>
                     </div>
                 </div>
@@ -48,15 +53,8 @@
                         </script>
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <div class="layui-card-body">
                     <table class="layui-hide" id="editwatermeter" lay-filter="editwatermeter"></table>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="Edit_Sub" >
-                            提交
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -66,11 +64,11 @@
     <a class="layui-btn layui-btn-warm " lay-event="editWatermeter">编辑</a>
 </script>
 <script type="text/html" id="barDemo2">
-    <a class="layui-btn layui-btn-warm add_watermeter" lay-event="ATable">新增水表</a>
+    <a class="layui-btn layui-btn-warm " lay-event="ATable">新增水表</a>
     <a class="layui-btn layui-btn-warm " lay-event="CTable">换表</a>
 </script>
 <script>
-    layui.use(['admin', 'table', 'view', 'form'], function () {
+    layui.use('watermeterManage', layui.factory('watermeterManage')).use(['admin', 'watermeterManage', 'table', 'view', 'form'], function () {
         var admin = layui.admin,
             view = layui.view,
             table = layui.table,

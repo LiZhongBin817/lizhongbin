@@ -53,6 +53,7 @@
                         <label class="layui-form-label">所属小区</label>
                         <div class="layui-input-inline">
                             <select name="areano" lay-search id="areano">
+                                <option value="">请选择</option>
                             </select>
                         </div>
                     </div>
@@ -60,6 +61,7 @@
                         <label class="layui-form-label">用水类型</label>
                         <div class="layui-input-inline">
                             <select name="usemetertype" lay-search id="usemetertype">
+                                <option value="">请选择</option>
                             </select>
                         </div>
                     </div>
@@ -73,7 +75,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        layui.use(['admin', 'table', 'view', 'form'], function () {
+        layui.use('watermeterManage', layui.factory('watermeterManage')).use(['admin', 'watermeterManage', 'table', 'view', 'form'], function () {
             var admin = layui.admin,
                 view = layui.view,
                 table = layui.table,
