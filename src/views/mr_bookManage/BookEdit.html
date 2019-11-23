@@ -19,7 +19,23 @@
                 <select name="regionno" lay-filter="" lay-search>
                     <option value="">请选择</option>
                     {{# layui.each(d.params[1], function(index, item){ }}
-                    <option value="{{ item.regionno }}" {{# if(d.params[0].regionname==item.regionname){}}selected="selected" {{# } }}>{{ item.regionname }}</option>
+                    <option value="{{ item.regionno }}" {{# if(d.params[0].regionname==item.regionname){ }} selected="selected" {{# } }}>{{ item.regionname }}</option>
+                    {{# }); }}
+                </select>
+            </script>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">抄表册种类</label>
+        <div class="layui-input-inline">
+            <script type="text/html" lay-url="{{layui.setter.requesturl}}/api/AppWebCommon/SearchDictionary/5" lay-done="layui.form.render('select');"template>
+                <select name="booktype" lay-filter="" lay-search>
+                    <option value="">请选择</option>
+                    {{#
+                        layui.each(d.data, function(index, item){
+                        var judesel = d.params[0].booktype === item.parameterkey?"selected":"";
+                    }}
+                    <option value="{{ item.parameterkey }}" {{ judesel }}> {{ item.parametervalue }} </option>
                     {{# }); }}
                 </select>
             </script>
@@ -33,10 +49,9 @@
     </div>
 </div>
 <script>
-    layui.use(['admin', 'form', 'view', 'mr_bookManage'], function () {
+    layui.use(['admin', 'form', 'view'], function () {
         var $ = layui.$,
             form = layui.form,
-            view = layui.view,
-            mr_bookManage = layui.mr_bookManage;
+            view = layui.view;
     });
 </script>

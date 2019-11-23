@@ -46,7 +46,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
     //监听工具栏添加按钮
     table.on('toolbar(Parameter)', function (obj) {
         var LayEvent = obj.event;
-        if (LayEvent == "AddParameter") {
+        if (LayEvent === "AddParameter") {
             admin.popup({
                 id: 'AddParameter'
                 , title: '添加'
@@ -61,7 +61,6 @@ layui.define(['table', 'form', 'view'], function (exports) {
                         //监听提交按钮
                         form.on('submit(Submit)', function (obj) {
                             var field = obj.field;
-                            var load = layer.load(3);
                             admin.req({
                                 url: layui.setter.requesturl +'/api/ParameterSetting/AddParameter'
                                 , method: 'Get'
@@ -69,15 +68,13 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                     "JsonData": JSON.stringify(field)
                                 }
                                 , success: function (data) {
-                                    if (data.msg == "OK") {
+                                    if (data.msg === "OK") {
                                         table.reload('parameterdata');
                                         layer.msg("添加成功");
                                         layer.close(index);
-                                        layer.close(load);
                                     }
                                     else {
                                         layer.msg("参数编号已存在");
-                                        layer.close(load);
                                     }
                                 }
                             });
@@ -92,7 +89,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
     table.on('tool(Parameter)', function (obj) {
         var LayEvent = obj.event
             , data = obj.data;
-        if (LayEvent == "EditParameter") {
+        if (LayEvent === "EditParameter") {
             admin.popup({
                 id: 'EditParameter'
                 , title: '编辑'

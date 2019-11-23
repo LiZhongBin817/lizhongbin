@@ -140,7 +140,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
                             "ID": Number(data.ID),
                         },
                         success: function (msg) {
-                            if (msg.msg == "ok") {
+                            if (msg.msg === "ok") {
                                 console.log(msg);
                                 table.reload('Sys_User');
                                 layer.msg("删除成功");
