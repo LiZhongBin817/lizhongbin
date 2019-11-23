@@ -135,11 +135,11 @@ namespace CDWM_MR.Controllers
             }
             if (!string.IsNullOrEmpty(meternum))
             {
-                wherelambda = PredicateExtensions.And<v_wateruserinfo>(wherelambda, c => c.autoaccount.Contains(meternum));
+                wherelambda = PredicateExtensions.And<v_wateruserinfo>(wherelambda, c => c.meternum.Contains(meternum));
             }
             if (!string.IsNullOrEmpty(username))
             {
-                wherelambda = PredicateExtensions.And<v_wateruserinfo>(wherelambda, c => c.autoaccount.Contains(username));
+                wherelambda = PredicateExtensions.And<v_wateruserinfo>(wherelambda, c => c.username.Contains(username));
             }
             if (!string.IsNullOrEmpty(readername))
             {

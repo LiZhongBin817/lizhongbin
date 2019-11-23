@@ -509,8 +509,6 @@ namespace CDWM_MR.Controllers
                 msg = "ok",
                 data = returnData,
                 count= returnData.Count
-
-
             };
         }
     }
