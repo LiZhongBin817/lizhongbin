@@ -122,8 +122,6 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form', 'util'], function (exp
             }
 
         });
-        modelinfo = "抄表记录";
-        $("#modelinfo").html(modelinfo);
     });
 
     //监听照片记录按钮
