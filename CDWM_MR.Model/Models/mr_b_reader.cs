@@ -11,11 +11,6 @@ namespace CDWM_MR.Model.Models
     public class mr_b_reader : BaseModel
     {
         /// <summary>
-        /// ID
-        /// </summary>
-        [SugarColumn(IsNullable = false, Length = 50)]
-        public int ID { get; set; }
-        /// <summary>
         /// 抄表员编号
         /// </summary>
         [SugarColumn(IsNullable = false, Length = 50)]

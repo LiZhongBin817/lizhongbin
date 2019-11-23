@@ -266,10 +266,17 @@ namespace CDWM_MR.Controllers
         public async Task<TableModel<object>> EditUserInfo(string JsonDate)
         {
             t_b_users Edit = Common.Helper.JsonHelper.GetObject<t_b_users>(JsonDate);
-            Edit.accstate = 1;
             Edit.lastmodifytime = DateTime.Now;
-            Edit.lastmodifyby = Permissions.UersName;
-            await _t_b_usersServices.OUpdate(Edit);
+            Edit.lastmodifyby = _users.Name;
+            await _t_b_usersServices.OUpdate(c => new t_b_users()
+            {
+                username = Edit.username,
+                telephone = Edit.telephone,
+                areano = Edit.areano,
+                address = Edit.address,
+                lastmodifytime = DateTime.Now,
+                lastmodifyby = _users.Name
+            }, c => c.autoaccount == Edit.autoaccount);
             return new TableModel<object>()
             {
                 code = 0,
@@ -291,15 +298,35 @@ namespace CDWM_MR.Controllers
         public async Task<TableModel<object>> EditWaterMater(string JsonDate)
         {
             t_b_watermeters Edit = Common.Helper.JsonHelper.GetObject<t_b_watermeters>(JsonDate);
-            await _t_b_watermetersServices.OUpdate(c => new t_b_watermeters() {
-                metermodel = Edit.metermodel,
-                bwcode = Edit.bwcode,
-                installpos = Edit.installpos,
-                lastwaternum = Edit.lastwaternum,
-                delflag = Edit.delflag,
-                updatemetertime = Edit.updatemetertime,
-                GISPlace = Edit.GISPlace
-            },c=> c.meternum == Edit.meternum);
+            t_b_watermeters modifyobj = null;
+            if (Edit.meterstate == 3)
+            {
+                modifyobj = new t_b_watermeters()
+                {
+                    metermodel = Edit.metermodel,
+                    bwcode = Edit.bwcode,
+                    installpos = Edit.installpos,
+                    lastwaternum = Edit.lastwaternum,
+                    meterstate = Edit.meterstate,
+                    updatemetertime = Edit.updatemetertime,
+                    GISPlace = Edit.GISPlace,
+                    bookno = null
+                };
+            }
+            else 
+            {
+                modifyobj = new t_b_watermeters()
+                {
+                    metermodel = Edit.metermodel,
+                    bwcode = Edit.bwcode,
+                    installpos = Edit.installpos,
+                    lastwaternum = Edit.lastwaternum,
+                    meterstate = Edit.meterstate,
+                    updatemetertime = Edit.updatemetertime,
+                    GISPlace = Edit.GISPlace
+                };
+            }
+            await _t_b_watermetersServices.OUpdate(c => modifyobj, c=> c.meternum == Edit.meternum);
             return new TableModel<object>()
             {
                 code = 0,
@@ -491,7 +518,7 @@ namespace CDWM_MR.Controllers
         [Route("ShowChangemeter")]
         public async Task<MessageModel<object>> ShowChangemeter(string account)
         {
-            List<v_watermeterinfo> waterinfolist = await _v_watermeterinfoServices.Query(c => c.autoaccount == account && c.delflag == 1);//用户对应的正常水表
+            List<v_watermeterinfo> waterinfolist = await _v_watermeterinfoServices.Query(c => c.autoaccount == account && c.meterstate == 1);//用户对应的正常水表
             List<string> NumberList = new List<string>();
             List<t_b_factory> factorylist = new List<t_b_factory>();//存储生产厂商的集合
             List<t_b_installpos> installposlist = new List<t_b_installpos>();//存储安装位置的集合          
@@ -543,8 +570,8 @@ namespace CDWM_MR.Controllers
                 remark = oldmeterobject.remark,
                 lastwaternum = oldmeterobject.lastwaternum,
                 GISPlace = oldmeterobject.GISPlace,
-                delflag = 0,
-                meterstate = 0
+                meterstate = 3,
+                bookno = null
             },c => c.meternum == oldmeterobject.meternum);
             
             //添加新水表信息

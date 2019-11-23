@@ -28,7 +28,7 @@
         public System.String useraccount { get; set; }
 
         /// <summary>
-        /// 
+        /// 用户名称
         /// </summary>
         public System.String username { get; set; }
 
@@ -53,13 +53,17 @@
         public System.String areaname { get; set; }
 
         /// <summary>
-        /// 
+        /// 区域名称
         /// </summary>
         public System.String regionname { get; set; }
         /// <summary>
-        /// 
+        /// 电话号码
         /// </summary>
         public System.String telephone { get; set; }
 
+        /// <summary>
+        /// 区域编号
+        /// </summary>
+        public string regionno { get; set; }
     }
 }
