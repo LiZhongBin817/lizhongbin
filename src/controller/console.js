@@ -402,7 +402,7 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
                                             var photo = data.pircture.split(',');
                                             var phototype = data.phototype.split(',');
                                             var rhtml = "";
-                                            for (var i = 0; i < photoobject.length; i++) {
+                                            for (var i = 0; i < photo.length; i++) {
                                                 if (phototype[i] == 1) {
                                                     rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:600px;height:500px" src="${photo[i]}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;
                                                 }
