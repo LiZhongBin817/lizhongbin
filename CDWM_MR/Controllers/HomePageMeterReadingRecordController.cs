@@ -44,6 +44,7 @@ namespace CDWM_MR.Controllers
         [Route("MeterReadingRecordInfo")]
         public async Task<TableModel<object>> MeterReadingRecordInfo(string autoaccount ,string startdate,string enddate, int index=0,int page=1,int limit=20)
         {
+            bool b = true;//为了同一抄表周期的只截取一次图片路径
             List<object> returnData = new List<object>();
             string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
             PageModel<v_meterreading_record> pageModel = new PageModel<v_meterreading_record>();
@@ -78,17 +79,26 @@ namespace CDWM_MR.Controllers
                 }
                 pageModel = await Meterreading_RecordServices.QueryPage(wherelambda, page, limit, "");
             }
-                  
+            string taskperiodname = null;
             #endregion
             List<v_rt_b_photoattachment_rt_b_photoattachment_histoty> photo = await _rt_b_photoservices.Query(c => c.phototype == 1 || c.phototype == 2);           
             for (int i = 0; i < pageModel.dataCount; i++)
             {
+                if (taskperiodname == pageModel.data[i].taskperiodname)
+                {
+                    b = false;
+                }
                 var photoinfo = photo.FindAll(c => c.usercode == autoaccount && c.taskperiodname == pageModel.data[i].taskperiodname);
-                photoinfo.ForEach(c => {
-                    if (!string.IsNullOrEmpty(c.photourl))
-                        c.photourl = $@"{ipadress}{c.photourl.Split("wwwroot")[1]}";
-                    c.photourl.Replace(@"\", @"/");
-                });//循环修改每一项的值
+                taskperiodname = pageModel.data[i].taskperiodname;
+                if (b)
+                {
+                    photoinfo.ForEach(c => {
+                        if (!string.IsNullOrEmpty(c.photourl))
+                            c.photourl = $@"{ipadress}{c.photourl.Split("wwwroot")[1]}";
+                        c.photourl.Replace(@"\", @"/");
+                    });//循环修改每一项的值
+                }
+                b = true;
                 var data = new
                 {
                     autoaccount= pageModel.data[i].autoaccount,
@@ -124,6 +134,12 @@ namespace CDWM_MR.Controllers
             };
         }
 
+        /// <summary>
+        /// 显示图片
+        /// </summary>
+        /// <param name="autoaccount"></param>
+        /// <param name="taskperiodname"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("ShowRecheckedPircure")]
         public async Task<TableModel<object>> ShowRecheckedPircure(string autoaccount,string taskperiodname)

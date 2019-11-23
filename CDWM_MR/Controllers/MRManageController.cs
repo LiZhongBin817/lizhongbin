@@ -465,7 +465,7 @@ namespace CDWM_MR.Controllers
         [Route("ShowHistoryRecheckData")]    
         public async Task<TableModel<object>> ShowHistoryRecheckData(string autoaccount)
         {
-            bool b = true;
+            bool b = true;//为了同一抄表周期的只截取一次图片路径
             string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
             List<v_rt_b_photoattachment_rt_b_photoattachment_histoty> photo = await _rt_b_photoservices.Query(c => c.phototype == 1 || c.phototype == 2);
             //查出审核历史数据
@@ -473,11 +473,16 @@ namespace CDWM_MR.Controllers
             //查询拿到审核历史记录的图片和图片识别的读数
             List<v_union_datainfoocrlog_datainfohistoryocrloghistory> ocrlogData = await _Union_Datainfoocrlog_DatainfohistoryocrloghistoryServices.Query(c=>c.autoaccount== autoaccount);
             List<object> returnData = new List<object>();
-
+            string taskperiodname = null;
             foreach (var item in recheck_Recheckhistories)
             {
+                if (taskperiodname == item.taskperiodname)
+                {
+                    b = false;
+                }
                 var ocrlogDataAndinputdata = ocrlogData.FindAll(c=>c.taskperiodname==item.taskperiodname);
                 var photoinfo = photo.FindAll(c => c.usercode == autoaccount && c.taskperiodname == item.taskperiodname);
+                taskperiodname = item.taskperiodname;
                 if (b)
                 {
                     photoinfo.ForEach(c => {
@@ -485,8 +490,8 @@ namespace CDWM_MR.Controllers
                             c.photourl = $@"{ipadress}{c.photourl.Split("wwwroot")[1]}";
                         c.photourl.Replace(@"\", @"/");
                     });//循环修改每一项的值
-                    b = false;
-                }   
+                }
+                b = true;
                 var data = new
                 {
 

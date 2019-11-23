@@ -805,6 +805,14 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.HomePageMeterReadingRecordController.ShowRecheckedPircure(System.String,System.String)">
+            <summary>
+            显示图片
+            </summary>
+            <param name="autoaccount"></param>
+            <param name="taskperiodname"></param>
+            <returns></returns>
+        </member>
         <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.#ctor(CDWM_MR.IServices.Content.Iv_home_userinfoServices,CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices)">
             <summary>
             构造函数
