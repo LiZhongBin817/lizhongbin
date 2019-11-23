@@ -7,20 +7,10 @@
         <div class="layui-card">
             <div class="layui-form layui-card-header layuiadmin-card-header-auto" id="watermeteruserAddform" lay-filter="Adduserinfoform">
                 <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">表号</label>
-                    </div>
-                    <div class="layui-inline">
+                    <label class="layui-form-label">水表厂商</label>
+                    <div class="layui-input-inline">
                         <script type="text/html" template>
-                            <input class="layui-input" name="meternum" id="meternum" autocomplete="off" type="text" value="{{d.params[3][0]}}">
-                        </script>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">水表厂商</label>
-                    </div>
-                    <div class="layui-inline">
-                        <script type="text/html" template>
-                            <select name="factory" lay-filter="" lay-search>
+                            <select name="factory" lay-search>
                                 <option value="">请选择</option>
                                 {{# layui.each(d.params[0], function(index, item){ }}
                                 <option value="{{ item.bftid }}"> {{ item.factoryname }} </option>
@@ -28,23 +18,26 @@
                             </select>
                         </script>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">口径</label>
-                    </div>
-                    <div class="layui-inline">
-                        <input class="layui-input" name="caliber" id="caliber" autocomplete="off" type="text">
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">水表类型</label>
-                    </div>
-                    <div class="layui-inline">
+                    <label class="layui-form-label">水表类型</label>
+                    <div class="layui-input-inline">
                         <script type="text/html" template>
                             <select name="metertype" lay-search>
                                 <option value="">请选择</option>
                                 {{# layui.each(d.params[2], function(index, item){ }}
                                 <option value="{{ item.bmtid }}"> {{ item.metertypename }} </option>
+                                {{# }); }}
+                            </select>
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">口径</label>
+                    <div class="layui-input-inline">
+                        <script type="text/html" template>
+                            <select name="metermodel" lay-search lay-filter="addwatermeter_selcarialtigger">
+                                <option value="">请选择</option>
+                                {{# layui.each(d.params[3], function(index, item){ }}
+                                <option value="{{ item.bmlid }}"> {{ item.dn }} </option>
                                 {{# }); }}
                             </select>
                         </script>
@@ -57,14 +50,7 @@
                     </div>
                     <label class="layui-form-label">最大量程</label>
                     <div class="layui-input-inline">
-                        <script type="text/html" template>
-                            <select name="metermodel" lay-search>
-                                <option value="">请选择</option>
-                                {{# layui.each(d.params[4], function(index, item){ }}
-                                <option value="{{ item.bmlid }}"> {{ item.maxrange }} </option>
-                                {{# }); }}
-                            </select>
-                        </script>
+                        <input class="layui-input" name="caliber" disabled id="Add_caliber" autocomplete="off" type="text">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -84,7 +70,7 @@
                     <label class="layui-form-label">GIS位置</label>
                     <div class="layui-input-block">
                         <script type="text/html" template>
-                            <input class="layui-input" name="GISPlace1" id="GISPlace1" autocomplete="off" type="text" value="{{d.params[3][2]}}">
+                            <input class="layui-input" name="GISPlace1" id="GISPlace1" autocomplete="off" type="text" value="">
                         </script>
                     </div>
                 </div>
@@ -103,7 +89,7 @@
         </div>
     </div>
     <script>
-        layui.use('watermeterManage', layui.factory('watermeterManage')).use(['admin', 'watermeterManage', 'table', 'view', 'form'], function () {
+        layui.use(['admin', 'table', 'view', 'form'], function () {
             var admin = layui.admin,
                 view = layui.view,
                 table = layui.table,
