@@ -437,6 +437,14 @@
             <param name="bookno"></param>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.BookManageController.DelBookSingleUser(System.String,System.Int32)">
+            <summary>
+            删除表册内的水表信息
+            </summary>
+            <param name="watermeternumber"></param>
+            <param name="bookid"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.CarryOverDataManageController">
             <summary>
             结转数据管理
@@ -1781,7 +1789,7 @@
             图片问题
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppPhotoController.#ctor(AutoMapper.IMapper,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppPhotoController.#ctor(AutoMapper.IMapper,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数注入
             </summary>
@@ -1791,6 +1799,7 @@
             <param name="faultprocess"></param>
             <param name="photoservices"></param>
             <param name="vrtbfaultservices"></param>
+            <param name="user"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppPhotoController.uploadphoto(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>

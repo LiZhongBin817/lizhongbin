@@ -310,7 +310,7 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("AllUserInfoShow")]       
-        public async Task<TableModel<object>> AllUserInfoShow(string regionplace, string areaname, int disstatus = 3, int page = 1, int limit = 10)
+        public async Task<TableModel<object>> AllUserInfoShow(string regionplace, string areaname, int disstatus = 0, int page = 1, int limit = 10)
         {
             PageModel<v_wateruserinfo> userinfo = new PageModel<v_wateruserinfo>();//分页的对象
             Expression<Func<v_wateruserinfo, bool>> wherelamda = c => c.meternum != null;
@@ -455,6 +455,40 @@ namespace CDWM_MR.Controllers
                 code = 0,
                 data = null,
                 msg = "ok"
+            };
+        }
+        #endregion
+
+        #region 删除表册内的水表信息
+        /// <summary>
+        /// 删除表册内的水表信息
+        /// </summary>
+        /// <param name="watermeternumber"></param>
+        /// <param name="bookid"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("DelBookSingleUser")]
+        public async Task<MessageModel<bool>> DelBookSingleUser(string watermeternumber,int bookid) 
+        {
+            bool b = await _Imr_book_meterServices.DeleteTable(c => c.watermeternumber == watermeternumber);
+            //
+            await _It_b_watermetersServices.OUpdate(c => new t_b_watermeters() { 
+                bookno = null
+            }, c => c.meternum == watermeternumber);
+            var tempnum = await _Imr_b_bookinfoServices.Queryfield(c => c.id == bookid,c => new mr_b_bookinfo() {
+                contectusernum = c.contectusernum
+            });
+
+            //更新抄表册中的关联数量
+            await _Imr_b_bookinfoServices.Update(c => new mr_b_bookinfo
+            {
+                contectusernum = tempnum[0].contectusernum - 1
+            }, c => c.id == bookid);
+            return new MessageModel<bool>()
+            {
+                code =0,
+                msg = "成功",
+                data = b
             };
         }
         #endregion
