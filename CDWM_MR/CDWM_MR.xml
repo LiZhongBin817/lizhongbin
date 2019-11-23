@@ -788,6 +788,23 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.HomePageMeterReadingRecordController">
+            <summary>
+            主页抄表记录
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageMeterReadingRecordController.#ctor(CDWM_MR.IServices.Content.Iv_meterreading_recordServices,CDWM_MR.IServices.Content.Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="meterreading_RecordServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageMeterReadingRecordController.MeterReadingRecordInfo(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            抄表记录显示
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.#ctor(CDWM_MR.IServices.Content.Iv_home_userinfoServices,CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices)">
             <summary>
             构造函数
