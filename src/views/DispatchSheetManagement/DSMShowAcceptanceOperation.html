@@ -148,6 +148,7 @@
             limits: [10, 15, 20],
         });
         table.on('tool(DSMSAO)', function (obj) {
+            console.log("表格监听");
             var data = obj.data,
                 event = obj.event;
             var ID = obj.data.DSMID;
@@ -195,6 +196,7 @@
 
                     });
             }
+            else if()
         })
         form.render();
     });
