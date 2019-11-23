@@ -4,6 +4,9 @@
     <list default="true" id="23ae6571-3932-4d6a-b9ed-4dc54e2db774" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/slnx.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/console.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/console.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/DataManage/RecheckHistoryData.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DataManage/RecheckHistoryData.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +51,8 @@
       <option name="presentableId" value="Default" />
       <updated>1573466708528</updated>
       <workItem from="1573466719051" duration="7559000" />
-      <workItem from="1574481185441" duration="2141000" />
+      <workItem from="1574481185441" duration="2956000" />
+      <workItem from="1574496334073" duration="3079000" />
     </task>
     <servers />
   </component>
@@ -67,17 +71,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/controller/console.js</url>
-          <line>249</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
