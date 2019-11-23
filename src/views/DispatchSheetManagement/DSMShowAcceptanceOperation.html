@@ -44,7 +44,7 @@
             </script>
         </div>
         <div class="layui-input-inline">
-            <input class="layui-btn layui-btn-sm" style="border-radius:3px;"  type="button"  name="DSMShowOperation-btn" id="DSMShowOperation-btn" value="该抄表员" />
+            <input class="layui-btn layui-btn-sm" style="border-radius:3px;" type="button" name="DSMShowOperation-btn" id="DSMShowOperation-btn" value="该抄表员" />
         </div>
     </div>
     <div class="layui-form-item">
@@ -68,15 +68,18 @@
         </div>
     </div>
     <div class="layui-form-item" style="text-align:center">
-            <input type="button" lay-submit lay-filter="DSMShowAcceptance_submit" style="border-radius:3px;" value="提交" class="layui-btn layui-btn-sm layui-btn-normal">
-        
+        <input type="button" lay-submit lay-filter="DSMShowAcceptance_submit" style="border-radius:3px;" value="提交" class="layui-btn layui-btn-sm layui-btn-normal">
+
     </div>
 </div>
 <script>
-    layui.use(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'layedit', 'upload', 'jquery', 'DSMSHOW'], function () {
+    layui.use(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'layedit', 'upload', 'jquery', 'DSMSHOW', 'bMap'], function () {
         var $ = layui.$,
             form = layui.form,
             table = layui.table,
+            admin = layui.admin,
+            view = layui.view,
+            bMap = layui.bMap,
             util = layui.util;
         table.render({
             elem: '#DSMShowAcceptanceOperationtable',
@@ -148,56 +151,124 @@
             limits: [10, 15, 20],
         });
         table.on('tool(DSMSAO)', function (obj) {
-            console.log("表格监听");
             var data = obj.data,
                 event = obj.event;
             var ID = obj.data.DSMID;
+            var Number=obj.data.DSMNumber
             if (event === 'TEnclosure') {
-                console.log("附件");
-                 admin.req({
-                        url: layui.setter.requesturl + '/api/DispatchSheet/ShowPhoto',//后台获取图片
-                        type: "post",
-                        data: {
-                            "id": ID
-                        },
-                        success: function (resdata) {
-                            admin.popup({
-                                title: "图片弹出层",
-                                area: ['700px', '500px'],
-                                maxmin: true,
-                                id: 'showphoto',
-                                shadeClose: true, //点击遮罩关闭
-                                success: function (layero, index) {
-                                    view('showphoto').render('DispatchSheetManagement/DSMShowPhoto', Number).done(function () {
-                                        var rhtml = "";
-                                        for (var i = 0; i < resdata.data.length; i++) {
-                                            if (resdata.data[i].phototype == 1) {
-                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;
-                                            }
-                                            else if (resdata.data[i].phototype == 2) {
-                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--现场图片</div></div>`;
-                                            }
-                                            else if (resdata.data[i].phototype == 3) {
-                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
-                                            }
-                                            else if (resdata.data[i].phototype == 4) {
-                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="故障图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障图片</div></div>`;
-                                            }
-                                            else {
-                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="其他类型图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--其他类型图片</div></div>`;
-                                            }
+                admin.req({
+                    url: layui.setter.requesturl + '/api/DispatchSheet/ShowPhoto',//后台获取图片
+                    type: "post",
+                    data: {
+                        "id": ID
+                    },
+                    success: function (resdata) {
+                        $('#DSMSPNumber').val(Number);
+                        admin.popup({
+                            title: "图片弹出层",
+                            area: ['700px', '500px'],
+                            maxmin: true,
+                            id: 'showphoto',
+                            shadeClose: true, //点击遮罩关闭
+                            success: function (layero, index) {
+                                view('showphoto').render('DispatchSheetManagement/DSMShowPhoto', Number).done(function () {
+                                    var rhtml = "";
+                                    for (var i = 0; i < resdata.data.length; i++) {
+                                        if (resdata.data[i].phototype == 1) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;
                                         }
-                                        $("#DSMShowShowPhoto").html(rhtml);
-                                        form.render(null, 'DSMShowOperation');
-                                    });
-                                }
-                            });
-                        }
+                                        else if (resdata.data[i].phototype == 2) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--现场图片</div></div>`;
+                                        }
+                                        else if (resdata.data[i].phototype == 3) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                                        }
+                                        else if (resdata.data[i].phototype == 4) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="故障图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障图片</div></div>`;
+                                        }
+                                        else {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="其他类型图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--其他类型图片</div></div>`;
+                                        }
+                                    }
+                                    $("#DSMShowShowPhoto").html(rhtml);
+                                    form.render(null, 'DSMShowOperation');
+                                });
+                            }
+                        });
+                    }
 
-                    });
+                });
             }
-            else if()
-        })
+            else if (event === 'TAddress') {
+                admin.req({
+                    url: layui.setter.requesturl + '/api/DispatchSheet/ShowAddress',//后台地址图片
+                    type: "post",
+                    data: {
+                        "id": ID
+                    },
+                    success: function (data) {
+                       $('#DSMSPNumber').val(Number);
+                        admin.popup({
+                            title: "地址信息",
+                            area: ['1000px', '700px'],
+                            maxmin: true,
+                            id: 'showaddress',
+                            success: function (layero, index) {
+                                view('showaddress').render('DispatchSheetManagement/DSMShowAddress', Number).done(function () {
+                                    GPS(data.data);
+                                    form.render(null, 'ShowAddress');
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        //PGS轨迹
+        function GPS(uploadGPS) {
+            //百度地图渲染
+            bMap.render({
+                ak: 'D2b4558ebed15e52558c6a766c35ee73'//一旦设置了全局，此（发起请求的相关）参数就会失效。
+                , https: true
+                , done: function () {//这种方式回调函数叫做
+                    var points = [];
+                    var data = [];
+                    console.log(uploadGPS.length);
+                    for (var i = 0; i < uploadGPS.length; i++) {
+                        var obj = uploadGPS[i];
+                        var ll = obj.split(",");
+                        var arr = [ll[0], ll[1]];
+                        data[data.length] = arr;
+                    }
+                    for (var i = 0; i < data.length; i++) {
+                        points.push(new BMap.Point(data[i][0], data[i][1]));
+                    }
+                    var options = {
+                        size: BMAP_POINT_SIZE_SMALL,
+                        shape: BMAP_POINT_SHAPE_STAR,
+                        color: '#0f0'
+                    }
+                    map = new BMap.Map("icontainer");
+                    map.centerAndZoom("常德", 12);
+                    map.enableScrollWheelZoom(true);//开启鼠标滚轮缩放
+                    map.addControl(new BMap.NavigationControl());
+                    map.addControl(new BMap.ScaleControl());
+                    map.addControl(new BMap.OverviewMapControl({ isOpen: true }));
+                    var polyline = new BMap.Polyline(points, options);
+                    map.addOverlay(polyline);  // 添加Overlay
+                    console.log(points.length);
+                    //添加海量点
+                    for (var i = 0, pointslen = points.length; i < pointslen; i++) {
+                        var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
+                        var marker = new BMap.Marker(point); //将点转化成标注点
+                        map.addOverlay(marker);  //将标注点添加到地图上
+
+                        //通过drivingroute获取一条路线的point
+                    }
+                }
+
+            });
+        }
         form.render();
     });
 </script>
