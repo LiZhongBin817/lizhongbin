@@ -351,7 +351,7 @@
             抄表册管理
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.BookManageController.#ctor(CDWM_MR_Common.Redis.IRedisHelper,CDWM_MR.IServices.Content.Iv_b_bookinfoServices,CDWM_MR.IServices.Content.Imr_book_meterServices,CDWM_MR.IServices.Content.Iv_wateruserinfoServices,CDWM_MR.IServices.Content.Imr_book_readerServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Iv_b_bookuserinfoServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.It_b_watermetersServices,CDWM_MR.IServices.Content.It_b_regionsServices)">
+        <member name="M:CDWM_MR.Controllers.BookManageController.#ctor(CDWM_MR_Common.Redis.IRedisHelper,CDWM_MR.IServices.Content.Iv_b_bookinfoServices,CDWM_MR.IServices.Content.Imr_book_meterServices,CDWM_MR.IServices.Content.Iv_wateruserinfoServices,CDWM_MR.IServices.Content.Imr_book_readerServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Iv_b_bookuserinfoServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.It_b_watermetersServices,CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数注入
             </summary>
@@ -365,6 +365,7 @@
             <param name="Imr_b_bookinfoService"></param>
             <param name="It_b_watermetersService"></param>
             <param name="It_b_regionsService"></param>
+            <param name="users"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.BookManageController.t_b_bookinfoShow(System.String,System.String,System.Int32,System.Int32)">
             <summary>
@@ -376,32 +377,27 @@
             <param name="limit">分页参数</param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.BookManageController.SelectUser(System.Collections.Generic.List{System.String},System.Int32,System.String[],System.String)">
+        <member name="M:CDWM_MR.Controllers.BookManageController.SelectUser(System.Collections.Generic.List{System.String},System.Int32,System.Collections.Generic.List{System.String},System.String)">
             <summary>
             分配用户
             </summary>
-            <param name="meternum">水表编号</param>
-            <param name="bookid">抄表册ID</param>
-            <param name="account">用户编号</param>
-            <param name="bookno">抄表册编号</param>
+            <param name="meternum"></param>
+            <param name="bookid"></param>
+            <param name="autoaccount"></param>
+            <param name="bookno"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.BookManageController.AddBook(System.String,System.String,System.String,System.Int32)">
+        <member name="M:CDWM_MR.Controllers.BookManageController.AddBook(CDWM_MR.Model.Models.mr_b_bookinfo)">
             <summary>
             添加一条抄表册信息
             </summary>
-            <param name="bookno">抄表册编号</param>
-            <param name="bookname">抄表册名称</param>
-            <param name="regionno">区域编号</param>
-            <param name="readperiod">抄表周期</param>
+            <param name="bookinfo"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.BookManageController.RegionShow(System.Int32,System.Int32)">
+        <member name="M:CDWM_MR.Controllers.BookManageController.RegionShow">
             <summary>
             显示所有的区域信息
             </summary>
-            <param name="page">分页参数</param>
-            <param name="limit">分页参数</param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.BookManageController.SelectReader(System.Int32,System.Int32)">
@@ -434,6 +430,13 @@
             <param name="limit"></param>
             <returns></returns>
         </member>
+        <member name="M:CDWM_MR.Controllers.BookManageController.RenderSelectedUsers(System.Int32)">
+            <summary>
+            渲染已经被选中的用水户
+            </summary>
+            <param name="bookid"></param>
+            <returns></returns>
+        </member>
         <member name="M:CDWM_MR.Controllers.BookManageController.AssoUserShow(System.Int32,System.Int32,System.Int32)">
             <summary>
             显示关联的用户
@@ -443,13 +446,11 @@
             <param name="limit"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.BookManageController.EditBook(System.Int32,System.String,System.String)">
+        <member name="M:CDWM_MR.Controllers.BookManageController.EditBook(CDWM_MR.Model.Models.mr_b_bookinfo)">
             <summary>
             修改抄表册信息
             </summary>
-            <param name="ID">抄表册ID</param>
-            <param name="bookname">抄表册名称</param>
-            <param name="regionno">区域</param>
+            <param name="bookinfo"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.BookManageController.DeleteBook(System.Int32,System.String)">
@@ -458,6 +459,14 @@
             </summary>
             <param name="ID"></param>
             <param name="bookno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BookManageController.DelBookSingleUser(System.String,System.Int32)">
+            <summary>
+            删除表册内的水表信息
+            </summary>
+            <param name="watermeternumber"></param>
+            <param name="bookid"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.CarryOverDataManageController">
@@ -801,6 +810,31 @@
             <summary>
             给抄表册传值
             </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.HomePageMeterReadingRecordController">
+            <summary>
+            主页抄表记录
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageMeterReadingRecordController.#ctor(CDWM_MR.IServices.Content.Iv_meterreading_recordServices,CDWM_MR.IServices.Content.Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="meterreading_RecordServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageMeterReadingRecordController.MeterReadingRecordInfo(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            抄表记录显示
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.HomePageMeterReadingRecordController.ShowRecheckedPircure(System.String,System.String)">
+            <summary>
+            显示图片
+            </summary>
+            <param name="autoaccount"></param>
+            <param name="taskperiodname"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.HomePageUserInfoController.#ctor(CDWM_MR.IServices.Content.Iv_home_userinfoServices,CDWM_MR.IServices.Content.It_b_regionsServices,CDWM_MR.IServices.Content.It_b_areasServices)">
@@ -1830,7 +1864,7 @@
             图片问题
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.v1.AppPhotoController.#ctor(AutoMapper.IMapper,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices)">
+        <member name="M:CDWM_MR.Controllers.v1.AppPhotoController.#ctor(AutoMapper.IMapper,CDWM_MR.IServices.Content.Imr_datainfoServices,CDWM_MR.IServices.Content.Irt_b_faultinfoServices,CDWM_MR.IServices.Content.Irb_b_faultprocessServices,CDWM_MR.IServices.Content.Irt_b_photoattachmentServices,CDWM_MR.IServices.Content.Iv_rt_b_faultinfoServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数注入
             </summary>
@@ -1840,6 +1874,7 @@
             <param name="faultprocess"></param>
             <param name="photoservices"></param>
             <param name="vrtbfaultservices"></param>
+            <param name="user"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.v1.AppPhotoController.uploadphoto(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>

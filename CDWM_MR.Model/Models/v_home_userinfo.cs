@@ -15,6 +15,7 @@ namespace CDWM_MR.Model.Models
         public v_home_userinfo()
         {
         }
+
         private System.String _autoaccount;
         /// <summary>
         /// 自动帐号(系统自动生成)
@@ -45,11 +46,23 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         public System.String address { get { return this._address; } set { this._address = value; } }
 
+        private System.String _areano;
+        /// <summary>
+        /// 小区编号
+        /// </summary>
+        public System.String areano { get { return this._areano; } set { this._areano = value; } }
+
         private System.String _areaname;
         /// <summary>
         /// 小区名称
         /// </summary>
         public System.String areaname { get { return this._areaname; } set { this._areaname = value; } }
+
+        private System.String _regionno;
+        /// <summary>
+        /// 所属片区编号
+        /// </summary>
+        public System.String regionno { get { return this._regionno; } set { this._regionno = value; } }
 
         private System.String _regionname;
         /// <summary>
@@ -74,12 +87,6 @@ namespace CDWM_MR.Model.Models
         /// 初始读数（初始表码）
         /// </summary>
         public System.Int32? bwcode { get { return this._bwcode; } set { this._bwcode = value; } }
-
-        private System.String _posname;
-        /// <summary>
-        /// 安装位置(t_b_installpos::bipid)
-        /// </summary>
-        public System.String posname { get { return this._posname; } set { this._posname = value; } }
 
         private System.String _GISPlace;
         /// <summary>
@@ -128,6 +135,12 @@ namespace CDWM_MR.Model.Models
         /// 最大量程
         /// </summary>
         public System.Int32? maxrange { get { return this._maxrange; } set { this._maxrange = value; } }
+
+        private System.String _posname;
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public System.String posname { get { return this._posname; } set { this._posname = value; } }
     }
 
 }

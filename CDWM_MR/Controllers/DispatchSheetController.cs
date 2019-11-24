@@ -282,7 +282,7 @@ namespace CDWM_MR.Controllers
             List<object> list = new List<object>();
             foreach (var item in alllist)
             {
-                var data = new { ID = item.ID, Name = item.mrreadername };
+                var data = new { ID = item.id, Name = item.mrreadername };
                 list.Add(data);
             }
             return new MessageModel<object>()

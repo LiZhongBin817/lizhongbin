@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CDWM_MR.Common.Helper;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -31,6 +32,7 @@ namespace CDWM_MR.Controllers.v1
         private readonly Irb_b_faultprocessServices _faultprocess;
         private readonly Irt_b_photoattachmentServices _photoservices;
         private readonly Iv_rt_b_faultinfoServices _vrtbfaultservices;
+        private readonly IUser _users;
         #endregion
 
         /// <summary>
@@ -42,7 +44,8 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="faultprocess"></param>
         /// <param name="photoservices"></param>
         /// <param name="vrtbfaultservices"></param>
-        public AppPhotoController(IMapper mapper,Imr_datainfoServices mr_datainfoservices, Irt_b_faultinfoServices faultinfo, Irb_b_faultprocessServices faultprocess, Irt_b_photoattachmentServices photoservices, Iv_rt_b_faultinfoServices vrtbfaultservices)
+        /// <param name="user"></param>
+        public AppPhotoController(IMapper mapper,Imr_datainfoServices mr_datainfoservices, Irt_b_faultinfoServices faultinfo, Irb_b_faultprocessServices faultprocess, Irt_b_photoattachmentServices photoservices, Iv_rt_b_faultinfoServices vrtbfaultservices,IUser user)
         {
             _mapper = mapper;
             _mr_datainfoservices = mr_datainfoservices;
@@ -50,6 +53,7 @@ namespace CDWM_MR.Controllers.v1
             _faultprocess = faultprocess;
             _photoservices = photoservices;
             _vrtbfaultservices = vrtbfaultservices;
+            _users = user;
         }
 
         /// <summary>
@@ -76,7 +80,7 @@ namespace CDWM_MR.Controllers.v1
                 {
                     uploadmodel[i].photoext = Path.GetExtension(files[i].FileName);
                     uploadmodel[i].photourl = $@"{Path.Combine(environment.WebRootPath, "images")}\Type_{uploadmodel[i].phototype}\{uploadmodel[i].taskperiodname}\Reader_{uploadmodel[i].readercode}\Taskid_{uploadmodel[i].taskid}";
-                    uploadmodel[i].createpeople = "抄表员";//暂时写
+                    uploadmodel[i].createpeople = _users.Name;//暂时写
                     uploadmodel[i].createtime = DateTime.Now;
                     //uploadmodel.billid
                     //已上传

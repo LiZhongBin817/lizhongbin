@@ -266,22 +266,17 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.contectusernum">
             <summary>
-            分配状态(0--已分配;1--未分配)
+            关联抄表数量
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_bookinfo.allotstatus">
             <summary>
-            
+            分配状态(0--已分配;1--未分配)
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.mr_b_reader">
             <summary>
             抄表员
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.mr_b_reader.ID">
-            <summary>
-            ID
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.mr_b_reader.mrreadernumber">
@@ -3126,6 +3121,11 @@
             抄表册名称
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.booktype">
+            <summary>
+            普表、数码表、远传表、混合等，来源：数据字典
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.contectusernum">
             <summary>
             关联用户数量
@@ -3133,17 +3133,22 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.mrreadername">
             <summary>
-            
+            抄表员姓名
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.mrreadernumber">
             <summary>
-            
+            抄表员编号
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.regionname">
             <summary>
-            
+            区域名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookinfo.booktypename">
+            <summary>
+            抄表册类型名称
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_b_bookuserinfo">
@@ -3173,7 +3178,7 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.username">
             <summary>
-            
+            用户名称
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.address">
@@ -3198,12 +3203,17 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.regionname">
             <summary>
-            
+            区域名称
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.telephone">
             <summary>
-            
+            电话号码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_b_bookuserinfo.regionno">
+            <summary>
+            区域编号
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_b_datasearch_history">
@@ -3726,9 +3736,19 @@
             家庭住址
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.areano">
+            <summary>
+            小区编号
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.v_home_userinfo.areaname">
             <summary>
             小区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.regionno">
+            <summary>
+            所属片区编号
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_home_userinfo.regionname">
@@ -3749,11 +3769,6 @@
         <member name="P:CDWM_MR.Model.Models.v_home_userinfo.bwcode">
             <summary>
             初始读数（初始表码）
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.posname">
-            <summary>
-            安装位置(t_b_installpos::bipid)
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_home_userinfo.GISPlace">
@@ -3794,6 +3809,11 @@
         <member name="P:CDWM_MR.Model.Models.v_home_userinfo.maxrange">
             <summary>
             最大量程
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.posname">
+            <summary>
+            名称
             </summary>
         </member>
         <member name="M:CDWM_MR.Model.Models.v_interface.#ctor">
@@ -3899,6 +3919,106 @@
         <member name="P:CDWM_MR.Model.Models.v_meterdata.faultalreadyCumulative">
             <summary>
             
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_meterreading_record.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.account">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.taskperiodname">
+            <summary>
+            抄表月份(年+月格式201908)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.lastmonthdata">
+            <summary>
+            上月抄表读数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.inputdata">
+            <summary>
+            当前月份抄表读数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.readcheckdata">
+            <summary>
+            复审读数(抄表数据审核数据)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.readDateTime">
+            <summary>
+            抄表时间,重要基础数据
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.ocrdata">
+            <summary>
+            识别出来的读数
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.mrreadername">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.photourl">
+            <summary>
+            服务器存储路径
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.checkor">
+            <summary>
+            审核人（sys_userinfo::ID,0为系统自动）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.recheckstatus">
+            <summary>
+            状态0--通过;1--不通过
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.createtime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.recheckresult">
+            <summary>
+            审核原因或结果
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.meternum">
+            <summary>
+            水表自动表号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.regionname">
+            <summary>
+            片区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.areaname">
+            <summary>
+            小区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_meterreading_record.address">
+            <summary>
+            家庭住址
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_mr_book_reader_lq">

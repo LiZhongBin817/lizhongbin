@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CDWM_MR.Common;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -42,6 +43,7 @@ namespace CDWM_MR.Controllers.v1
         /// <param name="typeid"></param>
         /// <returns></returns>
         [HttpGet("{typeid}")]
+        [Caching(AbsoluteExpiration = 60)]
         public async Task<MessageModel<object>> SearchDictionary(int typeid)
         {
             List<sys_parameter> data = new List<sys_parameter>();
