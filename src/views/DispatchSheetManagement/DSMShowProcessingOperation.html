@@ -135,8 +135,8 @@
         </div>
     </div>
     <div class="layui-form-item" style="text-align:center">
-            <input type="button" lay-submit id="DSMShowPO_submit" style="border-radius:3px;" lay-filter="DSMShowPO_submit" value="提交" class="layui-btn layui-btn-sm layui-btn-normal">
-       
+        <input type="button" lay-submit id="DSMShowPO_submit" style="border-radius:3px;" lay-filter="DSMShowPO_submit" value="提交" class="layui-btn layui-btn-sm layui-btn-normal">
+
     </div>
 
 </div>
@@ -150,7 +150,7 @@
             admin = layui.admin,
             upload = layui.upload,
             table = layui.table,
-            util=layui.util,
+            util = layui.util,
             DSMSHOW = layui.DSMSHOW;
         var pictures = new Array();
         var UploadPhotoModel = new Array();
@@ -160,13 +160,13 @@
             id = document.getElementById('DSMShowProcessingOperationShow_FaultinfoID').value;
             console.log(id);
             var data = {
-                "billid":id,
+                "billid": id,
                 "isreadupdate": 0,
                 "photocode": "处理结果" + now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate(),
                 "photonname": "处理结果" + now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate(),
                 "phototype": 3,
                 "taskperiodname": now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate(),
-                "readercode":document.getElementById('DSMShowProcessingOperationShow_ReaderNum').value,//抄表员编号
+                "readercode": document.getElementById('DSMShowProcessingOperationShow_ReaderNum').value,//抄表员编号
                 "metercode": document.getElementById('DSMShowProcessingOperationShow_WaterNum').value,//水表编号
                 "usercode": document.getElementById('DSMShowProcessingOperationShow_UserNum').value,//用户编号
                 "phototime": now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()
@@ -174,7 +174,7 @@
             UploadPhotoModel.push(data);
             uploadInst.reload({
                 data: {
-                "UploadPhotoModel": JSON.stringify(UploadPhotoModel)
+                    "UploadPhotoModel": JSON.stringify(UploadPhotoModel)
                 }
             });
         });
@@ -214,74 +214,193 @@
             }
         });
         table.render({
-        elem: '#DSMShowProcessingOperationtable',
-        url: layui.setter.requesturl + '/api/DispatchSheet/ShowFaultTable',
-        method: 'post',
-        cols: [[
-            { field: 'DSMID', title: '序号', width: 100, sort: true, fixed: 'left' },
-            { field: 'DSMNumber', title: '故障编号', width: 150 },
-            {
-                field: 'DSMType', title: '故障类型', width: 100,
-                templet: function (d) {
-                    if (d.DSMType == 6) {
-                        return "表埋"
+            elem: '#DSMShowProcessingOperationtable',
+            url: layui.setter.requesturl + '/api/DispatchSheet/ShowFaultTable',
+            method: 'post',
+            cols: [[
+                { field: 'DSMID', title: '序号', width: 100, sort: true, fixed: 'left' },
+                { field: 'DSMNumber', title: '故障编号', width: 150 },
+                {
+                    field: 'DSMType', title: '故障类型', width: 100,
+                    templet: function (d) {
+                        if (d.DSMType == 6) {
+                            return "表埋"
+                        }
+                        else if (d.DSMType == 7) {
+                            return "表坏"
+                        }
+                        else if (d.DSMType == 8) {
+                            return "井盖坏"
+                        }
+                        else if (d.DSMType == 10) {
+                            return "漏水"
+                        }
+                        else {
+                            return "其他"
+                        }
                     }
-                    else if (d.DSMType == 7) {
-                        return "表坏"
+                },
+                { field: 'DSMContent', title: '故障内容', width: 100 },
+                {
+                    field: 'DSMTime', title: '上报时间', width: 100,
+                    templet: function (d) {
+                        return util.toDateString(d.DSMTime);
                     }
-                    else if (d.DSMType == 8) {
-                        return "井盖坏"
+                },
+                { field: 'DSMReportPerson', title: '上报人', width: 100 },
+                {
+                    field: 'DSMEnclosure', title: '附件', width: 100, event: 'THEEnclosure',
+                    templet: function (d) {
+                        return '<a  style="color: #c00;text-decoration:underline">' + d.DSMEnclosure + '</a>'
                     }
-                    else if (d.DSMType == 10) {
-                        return "漏水"
+                },
+                {
+                    field: 'DSMStatus', title: '状态', width: 100,
+                    templet: function (d) {
+                        if (d.DSMStatus == 0) {
+                            return "未受理"
+                        }
+                        else if (d.DSMStatus == 1) {
+                            return "已受理"
+                        }
+                        else if (d.DSMStatus == 2) {
+                            return "已处理"
+                        }
+                        else {
+                            return "已存档"
+                        }
                     }
-                    else {
-                        return "其他"
+                },
+                {
+                    field: 'DSMAddress', title: '位置信息', width: 100, event: 'THEAddress',
+                    templet: function (d) {
+                        return '<a style="color: #c00;text-decoration:underline">' + d.DSMAddress + '</a>'
                     }
                 }
-            },
-            { field: 'DSMContent', title: '故障内容', width: 100 },
-            {
-                field: 'DSMTime', title: '上报时间', width: 100,
-                templet: function (d) {
-                    return util.toDateString(d.DSMTime);
-                }
-            },
-            { field: 'DSMReportPerson', title: '上报人', width: 100 },
-            {
-                field: 'DSMEnclosure', title: '附件', width: 100, event: 'Enclosure',
-                templet: function (d) {
-                    return '<a  style="color: #c00;text-decoration:underline">' + d.DSMEnclosure + '</a>'
-                }
-            },
-            {
-                field: 'DSMStatus', title: '状态', width: 100,
-                templet: function (d) {
-                    if (d.DSMStatus == 0) {
-                        return "未受理"
+            ]],
+            page: true,
+            limit: 10,
+            limits: [10, 15, 20],
+        });
+        table.on('tool(DSMSPO)', function (obj) {
+            var data = obj.data,
+                event = obj.event;
+            var ID = obj.data.DSMID;
+            var Number = obj.data.DSMNumber;
+            if (event === 'THEEnclosure') {
+                admin.req({
+                    url: layui.setter.requesturl + '/api/DispatchSheet/ShowPhoto',//后台获取图片
+                    type: "post",
+                    data: {
+                        "id": ID
+                    },
+                    success: function (resdata) {
+                        $('#DSMSPNumber').val(Number);
+                        admin.popup({
+                            title: "图片弹出层",
+                            area: ['700px', '500px'],
+                            maxmin: true,
+                            id: 'showphoto',
+                            shadeClose: true, //点击遮罩关闭
+                            success: function (layero, index) {
+                                view('showphoto').render('DispatchSheetManagement/DSMShowPhoto', Number).done(function () {
+                                    var rhtml = "";
+                                    for (var i = 0; i < resdata.data.length; i++) {
+                                        if (resdata.data[i].phototype == 1) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;
+                                        }
+                                        else if (resdata.data[i].phototype == 2) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--现场图片</div></div>`;
+                                        }
+                                        else if (resdata.data[i].phototype == 3) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                                        }
+                                        else if (resdata.data[i].phototype == 4) {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="故障图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障图片</div></div>`;
+                                        }
+                                        else {
+                                            rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="其他类型图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--其他类型图片</div></div>`;
+                                        }
+                                    }
+                                    $("#DSMShowShowPhoto").html(rhtml);
+                                    form.render(null, 'DSMShowOperation');
+                                });
+                            }
+                        });
                     }
-                    else if (d.DSMStatus == 1) {
-                        return "已受理"
-                    }
-                    else if (d.DSMStatus == 2) {
-                        return "已处理"
-                    }
-                    else {
-                        return "已存档"
-                    }
-                }
-            },
-            {
-                field: 'DSMAddress', title: '位置信息', width: 100, event: 'Address',
-                templet: function (d) {
-                    return '<a style="color: #c00;text-decoration:underline">' + d.DSMAddress + '</a>'
-                }
+
+                });
             }
-        ]],
-        page: true,
-        limit: 10,
-        limits: [10, 15, 20],
-    });
+            else if (event === 'THEAddress') {
+                admin.req({
+                    url: layui.setter.requesturl + '/api/DispatchSheet/ShowAddress',//后台地址图片
+                    type: "post",
+                    data: {
+                        "id": ID
+                    },
+                    success: function (data) {
+                      $('#DSMSPNumber').val(Number);
+                        admin.popup({
+                            title: "地址信息",
+                            area: ['1000px', '700px'],
+                            maxmin: true,
+                            id: 'showaddress',
+                            success: function (layero, index) {
+                                view('showaddress').render('DispatchSheetManagement/DSMShowAddress', Number).done(function () {
+                                    GPS(data.data);
+                                    form.render(null, 'ShowAddress');
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        //PGS轨迹
+        function GPS(uploadGPS) {
+            //百度地图渲染
+            bMap.render({
+                ak: 'D2b4558ebed15e52558c6a766c35ee73'//一旦设置了全局，此（发起请求的相关）参数就会失效。
+                , https: true
+                , done: function () {//这种方式回调函数叫做
+                    var points = [];
+                    var data = [];
+                    console.log(uploadGPS.length);
+                    for (var i = 0; i < uploadGPS.length; i++) {
+                        var obj = uploadGPS[i];
+                        var ll = obj.split(",");
+                        var arr = [ll[0], ll[1]];
+                        data[data.length] = arr;
+                    }
+                    for (var i = 0; i < data.length; i++) {
+                        points.push(new BMap.Point(data[i][0], data[i][1]));
+                    }
+                    var options = {
+                        size: BMAP_POINT_SIZE_SMALL,
+                        shape: BMAP_POINT_SHAPE_STAR,
+                        color: '#0f0'
+                    }
+                    map = new BMap.Map("icontainer");
+                    map.centerAndZoom("常德", 12);
+                    map.enableScrollWheelZoom(true);//开启鼠标滚轮缩放
+                    map.addControl(new BMap.NavigationControl());
+                    map.addControl(new BMap.ScaleControl());
+                    map.addControl(new BMap.OverviewMapControl({ isOpen: true }));
+                    var polyline = new BMap.Polyline(points, options);
+                    map.addOverlay(polyline);  // 添加Overlay
+                    console.log(points.length);
+                    //添加海量点
+                    for (var i = 0, pointslen = points.length; i < pointslen; i++) {
+                        var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
+                        var marker = new BMap.Marker(point); //将点转化成标注点
+                        map.addOverlay(marker);  //将标注点添加到地图上
+
+                        //通过drivingroute获取一条路线的point
+                    }
+                }
+
+            });
+        }
         form.render();
     });
 </script>

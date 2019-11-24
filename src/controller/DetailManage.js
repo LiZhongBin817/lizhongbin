@@ -22,7 +22,7 @@ layui.define(['table', 'view', 'form','admin'], function (exports) {
             { field: 'regionname', title: '区域', width: 110 },
             { field: 'areaname', title: '小区', width: 110 },
             { field: 'address', title: '地址', width: 110 },
-            { field: 'ReaderName', title: '抄表员', width: 110 },
+            { field: 'mrreadername', title: '抄表员', width: 110 },
             { field: 'bookno', title: '抄表册号', width: 110 },
             { field: 'startnum', title: '上期读数', width: 110 },
             { field: 'inputdata', title: '本期读数', width: 110 },
