@@ -103,25 +103,17 @@ namespace CDWM_MR.Controllers
             Jsondata.createtime = DateTime.Now;
 
             //查询参数表中的最后一条数据
-            var Data = await _Parameter_SettingServices.Query();
-
-            #region 自动生成编号
-            string paraNumber = Data[Data.Count - 1].parameternumber;
-            int NewparaNumber = Convert.ToInt32(paraNumber.Substring(paraNumber.Length-1, 1)) + 1;
-            Jsondata.parameternumber = "PN-000" + NewparaNumber.ToString();
-            #endregion
-            //判重
-            string parameterNumber = Jsondata.parameternumber;
-            //查找sys_parameter表里面是否已经存在参数编号对应的数据
-            var data =Data.FindAll(c => c.parameternumber == parameterNumber);
-            if (data.Count > 0)//已经存在
+            var Data = await _Parameter_SettingServices.Query(c => true,1,"id desc");
+            if (Data.Count <= 0)
             {
-                return new TableModel<object>()
-                {
-                    code = 1001,
-                    msg = "error",
-                    data = ""
-                };
+                Jsondata.parameternumber = "PN-0001";
+                Jsondata.parameterkey = "PN-0001";
+            }
+            else 
+            {
+                Data[0].id++;
+                Jsondata.parameternumber = $"PN-{Data[0].id.ToString("0000")}";
+                Jsondata.parameterkey = Jsondata.parameternumber;
             }
             //否则进行添加
             var msg=await _Parameter_SettingServices.Add(Jsondata)>0?"OK":"error";

@@ -45,13 +45,13 @@ namespace CDWM_MR.Model.Models
         public string regionno { get; set; }
 
         /// <summary>
-        /// 分配状态(0--已分配;1--未分配)
+        /// 关联抄表数量
         /// </summary>
         [SugarColumn(IsNullable = true, ColumnDescription = "关联抄表数量")]
         public int contectusernum { get; set; }
 
         /// <summary>
-        /// 
+        /// 分配状态(0--已分配;1--未分配)
         /// </summary>
         public System.Int32 allotstatus { get; set; }
     }

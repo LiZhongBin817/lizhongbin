@@ -118,6 +118,18 @@ namespace CDWM_MR.Controllers
             {
                 wherelambda = PredicateExtensions.And<v_home_userinfo>(wherelambda, c => c.mrreadername.Contains(mrreadername));
             }
+            if (!string.IsNullOrEmpty(telephone))
+            {
+                wherelambda = PredicateExtensions.And<v_home_userinfo>(wherelambda, c => c.telephone.Contains(telephone));
+            }
+            if (!string.IsNullOrEmpty(region))
+            {
+                wherelambda = PredicateExtensions.And<v_home_userinfo>(wherelambda, c => c.regionno.Contains(region));
+            }
+            if (!string.IsNullOrEmpty(area))
+            {
+                wherelambda = PredicateExtensions.And<v_home_userinfo>(wherelambda, c => c.areano.Contains(area));
+            }
             if (!string.IsNullOrEmpty(bookno))
             {
                 wherelambda = PredicateExtensions.And<v_home_userinfo>(wherelambda, c => c.bookno.Contains(bookno));
