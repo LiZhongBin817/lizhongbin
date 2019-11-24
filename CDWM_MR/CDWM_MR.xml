@@ -322,6 +322,30 @@
             基类控制器
             </summary>
         </member>
+        <member name="T:CDWM_MR.Controllers.BillrecordController">
+            <summary>
+            账单记录
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BillrecordController.billread(System.String,System.Int32,System.Int32)">
+            <summary>
+            显示全部数据
+            </summary>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BillrecordController.Lookbillread(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            传值时间回来查询
+            </summary>
+            <param name="autoaccount"></param>
+            <param name="starttime"></param>
+            <param name="endtime"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.BookManageController">
             <summary>
             抄表册管理
@@ -1291,6 +1315,32 @@
             </summary>
             <param name="JsonData"></param>
             <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.RecordpaidController">
+            <summary>
+            待缴记录
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RecordpaidController.Waittopay(System.String,System.Int32,System.Int32)">
+            <summary>
+            显示全部数据
+            </summary>
+            <param name="starttime"></param>
+            <param name="endtime"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RecordpaidController.LookWaittopay(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            传值时间回来查询
+            </summary>
+            <param name="autoaccount"></param>
+            <param name="starttime"></param>
+            <param name="endtime"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.RegionManageController">
