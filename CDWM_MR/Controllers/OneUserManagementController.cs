@@ -43,10 +43,10 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <param name="autoaccount"></param>
         /// <returns></returns> 
-        [HttpPost]
+        [HttpGet]
         [Route("changewater")]
         [EnableCors("LimitRequests")]
-        public async Task<TableModel<object>> changewater(string autoaccount)
+        public async Task<TableModel<object>> changewater(string autoaccount, int page , int limit)
         { 
             var data01 = await _v_watermeterinfoServices.Query(c => c.autoaccount == autoaccount);//查询对应用户的信息  
             List<object> list01 = new List<object>();
@@ -54,19 +54,20 @@ namespace CDWM_MR.Controllers
             for (int i = 0; i < data01.Count; i++)
             {
                 var t = new {
-                    autoaccount = data01[i].autoaccount,//用户id
-                   meternum = data01[i].meternum,//水表编号
+                autoaccount = data01[i].autoaccount,//用户id
+                meternum = data01[i].meternum,//水表编号
                 caliber = data01[i].caliber,//口径
                 bwcode = data01[i].bwcode,//初始底数
-                    posname = data01[i].posname,//安装位置
+                posname = data01[i].posname,//安装位置
                 lastwaternum = data01[i].lastwaternum,//截止底数
                 meterstate = data01[i].meterstate,//状态
                 installtime = data01[i].installtime,//安装时间
-                 readername = data01[i].readername,//安装人
+                readername = data01[i].readername,//安装人
                 remark = data01[i].remark,//换表原因 备注
                 updatemetertime = data01[i].updatemetertime,//更换时间
                 GISPlace = data01[i].GISPlace,//Gis位置 
-                processpreson = data01[i].processpreson//换表人 
+                processpreson = data01[i].processpreson,//换表人 
+                maxrange = data01[i].maxrange//最大量程
                 };
                 list01.Add(t);
 
@@ -85,7 +86,7 @@ namespace CDWM_MR.Controllers
         /// </summary>
         /// <param name="autoaccount"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         [Route("geograpposition")]
         [EnableCors("LimitRequests")]
         public async Task<TableModel<object>> geograpposition(string autoaccount)

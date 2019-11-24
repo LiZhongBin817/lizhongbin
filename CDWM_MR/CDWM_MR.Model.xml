@@ -5201,11 +5201,7 @@
             水表型号(t_b_watermodel::bmlid)
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.metertype">
-            <summary>
-            水表类型（t_b_watermetertype::bwtid）
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "P:CDWM_MR.Model.Models.v_watermeterinfo.metertype" -->
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.factory">
             <summary>
             生产厂商(t_b_factory::bftid)
@@ -5217,7 +5213,7 @@
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.readername">
-            <summary>
+            <summary> 
             
             </summary>
         </member>
@@ -5264,6 +5260,21 @@
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.posname">
             <summary>
             名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.installtime">
+            <summary>
+            初装时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.remark">
+            <summary>
+            换表原因
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.processpreson">
+            <summary>
+            更换人
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_wateruserinfo">

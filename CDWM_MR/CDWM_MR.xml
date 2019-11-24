@@ -1173,13 +1173,13 @@
             用户一站式管理之换表记录和地理位置
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.OneUserManagementController.#ctor(CDWM_MR.IServices.Content.It_b_watermetersServices)">
+        <member name="M:CDWM_MR.Controllers.OneUserManagementController.#ctor(CDWM_MR.IServices.Content.Iv_watermeterinfoServices)">
             <summary>
             构造函数
             </summary>
             <param name="B_WatermetersServices"></param>
         </member>
-        <member name="M:CDWM_MR.Controllers.OneUserManagementController.changewater(System.String)">
+        <member name="M:CDWM_MR.Controllers.OneUserManagementController.changewater(System.String,System.Int32,System.Int32)">
             <summary>
             用户换表记录
             </summary>

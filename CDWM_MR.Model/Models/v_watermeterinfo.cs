@@ -39,7 +39,7 @@
 
         /// <summary>
         /// 水表类型（t_b_watermetertype::bwtid）
-<<<<<<< HEAD
+ 
         /// </summary>
         public System.Int16? metertype { get; set; }
 
@@ -53,23 +53,7 @@
         /// </summary>
         public System.Int16? installpos { get; set; }
 
-        /// <summary>
-=======
-        /// </summary>
-        public System.Int16? metertype { get; set; }
-
-        /// <summary>
-        /// 生产厂商(t_b_factory::bftid)
-        /// </summary>
-        public System.Int16? factory { get; set; }
-
-        /// <summary>
-        /// 安装位置(t_b_installpos::bipid)
-        /// </summary>
-        public System.Int16? installpos { get; set; }
-
-        /// <summary>
->>>>>>> 26dc035d00312dfe4a6680da4fa0fd799edaaebe
+        /// <summary> 
         /// 
         /// </summary>
         public System.String readername { get; set; }
@@ -107,9 +91,7 @@
         /// <summary>
         /// 截止用水量
         /// </summary>
-        public System.Int32? lastwaternum { get; set; }
-
-<<<<<<< HEAD
+        public System.Int32? lastwaternum { get; set; } 
         /// <summary>
         /// 状态(0:未使用1:正常2:暂停用水3:注销)
         /// </summary>
@@ -119,18 +101,17 @@
         /// 名称
         /// </summary>
         public System.String posname { get; set; }
-
-
-=======
         /// <summary>
-        /// 状态(0:未使用1:正常2:暂停用水3:注销)
+        /// 初装时间
         /// </summary>
-        public System.Int16? meterstate { get; set; }
-
+        public System.DateTime? installtime { get; set; }
         /// <summary>
-        /// 名称
+        /// 换表原因
         /// </summary>
-        public System.String posname { get; set; }
->>>>>>> 26dc035d00312dfe4a6680da4fa0fd799edaaebe
+        public System.String remark { get; set; }
+        /// <summary>
+        /// 更换人
+        /// </summary>
+        public System.String processpreson { get; set; }
     }
 }
