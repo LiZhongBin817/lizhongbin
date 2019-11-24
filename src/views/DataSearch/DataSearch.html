@@ -1,0 +1,109 @@
+﻿<title>抄表数据查询</title>
+
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class=" layui-card">
+                <div class="layui-card-header layui-inline layui-form layuiadmin-card-header-auto">
+
+                </div>
+                <div class="layui-card-header layui-form layuiadmin-card-header-auto">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">用户编号</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="account" autocomplete="off" width="140" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">用户名称</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="username" autocomplete="off" width="140" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">水表编号</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="meternum" autocomplete="off" width="140" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">联系电话</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="telephone" autocomplete="off" width="140" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">表册编号</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="meterbooknumber" autocomplete="off" width="140" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">抄表时间段</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="ordatatime01" autocomplete="off" width="140" id="date_searchshort01" placeholder="yyyy-MM-dd" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">至</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="ordatatime02" autocomplete="off" width="140" id="date_searchshort02" placeholder="yyyy-MM-dd" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">所在区域</label>
+                        <div class="layui-inline" id="levelView">
+                            <select id="regionname" name="regionname" width="140" lay-filter="regionnames">
+                            </select>
+                        </div>
+                        <div class="layui-inline">
+                            <select id="areaname" name="areaname" width="140">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">抄表员</label>
+                        <div class="layui-inline">
+                            <input class="layui-input" name="mrreadername" autocomplete="off" width="140" />
+                        </div>
+                    </div>
+                    <div class="layui-inline"  id="DataSearch_barDemo">
+                        <script type="text/html" template>
+                            {{#
+                             var t_btn1 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(18)===-1?"none":"inline-block";
+                             var t_btn2 = layui.data(layui.setter.tableName)[layui.setter.localbtnname].indexOf(20)===-1?"none":"inline-block";
+                            }}
+                            <button id="numSearch" class="layui-btn layui-btn-normal layui-btn-sm " style="border-radius:3px;display:{{t_btn1}}" lay-submit lay-filter="numSearch">查询</button>
+                            <a class="layui-btn  layui-btn-normal layui-btn-sm " style="border-radius:3px;display:{{t_btn2}}" lay-filter="btn_export01" id="btn_export01">导出</a>
+
+                        </script> 
+                    </div>
+                    <div class="layui-card-body">
+                        <table id="dataManageInfo_Table" lay-filter="dataManageInfoo" class="layui-hide"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use('DataSearch', layui.factory('DataSearch')).use(['admin', 'DataSearch', 'table', 'form', 'view', 'laydate'], function () {
+        var admin = layui.admin
+            , table = layui.table
+            , form = layui.form
+            , view = layui.view
+            , laydate = layui.laydate
+
+        form.render();
+        laydate.render({
+            elem: '#date_searchshort01'
+        });
+        laydate.render({
+            elem: '#date_searchshort02'
+        });
+    });
+</script>
+

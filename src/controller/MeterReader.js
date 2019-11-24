@@ -190,25 +190,15 @@ layui.define(['table', 'view', 'form'], function (exports) {
 
                         //监听确认按钮
                         form.on('submit(AddMR_submit)', function (data) {
-                            var field = data.field
-                                , load = layer.load(3);
-                            //判断两次密码输入是否一致
-                            if (field.Mr_password == field.Mr_password_True) {
-                                var SendData = {
-                                    "mrreadername": field.Mr_Name,
-                                    "telephone": field.Mr_Telephone,
-                                    "address": field.Mr_Address,
-                                    "idcard": field.Mr_idcard,
-                                    "sex": field.Mr_Sex == '男' ? 0 : 1,
-                                    "roles": field.Mr_Roles,
-                                    "apppassword": field.Mr_password,
-                                    "Remark": field.Remark
-                                }
-                            }
-                            else {
-                                layer.msg("两次密码输入不一致");
-                                layer.close(load);
-                                return;
+                            var field = data.field;
+                            var SendData = {
+                                "mrreadername": field.Mr_Name,
+                                "telephone": field.Mr_Telephone,
+                                "address": field.Mr_Address,
+                                "idcard": field.Mr_idcard,
+                                "sex": field.Mr_Sex == '男' ? 0 : 1,
+                                "roles": field.Mr_Roles,
+                                "Remark": field.Remark
                             }
                             admin.req({
                                 url: layui.setter.requesturl +'/api/Mr_b_Reader/Add_Mr_B_ReaderData'
