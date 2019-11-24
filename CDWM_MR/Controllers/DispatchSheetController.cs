@@ -161,7 +161,9 @@ namespace CDWM_MR.Controllers
             string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
             for (int i = 0; i < list.Count; i++)
             {
-                var data = new {url= $"{ipadress}{list[i].photourl.Split("wwwroot")[1]}",phototype=list[i].phototype };
+                string theurl = $"{ipadress}{list[i].photourl.Split("wwwroot")[1]}";
+
+                var data = new {url=theurl.Replace(@"\", @"/"), phototype=list[i].phototype };
                 alllist.Add(data);
             }
             return new MessageModel<object>()
@@ -450,7 +452,8 @@ namespace CDWM_MR.Controllers
             {
                 for (int j = 0; j < dealphotolist.Count; j++)
                 {
-                    secondphotolist.Add($"{ipadress}/{dealphotolist[j].photourl.Split("wwwroot")[1]}");
+                    string url = $"{ipadress}/{dealphotolist[j].photourl.Split("wwwroot")[1]}";
+                    secondphotolist.Add(url.Replace(@"\", @"/"));
                 }
             }
             list.Add(faultinfolist);

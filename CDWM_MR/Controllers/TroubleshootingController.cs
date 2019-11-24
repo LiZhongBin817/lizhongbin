@@ -115,57 +115,70 @@ namespace CDWM_MR.Controllers
                 List<v_userwatermetersinfo> info = infolist.FindAll(c => c.autoaccount == autoaccount);
                 List<rt_b_photoattachment> photo = new List<rt_b_photoattachment>();
                 string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
-                alllist.Add(info[0]);
-                if (string.IsNullOrEmpty(starttime)&&string.IsNullOrEmpty(endtime)&&type==0)
+                if (info.Count!=0)
                 {
-                    photo = photolist.FindAll(c => c.metercode == info[0].meternum);
-                    for (int i = 0; i < photo.Count; i++)
+                    alllist.Add(info[0]);
+                    if (string.IsNullOrEmpty(starttime) && string.IsNullOrEmpty(endtime) && type == 0)
                     {
-                        photo[i].photourl = $"{ipadress}{photo[i].photourl.Split("wwwroot")[1]}";
+                        photo = photolist.FindAll(c => c.metercode == info[0].meternum);
+                        for (int i = 0; i < photo.Count; i++)
+                        {
+                            photo[i].photourl = $"{ipadress}{photo[i].photourl.Split("wwwroot")[1]}";
+                            photo[i].photourl=photo[i].photourl.Replace(@"\", @"/");
+                        }
+                        alllist.Add(photo);
                     }
-                    alllist.Add(photo);
-                }
-                if (!string.IsNullOrEmpty(starttime)&&!string.IsNullOrEmpty(endtime)&& type!= 0)
-                {
-                    photo = photolist.FindAll(c => c.metercode == info[0].meternum && c.phototime > start && c.phototime < end && c.phototype == type);
-                    for (int i = 0; i < photo.Count; i++)
+                    if (!string.IsNullOrEmpty(starttime) && !string.IsNullOrEmpty(endtime) && type != 0)
                     {
-                        photo[i].photourl = $"{ipadress}{photo[i].photourl.Split("wwwroot")[1]}";
+                        photo = photolist.FindAll(c => c.metercode == info[0].meternum && c.phototime > start && c.phototime < end && c.phototype == type);
+                        for (int i = 0; i < photo.Count; i++)
+                        {
+                            photo[i].photourl = $"{ipadress}{photo[i].photourl.Split("wwwroot")[1]}";
+                            photo[i].photourl = photo[i].photourl.Replace(@"\", @"/");
+                        }
+                        alllist.Add(photo);
                     }
-                    alllist.Add(photo);
-                }
-                if (!string.IsNullOrEmpty(starttime)&&string.IsNullOrEmpty(endtime)&& type == 0)
-                {
-                    photo = photolist.FindAll(c=>c.phototime>start&& c.metercode == info[0].meternum);
-                    for (int i = 0; i < photo.Count; i++)
+                    if (!string.IsNullOrEmpty(starttime) && string.IsNullOrEmpty(endtime) && type == 0)
                     {
-                        photo[i].photourl = $"{ipadress}{photo[i].photourl.Split("wwwroot")[1]}";
+                        photo = photolist.FindAll(c => c.phototime > start && c.metercode == info[0].meternum);
+                        for (int i = 0; i < photo.Count; i++)
+                        {
+                            photo[i].photourl = $"{ipadress}{photo[i].photourl.Split("wwwroot")[1]}";
+                            photo[i].photourl = photo[i].photourl.Replace(@"\", @"/");
+                        }
+                        alllist.Add(photo);
                     }
-                    alllist.Add(photo);
-                }
-                if (string.IsNullOrEmpty(starttime)&&!string.IsNullOrEmpty(endtime)&& type == 0)
-                {
-                    photo = photolist.FindAll(c => c.phototime < end&& c.metercode == info[0].meternum);
-                    for (int i = 0; i < photo.Count; i++)
+                    if (string.IsNullOrEmpty(starttime) && !string.IsNullOrEmpty(endtime) && type == 0)
                     {
-                        photo[i].photourl = $"{ipadress}{photo[i].photourl.Split("wwwroot")[1]}";
+                        photo = photolist.FindAll(c => c.phototime < end && c.metercode == info[0].meternum);
+                        for (int i = 0; i < photo.Count; i++)
+                        {
+                            photo[i].photourl = $"{ipadress}{photo[i].photourl.Split("wwwroot")[1]}";
+                            photo[i].photourl = photo[i].photourl.Replace(@"\", @"/");
+                        }
+                        alllist.Add(photo);
                     }
-                    alllist.Add(photo);
-                }
-                if (string.IsNullOrEmpty(starttime)&&string.IsNullOrEmpty(endtime)&&type != 0)
-                {
-                    photo = photolist.FindAll(c => c.metercode == info[0].meternum && c.phototype == type);
-                     for (int i = 0; i < photo.Count; i++)
+                    if (string.IsNullOrEmpty(starttime) && string.IsNullOrEmpty(endtime) && type != 0)
                     {
-                        photo[i].photourl = $"{ipadress}{photo[i].photourl.Split("wwwroot")[1]}";
+                        photo = photolist.FindAll(c => c.metercode == info[0].meternum && c.phototype == type);
+                        for (int i = 0; i < photo.Count; i++)
+                        {
+                            photo[i].photourl = $"{ipadress}{photo[i].photourl.Split("wwwroot")[1]}";
+                            photo[i].photourl = photo[i].photourl.Replace(@"\", @"/");
+                        }
+                        alllist.Add(photo);
                     }
-                    alllist.Add(photo);
+                    return new MessageModel<object>()
+                    {
+                        code = 0,
+                        msg = "成功",
+                        data = alllist
+                    };
                 }
-                return new MessageModel<object>()
-                {
-                    code = 0,
-                    msg = "成功",
-                    data = alllist
+                return new MessageModel<object>() {
+                    code=0,
+                    msg="无数据",
+                    data=null
                 };
             }
             catch (Exception)
@@ -194,6 +207,14 @@ namespace CDWM_MR.Controllers
             try
             {
                 List<v_userwatermetersinfo> info = await v_userwatermetersinfoServices.Query(c => c.autoaccount == autoaccount);
+                if (info.Count==0)
+                {
+                    return new MessageModel<object>() {
+                        code=0,
+                        msg="无数据",
+                        data=null
+                    };
+                }
                 return new MessageModel<object>()
                 {
                     code = 0,

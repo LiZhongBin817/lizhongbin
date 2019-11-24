@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IRepository.Content;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model.Models;
@@ -18,7 +19,8 @@ namespace CDWM_MR.Services.Content
         private readonly Imr_planinfoRepository planinfo;
         private readonly Imr_taskinfoRepository mr_taskinfoRepository;
         private readonly Iv_taskinfoRepository taskinfoRepository;
-        public v_taskinfoServices(Iv_taskinfoRepository dal,IMapper map, Imr_b_bookinfoRepository imr_B_BookinfoRepository, Imr_planinfoRepository imr_PlaninfoRepository, Iv_taskinfoRepository iv_TaskinfoRepository, Imr_taskinfoRepository taskinfoRepository)
+        private readonly IUser _user;
+        public v_taskinfoServices(Iv_taskinfoRepository dal,IMapper map, Imr_b_bookinfoRepository imr_B_BookinfoRepository, Imr_planinfoRepository imr_PlaninfoRepository, Iv_taskinfoRepository iv_TaskinfoRepository, Imr_taskinfoRepository taskinfoRepository, IUser user)
         {
             this.dal = dal;
             base.BaseDal = dal;
@@ -27,6 +29,7 @@ namespace CDWM_MR.Services.Content
             this.planinfo = imr_PlaninfoRepository;
             this.taskinfoRepository = iv_TaskinfoRepository;
             this.mr_taskinfoRepository = taskinfoRepository;
+            _user = user;
         }
 
         /// <summary>
@@ -57,7 +60,7 @@ namespace CDWM_MR.Services.Content
                 taskinfo.readerid = item.readmanid;
                 taskinfo.taskstarttime = temp.planstarttime;
                 taskinfo.taskendtime = temp.planendtime;
-                taskinfo.createpeople = "0";
+                taskinfo.createpeople = _user.Name;
                 taskinfo.createtime = DateTime.Now;
                 taskinfo.tasknumber = temp.mplannumber + i.ToString("0000");
                 taskinfo.taskname = "任务单00" + i;
