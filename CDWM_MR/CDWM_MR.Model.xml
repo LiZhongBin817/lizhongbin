@@ -3736,9 +3736,19 @@
             家庭住址
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.areano">
+            <summary>
+            小区编号
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.v_home_userinfo.areaname">
             <summary>
             小区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.regionno">
+            <summary>
+            所属片区编号
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_home_userinfo.regionname">
@@ -3759,11 +3769,6 @@
         <member name="P:CDWM_MR.Model.Models.v_home_userinfo.bwcode">
             <summary>
             初始读数（初始表码）
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.posname">
-            <summary>
-            安装位置(t_b_installpos::bipid)
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_home_userinfo.GISPlace">
@@ -3804,6 +3809,11 @@
         <member name="P:CDWM_MR.Model.Models.v_home_userinfo.maxrange">
             <summary>
             最大量程
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_home_userinfo.posname">
+            <summary>
+            名称
             </summary>
         </member>
         <member name="M:CDWM_MR.Model.Models.v_interface.#ctor">
