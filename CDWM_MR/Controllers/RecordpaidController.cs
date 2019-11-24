@@ -44,26 +44,21 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [Route("Waittopay")]
         [HttpGet]
-        public async Task<TableModel<object>> Waittopay(string starttime, string endtime, int page = 1, int limit = 5)
+        public async Task<TableModel<object>> Waittopay(string autoaccount, int page = 1, int limit = 5)
         {
             PageModel<v_recordpaid> data1 = new PageModel<v_recordpaid>();
             Expression<Func<v_recordpaid, bool>> wherelambda = c => true;
             List<object> datalist = new List<object>();
-            if (!string.IsNullOrEmpty(starttime))
+            if (!string.IsNullOrEmpty(autoaccount))
             {
-                wherelambda = PredicateExtensions.And<v_recordpaid>(wherelambda, c => c.starttime == starttime);
+                wherelambda = PredicateExtensions.And<v_recordpaid>(wherelambda, c => c.autoaccount == autoaccount);
             }
-            if (!string.IsNullOrEmpty(endtime))
-            {
-                wherelambda = PredicateExtensions.And<v_recordpaid>(wherelambda, c => c.endtime== endtime);
-            }
+           
             data1 = await _v_recordServices.QueryPage(wherelambda, page, limit);
 
-            for (int i = 0; i < data1.data.Count(); i++)
+            for (int i = 0; i < data1.data.Count; i++)
             {
-                if (Convert.ToInt32(data1.data[i].starttime) >= Convert.ToInt32(starttime) && Convert.ToInt32(data1.data[i].endtime) <= Convert.ToInt32(endtime))
-                {
-                   
+               
                     var data = new
                     {
                         payseq = data1.data[i].payseq,
@@ -82,6 +77,69 @@ namespace CDWM_MR.Controllers
                         address = data1.data[i].address
                     };
                     datalist.Add(data);
+                
+            }
+
+            return new TableModel<object>
+            {
+                code = 0,
+                msg = "OK",
+                count = datalist.Count(),
+                data = datalist
+            };
+        }
+
+
+
+        /// <summary>
+        /// 传值时间回来查询
+        /// </summary>
+        /// <param name="autoaccount"></param>
+        /// <param name="starttime"></param>
+        /// <param name="endtime"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
+        [Route("LookWaittopay")]
+        [HttpGet]
+        public async Task<TableModel<object>> LookWaittopay(string autoaccount, string starttime, string endtime, int page = 1, int limit = 5)
+        {
+            PageModel<v_recordpaid> data1 = new PageModel<v_recordpaid>();
+            Expression<Func<v_recordpaid, bool>> wherelambda = c => true;
+            List<object> datalist = new List<object>();
+            if (!string.IsNullOrEmpty(autoaccount))
+            {
+                wherelambda = PredicateExtensions.And<v_recordpaid>(wherelambda, c => c.autoaccount == autoaccount);
+            }
+            
+            data1 = await _v_recordServices.QueryPage(wherelambda, page, limit);
+
+            for (int i = 0; i < data1.data.Count; i++)
+            {
+                if (!string.IsNullOrEmpty(starttime) && !string.IsNullOrEmpty(endtime))
+                {
+                    if (Convert.ToInt32(data1.data[i].starttime) >= Convert.ToInt32(starttime) && Convert.ToInt32(data1.data[i].endtime) <= Convert.ToInt32(endtime))
+                    {
+
+                        var data = new
+                        {
+                            payseq = data1.data[i].payseq,
+                            waterfee = data1.data[i].waterfee,
+                            taskperiodname = data1.data[i].taskperiodname,
+                            startnum = data1.data[i].startnum,
+                            endnum = data1.data[i].endnum,
+                            lastwaternum = data1.data[i].lastwaternum,
+                            carrywatercount = data1.data[i].carrywatercount,
+                            starttime = data1.data[i].starttime,
+                            endtime = data1.data[i].endtime,
+                            bmttype = data1.data[i].bmttype,
+                            cbalance = data1.data[i].cbalance,
+                            autoaccount = data1.data[i].autoaccount,
+                            username = data1.data[i].username,
+                            address = data1.data[i].address
+                        };
+                        datalist.Add(data);
+                    }
                 }
             }
 
