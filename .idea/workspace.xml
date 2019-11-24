@@ -5,8 +5,17 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/slnx.sqlite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/console.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/console.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/DataManage/RecheckHistoryData.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DataManage/RecheckHistoryData.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/CameraRecord/CameraRecord.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/CameraRecord/CameraRecord.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowAcceptanceOperation.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowAcceptanceOperation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/MeterReadingManage/MeterReadingPlan_Manage/ShowMeterPlan.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MeterReadingManage/MeterReadingPlan_Manage/ShowMeterPlan.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Troubleshooting/TroubleshootingShow.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Troubleshooting/TroubleshootingShow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/mr_bookManage/DistributeUser.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/mr_bookManage/DistributeUser.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/watermeterManage/AddUser.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/watermeterManage/AddUser.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/watermeterManage/AddWatermeter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/watermeterManage/AddWatermeter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/watermeterManage/EditUserinfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/watermeterManage/EditUserinfo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/watermeterManage/EditWatermeterInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/watermeterManage/EditWatermeterInfo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/watermeterManage/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/watermeterManage/list.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,6 +62,7 @@
       <workItem from="1573466719051" duration="7559000" />
       <workItem from="1574481185441" duration="2956000" />
       <workItem from="1574496334073" duration="3079000" />
+      <workItem from="1574505154927" duration="10593000" />
     </task>
     <servers />
   </component>

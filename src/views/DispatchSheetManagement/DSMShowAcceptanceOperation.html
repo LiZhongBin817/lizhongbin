@@ -119,7 +119,7 @@
                 },
                 { field: 'DSMReportPerson', title: '上报人', width: 100 },
                 {
-                    field: 'DSMEnclosure', title: '附件', width: 100, event: 'Enclosure',
+                    field: 'DSMEnclosure', title: '附件', width: 100, event: 'TEnclosure',
                     templet: function (d) {
                         return '<a  style="color: #c00;text-decoration:underline">' + d.DSMEnclosure + '</a>'
                     }
@@ -142,7 +142,7 @@
                     }
                 },
                 {
-                    field: 'DSMAddress', title: '位置信息', width: 100, event: 'Address',
+                    field: 'DSMAddress', title: '位置信息', width: 100, event: 'TAddress',
                     templet: function (d) {
                         return '<a style="color: #c00;text-decoration:underline">' + d.DSMAddress + '</a>'
                     }
@@ -152,6 +152,57 @@
             limit: 10,
             limits: [10, 15, 20],
         });
+        table.on('tool(DSMSAO)', function (obj) {
+            console.log("表格监听");
+            var data = obj.data,
+                event = obj.event;
+            var ID = obj.data.DSMID;
+            if (event === 'TEnclosure') {
+                console.log("附件");
+                 admin.req({
+                        url: layui.setter.requesturl + '/api/DispatchSheet/ShowPhoto',//后台获取图片
+                        type: "post",
+                        data: {
+                            "id": ID
+                        },
+                        success: function (resdata) {
+                            admin.popup({
+                                title: "图片弹出层",
+                                area: ['700px', '500px'],
+                                maxmin: true,
+                                id: 'showphoto',
+                                shadeClose: true, //点击遮罩关闭
+                                success: function (layero, index) {
+                                    view('showphoto').render('DispatchSheetManagement/DSMShowPhoto', Number).done(function () {
+                                        var rhtml = "";
+                                        for (var i = 0; i < resdata.data.length; i++) {
+                                            if (resdata.data[i].phototype == 1) {
+                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;
+                                            }
+                                            else if (resdata.data[i].phototype == 2) {
+                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--现场图片</div></div>`;
+                                            }
+                                            else if (resdata.data[i].phototype == 3) {
+                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                                            }
+                                            else if (resdata.data[i].phototype == 4) {
+                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="故障图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障图片</div></div>`;
+                                            }
+                                            else {
+                                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[i].url}" title="其他类型图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--其他类型图片</div></div>`;
+                                            }
+                                        }
+                                        $("#DSMShowShowPhoto").html(rhtml);
+                                        form.render(null, 'DSMShowOperation');
+                                    });
+                                }
+                            });
+                        }
+
+                    });
+            }
+            else if()
+        })
         form.render();
     });
 </script>
