@@ -5,16 +5,12 @@
 */
 
 
-<<<<<<< HEAD
-layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exports) {
-=======
-layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
->>>>>>> 931ea7f02683c1bb07bfca1eadc47055eec25899
+ 
+layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exports) { 
     var admin = layui.admin,
         view = layui.view,
         table = layui.table,
-        $ = layui.jquery,
-<<<<<<< HEAD
+        $ = layui.jquery, 
         bMap = layui.bMap,
         form = layui.form;
     var modelinfo = "";//用来存放点击按钮后显示的模块号
@@ -28,47 +24,14 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
             var str = `<option value="">请选择</option>`;
             if (d.msg == "ok") {
                 for (var i in data) {
-                    str += `<option value="${data[i].regionno}">${data[i].regionname}</option>`;
-=======
-        form = layui.form;
-    var modelinfo="";//用来存放点击按钮后显示的模块号
-    var autoaccount="";
-    //渲染区域下拉框
-    admin.req({
-        url:layui.setter.requesturl + '/api/HomePageUserInfo/RegionSelectRender',
-        method:'post',
-        success:function (d) {
-            var data=d.data;
-            var str=`<option value="">请选择</option>`;
-            if(d.msg=="ok"){
-                for(var i in data ){
-                    str+=`<option value="${data[i].regionno}">${data[i].regionname}</option>`;
->>>>>>> 931ea7f02683c1bb07bfca1eadc47055eec25899
+                    str += `<option value="${data[i].regionno}">${data[i].regionname}</option>`; 
                 }
                 $("#region").html(str);
                 form.render();
             }
         }
     });
-    //监听区域下拉框
-<<<<<<< HEAD
-    form.on('select(region)', function (d) {
-        var regionno = $("#region").val();
-        //渲染小区下拉框
-        admin.req({
-            url: layui.setter.requesturl + '/api/HomePageUserInfo/AreaSelectRender',
-            method: 'post',
-            data: {
-                "regionno": regionno
-            },
-            success: function (d) {
-                var data = d.data;
-                console.log(data);
-                var str1 = `<option value="">请选择</option>>`;
-                if (d.msg == "ok") {
-                    for (var i in data) {
-                        str1 += `<option value="${data[i].areano}">${data[i].areaname}</option>`;
-=======
+    //监听区域下拉框 
     form.on('select(region)',function (d) {
         var regionno=$("#region").val();
         //渲染小区下拉框
@@ -85,7 +48,7 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
                 if(d.msg=="ok"){
                     for(var i in data ){
                         str1+=`<option value="${data[i].areano}">${data[i].areaname}</option>`;
->>>>>>> 931ea7f02683c1bb07bfca1eadc47055eec25899
+ 
                     }
                     $("#area").html(str1);
                     form.render();
@@ -93,21 +56,8 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
             }
         });
     });
-<<<<<<< HEAD
-=======
-
-
-    //监听模糊查询按钮
-    form.on('submit(user_info_show_like_search)',function (d) {
-        var field=d.field;
-        admin.req({
-            url:layui.setter.requesturl+'',
-            method:'',
-            data:{
->>>>>>> 931ea7f02683c1bb07bfca1eadc47055eec25899
-
-
-<<<<<<< HEAD
+ 
+     
     //监听模糊查询按钮
     form.on('submit(user_info_show_like_search)', function (d) {
         var field = d.field;
@@ -119,8 +69,7 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
             },
             success: function (data) {
 
-=======
->>>>>>> 931ea7f02683c1bb07bfca1eadc47055eec25899
+ 
             }
 
         });
@@ -145,15 +94,10 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
                 "mrreadername": field.mrreadername,
                 page: 1,
             },
-<<<<<<< HEAD
-            success: function (data) {
-                var tabledata = data.data;//存放表格数据
-                if (data.msg == "ok") {
-=======
+ 
             success:function (data) {
                 var tabledata=data.data;//存放表格数据
-                if(data.msg=="ok"){
->>>>>>> 931ea7f02683c1bb07bfca1eadc47055eec25899
+                if(data.msg=="ok"){ 
                     UserTableRender(tabledata);
                 }
                 else {
@@ -203,12 +147,8 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
     //监听行单击事件
     table.on('row(userinfoshow)', function (obj) {
         $(".layui-table-body.layui-table-main tr").css("background-color", "");
-        console.log(obj.data) //得到当前行数据
-<<<<<<< HEAD
-        autoaccount = obj.data.autoaccount;
-=======
-        autoaccount=obj.data.autoaccount;
->>>>>>> 931ea7f02683c1bb07bfca1eadc47055eec25899
+        console.log(obj.data) //得到当前行数据 
+        autoaccount=obj.data.autoaccount; 
         //点击单行
         $(this).attr('style', "background:#f1dddd;color:#000");
     });
@@ -322,16 +262,10 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
             layer.msg("请选择用户！！");
         }
         else {
-            admin.req({
-<<<<<<< HEAD
-                url: layui.setter.request + '',
-                method: '',
-                data: {
-=======
+            admin.req({ 
                 url:layui.setter.requesturl+"",
                 method:'post',
-                data:{
->>>>>>> 931ea7f02683c1bb07bfca1eadc47055eec25899
+                data:{ 
                     "autoaccount": autoaccount,
                 },
                 success: function (d) {
@@ -375,24 +309,16 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
             layer.msg("请选择用户！！");
         }
         else {
-            admin.req({
-<<<<<<< HEAD
-                url: layui.setter.request + '',
-                method: '',
-                data: {
-=======
+            admin.req({ 
                 url:layui.setter.requesturl+'/api/HomePageMeterReadingRecord/MeterReadingRecordInfo',
                 method:'post',
                 data:{
->>>>>>> 931ea7f02683c1bb07bfca1eadc47055eec25899
+ 
                     "autoaccount": autoaccount,
                     page:1
                 },
                 success: function (d) {
-                    //页面渲染，地址自己填
-<<<<<<< HEAD
-                    view('UserSel_Home_Conterior').render('', d).done(function () {
-=======
+                    //页面渲染，地址自己填 
                     view('UserSel_Home_Conterior').render('homemeterreadingrecord/meterreadingrecord',d.data).done(function () {
 
                         console.log(d.data);
@@ -532,8 +458,7 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
                                                     });
 
                                                 }
-                                            })
->>>>>>> 931ea7f02683c1bb07bfca1eadc47055eec25899
+                                            }) 
 
                                         });
                                     }
@@ -594,53 +519,7 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
             modelinfo = "账单记录";
             $("#modelinfo").html(modelinfo);
         }
-    });
-    //监听交易记录按钮
-    form.on('submit(transaction_record_button)', function () {
-        if (autoaccount == "") {
-            layer.msg("请选择用户！！");
-        }
-        else {
-            admin.req({
-                url: layui.setter.request + '',
-                method: '',
-                data: {
-                    "autoaccount": autoaccount,
-                },
-                success: function (d) {
-                    //页面渲染，地址自己填
-                    view('UserSel_Home_Conterior').render('', d).done(function () {
-
-                    });
-                }
-            });
-            modelinfo = "交易记录";
-            $("#modelinfo").html(modelinfo);
-        }
-    });
-    //监听发票记录按钮
-    form.on('submit(invoice_record_button)', function () {
-        if (autoaccount == "") {
-            layer.msg("请选择用户！！");
-        }
-        else {
-            admin.req({
-                url: layui.setter.request + '',
-                method: '',
-                data: {
-                    "autoaccount": autoaccount,
-                },
-                success: function (d) {
-                    //页面渲染，地址自己填
-                    view('UserSel_Home_Conterior').render('', d).done(function () {
-
-                    });
-                }
-            });
-            modelinfo = "发票记录";
-            $("#modelinfo").html(modelinfo);
-        }
-    });
+    }); 
     //监听照片记录按钮
     form.on('submit(photo_record_button)', function () {
         if (autoaccount == "") {
@@ -687,14 +566,9 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
             $("#modelinfo").html(modelinfo);
         }
     });
-    //监听故障维修按钮
-<<<<<<< HEAD
-    form.on('submit(troubleshooting_button)', function () {
-        if (autoaccount == "") {
-=======
+    //监听故障维修按钮 
     form.on('submit(troubleshooting_button)',function () {
-        if(autoaccount==""){
->>>>>>> 931ea7f02683c1bb07bfca1eadc47055eec25899
+        if(autoaccount==""){ 
             layer.msg("请选择用户！！");
         }
         else {
