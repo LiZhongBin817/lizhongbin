@@ -1,16 +1,15 @@
 /**
-@Name：layuiAdmin 主页控制台
-@Author：李忠斌
-@Date：2019.11.15
-*/
+ @Name：layuiAdmin 主页控制台
+ @Author：李忠斌
+ @Date：2019.11.15
+ */
 
 
- 
-layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exports) { 
+layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap'], function (exports) {
     var admin = layui.admin,
         view = layui.view,
         table = layui.table,
-        $ = layui.jquery, 
+        $ = layui.jquery,
         bMap = layui.bMap,
         form = layui.form;
     var modelinfo = "";//用来存放点击按钮后显示的模块号
@@ -24,26 +23,16 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
             var str = `<option value="">请选择</option>`;
             if (d.msg == "ok") {
                 for (var i in data) {
-<<<<<<< HEAD
-                    str += `<option value="${data[i].regionno}">${data[i].regionname}</option>`; 
-=======
                     str += `<option value="${data[i].regionno}">${data[i].regionname}</option>`;
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
                 }
                 $("#region").html(str);
                 form.render();
             }
         }
     });
-<<<<<<< HEAD
-    //监听区域下拉框 
-    form.on('select(region)',function (d) {
-        var regionno=$("#region").val();
-=======
     //监听区域下拉框
     form.on('select(region)', function (d) {
         var regionno = $("#region").val();
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
         //渲染小区下拉框
         admin.req({
             url: layui.setter.requesturl + '/api/HomePageUserInfo/AreaSelectRender',
@@ -54,18 +43,10 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
             success: function (d) {
                 var data = d.data;
                 console.log(data);
-<<<<<<< HEAD
-                var str1=`<option value="">请选择</option>>`;
-                if(d.msg=="ok"){
-                    for(var i in data ){
-                        str1+=`<option value="${data[i].areano}">${data[i].areaname}</option>`;
- 
-=======
                 var str1 = `<option value="">请选择</option>>`;
                 if (d.msg == "ok") {
                     for (var i in data) {
                         str1 += `<option value="${data[i].areano}">${data[i].areaname}</option>`;
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
                     }
                     $("#area").html(str1);
                     form.render();
@@ -73,8 +54,8 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
             }
         });
     });
- 
-     
+
+
     //监听模糊查询按钮
     form.on('submit(user_info_show_like_search)', function (d) {
         var field = d.field;
@@ -86,7 +67,6 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
             },
             success: function (data) {
 
- 
             }
 
         });
@@ -111,16 +91,9 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
                 "mrreadername": field.mrreadername,
                 page: 1,
             },
-<<<<<<< HEAD
- 
-            success:function (data) {
-                var tabledata=data.data;//存放表格数据
-                if(data.msg=="ok"){ 
-=======
             success: function (data) {
                 var tabledata = data.data;//存放表格数据
                 if (data.msg == "ok") {
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
                     UserTableRender(tabledata);
                 }
                 else {
@@ -170,14 +143,9 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
     //监听行单击事件
     table.on('row(userinfoshow)', function (obj) {
         $(".layui-table-body.layui-table-main tr").css("background-color", "");
-<<<<<<< HEAD
-        console.log(obj.data) //得到当前行数据 
-        autoaccount=obj.data.autoaccount; 
-=======
         console.log(obj.data) //得到当前行数据
         autoaccount = obj.data.autoaccount;
         $("#Theautpaccount").val(obj.data.autoaccount);
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
         //点击单行
         $(this).attr('style', "background:#f1dddd;color:#000");
     });
@@ -243,44 +211,40 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
             layer.msg("请选择用户！！");
         }
         else {
-<<<<<<< HEAD
-            layui.use(['form', 'laydate'], function (){ 
-                    //页面渲染，地址自己填
-                    view('UserSel_Home_Conterior').render('OneUserManagement/ChangeWater', null).done(function () {
-                        console.log(document.getElementById('acconut').value);
-                        table.render({
-                            where: {
-                                "autoaccount": autoaccount,
-                            },
-                            elem: '#ChangeWater_Table',
-                            method: 'get', 
-                            url: layui.setter.requesturl + '/api/OneUserManagement/changewater', 
-                            cols: [[
-                                { title: '序号', type: 'numbers',width:110 },
-                                { field: 'autoaccount', title: '用户编号', width: 110 },
-                                { field: 'meternum', title: '水表编号', width: 110 },
-                                { field: 'caliber', title: '口径', width: 110 },
-                                { field: 'bwcode', title: '初始底数', width: 110},
-                                { field: 'posname', title: '安装位置', width: 110 },
-                                { field: 'lastwaternum', title: '截止底数', width: 110 },
-                                { field: 'meterstate', title: '状态', width: 110 },
-                                { field: 'installtime', title: '安装时间', width: 110 },
-                                { field: 'readername', title: '安装人', width: 110 },
-                                { field: 'remark', title: '换表原因', width: 110 },
-                                { field: 'updatemetertime', title: '更换时间', width: 110 },
-                                { field: 'GISPlace', title: 'Gis位置', width: 110},
-                                { field: 'processpreson', title: '换表人', width: 110},
-                                { title: 'maxrange', title: '最大量程', width: 110 },
-                            ]]
-                            , page: true
-                            , limit: 10
-                        });
+            layui.use(['form', 'laydate'], function () {
+                //页面渲染，地址自己填
+                view('UserSel_Home_Conterior').render('OneUserManagement/ChangeWater', null).done(function () {
+                    console.log(document.getElementById('acconut').value);
+                    table.render({
+                        where: {
+                            "autoaccount": autoaccount,
+                        },
+                        elem: '#ChangeWater_Table',
+                        method: 'get',
+                        url: layui.setter.requesturl + '/api/OneUserManagement/changewater',
+                        cols: [[
+                            { title: '序号', type: 'numbers', width: 110 },
+                            { field: 'autoaccount', title: '用户编号', width: 110 },
+                            { field: 'meternum', title: '水表编号', width: 110 },
+                            { field: 'caliber', title: '口径', width: 110 },
+                            { field: 'bwcode', title: '初始底数', width: 110 },
+                            { field: 'posname', title: '安装位置', width: 110 },
+                            { field: 'lastwaternum', title: '截止底数', width: 110 },
+                            { field: 'meterstate', title: '状态', width: 110 },
+                            { field: 'installtime', title: '安装时间', width: 110 },
+                            { field: 'readername', title: '安装人', width: 110 },
+                            { field: 'remark', title: '换表原因', width: 110 },
+                            { field: 'updatemetertime', title: '更换时间', width: 110 },
+                            { field: 'GISPlace', title: 'Gis位置', width: 110 },
+                            { field: 'processpreson', title: '换表人', width: 110 },
+                            { title: 'maxrange', title: '最大量程', width: 110 },
+                        ]]
+                        , page: true
+                        , limit: 10
                     });
-                
-                console.log("123");
-                console.log(autoaccount);
-                
-            });
+                });  
+                console.log(autoaccount); 
+            }); 
             modelinfo = "换表记录";
             $("#modelinfo").html(modelinfo);
         }
@@ -292,91 +256,16 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
             layer.msg("请选择用户！！");
         }
         else {
-            admin.req({ 
-                url:layui.setter.requesturl+"",
-                method:'post',
-                data:{ 
-=======
             admin.req({
-                url: layui.setter.requesturl + "",
-                method: 'post',
-                data: {
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
-                    "autoaccount": autoaccount,
-                },
-                success: function (d) {
-                    //页面渲染，地址自己填
-                    view('UserSel_Home_Conterior').render('', d).done(function () {
-
-                    });
-                }
-            });
-<<<<<<< HEAD
-            modelinfo = "抄表记录";
-            $("#modelinfo").html(modelinfo);
-        }
-    });
-    //监听待缴记录按钮
-    form.on('submit(paid_record_button)', function () {
-=======
-            modelinfo = "换表记录";
-            $("#modelinfo").html(modelinfo);
-        }
-    });
-
-    //监听抄表记录按钮
-    form.on('submit(meter_reading_record_button)', function () {
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
-        if (autoaccount == "") {
-            layer.msg("请选择用户！！");
-        }
-        else {
-            admin.req({
-<<<<<<< HEAD
-                url: layui.setter.request + '',
-                method: '',
-                data: {
-                    "autoaccount": autoaccount,
-                },
-                success: function (d) {
-                    //页面渲染，地址自己填
-                    view('UserSel_Home_Conterior').render('', d).done(function () {
-
-                    });
-                }
-            });
-            modelinfo = "待缴记录";
-            $("#modelinfo").html(modelinfo);
-        }
-
-    });
-    //监听账单记录按钮
-    form.on('submit(bill_record_button)', function () {
-        if (autoaccount == "") {
-            layer.msg("请选择用户！！");
-        }
-        else {
-            admin.req({ 
-                url:layui.setter.requesturl+'/api/HomePageMeterReadingRecord/MeterReadingRecordInfo',
-                method:'post',
-                data:{
- 
-=======
                 url: layui.setter.requesturl + '/api/HomePageMeterReadingRecord/MeterReadingRecordInfo',
                 method: 'post',
                 data: {
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
                     "autoaccount": autoaccount,
                     page: 1
                 },
                 success: function (d) {
-<<<<<<< HEAD
-                    //页面渲染，地址自己填 
-                    view('UserSel_Home_Conterior').render('homemeterreadingrecord/meterreadingrecord',d.data).done(function () {
-=======
                     //页面渲染，地址自己填
                     view('UserSel_Home_Conterior').render('homemeterreadingrecord/meterreadingrecord', d.data).done(function () {
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
 
                         console.log(d.data);
                         homepagetablerender(d.data);
@@ -517,7 +406,7 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
                                                     });
 
                                                 }
-                                            }) 
+                                            })
 
                                         });
                                     }
@@ -575,21 +464,12 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
                     });
                 }
             });
-<<<<<<< HEAD
-            modelinfo = "账单记录";
-            $("#modelinfo").html(modelinfo);
-        }
-    }); 
-    //监听照片记录按钮
-    form.on('submit(photo_record_button)', function () {
-=======
             modelinfo = "抄表记录";
             $("#modelinfo").html(modelinfo);
         }
     });
     //监听待缴记录按钮
     form.on('submit(paid_record_button)', function () {
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
         if (autoaccount == "") {
             layer.msg("请选择用户！！");
         }
@@ -603,42 +483,25 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
                 success: function (d) {
                     //页面渲染，地址自己填
                     view('UserSel_Home_Conterior').render('', d).done(function () {
-<<<<<<< HEAD
-                    });
-                }
-            });
-            modelinfo = "照片记录";
-=======
 
                     });
                 }
             });
             modelinfo = "待缴记录";
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
             $("#modelinfo").html(modelinfo);
         }
+
     });
-<<<<<<< HEAD
-    //监听地理位置按钮
-    form.on('submit(geographical_position_button)', function () {
-        if (autoaccount == "") {
-=======
     //监听照片记录按钮
     form.on('submit(photo_record_button)', function () {
         console.log("照片记录");
         if (autoaccount === "") {
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
             layer.msg("请选择用户！！");
         }
         else {
             admin.req({
-<<<<<<< HEAD
-                url: layui.setter.requesturl + '/api/OneUserManagement/geograpposition',
-                method: 'get',
-=======
                 url: layui.setter.requesturl + '/api/Troubleshooting/GetAutoaccountinfo',
                 method: 'post',
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
                 data: {
                     "autoaccount": autoaccount,
                     "starttime": null,
@@ -646,16 +509,6 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
                     "type": 0
                 },
                 success: function (d) {
-<<<<<<< HEAD
-                    view('UserSel_Home_Conterior').render('OneUserManagement/GeograpPosition', d).done(function () {
-                                GPS(d.data);
-                                console.log(d.data);
-                                form.render();
-                     });
-                }
-            });
-            modelinfo = "地理位置1";
-=======
                     //页面渲染，地址自己填
                     view('UserSel_Home_Conterior').render('CameraRecord/CameraRecord', d).done(function () {
                         $("#CameraRecord_autoaccount").val(d.data[0].autoaccount);
@@ -686,47 +539,55 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
                 }
             });
             modelinfo = "照片记录";
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
             $("#modelinfo").html(modelinfo);
         }
 
     });
-<<<<<<< HEAD
-    //监听故障维修按钮 
-    form.on('submit(troubleshooting_button)',function () {
-        if(autoaccount==""){ 
-=======
-    //监听故障维修按钮
-    form.on('submit(troubleshooting_button)', function () {
-        console.log("故障");
-        if (autoaccount === "") {
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
+    //监听地理位置按钮
+    form.on('submit(geographical_position_button)', function () {
+        if (autoaccount == "") {
             layer.msg("请选择用户！！");
         }
         else {
             admin.req({
-<<<<<<< HEAD
-                url: layui.setter.request + '',
-                method: '',
-=======
+                url: layui.setter.requesturl + '/api/OneUserManagement/geograpposition',
+                method: 'get',
+                data: {
+                    "autoaccount": autoaccount,
+                },
+                success: function (d) {
+                    view('UserSel_Home_Conterior').render('OneUserManagement/GeograpPosition', d).done(function () {
+                        GPS(d.data);
+                        console.log(d.data);
+                        form.render();
+                    });
+                }
+            });
+            modelinfo = "地理位置";
+            $("#modelinfo").html(modelinfo);
+        }
+    });
+    //监听故障维修按钮
+    form.on('submit(troubleshooting_button)', function () {
+        console.log("故障");
+        if (autoaccount === "") {
+            layer.msg("请选择用户！！");
+        }
+        else {
+            admin.req({
                 url: layui.setter.requesturl + '/api/Troubleshooting/Getinfo',
                 method: 'post',
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
                 data: {
                     "autoaccount": autoaccount,
                 },
                 success: function (d) {
                     //页面渲染，地址自己填
-<<<<<<< HEAD
-                    view('UserSel_Home_Conterior').render('', d).done(function () {
-=======
                     view('UserSel_Home_Conterior').render('Troubleshooting/TroubleshootingShow', d).done(function () {
                         form.render();
                         $("#Trouble_autoaccount").val(d.data.autoaccount);
                         $("#Trouble_autoaccountname").val(d.data.username);
                         $("#Trouble_WaterNumber").val(d.data.meternum);
                         $("#Trouble_Address").val(d.data.address);
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
 
                     });
                 }
@@ -734,9 +595,8 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
             modelinfo = "故障维修";
             $("#modelinfo").html(modelinfo);
         }
-<<<<<<< HEAD
-    }); 
 
+    });
     //显示地图的方法
     function GPS(uploadGPS) {
         //百度地图渲染
@@ -782,9 +642,5 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap',], function (exp
 
         });
     }
-=======
-
-    });
->>>>>>> e3ac529d089f4af9107e60d5649de518a79c34d2
     exports('console', {});
 });
