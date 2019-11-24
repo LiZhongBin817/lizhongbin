@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col">
+            <div class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">户号:</label>
+                        <div class="layui-inline" >
+                            <script type="text/html" template>
+                                <label class="layui-form-label" style="width:auto">{{d.params.account}}--{{d.params.username}}</label>
+                            </script>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">表号:</label>
+                        <div class="layui-inline">
+                            <script type="text/html" template>
 
-</body>
-</html>
+                                <label class="layui-form-label" style="width:auto">{{d.params.meternum}}--{{d.params.regionname}}--{{d.params.areaname}}--{{d.params.address}}</label>
+                            </script>
+                        </div>
+                    </div>
+                    <div class="layui-block">
+                        <table class="layui-table" name="mr_record_allinfo" id="mr_record_allinfo" lay-filter="mr_record_allinfo"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['admin', 'table', 'form', 'view','jquery'], function (){
+        var admin=layui.admin,
+            table=layui.table,
+            form=layui.form,
+            view=layui.view,
+            $=layui.jquery,
+            laydate=layui.laydate;
+        form.render();
+    });
+</script>

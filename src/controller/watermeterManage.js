@@ -291,12 +291,12 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
                                         { field: 'posname', title: '安装位置', width: '100' },
                                         { field: 'lastwaternum', title: '截止读数', width: '120' },
                                         {
-                                            field: 'delflag', align: 'center', title: '状态', width: '120', templet: function (d) {
+                                            field: 'meterstate', align: 'center', title: '状态', width: '120', templet: function (d) {
                                                 var watermeterststus = "";
-                                                if (d.delflag === 1) {
+                                                if (d.meterstate === 1) {
                                                     watermeterststus = "使用";
                                                 }
-                                                else {
+                                                else if(d.meterstate === 3){
                                                     watermeterststus = "已换表";
                                                 }
                                                 return '<a style="text-decoration:underline">' + watermeterststus + '</a > '
@@ -495,7 +495,7 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
                                     var selstr1 = item.bmlid === dataobj.data[0][0].metermodel?"selected":"";
                                     return `<option value='${item.bmlid}' ${selstr1}>${item.dn}</option>`;
                                 }).join('');
-                                $('#Edit_delflag').val(dataobj.data[0][0].delflag);
+                                $('#Edit_delflag').val(dataobj.data[0][0].meterstate);
                                 $('#Edit_watermetermodel').html(cailarsel);
                                 $('#Edit_installpos').html(installpos);
                                 //渲染时间
@@ -515,7 +515,7 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
                                     "bwcode":editmeterobj.field.bwcode,
                                     "installpos":editmeterobj.field.installpos,
                                     "lastwaternum":editmeterobj.field.lastwaternum,
-                                    "delflag":editmeterobj.field.delflag,
+                                    "meterstate":editmeterobj.field.meterstate,
                                     "updatemetertime":editmeterobj.field.updatemetertime,
                                     "GISPlace":editmeterobj.field.GISPlace
                                 };

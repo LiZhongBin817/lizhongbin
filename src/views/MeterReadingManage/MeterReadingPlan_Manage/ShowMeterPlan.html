@@ -4,15 +4,16 @@
 </script>
 
 <script type="text/html" id="MRtoolbarDemo">
+    {{#
+    var theurl=layui.setter.requesturl+'/api/MeterReadingPlan/OutExcel';
+    }}
     <div class="layui-btn-container">
-        <a class=" layui-btn layui-btn-sm layui-btn-sm" style="border-radius:3px" lay-event="MRInData" href="http://localhost:8081/api/MeterReadingPlan/OutExcel"> 导出EXCEL</a>
+        <a class=" layui-btn layui-btn-sm layui-btn-sm" style="border-radius:3px" lay-event="MRInData" href={{theurl}}> 导出EXCEL</a>
     </div>
 </script>
-
 <script type="text/html" id="MRbarDemo">
     <a class="layui-btn layui-btn-sm layui-btn-warm " style="border-radius:3px" lay-event="MRedit">编辑</a>
 </script>
-
 <div class="layui-fiuld" lay-filter="ShowMeterPlan">
     <div class="layui-col-md12">
         <div class="layui-card ">
@@ -49,8 +50,6 @@
         </div>
     </div>
 </div>
-
-
 <script>
     layui.use('MeterReadPlan', layui.factory('MeterReadPlan')).use(['admin', 'MeterReadPlan', 'table', 'view', 'form', 'layer', 'laydate', 'carousel', 'index', 'layedit'], function () {
         var admin = layui.admin,
@@ -59,7 +58,6 @@
             form = layui.form;
         form.render();
         function u() {
-            
         }
     })
 </script>

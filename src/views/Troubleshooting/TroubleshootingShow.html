@@ -16,20 +16,23 @@
                     <input type="text" name="TroubleEndTime" id="TroubleEndTime" lay-verify="TroubleEndTime" placeholder="完成时间" autocomplete="off" class="layui-input">
                 </div>
             </div>
-            <div class="layui-inline">
-                <select name="TroubleType_Select" id="TroubleType_Select" lay-filter="TroubleType_Select">
-                    <option value="">请选择</option>
-                    <option value="6">表埋</option>
-                    <option value="7">表坏</option>
-                    <option value="8">井盖坏</option>
-                    <option value="10">漏水</option>
-                    <option value="11">其他</option>
-                </select>
-            </div>
-            <div class="layui-inline">
-                <button class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius:3px;" lay-submit lay-filter="Trouble_Seek">
-                    查询
-                </button>
+            <div class="layui-form-item">
+                <label class="layui-form-label">故障类型:</label>
+                <div class="layui-input-inline">
+                    <select name="TroubleType_Select" id="TroubleType_Select" lay-filter="TroubleType_Select">
+                        <option value="">请选择</option>
+                        <option value="6">表埋</option>
+                        <option value="7">表坏</option>
+                        <option value="8">井盖坏</option>
+                        <option value="10">漏水</option>
+                        <option value="11">其他</option>
+                    </select>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius:3px;" lay-submit lay-filter="Trouble_Seek">
+                        查询
+                    </button>
+                </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
@@ -77,6 +80,7 @@
             util = layui.util,
             upload = layui.upload,
             $ = layui.$;
+        console.log(document.getElementById('Theautpaccount').value);
         form.render();
         table.render({
             elem: '#Troubletable',
@@ -135,7 +139,7 @@
                 "TroubleStarTime": document.getElementById('TroubleStarTime').value,
                 "TroubleEndTime": document.getElementById('TroubleEndTime').value,
                 "TroubleType": "0",
-                "autoaccount": document.getElementById('acconut').value
+                "autoaccount": document.getElementById('Theautpaccount').value
             },
             page: true,
             limit: 10,
@@ -169,7 +173,7 @@
                     url: layui.setter.requesturl + '/api/DispatchSheet/FaultInformationDisplay',
                     data: {
                         "id": data.TroubleID,
-                        "DSMStatus":"0"
+                        "DSMStatus": "0"
                     },
                     type: "post",
                     success: function (resdata) {
