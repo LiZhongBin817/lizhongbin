@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="23ae6571-3932-4d6a-b9ed-4dc54e2db774" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/slnx.sqlite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DetailManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DetailManage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/console.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/console.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowAcceptanceOperation.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowAcceptanceOperation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowPhoto.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowPhoto.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowProcessingOperation.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowProcessingOperation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/DataManage/ReCheckData.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DataManage/ReCheckData.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,7 +51,7 @@
       <workItem from="1573466719051" duration="7559000" />
       <workItem from="1574481185441" duration="2956000" />
       <workItem from="1574496334073" duration="3079000" />
-      <workItem from="1574505154927" duration="18930000" />
+      <workItem from="1574505154927" duration="20280000" />
     </task>
     <servers />
   </component>
