@@ -211,6 +211,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                 success: function (layero, index) {
                                     view('showaddress').render('DispatchSheetManagement/DSMShowAddress', Number).done(function () {
                                         GPS(data.data);
+                                        console.log(data.data);
                                         form.render(null, 'ShowAddress');
                                     });
                                 }
