@@ -49,7 +49,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
                                 name: temp1[i]
                             }
                             data2.push(addobject);
-                        } var res = "container";
+                        } var res = "container02";
                         var o4 = "抄表员与抄表个数";
                         showadc(temp1, data2, res, o4);
                     }

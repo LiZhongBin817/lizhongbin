@@ -5,11 +5,12 @@
  */
 
 
-layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
+layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap'], function (exports) {
     var admin = layui.admin,
         view = layui.view,
         table = layui.table,
         $ = layui.jquery,
+        bMap = layui.bMap,
         form = layui.form;
     var modelinfo = "";//用来存放点击按钮后显示的模块号
     var autoaccount = "";
@@ -210,19 +211,40 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
             layer.msg("请选择用户！！");
         }
         else {
-            admin.req({
-                url: layui.setter.requesturl + "",
-                method: 'post',
-                data: {
-                    "autoaccount": autoaccount,
-                },
-                success: function (d) {
-                    //页面渲染，地址自己填
-                    view('UserSel_Home_Conterior').render('', d).done(function () {
-
+            layui.use(['form', 'laydate'], function () {
+                //页面渲染，地址自己填
+                view('UserSel_Home_Conterior').render('OneUserManagement/ChangeWater', null).done(function () {
+                    console.log(document.getElementById('acconut').value);
+                    table.render({
+                        where: {
+                            "autoaccount": autoaccount,
+                        },
+                        elem: '#ChangeWater_Table',
+                        method: 'get',
+                        url: layui.setter.requesturl + '/api/OneUserManagement/changewater',
+                        cols: [[
+                            { title: '序号', type: 'numbers', width: 110 },
+                            { field: 'autoaccount', title: '用户编号', width: 110 },
+                            { field: 'meternum', title: '水表编号', width: 110 },
+                            { field: 'caliber', title: '口径', width: 110 },
+                            { field: 'bwcode', title: '初始底数', width: 110 },
+                            { field: 'posname', title: '安装位置', width: 110 },
+                            { field: 'lastwaternum', title: '截止底数', width: 110 },
+                            { field: 'meterstate', title: '状态', width: 110 },
+                            { field: 'installtime', title: '安装时间', width: 110 },
+                            { field: 'readername', title: '安装人', width: 110 },
+                            { field: 'remark', title: '换表原因', width: 110 },
+                            { field: 'updatemetertime', title: '更换时间', width: 110 },
+                            { field: 'GISPlace', title: 'Gis位置', width: 110 },
+                            { field: 'processpreson', title: '换表人', width: 110 },
+                            { title: 'maxrange', title: '最大量程', width: 110 },
+                        ]]
+                        , page: true
+                        , limit: 10
                     });
-                }
-            });
+                });  
+                console.log(autoaccount); 
+            }); 
             modelinfo = "换表记录";
             $("#modelinfo").html(modelinfo);
         }
@@ -348,7 +370,7 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
                                             table.on('tool(mr_record_allinfo)', function (d) {
                                                 var data = d.data;
                                                 var event = d.event;
-                                                if (data.event == 'see_recheckedpircure') {
+                                                if (event == 'see_recheckedpircure') {
                                                     admin.popup({
                                                         id: "rechecked_pircure",
                                                         area: ['800px', '500px'],
@@ -644,6 +666,30 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
         }
 
     });
+    //监听地理位置按钮
+    form.on('submit(geographical_position_button)', function () {
+        if (autoaccount == "") {
+            layer.msg("请选择用户！！");
+        }
+        else {
+            admin.req({
+                url: layui.setter.requesturl + '/api/OneUserManagement/geograpposition',
+                method: 'get',
+                data: {
+                    "autoaccount": autoaccount,
+                },
+                success: function (d) {
+                    view('UserSel_Home_Conterior').render('OneUserManagement/GeograpPosition', d).done(function () {
+                        GPS(d.data);
+                        console.log(d.data);
+                        form.render();
+                    });
+                }
+            });
+            modelinfo = "地理位置";
+            $("#modelinfo").html(modelinfo);
+        }
+    });
     //监听故障维修按钮
     form.on('submit(troubleshooting_button)', function () {
         console.log("故障");
@@ -674,5 +720,50 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form'], function (exports) {
         }
 
     });
+    //显示地图的方法
+    function GPS(uploadGPS) {
+        //百度地图渲染
+        bMap.render({
+            ak: 'D2b4558ebed15e52558c6a766c35ee73'//一旦设置了全局，此（发起请求的相关）参数就会失效。
+            , https: true
+            , done: function () {
+                var points = [];
+                var data = [];
+                for (var i = 0; i < uploadGPS.length; i++) {
+                    var obj = uploadGPS[i];
+                    var ll = obj.split(",");
+                    var arr = [ll[0], ll[1]];
+                    data[data.length] = arr;
+                }
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+
+                    points.push(new BMap.Point(data[i][0], data[i][1]));
+                }
+                var options = {
+                    size: BMAP_POINT_SIZE_SMALL,
+                    shape: BMAP_POINT_SHAPE_STAR,
+                    color: '#0f0'
+                }
+                var map = new BMap.Map("BaiDuPagecontainer2");
+                map.centerAndZoom("常德", 12);
+                map.enableScrollWheelZoom(true);//开启鼠标滚轮缩放
+                map.addControl(new BMap.NavigationControl());
+                map.addControl(new BMap.ScaleControl());
+                map.addControl(new BMap.OverviewMapControl({ isOpen: true }));
+                var polyline = new BMap.Polyline(points, options);
+                console.log(map);
+                map.addOverlay(polyline);  // 添加Overlay
+                //添加海量点
+                for (var i = 0, pointslen = points.length; i < pointslen; i++) {
+                    var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
+                    var marker = new BMap.Marker(point); //将点转化成标注点
+                    map.addOverlay(marker);  //将标注点添加到地图上
+                    //通过drivingroute获取一条路线的point
+                }
+            }
+
+        });
+    }
     exports('console', {});
 });

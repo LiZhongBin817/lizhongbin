@@ -1,0 +1,24 @@
+﻿<title>GPS定位</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+ 
+
+<script type="text/javascript">
+    layui.use(['view', 'table','bMap','admin','form'], function () {
+        var view = layui.view,
+            table = layui.table,
+            bMap = layui.bMap,
+            form=layui.form,
+            admin = layui.admin;
+        //bMap.render(function () {//这里直接写回调函数即可
+        //    var map = new BMap.Map("BaiDuPagecontainer1"); //js严格区分大小写，因此BMap和bMap是两个不同变量。
+        //    var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
+        //    map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
+        //    console.log(map);
+        //});
+        console.log(bMap);
+        form.render();
+
+    });
+</script>

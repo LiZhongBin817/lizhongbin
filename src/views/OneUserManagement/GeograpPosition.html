@@ -1,0 +1,19 @@
+﻿<title>GPS定位</title>
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+ 
+<div id="BaiDuPagecontainer2" style="height:800px;width:670px">
+</div>
+<script>
+    layui.use(['admin','bMap', 'table', 'view', 'form'], function () {
+        var view = layui.view,
+            table = layui.table,
+            bMap = layui.bMap,
+            form = layui.form,
+            admin = layui.admin;
+        form.render();
+
+    });
+</script>
+

@@ -46,6 +46,7 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
         ]],
         page: true,
         limit: 5,
+        height: $(document).height() - $('#watermeteruser').offset().top - 280,
         limits: [5, 10, 15]
     });
     //监听新增用户的提交按钮

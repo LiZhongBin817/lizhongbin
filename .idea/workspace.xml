@@ -2,9 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23ae6571-3932-4d6a-b9ed-4dc54e2db774" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/FETCH_HEAD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/OneUserManagement/ChangeWater.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/OneUserManagement/GPS_Geo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/OneUserManagement/GeograpPosition.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/slnx.sqlite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/DataManage/ReCheckData.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DataManage/ReCheckData.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/CarryOverDataManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CarryOverDataManage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DSMShow.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DSMShow.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DataSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DataSearch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DetailManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DetailManage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/MeterReader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MeterReader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ReadAnalysis_Sum.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ReadAnalysis_Sum.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/RegionManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/RegionManage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/console.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/console.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/mr_bookManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/mr_bookManage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/watermeterManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/watermeterManage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/DataSearch/DataSearch.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DataSearch/DataSearch.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DataSearch/DataSearch.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DataSearch/DataSearch.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/MeterReadingManage/MeterReadingPlan_Manage/DistributionMeterReading.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MeterReadingManage/MeterReadingPlan_Manage/DistributionMeterReading.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/MeterReadingManage/MeterReadingPlan_Manage/ShowMeterPlan.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MeterReadingManage/MeterReadingPlan_Manage/ShowMeterPlan.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/ReadAnalysis/ReadAnalysisSum.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ReadAnalysis/ReadAnalysisSum.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/RegionManage/AreaAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/RegionManage/AreaAdd.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/RegionManage/AreaShow.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/RegionManage/AreaShow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/RegionManage/RegionAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/RegionManage/RegionAdd.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/RegionManage/RegionEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/RegionManage/RegionEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/RegionManage/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/RegionManage/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/SysManage/Authority_Management/AuthorityShow.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/SysManage/Authority_Management/AuthorityShow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/user/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/user/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/watermeterManage/AddUser.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/watermeterManage/AddUser.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/watermeterManage/AddWatermeter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/watermeterManage/AddWatermeter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/watermeterManage/ChangeWaterMeter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/watermeterManage/ChangeWaterMeter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/watermeterManage/EditUserinfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/watermeterManage/EditUserinfo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/watermeterManage/EditWatermeterInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/watermeterManage/EditWatermeterInfo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/watermeterManage/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/watermeterManage/list.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +84,11 @@
       <workItem from="1573466719051" duration="7559000" />
       <workItem from="1574481185441" duration="2956000" />
       <workItem from="1574496334073" duration="3079000" />
-      <workItem from="1574505154927" duration="20280000" />
+      <workItem from="1574505154927" duration="20914000" />
+      <workItem from="1574604738813" duration="175000" />
+      <workItem from="1574653967839" duration="119000" />
+      <workItem from="1574654236303" duration="21000" />
+      <workItem from="1574667291654" duration="6077000" />
     </task>
     <servers />
   </component>

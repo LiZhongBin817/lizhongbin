@@ -49,7 +49,8 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
         page: true,
         limit: 10,
         toolbar: '#book_toolbarDemo',
-        limits: [5, 10, 15]
+        limits: [5, 10, 15],
+        height: $(document).height() - $('#Book').offset().top - 280
     });
     //监听抄表册查询
     form.on('submit(book_polling)', function (obj) {

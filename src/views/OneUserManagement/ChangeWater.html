@@ -1,0 +1,23 @@
+﻿<title>换表记录</title>
+
+<script type="text/html" template>
+    <link rel="stylesheet" href="{{layui.setter.base}}style/admin.css?v={{layui.admin.v}}-1" media="all" />
+</script>
+<div class="layui-fluid">
+    <div class="layui-row" lay-filter="test">
+        <div class="layui-col">
+            <table id="ChangeWater_Table" lay-filter="ChangeWater" class="layui-hide"></table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    layui.use(['admin', 'table', 'form', 'view'], function () {
+        var admin = layui.admin
+            , table = layui.table
+            , form = layui.form
+            , view = layui.view;
+       
+    });
+</script>

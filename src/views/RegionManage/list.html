@@ -14,7 +14,7 @@
                 </div>
                 <div class="layui-inline">
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="region_query">
+                        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="region_query" style="border-radius: 3px">
                             查询
                         </button>
                     </div>
@@ -27,11 +27,11 @@
     </div>
 </div>
 <script type="text/html" id="region_barDemo">
-    <button class="layui-btn layui-btn-warm " lay-event="region_edit">编辑</button>
-    <button class="layui-btn layui-btn-danger " lay-event="region_delete">删除</button>
+    <button class="layui-btn layui-btn-sm layui-btn-warm " lay-event="region_edit" style="border-radius: 3px">编辑</button>
+    <button class="layui-btn layui-btn-sm layui-btn-danger " lay-event="region_delete" style="border-radius:3px">删除</button>
 </script>
 <script type="text/html" id="region_toolbarDemo">
-    <a class="layui-btn layui-btn-warm " lay-event="region_add">添加区域</a>
+    <a class="layui-btn layui-btn-sm " lay-event="region_add" style="border-radius: 3px">添加区域</a>
 </script>
 <script>
     layui.use('RegionManage', layui.factory('RegionManage')).use(['admin', 'RegionManage', 'table', 'view', 'form'], function () {
