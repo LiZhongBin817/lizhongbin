@@ -115,7 +115,6 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
     //监听查询
     form.on('submit(DSM_polling)', function (obj) {
         var field = obj.field;
-        console.log(field);
         table.reload('DSMShowtable', {
             where: {
                 "DSMNumber": field.DSMNumber,
@@ -141,8 +140,6 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
         Resdata.push(util.toDateString(data.DSMTime));//将时间格式规范化
         ID = obj.data.DSMID;
         Number = obj.data.DSMNumber;
-        console.log(ID);
-        console.log(Number);
         admin.req({
             url: layui.setter.requesturl + '/api/DispatchSheet/ShowDispatchedWorker',
             type: "post",
@@ -222,7 +219,6 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                 else if (event == "DSMAcceptance") {
                     if (Resdata.push(resdata.data)) {
                         if (resdata.code == 0) {
-                            console.log(data);
                             admin.popup({
                                 title: "受理操作",
                                 area: ['700px', '500px'],
@@ -243,10 +239,8 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                             DispatchedWorker = data.readerid;
                                             $("#ShowOperation_select").val(DispatchedWorker);
                                         });
-                                        console.log(Resdata[2]);
                                         form.render();
                                         form.on('submit(DSMShowAcceptance_submit)', function (Data) {
-                                            console.log(DispatchedWorker);
                                             LatestTime = Data.field.ShowOperation_operationtime;//最迟处理时间
                                             admin.req({
                                                 url: layui.setter.requesturl + '/api/DispatchSheet/AcceptanceOperation',
@@ -310,9 +304,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                         }
                                                     }
                                                     var files = document.getElementById('DSMShowOpdemo1');
-                                                    console.log(files);
                                                     var remark = document.getElementById('Handlingsituation');
-                                                    console.log(sresdata.data);
                                                     var senddata = {
                                                         "taskperiodname": sresdata.data[0].taskperiodname,
                                                         "faultid": sresdata.data[0].faultid,
@@ -324,9 +316,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                         "processsource": "后台管理系统",
                                                         "meternum": sresdata.data[0].meternum
                                                     };
-                                                    console.log(JSON.stringify(senddata));
                                                     FaultArray.push(senddata);
-                                                    console.log(FaultArray);
                                                     admin.req({
                                                         url: layui.setter.requesturl + '/api/DispatchSheet/Processingoperations',
                                                         data: {
@@ -367,7 +357,6 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                     maxmin: true,
                                     id: 'Processinformation',
                                     success: function (layero, index) {
-                                        console.log(resdata.data);
                                         view('Processinformation').render('DispatchSheetManagement/DSMShowProcessinformation', resdata.data).done(function () {
                                             //隐藏提交按钮
                                             if (obj.data.DSMStatus==3) {
@@ -412,8 +401,6 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                             form.on('submit(DSMShowProcessinformation_submit)', function (obj) {
                                                 var fields = obj.field;
                                                 var faultprocessid = resdata.data[6];
-                                                console.log(fields.ProcessResult);
-                                                console.log(faultprocessid);
                                                 admin.req({
                                                     url: layui.setter.requesturl + '/api/DispatchSheet/Failureinformationreview',
                                                     type: "post",
@@ -516,8 +503,6 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
     //监听受理操作中的下拉框
     form.on('select(DSMShowOperation_select)', function (data) {
         DispatchedWorker = data.value;
-        console.log(data.value);
-        console.log(DispatchedWorker);
     });
  
     form.on('select(DSMShowProcessingOperationShow_DealPeople)', function (data) {
