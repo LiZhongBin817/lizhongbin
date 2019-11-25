@@ -634,30 +634,35 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap'], function (expo
                 success: function (d) {
                     //页面渲染，地址自己填
                     view('UserSel_Home_Conterior').render('CameraRecord/CameraRecord', d).done(function () {
-                        $("#CameraRecord_autoaccount").val(d.data[0].autoaccount);
-                        $("#CameraRecord_autoaccountname").val(d.data[0].username);
-                        $("#CameraRecord_WaterNumber").val(d.data[0].meternum);
-                        $("#CameraRecord_Address").val(d.data[0].address);
-                        var rhtml = "";
-                        for (var i = 0; i < d.data[1].length; i++) {
-                            if (d.data[1][i].phototype == 1) {
-                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="类型:表盘抄表图片"><div >编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
+                        console.log(d.data);
+                        if (d.data!=null) {
+                            $("#CameraRecord_autoaccount").val(d.data[0].autoaccount);
+                            $("#CameraRecord_autoaccountname").val(d.data[0].username);
+                            $("#CameraRecord_WaterNumber").val(d.data[0].meternum);
+                            $("#CameraRecord_Address").val(d.data[0].address);
+                            var rhtml = "";
+                            console.log(d.data);
+                            for (var i = 0; i < d.data[1].length; i++) {
+                                console.log(d.data[1][i].photourl);
+                                if (d.data[1][i].phototype == 1) {
+                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].photourl}" title="类型:表盘抄表图片"><div >编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
+                                }
+                                else if (d.data[1][i].phototype == 2) {
+                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].photourl}" title="类型:现场图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
+                                }
+                                else if (d.data[1][i].phototype == 3) {
+                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].photourl}" title="类型:故障处理后图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
+                                }
+                                else if (d.data[1][i].phototype == 4) {
+                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].photourl}" title="类型:故障图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
+                                }
+                                else {
+                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].photourl}" title="类型:其他类型图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
+                                }
                             }
-                            else if (d.data[1][i].phototype == 2) {
-                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="类型:现场图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
-                            }
-                            else if (d.data[1][i].phototype == 3) {
-                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="类型:故障处理后图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
-                            }
-                            else if (d.data[1][i].phototype == 4) {
-                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="类型:故障图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
-                            }
-                            else {
-                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="类型:其他类型图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
-                            }
+                            $("#CameraRecord_Photo").html(rhtml);
+                            form.render(null, 'CameraRecord');
                         }
-                        $("#CameraRecord_Photo").html(rhtml);
-                        form.render(null, 'CameraRecord');
                     });
                 }
             });
@@ -706,12 +711,13 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap'], function (expo
                 success: function (d) {
                     //页面渲染，地址自己填
                     view('UserSel_Home_Conterior').render('Troubleshooting/TroubleshootingShow', d).done(function () {
-                        form.render();
-                        $("#Trouble_autoaccount").val(d.data.autoaccount);
-                        $("#Trouble_autoaccountname").val(d.data.username);
-                        $("#Trouble_WaterNumber").val(d.data.meternum);
-                        $("#Trouble_Address").val(d.data.address);
-
+                        if (d.data!=null) {
+                            form.render();
+                            $("#Trouble_autoaccount").val(d.data.autoaccount);
+                            $("#Trouble_autoaccountname").val(d.data.username);
+                            $("#Trouble_WaterNumber").val(d.data.meternum);
+                            $("#Trouble_Address").val(d.data.address);
+                        }
                     });
                 }
             });
