@@ -129,6 +129,7 @@
             limit: 10,
             toolbar: "#toolbarDemo",
             limits: [5, 10, 15],
+            height: $(document).height() - $('#AuthorityShow_power').offset().top - 280,
             done:function(){
                 let p = new Promise((resolve, reject) => {
                     admin.req({

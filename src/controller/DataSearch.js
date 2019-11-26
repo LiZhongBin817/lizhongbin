@@ -7,7 +7,6 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
         , view = layui.view
         , form = layui.form
         , $ = layui.$
-        , load = layer.load(3)
         , admin = layui.admin
         , laydate = layui.laydate 
 
@@ -58,11 +57,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
         , height: $(document).height() - $('#dataSearchInfo_Table').offset().top - 330
         , toolbar: true
         , limit: 10
-        , limits: [5, 10, 15]
-        , done: function () {
-            layer.close(load);
-            console.log("zhixle");
-        }
+        , limits: [5, 10, 15] 
     });
 
     //下拉框渲染 

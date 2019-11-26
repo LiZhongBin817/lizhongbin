@@ -30,6 +30,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
         ]],
         page: true,
         limit: 5,
+        height: $(document).height() - $('#region_table').offset().top - 280,
         toolbar: "#region_toolbarDemo",
         limits: [5, 10, 15]
     });

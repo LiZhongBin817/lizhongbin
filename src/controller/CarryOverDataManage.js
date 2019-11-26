@@ -50,7 +50,7 @@ layui.define(['table', 'view', 'form', 'admin', 'jquery'], function (exports) {
         ]]
         , toolbar: '#headerbutton'
         , page: true
-        , height: $(document).height() - $('#CarryDataShowTable').offset().top - 50
+        , height: $(document).height() - $('#CarryDataShowTable').offset().top - 280
         , limit: 10
         , limits: [5, 10, 15]
         , id: 'studentTable'

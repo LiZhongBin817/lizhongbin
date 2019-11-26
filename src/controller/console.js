@@ -370,7 +370,7 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap'], function (expo
                                             table.on('tool(mr_record_allinfo)', function (d) {
                                                 var data = d.data;
                                                 var event = d.event;
-                                                if (data.event == 'see_recheckedpircure') {
+                                                if (event == 'see_recheckedpircure') {
                                                     admin.popup({
                                                         id: "rechecked_pircure",
                                                         area: ['800px', '500px'],
@@ -475,22 +475,145 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap'], function (expo
         }
         else {
             admin.req({
-                url: layui.setter.request + '',
-                method: '',
+                url: layui.setter.requesturl + '/api/Recordpaid/Waittopay',
+                method: 'get',
                 data: {
                     "autoaccount": autoaccount,
                 },
                 success: function (d) {
-                    //页面渲染，地址自己填
-                    view('UserSel_Home_Conterior').render('', d).done(function () {
+                    view('UserSel_Home_Conterior').render('Recordpaid/Recordpaid', d.data).done(function () {
+                        recordPaidtable(d.data);
+                        console.log(d.data);
 
+                        function recordPaidtable(data) {
+                            table.render({
+                                elem: '#RecordPaidtable',
+                                data: data,
+                                cols: [[
+                                    { title: '序号', width: 70, type: 'numbers', },
+                                    { field: 'payseq', title: '账单流水号', width: 80 },
+                                    { field: 'bmttype', title: '用水类型', width: 80 },
+                                    { field: 'taskperiodname', title: '账单月份', width: 80 },
+                                    { field: 'lastwaternum', title: '上期用量', width: 80 },
+                                    { field: 'carrywatercount', title: '本期用量', width: 80 },
+                                    { field: 'startnum', title: '起码', width: 80 },
+                                    { field: 'endnum', title: '止码', width: 80 },
+                                    { field: 'starttime', title: '本期起止日期', width: 80 },
+                                    { field: 'waterfee', title: '账单金额', width: 80 },
+                                    { field: 'cbalance', title: '账户余额', width: 80 },
+                                ]],
+                                page: true,
+                                limit: 5,
+                                limits: [5, 10, 15],
+
+                            });
+                        }
+
+                        form.on('submit(ButtonF)', function (b) {
+                            console.log(b.data);
+                            var field = b.field;
+                            admin.req({
+                                url: layui.setter.requesturl + '/api/Recordpaid/LookWaittopay',
+                                method: 'get',
+                                data: {
+                                    "autoaccount":autoaccount,
+                                    "starttime": field.starttime,
+                                    "endtime": field.endtime
+                                },
+                                success: function (obj) {
+                                    console.log(obj.data);
+                                    if (obj.msg == "OK" && obj.data.length > 0) {
+                                            recordPaidtable(obj.data);                                    
+                                    }
+                                    else {
+                                        var a = new Array();
+                                        recordPaidtable(a);
+                                        layer.msg("无数据");
+                                    }
+                                }
+                            });
+                        });
                     });
                 }
             });
+
             modelinfo = "待缴记录";
             $("#modelinfo").html(modelinfo);
         }
 
+    });
+
+    //缴费记录
+    form.on('submit(bill_record_button)', function () {
+        if (autoaccount == "") {
+            layer.msg("请选择用户！！");
+        }
+        else {
+            admin.req({
+                url: layui.setter.requesturl + '/api/Billrecord/billread',
+                method: 'get',
+                data: {
+                    "autoaccount": autoaccount,
+                },
+                success: function (d) {
+                    view('UserSel_Home_Conterior').render('Billrecord/Billrecord', d.data).done(function () {
+                        Billrecordtable(d.data);
+
+                        function Billrecordtable(data) {
+                            table.render({
+                                elem: '#Billrecordtable',
+                                data: data,
+                                cols: [[
+                                    { title: '序号', width: 70, type: 'numbers', },
+                                    { field: 'payseq', title: '账单流水号', width: 80 },
+                                    { field: 'bmttype', title: '用水类型', width: 80 },
+                                    { field: 'taskperiodname', title: '账单月份', width: 80 },
+                                    { field: 'lastwaternum', title: '上期用量', width: 80 },
+                                    { field: 'carrywatercount', title: '本期用量', width: 80 },
+                                    { field: 'startnum', title: '起码', width: 80 },
+                                    { field: 'endnum', title: '止码', width: 80 },
+                                    { field: 'starttime', title: '本期起止日期', width: 80 },
+                                    { field: 'waterfee', title: '账单金额', width: 80 },
+                                    { field: 'cbalance', title: '账户余额', width: 80 },
+                                ]],
+                                page: true,
+                                limit: 5,
+                                limits: [5, 10, 15],
+
+                            });
+                        }
+                        form.on('submit(Button002)', function (b) {
+                            console.log(b.data);
+                            var field = b.field;
+                            admin.req({
+                                url: layui.setter.requesturl + '/api/Billrecord/Lookbillread',
+                                method: 'get',
+                                data: {
+                                    "autoaccount": field.autoaccount,
+                                    "starttime": field.startime001,
+                                    "endtime": field.endtime001
+                                },
+                                success: function (obj) {                                 
+                                    if (obj.msg == "OK" && obj.data.length > 0) {
+
+                                        view('UserSel_Home_Conterior').render('Billrecord/Billrecord', obj.data).done(function () {
+                                            Billrecordtable(obj.data);
+                                        });
+                                    }
+                                    else {
+                                        var a = new Array();
+                                        Billrecordtable(a);
+                                        layer.msg("无数据");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+            modelinfo = "缴费记录";
+            $("#modelinfo").html(modelinfo);
+        }
     });
     //监听照片记录按钮
     form.on('submit(photo_record_button)', function () {
@@ -511,30 +634,35 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap'], function (expo
                 success: function (d) {
                     //页面渲染，地址自己填
                     view('UserSel_Home_Conterior').render('CameraRecord/CameraRecord', d).done(function () {
-                        $("#CameraRecord_autoaccount").val(d.data[0].autoaccount);
-                        $("#CameraRecord_autoaccountname").val(d.data[0].username);
-                        $("#CameraRecord_WaterNumber").val(d.data[0].meternum);
-                        $("#CameraRecord_Address").val(d.data[0].address);
-                        var rhtml = "";
-                        for (var i = 0; i < d.data[1].length; i++) {
-                            if (d.data[1][i].phototype == 1) {
-                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="类型:表盘抄表图片"><div >编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
+                        console.log(d.data);
+                        if (d.data!=null) {
+                            $("#CameraRecord_autoaccount").val(d.data[0].autoaccount);
+                            $("#CameraRecord_autoaccountname").val(d.data[0].username);
+                            $("#CameraRecord_WaterNumber").val(d.data[0].meternum);
+                            $("#CameraRecord_Address").val(d.data[0].address);
+                            var rhtml = "";
+                            console.log(d.data);
+                            for (var i = 0; i < d.data[1].length; i++) {
+                                console.log(d.data[1][i].photourl);
+                                if (d.data[1][i].phototype == 1) {
+                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].photourl}" title="类型:表盘抄表图片"><div >编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
+                                }
+                                else if (d.data[1][i].phototype == 2) {
+                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].photourl}" title="类型:现场图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
+                                }
+                                else if (d.data[1][i].phototype == 3) {
+                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].photourl}" title="类型:故障处理后图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
+                                }
+                                else if (d.data[1][i].phototype == 4) {
+                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].photourl}" title="类型:故障图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
+                                }
+                                else {
+                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].photourl}" title="类型:其他类型图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
+                                }
                             }
-                            else if (d.data[1][i].phototype == 2) {
-                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="类型:现场图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
-                            }
-                            else if (d.data[1][i].phototype == 3) {
-                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="类型:故障处理后图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
-                            }
-                            else if (d.data[1][i].phototype == 4) {
-                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="类型:故障图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
-                            }
-                            else {
-                                rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${d.data[1][i].url}" title="类型:其他类型图片"><div>编号:${d.data[1][i].photocode}</div><div>时间:${d.data[1][i].phototime} 拍摄人:${d.data[1][i].createpeople}</div></div>`;
-                            }
+                            $("#CameraRecord_Photo").html(rhtml);
+                            form.render(null, 'CameraRecord');
                         }
-                        $("#CameraRecord_Photo").html(rhtml);
-                        form.render(null, 'CameraRecord');
                     });
                 }
             });
@@ -583,12 +711,13 @@ layui.define(['admin', 'view', 'table', 'jquery', 'form','bMap'], function (expo
                 success: function (d) {
                     //页面渲染，地址自己填
                     view('UserSel_Home_Conterior').render('Troubleshooting/TroubleshootingShow', d).done(function () {
-                        form.render();
-                        $("#Trouble_autoaccount").val(d.data.autoaccount);
-                        $("#Trouble_autoaccountname").val(d.data.username);
-                        $("#Trouble_WaterNumber").val(d.data.meternum);
-                        $("#Trouble_Address").val(d.data.address);
-
+                        if (d.data!=null) {
+                            form.render();
+                            $("#Trouble_autoaccount").val(d.data.autoaccount);
+                            $("#Trouble_autoaccountname").val(d.data.username);
+                            $("#Trouble_WaterNumber").val(d.data.meternum);
+                            $("#Trouble_Address").val(d.data.address);
+                        }
                     });
                 }
             });

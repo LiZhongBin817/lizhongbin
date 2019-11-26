@@ -9,7 +9,6 @@ layui.define(['table', 'view', 'form'], function (exports) {
         , view = layui.view
         , form = layui.form
         , $ = layui.$
-        , load = layer.load(3)
         , admin = layui.admin;
 
     //表格渲染
@@ -47,13 +46,10 @@ layui.define(['table', 'view', 'form'], function (exports) {
                 { title: '操作', width: 250, toolbar: '#barDemo1', align: 'center', fixed: 'right' }
             ]]
         , page: true
-        , limit: 20
+        , limit: 10
         , toolbar: '#toolbarDemo2'
-        , limits: [20, 30, 40]
-        , done: function () {
-            layer.close(load);
-        }
-
+        ,height: $(document).height() - $('#MR-Info').offset().top - 280
+        , limits: [5, 10, 15]
     });
 
     //监听查询

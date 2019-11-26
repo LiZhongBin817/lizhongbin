@@ -8,7 +8,6 @@ layui.define(['table', 'view', 'form','admin'], function (exports) {
         , view = layui.view
         , form = layui.form
         , $ = layui.$
-        , load = layer.load(3)
         , admin = layui.admin;
     //表格渲染
     table.render({
@@ -64,11 +63,9 @@ layui.define(['table', 'view', 'form','admin'], function (exports) {
             },
         ]]
         , page: true
-        , limit: 20
-        , limits: [20, 30, 40]
-        , done: function () {
-            layer.close(load);
-        }
+        , limit: 10
+        , limits: [5, 10, 15]
+        ,height: $(document).height() - $('#detailManageInfo_Table').offset().top - 290
     });
     //监听查询
     form.on('submit(DetailInfoSearch)', function (obj) {
