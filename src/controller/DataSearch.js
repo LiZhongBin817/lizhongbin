@@ -61,6 +61,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
         , limits: [5, 10, 15]
         , done: function () {
             layer.close(load);
+            console.log("zhixle");
         }
     });
 

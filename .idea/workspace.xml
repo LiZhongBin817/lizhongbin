@@ -4,12 +4,8 @@
     <list default="true" id="23ae6571-3932-4d6a-b9ed-4dc54e2db774" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/slnx.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DetailManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DetailManage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/console.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/console.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowAcceptanceOperation.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowAcceptanceOperation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowPhoto.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowPhoto.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowProcessingOperation.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DispatchSheetManagement/DSMShowProcessingOperation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DataSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DataSearch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/DataSearch/DataSearch.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DataSearch/DataSearch.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,12 +20,14 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -57,6 +55,9 @@
       <workItem from="1574481185441" duration="2956000" />
       <workItem from="1574496334073" duration="3079000" />
       <workItem from="1574505154927" duration="18930000" />
+      <workItem from="1574675270451" duration="64000" />
+      <workItem from="1574682967067" duration="43000" />
+      <workItem from="1574683034717" duration="55000" />
     </task>
     <servers />
   </component>
