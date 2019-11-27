@@ -4696,6 +4696,86 @@
             创建人（来源于sys_userinfo）
             </summary>
         </member>
+        <member name="T:CDWM_MR.Model.Models.Entitys.v_recordpaid">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.Entitys.v_recordpaid.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.payseq">
+            <summary>
+            缴费流水号（t_d_payrecords:: payseq）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.waterfee">
+            <summary>
+            应收水费（按水价方案计算）
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.taskperiodname">
+            <summary>
+            任务账期201909
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.startnum">
+            <summary>
+            上期止码,本期起码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.endnum">
+            <summary>
+            本期止码,下期起码
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.lastwaternum">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.carrywatercount">
+            <summary>
+            冗余,用水量=本止-上止
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.starttime">
+            <summary>
+            上期抄表时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.endtime">
+            <summary>
+            本期抄表时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.bmttype">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.cbalance">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.autoaccount">
+            <summary>
+            自动帐号(系统自动生成)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.Entitys.v_recordpaid.address">
+            <summary>
+            家庭住址
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.v_rt_b_faultinfo">
             <summary>
             故障信息视图
@@ -5321,11 +5401,7 @@
             水表型号(t_b_watermodel::bmlid)
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.metertype">
-            <summary>
-            水表类型（t_b_watermetertype::bwtid）
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "P:CDWM_MR.Model.Models.v_watermeterinfo.metertype" -->
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.factory">
             <summary>
             生产厂商(t_b_factory::bftid)
@@ -5337,7 +5413,7 @@
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.readername">
-            <summary>
+            <summary> 
             
             </summary>
         </member>
@@ -5384,6 +5460,21 @@
         <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.posname">
             <summary>
             名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.installtime">
+            <summary>
+            初装时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.remark">
+            <summary>
+            换表原因
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_watermeterinfo.processpreson">
+            <summary>
+            更换人
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_wateruserinfo">

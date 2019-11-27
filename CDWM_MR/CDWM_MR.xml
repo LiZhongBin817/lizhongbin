@@ -322,6 +322,30 @@
             基类控制器
             </summary>
         </member>
+        <member name="T:CDWM_MR.Controllers.BillrecordController">
+            <summary>
+            账单记录
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BillrecordController.billread(System.String,System.Int32,System.Int32)">
+            <summary>
+            显示全部数据
+            </summary>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.BillrecordController.Lookbillread(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            传值时间回来查询
+            </summary>
+            <param name="autoaccount"></param>
+            <param name="starttime"></param>
+            <param name="endtime"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.BookManageController">
             <summary>
             抄表册管理
@@ -1202,6 +1226,31 @@
             <param name="ID"></param>
             <returns></returns>
         </member>
+        <member name="T:CDWM_MR.Controllers.OneUserManagementController">
+            <summary>
+            用户一站式管理之换表记录和地理位置
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.OneUserManagementController.#ctor(CDWM_MR.IServices.Content.Iv_watermeterinfoServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="B_WatermetersServices"></param>
+        </member>
+        <member name="M:CDWM_MR.Controllers.OneUserManagementController.changewater(System.String,System.Int32,System.Int32)">
+            <summary>
+            用户换表记录
+            </summary>
+            <param name="autoaccount"></param>
+            <returns></returns> 
+        </member>
+        <member name="M:CDWM_MR.Controllers.OneUserManagementController.geograpposition(System.String)">
+            <summary>
+            地理位置
+            </summary>
+            <param name="autoaccount"></param>
+            <returns></returns>
+        </member>
         <member name="T:CDWM_MR.Controllers.OprationManageController">
             <summary>
             权限管理
@@ -1291,6 +1340,32 @@
             </summary>
             <param name="JsonData"></param>
             <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CDWM_MR.Controllers.RecordpaidController">
+            <summary>
+            待缴记录
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RecordpaidController.Waittopay(System.String,System.Int32,System.Int32)">
+            <summary>
+            显示全部数据
+            </summary>
+            <param name="starttime"></param>
+            <param name="endtime"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CDWM_MR.Controllers.RecordpaidController.LookWaittopay(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            传值时间回来查询
+            </summary>
+            <param name="autoaccount"></param>
+            <param name="starttime"></param>
+            <param name="endtime"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
             <returns></returns>
         </member>
         <member name="T:CDWM_MR.Controllers.RegionManageController">
