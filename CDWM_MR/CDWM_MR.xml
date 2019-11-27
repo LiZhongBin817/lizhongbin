@@ -998,7 +998,7 @@
             抄表计划
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.#ctor(CDWM_MR.IServices.Content.Imr_planinfoServices,CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices)">
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.#ctor(CDWM_MR.IServices.Content.Imr_planinfoServices,CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,CDWM_MR.Common.HttpContextUser.IUser)">
             <summary>
             构造函数注入
             </summary>

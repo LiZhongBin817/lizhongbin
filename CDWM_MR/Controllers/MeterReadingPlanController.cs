@@ -1,4 +1,5 @@
 ﻿using CDWM_MR.Common.Helper;
+using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IServices.Content;
 using CDWM_MR.Model;
 using CDWM_MR.Model.Models;
@@ -31,6 +32,7 @@ namespace CDWM_MR.Controllers
         readonly Imr_b_readerServices mr_b_readerServices;
         readonly Imr_b_bookinfoServices mr_b_bookinfoServices;
         readonly Iv_taskinfoServices v_taskinfoServices;
+        readonly IUser _user;
 
         #endregion
 
@@ -43,13 +45,14 @@ namespace CDWM_MR.Controllers
         /// <param name="imr_B_ReaderServices"></param>
         /// <param name="imr_B_BookinfoServices"></param>
         /// <param name="iv_TaskinfoServices"></param>
-        public MeterReadingPlanController(Imr_planinfoServices imr_PlaninfoServices, Imr_taskinfoServices imr_Taskinfoservices, Imr_b_readerServices imr_B_ReaderServices, Imr_b_bookinfoServices imr_B_BookinfoServices, Iv_taskinfoServices iv_TaskinfoServices)
+        public MeterReadingPlanController(Imr_planinfoServices imr_PlaninfoServices, Imr_taskinfoServices imr_Taskinfoservices, Imr_b_readerServices imr_B_ReaderServices, Imr_b_bookinfoServices imr_B_BookinfoServices, Iv_taskinfoServices iv_TaskinfoServices, IUser user)
         {
             mr_planinfoServices = imr_PlaninfoServices;
             mr_taskinfoServices = imr_Taskinfoservices;
             mr_b_readerServices = imr_B_ReaderServices;
             mr_b_bookinfoServices = imr_B_BookinfoServices;
             v_taskinfoServices = iv_TaskinfoServices;
+            _user = user;
         }
         #endregion
 
@@ -279,9 +282,9 @@ namespace CDWM_MR.Controllers
                 taskinfo.readerid = 1;
                 taskinfo.taskname = "任务单" + alllist.Count;
                 taskinfo.tasknumber = (DateTime.Now.Year + DateTime.Now.Month + alllist[alllist.Count - 1].ID).ToString();
-                taskinfo.createpeople = "1";
+                taskinfo.createpeople = _user.Name;
                 taskinfo.createtime = DateTime.Now;
-                taskinfo.taskperiodname = "1";
+                taskinfo.taskperiodname = DateTime.Now.Year.ToString()+DateTime.Now.Month;
                 tasklist.Add(taskinfo);
             }
             //把分配的抄表册数据添加到mr_taskinfo表中
@@ -289,7 +292,9 @@ namespace CDWM_MR.Controllers
             await mr_taskinfoServices.Add(tasklist);
             return new MessageModel<object>
             {
-                data = null
+                code=0,
+                data = null,
+                msg="成功"
             };
         }
         #endregion
