@@ -167,8 +167,9 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                             "planid": planid
                         },
                         success: function (data) {
-                            if (data.msg == "ok") {
+                            if (data.code=0) {
                                 layer.msg("分配成功");
+                                table.reload('DistributionMeterReading');
                             }
                             else {
                                 layer.msg("分配失败");
@@ -199,6 +200,8 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                                 table_data = res.data;
                                 //监听分配抄表册表格中复选框
                                 table.on('checkbox(DMR)', function (obj) {
+                                    console.log(obj);
+
                                     if (obj.checked == true) {
                                         if (obj.type == 'one') {
                                             accounts.push(obj.data.Show_Number);
