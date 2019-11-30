@@ -2,9 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23ae6571-3932-4d6a-b9ed-4dc54e2db774" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/前台代码.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/slnx.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DataSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DataSearch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DetailManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DetailManage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/mr_bookManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/mr_bookManage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/DataManage/ReCheckData.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DataManage/ReCheckData.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/DataManage/dataManageTable.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DataManage/dataManageTable.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/DataSearch/DataSearch.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DataSearch/DataSearch.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/DetailManage/DetailManage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/DetailManage/DetailManage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/ReadAnalysis/ReadAnalysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ReadAnalysis/ReadAnalysis.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/ReadAnalysis/ReadAnalysisSum.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ReadAnalysis/ReadAnalysisSum.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/RegionManage/AreaEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/RegionManage/AreaEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/RegionManage/RegionAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/RegionManage/RegionAdd.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/RegionManage/RegionEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/RegionManage/RegionEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/SysManage/UserManange/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/SysManage/UserManange/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/mr_bookManage/DistrbuteReader.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/mr_bookManage/DistrbuteReader.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/mr_bookManage/DistributeUser.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/mr_bookManage/DistributeUser.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/mr_bookManage/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/mr_bookManage/list.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,12 +35,14 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -57,6 +75,8 @@
       <workItem from="1574654236303" duration="21000" />
       <workItem from="1574667291654" duration="6896000" />
       <workItem from="1574754504373" duration="619000" />
+      <workItem from="1574862813650" duration="1055000" />
+      <workItem from="1575082372855" duration="3380000" />
     </task>
     <servers />
   </component>

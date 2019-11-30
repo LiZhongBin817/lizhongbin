@@ -192,7 +192,7 @@ layui.define(['table', 'form', 'view', 'admin'], function (exports) {
                                 { field: 'areaname', title: '所属小区', width: 120 },
                                 { field: 'telephone', title: '用户电话', width: 120 },
                                 { title: '操作', width: 120,templet:function(d){
-                                    return '<button class="layui-btn layui-btn-sm" lay-event="deluser">删除</button>';
+                                    return '<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deluser">删除</button>';
                                     }
                                 }
                             ]],

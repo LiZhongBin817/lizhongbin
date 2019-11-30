@@ -57,7 +57,7 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate'], function (exports) {
         , height: $(document).height() - $('#dataSearchInfo_Table').offset().top - 330
         , toolbar: true
         , limit: 10
-        , limits: [5, 10, 15]
+        , limits: [5, 10, 15] 
     });
 
     //下拉框渲染 

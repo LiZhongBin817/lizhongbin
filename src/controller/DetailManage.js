@@ -26,24 +26,24 @@ layui.define(['table', 'view', 'form','admin'], function (exports) {
             { field: 'startnum', title: '上期读数', width: 110 },
             { field: 'inputdata', title: '本期读数', width: 110 },
             {
-                field: 'readtype', title: '抄表状态', width: 110, fixed: 'right',
+                field: 'readstatus', title: '抄表状态', width: 110, fixed: 'right',
                 templet: function (d) {
                     var intValue = "";
-                    if (d.readtype == null) {
+                    if (d.readstatus ==0) {
                         intValue = "未抄";
                     }
-                    else if (d.readtype == 1) {
+                    else if (d.readstatus == 1) {
                         intValue = "已抄";
                     }
-                    else if (d.readtype == 2) {
-                        intValue = "估抄";
+                    else if (d.readstatus == 2) {
+                        intValue = "已识别";
                     }
-                    else if (d.readtype == 3) {
-                        intValue = "异常";
+                    else if (d.readstatus == 3) {
+                        intValue = "已复审";
                     }
-                    else {
+                    else if (d.readstatus == 5){
 
-                        intValue = "正常";
+                        intValue = "已归档";
                     }
                     return intValue;
                 },
@@ -74,7 +74,7 @@ layui.define(['table', 'view', 'form','admin'], function (exports) {
             where: {
                 'ReaderName': field.ReaderName,
                 'bookno':field.bookno,
-                'readtype': field.readtype,
+                'readstatus': field.readstatus,
                 'page':1,
             }
         })
