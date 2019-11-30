@@ -36,7 +36,7 @@ namespace CDWM_MR.Controllers
         /// <summary>
         /// 展示应抄明细数据
         /// </summary>
-        /// <param name="readtype"></param>
+        /// <param name="readstatus"></param>
         /// <param name="ReaderName"></param>
         /// <param name="bookno"></param>
         /// <param name="page"></param>
@@ -44,26 +44,22 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ShowDetailInfo")]      
-        public async Task<TableModel<object>> ShowDetailInfo(string ReaderName, string bookno, int readtype, int page = 1, int limit = 20)
+        public async Task<TableModel<object>> ShowDetailInfo(string ReaderName, string bookno, int readstatus, int page = 1, int limit = 20)
         {
             PageModel<object> pageModel = new PageModel<object>();
             #region lambda拼接式
             Expression<Func<v_t_b_users_datainfo_watercarryover, bool>> wherelambda = c => true;
-            if ((readtype != 4&&readtype!=0))
+            if (readstatus != 0)
             {
-                if (readtype == 5)//前台传过来的数字5表示抄表状态为正常
+                if (readstatus == 4)//前台传过来的数字4表示抄表状态为未抄
                 {
-                    wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.readtype == 0);
+                    wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.readstatus == 0);
                 }
                 else
                 {
-                    wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.readtype == readtype);
+                    wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.readstatus == readstatus);
                 }       
-            }
-            if (readtype==4)//表示抄表状态为未抄
-            {
-                wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.inputdata==null);
-            }
+            }         
             if (!string.IsNullOrEmpty(ReaderName))
             {
                 wherelambda = PredicateExtensions.And<v_t_b_users_datainfo_watercarryover>(wherelambda, c => c.mrreadername .Contains( ReaderName));
@@ -85,7 +81,7 @@ namespace CDWM_MR.Controllers
                 bookno=c.bookno,
                 startnum=c.startnum,
                 inputdata=c.inputdata,
-                readtype=c.readtype,
+                readstatus = c.readstatus,
                 carrystatus=c.carrystatus,
             };
             pageModel = await _T_B_Users_Datainfo_WatercarryoverServices.QueryPage(wherelambda, expression, page, limit, "");

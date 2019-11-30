@@ -370,7 +370,6 @@ namespace CDWM_MR.Controllers
             {
                 AutoAccount.Add(item.userid);
             }
-
             b_Recheck.readdataid = mr_Datainfos.ID;
             b_Recheck.meternum = mr_Datainfos.meternum;
             b_Recheck.userid = mr_Datainfos.autoaccount;
@@ -405,9 +404,24 @@ namespace CDWM_MR.Controllers
             b_Recheck.createpeople = _user.Name;
             AddData.Add(b_Recheck);
             int b = await _B_RecheckServices.Add(AddData);
+            int readtype = 0;
+            if (mr_Datainfos.recheckresult=="实抄")
+            {
+                readtype = 1;
+            }
+            else if(mr_Datainfos.recheckresult == "估抄")                
+            {
+                readtype = 2;
+
+            }
+            else if (mr_Datainfos.recheckresult == "异常")
+            {
+                readtype = 3;
+            }
             //将抄表数据表中的审核状态改为了已审
             await _DatainfoServices.Update(c => new mr_datainfo {
-                recheckstatus=1
+                recheckstatus=1,
+               readtype= readtype,
             },c => c.autoaccount == b_Recheck.userid && c.taskperiodname == b_Recheck.taskperiodname);
             if (RecheckStatus==0)//审核通过将审核成功的数据添加到mr_datainfo表中的复审读数字段当中
             {

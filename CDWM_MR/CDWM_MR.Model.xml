@@ -5221,9 +5221,9 @@
             人为抄表数据
             </summary>
         </member>
-        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.readtype">
+        <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.readstatus">
             <summary>
-            抄表状态(0--默认;1--实抄;2--估抄;3--异常),根据gis位置进行判断
+            0--未抄;1--已抄回;2--已识别;3--已复审;4--已结转;5--已归档;6--其余未定义
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_t_b_users_datainfo_watercarryover.carrystatus">
