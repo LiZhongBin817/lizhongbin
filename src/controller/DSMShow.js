@@ -407,7 +407,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                     type: "post",
                                                     data: {
                                                         "result": fields.ProcessResult,
-                                                        "id": faultprocessid
+                                                        "id": ID
                                                     },
                                                     success: function (resdate) {
                                                         if (resdate.code==0) {
