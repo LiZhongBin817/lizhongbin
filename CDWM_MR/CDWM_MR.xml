@@ -1022,7 +1022,7 @@
             抄表计划
             </summary>
         </member>
-        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.#ctor(CDWM_MR.IServices.Content.Imr_planinfoServices,CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,CDWM_MR.Common.HttpContextUser.IUser)">
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.#ctor(CDWM_MR.IServices.Content.Imr_planinfoServices,CDWM_MR.IServices.Content.Imr_taskinfoServices,CDWM_MR.IServices.Content.Imr_b_readerServices,CDWM_MR.IServices.Content.Imr_b_bookinfoServices,CDWM_MR.IServices.Content.Iv_taskinfoServices,CDWM_MR.Common.HttpContextUser.IUser,CDWM_MR.IServices.Content.Imr_book_meterServices,CDWM_MR.IServices.Content.Imr_datainfoServices)">
             <summary>
             构造函数注入
             </summary>
@@ -1067,7 +1067,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.AllocationOfData(System.Int32,System.String[],System.Int32)">
+        <member name="M:CDWM_MR.Controllers.MeterReadingPlanController.AllocationOfData(System.Int32,System.String[],System.Int32[],System.Int32)">
             <summary>
             点击分配确认时 已完成
             </summary>

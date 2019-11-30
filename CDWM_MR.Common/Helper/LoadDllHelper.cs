@@ -32,10 +32,12 @@ namespace CDWM_MR.Common.Helper
 
         public static void TryLoadAssembly()
         {
-            //string path = "http://129.204.96.9:8088/images/Type_2/201911/Reader_CB001/Taskid_4/LCB0012019112917391924.jpg";
-            IntPtr pDll = LoadLibrary(@"C:\Users\34688\Desktop\opencvdll\sum\x64\Debug\sum.dll");
-            IntPtr pAddressOfFunctionToCall = GetProcAddress(pDll, "stctarr");
-            stctref = (dlgtStructRef)Marshal.GetDelegateForFunctionPointer(pAddressOfFunctionToCall, typeof(dlgtStructRef));
+            //Assembly entry = Assembly.GetEntryAssembly();
+            //string dir = Path.Combine(Path.GetDirectoryName(entry.Location),"sum.dll");
+            ////string path = "http://129.204.96.9:8088/images/Type_2/201911/Reader_CB001/Taskid_4/LCB0012019112917391924.jpg";
+            //IntPtr pDll = LoadLibrary(dir);
+            //IntPtr pAddressOfFunctionToCall = GetProcAddress(pDll, "stctarr");
+            //stctref = (dlgtStructRef)Marshal.GetDelegateForFunctionPointer(pAddressOfFunctionToCall, typeof(dlgtStructRef));
 
         }
 
