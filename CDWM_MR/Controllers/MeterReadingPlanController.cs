@@ -33,7 +33,8 @@ namespace CDWM_MR.Controllers
         readonly Imr_b_bookinfoServices mr_b_bookinfoServices;
         readonly Iv_taskinfoServices v_taskinfoServices;
         readonly IUser _user;
-
+        readonly Imr_book_meterServices mr_book_meterServices;
+        readonly Imr_datainfoServices mr_datainfoServices;
         #endregion
 
         #region 构造函数
@@ -45,7 +46,7 @@ namespace CDWM_MR.Controllers
         /// <param name="imr_B_ReaderServices"></param>
         /// <param name="imr_B_BookinfoServices"></param>
         /// <param name="iv_TaskinfoServices"></param>
-        public MeterReadingPlanController(Imr_planinfoServices imr_PlaninfoServices, Imr_taskinfoServices imr_Taskinfoservices, Imr_b_readerServices imr_B_ReaderServices, Imr_b_bookinfoServices imr_B_BookinfoServices, Iv_taskinfoServices iv_TaskinfoServices, IUser user)
+        public MeterReadingPlanController(Imr_planinfoServices imr_PlaninfoServices, Imr_taskinfoServices imr_Taskinfoservices, Imr_b_readerServices imr_B_ReaderServices, Imr_b_bookinfoServices imr_B_BookinfoServices, Iv_taskinfoServices iv_TaskinfoServices, IUser user,Imr_book_meterServices imr_Book_MeterServices,Imr_datainfoServices imr_DatainfoServices)
         {
             mr_planinfoServices = imr_PlaninfoServices;
             mr_taskinfoServices = imr_Taskinfoservices;
@@ -53,6 +54,8 @@ namespace CDWM_MR.Controllers
             mr_b_bookinfoServices = imr_B_BookinfoServices;
             v_taskinfoServices = iv_TaskinfoServices;
             _user = user;
+            mr_book_meterServices = imr_Book_MeterServices;
+            mr_datainfoServices = imr_DatainfoServices;
         }
         #endregion
 
@@ -230,11 +233,7 @@ namespace CDWM_MR.Controllers
             PageModel<object> datainfor = new PageModel<object>();
             #region Lambda拼接式
             Expression<Func<mr_b_bookinfo, bool>> wherelambda = c => true;
-            if (status != 0)
-            {
-                status--;
-                wherelambda = PredicateExtensions.And<mr_b_bookinfo>(wherelambda, c => c.allotstatus == status);
-            }
+            wherelambda = PredicateExtensions.And<mr_b_bookinfo>(wherelambda, c => c.allotstatus == status);
             #endregion
             Expression<Func<mr_b_bookinfo, object>> expression = c => new
             {
@@ -264,8 +263,10 @@ namespace CDWM_MR.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("AllocationOfData")]
-        public async Task<MessageModel<object>> AllocationOfData(int planid, string[] data, int status = 0)
+        public async Task<MessageModel<object>> AllocationOfData(int planid, string[] data, int[] idlist, int status = 0)
         {
+            List<mr_book_meter> mr_bookmeterlist = await mr_book_meterServices.Query();
+            List<mr_datainfo> mr_datainfolist = new List<mr_datainfo>();
             var msg = await mr_b_bookinfoServices.Update(c => new mr_b_bookinfo
             {
                 allotstatus = status
@@ -284,17 +285,36 @@ namespace CDWM_MR.Controllers
                 taskinfo.tasknumber = (DateTime.Now.Year + DateTime.Now.Month + alllist[alllist.Count - 1].ID).ToString();
                 taskinfo.createpeople = _user.Name;
                 taskinfo.createtime = DateTime.Now;
-                taskinfo.taskperiodname = DateTime.Now.Year.ToString()+DateTime.Now.Month;
+                taskinfo.taskperiodname = DateTime.Now.Year.ToString() + DateTime.Now.Month;
                 tasklist.Add(taskinfo);
             }
-            //把分配的抄表册数据添加到mr_taskinfo表中
             //string n= await mr_taskinfoServices.Add(tasklist) > 0 ? "ok" : "error";
-            await mr_taskinfoServices.Add(tasklist);
+            //把分配抄表册中的用户信息添加到mr_datainfo
+            for (int i = 0; i < idlist.Length; i++)
+            {
+                List<mr_book_meter> book_meter = new List<mr_book_meter>();
+                book_meter = mr_bookmeterlist.FindAll(c => c.bookid == idlist[i]); //查找抄表册下的用户
+                //将抄表册下用户信息添加到mr_datainfo
+                for (int j = 0; j < book_meter.Count; j++)
+                {
+                    mr_datainfo mr_data = new mr_datainfo();
+                    mr_data.autoaccount = book_meter[j].useraccount;
+                    mr_data.meternum = book_meter[j].watermeternumber;
+                    mr_data.readstatus = 0;
+                    mr_data.readtype = 0;
+                    mr_data.recheckstatus = 0;
+                    mr_data.taskid = planid;
+                    mr_data.taskperiodname = DateTime.Now.Year.ToString() + DateTime.Now.Month;
+                    mr_datainfolist.Add(mr_data);
+                }
+            }
+            await mr_taskinfoServices.Add(tasklist); //把分配的抄表册数据添加到mr_taskinfo表中
+            await mr_datainfoServices.Add(mr_datainfolist);
             return new MessageModel<object>
             {
-                code=0,
+                code = 0,
                 data = null,
-                msg="成功"
+                msg = "成功"
             };
         }
         #endregion
