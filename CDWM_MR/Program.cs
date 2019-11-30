@@ -47,8 +47,10 @@ namespace CDWM_MR
                     throw;
                 }
             }
-
+            Common.Helper.LoadDllHelper.TryLoadAssembly();
+            var temp = Common.Helper.LoadDllHelper.ImgORCMethod("http://129.204.96.9:8088/images/Type_2/201911/Reader_CB001/Taskid_4/LCB0012019112917391924.jpg");
             //QuartzManager.Init().GetAwaiter().GetResult();
+            //http://129.204.96.9:8088/images/Type_2/201911/Reader_CB001/Taskid_4/LCB0012019112917391924.jpg
             // 运行 web 应用程序并阻止调用线程, 直到主机关闭。
             // 创建完 WebHost 之后，便调用它的 Run 方法，而 Run 方法会去调用 WebHost 的 StartAsync 方法
             // 将Initialize方法创建的Application管道传入以供处理消息

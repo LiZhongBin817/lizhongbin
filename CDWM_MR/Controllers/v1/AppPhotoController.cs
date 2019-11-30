@@ -80,7 +80,7 @@ namespace CDWM_MR.Controllers.v1
                 {
                     uploadmodel[i].photoext = Path.GetExtension(files[i].FileName);
                     uploadmodel[i].photourl = $@"{Path.Combine(environment.WebRootPath, "images")}\Type_{uploadmodel[i].phototype}\{uploadmodel[i].taskperiodname}\Reader_{uploadmodel[i].readercode}\Taskid_{uploadmodel[i].taskid}";
-                    uploadmodel[i].createpeople = _users.Name;//暂时写
+                    uploadmodel[i].createpeople = "APP用户";//暂时写
                     uploadmodel[i].createtime = DateTime.Now;
                     //uploadmodel.billid
                     //已上传
@@ -98,6 +98,8 @@ namespace CDWM_MR.Controllers.v1
                             uploadmodel[i].billid = temp3.FirstOrDefault().id;
                         }
                     }
+                    //添加一个任务进入队列
+                   // _redis.
                     string file = Path.Combine(uploadmodel[i].photourl, files[i].FileName);
                     if (!System.IO.Directory.Exists(uploadmodel[i].photourl))
                     {

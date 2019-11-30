@@ -409,6 +409,28 @@ namespace CDWM_MR.Controllers
             await _DatainfoServices.Update(c => new mr_datainfo {
                 recheckstatus=1
             },c => c.autoaccount == b_Recheck.userid && c.taskperiodname == b_Recheck.taskperiodname);
+            if (RecheckStatus==0)//审核通过将审核成功的数据添加到mr_datainfo表中的复审读数字段当中
+            {
+                //有新的审核数据输入，则将该数据添加到mr_datainfo表中的复审读数字段当中
+                if (RecheckData!=0)
+                {
+                    await _DatainfoServices.Update(c => new mr_datainfo
+                    {
+                        readcheckdata = RecheckData,
+                        recheckresult= RecheckResult,
+                    },c=>c.autoaccount== b_Recheck.userid&& c.taskperiodname == b_Recheck.taskperiodname);
+
+                }
+                else//没有输入新的审核数据，将从表中查出审核通过的数据添加到mr_datainfo表中的复审读数字段当中
+                {
+                    var passedData = (await _Recheck_RecheckhistoryServices.Query(c => c.userid == b_Recheck.userid && c.taskperiodname == b_Recheck.taskperiodname && c.recheckstatus == 0))[0].recheckdata;
+                    await _DatainfoServices.Update(c => new mr_datainfo
+                    {
+                        readcheckdata = (decimal)passedData,
+                        recheckresult = RecheckResult,
+                    }, c => c.autoaccount == b_Recheck.userid && c.taskperiodname == b_Recheck.taskperiodname);
+                }
+            }
             return new TableModel<object>
             {
                 code = 0,

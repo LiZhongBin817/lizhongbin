@@ -80,7 +80,7 @@ namespace CDWM_MR.Model.Models
         /// 抄表状态(0--默认;1--实抄;2--估抄;3--异常)
         /// </summary>
         [SugarColumn(IsNullable = false, ColumnDescription = "抄表状态(0--默认;1--实抄;2--估抄;3--异常),根据gis位置进行判断")]
-        public int readtype { get; set; } = 0;
+        public int readtype { get; set; }
 
         /// <summary>
         /// 水表状态,其余从数据字典中读取字符型
