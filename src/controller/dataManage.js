@@ -114,9 +114,6 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
         , toolbar: '#toolDemo_Carry'
         , height: $(document).height() - $('#dataManageInfo_Table').offset().top - 290
         , limits: [5, 10, 15]
-        , done: function () {
-            layer.close(load);
-        }
     });
     //监听查询
     form.on('submit(DataInfoSearch)', function (obj) {

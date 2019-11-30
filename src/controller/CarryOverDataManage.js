@@ -7,7 +7,6 @@
 layui.define(['table', 'view', 'form', 'admin', 'jquery'], function (exports) {
     var table = layui.table,
         admin = layui.admin,
-        load = layer.load(3),
         form = layui.form,
         view = layui.view,
         $ = layui.jquery;
@@ -55,7 +54,6 @@ layui.define(['table', 'view', 'form', 'admin', 'jquery'], function (exports) {
         , limits: [5, 10, 15]
         , id: 'studentTable'
         , done: function (res, curr, count) {
-            layer.close(load);
             currPage = curr;
             var that = this.elem.next();
 

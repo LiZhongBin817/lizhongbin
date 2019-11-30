@@ -8,7 +8,6 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         , view = layui.view
         , form = layui.form
         , $ = layui.$
-        , load = layer.load(3)
         , admin = layui.admin
         , echarts = layui.echarts
         , laydate = layui.laydate;
@@ -33,7 +32,6 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         , limit: 10
         , limits: [5, 10, 15]
         , done: function (result) {
-            layer.close(load); 
             //  抄表员的抄表个数
             $.ajax({
                 type: 'post',

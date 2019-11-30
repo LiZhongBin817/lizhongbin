@@ -8,7 +8,6 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         , view = layui.view
         , form = layui.form
         , $ = layui.$
-        , load = layer.load(3)
         , admin = layui.admin
         , laydate = layui.laydate
         , carousel = layui.carousel
@@ -153,7 +152,6 @@ layui.define(['table', 'view', 'form', 'admin', 'laydate', 'echarts', 'carousel'
         , limit: 10
         , limits: [5, 10, 15]
         , done: function (data) {
-            layer.close(load);
             var num = data.count;
             var renderdata = ShowPage(data.data, num);//渲染所有抄表员的柱状图
             renderhtml(renderdata);

@@ -12,6 +12,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
         laydate = layui.laydate;
 
     var accounts = new Array(),//选中的用户编号
+        bookid = new Array();//抄表册的id
         table_data = new Array();//存储当前页面的数据，用于实现页面跳转后复选框勾选保留
     var status;//下拉框的值
     var planid;//任务单ID
@@ -167,11 +168,12 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                             "planid": planid
                         },
                         success: function (data) {
-                            if (data.msg == "ok") {
+                            if (data.code=0) {
                                 layer.msg("分配成功");
+                                table.reload('DistributionMeterReading');
                             }
                             else {
-                                layer.msg("分配失败");
+                                layer.msg(data.msg);
                             }
                         }
                     });
@@ -199,9 +201,18 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                                 table_data = res.data;
                                 //监听分配抄表册表格中复选框
                                 table.on('checkbox(DMR)', function (obj) {
+                                    console.log(obj);
                                     if (obj.checked == true) {
+                                        if ($("#DistributionStatus").val() == 0) {
+                                            layer.msg("不能选择已分配用户！");
+                                            console.log(obj.tr.find('td').eq(0).find('input[type=checkbox]'));
+                                            obj.tr.find('td').eq(0).find('input[type=checkbox]').prop('checked', false);
+                                            form.render('checkbox');
+                                            return;
+                                        }
                                         if (obj.type == 'one') {
                                             accounts.push(obj.data.Show_Number);
+                                            bookid.push(obj.data.Show_ID);
                                         }
                                         else {
                                             console.log(table_data);
@@ -209,9 +220,11 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                                                 for (var j = 0; j < accounts.length; j++) {
                                                     if (accounts[j] == table_data[i].Show_Number) {//这个不写会有重复数据
                                                         accounts.splice(j, 1);
+                                                        bookid.splice(j, 1);
                                                     }
                                                 }
                                                 accounts.push(table_data[i].Show_Number);
+                                                bookid.puhs(table_data[i].Show_ID);
                                             }
                                         }
                                     }
@@ -221,6 +234,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                                             for (var i = 0; i < accounts.length; i++) {
                                                 if (accounts[i] == obj.data.Show_Number) {
                                                     accounts.splice(i, 1);
+                                                    bookid.splice(i, 1);
                                                 }
                                             }
                                         }
@@ -230,6 +244,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                                                 for (var j = 0; j < table_data.length; j++) {
                                                     if (accounts[i] == table_data[j].Show_Number) {
                                                         accounts.splice(i, 1);
+                                                        bookid.splice(i, 1);
                                                     }
                                                 }
                                             }
