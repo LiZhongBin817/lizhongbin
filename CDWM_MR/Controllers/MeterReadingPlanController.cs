@@ -265,6 +265,15 @@ namespace CDWM_MR.Controllers
         [Route("AllocationOfData")]
         public async Task<MessageModel<object>> AllocationOfData(int planid, string[] data, int[] idlist, int status = 0)
         {
+            if (idlist.Length == 0)
+            {
+                return new MessageModel<object>()
+                {
+                    code = 0,
+                    data = null,
+                    msg = "抄表册已分配"
+                };
+            }
             List<mr_book_meter> mr_bookmeterlist = await mr_book_meterServices.Query();
             List<mr_datainfo> mr_datainfolist = new List<mr_datainfo>();
             var msg = await mr_b_bookinfoServices.Update(c => new mr_b_bookinfo

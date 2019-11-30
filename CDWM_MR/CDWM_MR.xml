@@ -663,7 +663,7 @@
             <summary>
             展示应抄明细数据
             </summary>
-            <param name="readtype"></param>
+            <param name="readstatus"></param>
             <param name="ReaderName"></param>
             <param name="bookno"></param>
             <param name="page"></param>

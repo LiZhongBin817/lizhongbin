@@ -82,11 +82,11 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         public System.Decimal? inputdata { get { return this._inputdata; } set { this._inputdata = value; } }
 
-        private System.Int32? _readtype;
+        private System.Int32? _readstatus;
         /// <summary>
-        /// 抄表状态(0--默认;1--实抄;2--估抄;3--异常),根据gis位置进行判断
+        /// 0--未抄;1--已抄回;2--已识别;3--已复审;4--已结转;5--已归档;6--其余未定义
         /// </summary>
-        public System.Int32? readtype { get { return this._readtype; } set { this._readtype = value; } }
+        public System.Int32? readstatus { get { return this._readstatus; } set { this._readstatus = value; } }
 
         private System.Int32? _carrystatus;
         /// <summary>
