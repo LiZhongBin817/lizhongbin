@@ -64,6 +64,8 @@
     <Folder Include="Controllers\v2\" />
     <Folder Include="wwwroot\APK\" />
     <Folder Include="wwwroot\WatermeterManage\" />
+    <Folder Include="wwwroot\bufferphoto\" />
+    <Folder Include="wwwroot\modelphoto\" />
   </ItemGroup>
 
   <ItemGroup>
