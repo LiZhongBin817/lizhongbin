@@ -238,6 +238,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                         $("#DSMShowOperation-btn").click(function () {
                                             DispatchedWorker = data.readerid;
                                             $("#ShowOperation_select").val(DispatchedWorker);
+                                            form.render();
                                         });
                                         form.render();
                                         form.on('submit(DSMShowAcceptance_submit)', function (Data) {
