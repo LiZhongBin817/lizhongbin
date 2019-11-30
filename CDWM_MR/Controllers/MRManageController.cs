@@ -351,10 +351,11 @@ namespace CDWM_MR.Controllers
         /// <param name="RecheckData"></param>
         /// <param name="RecheckStatus"></param>
         /// <param name="result"></param>
+        /// <param name="recheckresult"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("SubmitChecked")]    
-        public async Task<TableModel<object>> SubmitChecked(string JsonData, decimal RecheckData, int RecheckStatus, string result)
+        public async Task<TableModel<object>> SubmitChecked(string JsonData, decimal RecheckData, int RecheckStatus, string result,string recheckresult)
         {
             v_mr_datainfo mr_Datainfos = JsonHelper.GetObject<v_mr_datainfo>(JsonData);
             //查询审核表的所有数据
@@ -365,7 +366,7 @@ namespace CDWM_MR.Controllers
             rt_b_recheck b_Recheck = new rt_b_recheck();
 
             //存放审核表里有的用户自动编号，便于做判重处理
-            string RecheckResult = "原因：" + mr_Datainfos.recheckresult + ",结果:" + result;
+            string RecheckResult = "原因：" + recheckresult + ",结果:" + result;
             foreach (var item in _B_Rechecks)
             {
                 AutoAccount.Add(item.userid);
@@ -420,8 +421,10 @@ namespace CDWM_MR.Controllers
             }
             //将抄表数据表中的审核状态改为了已审
             await _DatainfoServices.Update(c => new mr_datainfo {
-                recheckstatus=1,
+               recheckstatus=1,
                readtype= readtype,
+               readstatus=3,
+               recheckresult = RecheckResult,
             },c => c.autoaccount == b_Recheck.userid && c.taskperiodname == b_Recheck.taskperiodname);
             if (RecheckStatus==0)//审核通过将审核成功的数据添加到mr_datainfo表中的复审读数字段当中
             {
@@ -431,7 +434,6 @@ namespace CDWM_MR.Controllers
                     await _DatainfoServices.Update(c => new mr_datainfo
                     {
                         readcheckdata = RecheckData,
-                        recheckresult= RecheckResult,
                     },c=>c.autoaccount== b_Recheck.userid&& c.taskperiodname == b_Recheck.taskperiodname);
 
                 }
@@ -441,7 +443,6 @@ namespace CDWM_MR.Controllers
                     await _DatainfoServices.Update(c => new mr_datainfo
                     {
                         readcheckdata = (decimal)passedData,
-                        recheckresult = RecheckResult,
                     }, c => c.autoaccount == b_Recheck.userid && c.taskperiodname == b_Recheck.taskperiodname);
                 }
             }

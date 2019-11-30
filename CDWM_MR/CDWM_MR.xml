@@ -1140,7 +1140,7 @@
             <param name="autoaccount"></param>
             <returns></returns>
         </member>
-        <member name="M:CDWM_MR.Controllers.MRManageController.SubmitChecked(System.String,System.Decimal,System.Int32,System.String)">
+        <member name="M:CDWM_MR.Controllers.MRManageController.SubmitChecked(System.String,System.Decimal,System.Int32,System.String,System.String)">
             <summary>
             确认审核按钮
             </summary>
@@ -1148,6 +1148,7 @@
             <param name="RecheckData"></param>
             <param name="RecheckStatus"></param>
             <param name="result"></param>
+            <param name="recheckresult"></param>
             <returns></returns>
         </member>
         <member name="M:CDWM_MR.Controllers.MRManageController.ShowMRPath(System.String,System.String,System.String,System.Int32,System.Int32)">

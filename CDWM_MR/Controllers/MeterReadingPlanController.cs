@@ -91,6 +91,10 @@ namespace CDWM_MR.Controllers
                 int Message = await mr_planinfoServices.Add(Data);
                 await v_taskinfoServices.AutoCreat(Message);//添加任务单
                 string message = Message == 0 ? "error" : "ok";
+                await mr_b_bookinfoServices.Update(c => new mr_b_bookinfo
+                {
+                    allotstatus = 0
+                }, c => c.id != 0);//将抄表册改为已分配
                 return new MessageModel<object>()
                 {
                     code = 0,
@@ -181,7 +185,7 @@ namespace CDWM_MR.Controllers
                 MRStartTime = c.taskstarttime,
                 MREndTime = c.taskendtime,
                 MRMonth = c.mplanmonth,
-                MRTaskStatus = c.taskstatus == 0 ? "未下载" : "已下载"
+                MRTaskStatus = c.dowloadstatus == 1? "未下载" : "已下载"
             };
 
             datainfor = await v_taskinfoServices.QueryPage(wherelambda, expression, page, limit, "");
@@ -271,7 +275,7 @@ namespace CDWM_MR.Controllers
                 {
                     code = 0,
                     data = null,
-                    msg = "抄表册已分配"
+                    msg = "请选择抄表册"
                 };
             }
             List<mr_book_meter> mr_bookmeterlist = await mr_book_meterServices.Query();
