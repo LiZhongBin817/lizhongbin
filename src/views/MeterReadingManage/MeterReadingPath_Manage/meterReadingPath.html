@@ -95,7 +95,6 @@
             , bMap = layui.bMap
             , laydate = layui.laydate
             , $ = layui.jquery;
-          var load = layer.load(3);
         SelectRender();
         var uploadGPS = "";
         MapInit();
@@ -199,9 +198,7 @@
                 , page: true
                 , limit: 5
                 , limits: [5, 10, 15]
-                , done: function () {
-                    layer.close(load);
-                }
+
             });
 
         }

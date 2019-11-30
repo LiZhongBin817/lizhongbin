@@ -8,7 +8,6 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
         , view = layui.view
         , form = layui.form
         , $ = layui.$
-        , load = layer.load(3)
         , element = layui.element
         , upload = layui.upload
         , admin = layui.admin
