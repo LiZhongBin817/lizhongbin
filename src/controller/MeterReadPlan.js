@@ -169,7 +169,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                         },
                         success: function (data) {
                             if (data.code=0) {
-                                layer.msg("分配成功");
+                                layer.msg(data.msg);
                                 table.reload('DistributionMeterReading');
                             }
                             else {
