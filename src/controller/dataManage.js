@@ -84,7 +84,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                         return '<a style="text-decoration:none;">已审核<br>审核人:' + d.FUserName+'<br>' + d.checksuccesstime + '</a>';
                     }
                     else if (d.rtrecheckstatus == 1) {
-                        return '<a style="text-decoration:none;">审核未通过<br>审核人:' + d.FUserName+'<br>' + d.recheckresult + '<br>' + d.checktime + '</a>';
+                        return '<a style="text-decoration:none;">审核未通过<br>审核人:' + d.FUserName+'<br>' + d.recheckresult + '<br>' +d.checktime + '</a>';
                     }
                 }
             },
@@ -233,10 +233,10 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                                         'JsonData': JSON.stringify(data),
                                         'RecheckData': editData,
                                         'RecheckStatus': Data.Pass,
-                                        'result': Data.checked
+                                        'result': Data.checked,
+                                        'recheckresult':$('#Remark').val()
                                     },
                                     success: function (d) {
-                                        layer.close(load);
                                         if (d.msg == "ok") {
                                             layer.msg("审核成功!");
                                             layer.close(index);

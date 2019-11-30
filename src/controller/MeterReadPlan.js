@@ -141,7 +141,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                                         return util.toDateString(d.MREndTime);
                                     }
                                 },
-                                { field: 'MRTaskStatus', title: '任务状态', width: 100 },
+                                { field: 'MRTaskStatus', title: '下载状态', width: 100 },
                                 { title: '编辑', width: 150, toolbar: '#MRbarDemo', align: 'center', fixed: 'right' }
                             ]],
                             limit: 10,

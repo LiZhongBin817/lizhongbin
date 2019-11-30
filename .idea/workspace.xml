@@ -4,7 +4,8 @@
     <list default="true" id="23ae6571-3932-4d6a-b9ed-4dc54e2db774" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/MeterReadPlan.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MeterReadPlan.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/MeterReadingManage/MeterReadingPlan_Manage/DistributionMeterReading.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MeterReadingManage/MeterReadingPlan_Manage/DistributionMeterReading.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/dataManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/dataManage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/MeterReadingManage/MeterReadingPath_Manage/meterReadingPath.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MeterReadingManage/MeterReadingPath_Manage/meterReadingPath.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,7 +61,7 @@
       <workItem from="1574667291654" duration="6896000" />
       <workItem from="1574754504373" duration="619000" />
       <workItem from="1574862813650" duration="1055000" />
-      <workItem from="1575082372855" duration="6476000" />
+      <workItem from="1575082372855" duration="12066000" />
     </task>
     <servers />
   </component>
