@@ -450,7 +450,9 @@ namespace CDWM_MR.Controllers
 
                 for (int i = 0; i < photolist.Count; i++)
                 {
-                    firstphotolist.Add($"{ipadress}/{photolist[i].photourl.Split("wwwroot")[1]}");
+                    string thephoto = $"{ipadress}/{photolist[i].photourl.Split("wwwroot")[1]}";
+                    thephoto = thephoto.Replace(@"\", @"/");
+                    firstphotolist.Add(thephoto);
                 }
             }
             List<rt_b_photoattachment> dealphotolist = thephotolist.FindAll(c => c.billid == id && c.phototype == 3);//处理后照片
@@ -592,10 +594,10 @@ namespace CDWM_MR.Controllers
         [Route("DSEdits")]
         public async Task<MessageModel<object>> DSEdit(int id, string data)
         {
-            rt_b_faultinfo faultinfo = Common.Helper.JsonHelper.GetObject<rt_b_faultinfo>(data);
+            v_rt_b_faultinfo faultinfo = Common.Helper.JsonHelper.GetObject<v_rt_b_faultinfo>(data);
             string str = await _B_FaultinfoServices.Update(c => new rt_b_faultinfo
             {
-                readdataid = faultinfo.readdataid,
+                faultnumber = faultinfo.faultnumber,
                 faulttype = faultinfo.faulttype,
                 faultcontent = faultinfo.faultcontent,
                 reporttime = faultinfo.reporttime,

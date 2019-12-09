@@ -52,6 +52,8 @@ namespace CDWM_MR.Controllers
         /// <param name="datainfo_HistoryServices"></param>
         /// <param name="userinfoServices"></param>
         /// <param name="b_ReaderServices"></param>
+        /// <param name="photoservices"></param>
+        /// <param name="user"></param>
         public MRManageController(Iv_mr_datainfoServices mr_DatainfoServices, Irt_b_watercarryover_historyServices b_Watercarryover_HistoryServices, Irt_b_recheckServices b_RecheckServices, Irt_b_watercarryoverServices b_WatercarryoverServices, Imr_datainfoServices datainfoServices, Iv_recheck_recheckhistoryServices recheck_RecheckhistoryServices, Iv_union_datainfoocrlog_datainfohistoryocrloghistoryServices union_Datainfoocrlog_DatainfohistoryocrloghistoryServices, Imr_datainfo_historyServices datainfo_HistoryServices, Isys_userinfoServices userinfoServices, Imr_b_readerServices b_ReaderServices , Iv_rt_b_photoattachment_rt_b_photoattachment_histotyServices photoservices,IUser user)
         {
             _Mr_DatainfoServices = mr_DatainfoServices;
@@ -77,7 +79,7 @@ namespace CDWM_MR.Controllers
         /// <param name="address"></param>
         /// <param name="mrreadername"></param>
         /// <param name="bookno"></param>
-        /// <param name="rtrecheckstatus"></param>
+        /// <param name="recheckstatus"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -153,6 +155,7 @@ namespace CDWM_MR.Controllers
                 readstatus = c.readstatus,
                 carrystatus = c.carrystatus,
                 carryime = c.carryime,
+                createperson=c.createperson,
                 lastmonthdata = c.lastmonthdata == null ? 0 : c.lastmonthdata,
                 nowmonthdata = c.nowmonthdata == null ? 0 : c.nowmonthdata,
                 last_month = last_month,
@@ -366,7 +369,7 @@ namespace CDWM_MR.Controllers
             rt_b_recheck b_Recheck = new rt_b_recheck();
 
             //存放审核表里有的用户自动编号，便于做判重处理
-            string RecheckResult = "原因：" + recheckresult + ",结果:" + result;
+            string RecheckResult = result;
             foreach (var item in _B_Rechecks)
             {
                 AutoAccount.Add(item.userid);
@@ -406,16 +409,16 @@ namespace CDWM_MR.Controllers
             AddData.Add(b_Recheck);
             int b = await _B_RecheckServices.Add(AddData);
             int readtype = 0;
-            if (mr_Datainfos.recheckresult=="实抄")
+            if (result == "实抄")
             {
                 readtype = 1;
             }
-            else if(mr_Datainfos.recheckresult == "估抄")                
+            else if(result == "估抄")                
             {
                 readtype = 2;
 
             }
-            else if (mr_Datainfos.recheckresult == "异常")
+            else if (result == "异常")
             {
                 readtype = 3;
             }

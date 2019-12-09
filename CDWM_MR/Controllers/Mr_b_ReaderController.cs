@@ -122,7 +122,7 @@ namespace CDWM_MR.Controllers
             jsonData.deleteflag = 0;
             jsonData.lastlogintime = DateTime.Now;
             jsonData.appcount = jsonData.mrreadernumber;
-            jsonData.apppassword = MD5Helper.MD5Encrypt32(MD5Helper.MD5Encrypt32(jsonData.apppassword));
+            jsonData.apppassword = MD5Helper.MD5Encrypt32(MD5Helper.MD5Encrypt32("123456"));
             jsonData.createpeople =_user.Name;
             jsonData.createtime = DateTime.Now;
 

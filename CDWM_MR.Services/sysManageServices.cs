@@ -1,4 +1,5 @@
 ﻿using CDWM_MR.Common;
+using CDWM_MR.Common.Helper;
 using CDWM_MR.Common.HttpContextUser;
 using CDWM_MR.IRepository.Content;
 using CDWM_MR.IServices;
@@ -226,6 +227,7 @@ namespace CDWM_MR.Services
             Add.FUserNumber = number;
             Add.createtime = DateTime.Now;
             Add.createpeople =_user.Name ;
+            Add.LoginPassWord = MD5Helper.MD5Encrypt32(Add.LoginPassWord);
             //取到添加进来的用户ID
             int UserID = await UserinfoDal.Add(Add);
             //将用户角色关联进用户角色关联表

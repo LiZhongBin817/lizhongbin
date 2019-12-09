@@ -51,6 +51,8 @@ namespace CDWM_MR.Tasks
 
             #region 从数据库中获取定时任务触发
             var plansheettime = await _sys_parmeter.QueryById(1);
+            var carryovertime =(await _sys_parmeter.QueryById(3)).parametervalue;
+            //string carryovertime = DateTime.Now.Minute.ToString();
             #endregion
 
             _scheduler = await _schedulerFactory.GetScheduler();
@@ -90,14 +92,28 @@ namespace CDWM_MR.Tasks
                               .WithIdentity("AutoTask_carryoverhistorytigger", "task3")
                               .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(10)))
                              //.StartNow()//StartAt  Cron
-                             .WithCronSchedule(plansheettime.parametervalue)
+                             .WithCronSchedule("0 30 22 * * ?")
                              .WithDescription("结转数据到历史表！")
                              .Build();
             await _scheduler.ScheduleJob(carryoverhistory,triggercarryoverhistory);
             #endregion
 
-            #region 任务四 结转其他表单数据
+            #region 任务四 自动结转数据
+            //创建作业
+            IJobDetail autocarryover = JobBuilder.Create<AutoTask_AutoCarryOver>()
+                .WithIdentity("AutoTask_autocarryover", "task4")
+                .WithDescription("自动结转数据到结转表")
+                .Build();
 
+            //创建时间策略
+            ITrigger triggerautocarryover = TriggerBuilder.Create()
+                .WithIdentity("AutoTask_autocarryovertigger", "task4")
+                .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(20)))
+                .WithCronSchedule(carryovertime)
+                .WithDescription("自动结转数据到结转表")
+                .Build();
+
+            await _scheduler.ScheduleJob(autocarryover, triggerautocarryover);
             #endregion
         }
 

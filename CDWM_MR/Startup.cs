@@ -265,7 +265,7 @@ namespace CDWM_MR
             // 这里使用瞬时依赖注入
             services.AddTransient<AutoTask_plansheet>();
             services.AddTransient<AutoTask_CarryOverData>();
-            //services.AddTransient<AutoTask_CarryOverBuildTable>();
+            services.AddTransient<AutoTask_AutoCarryOver>();
             //注册ISchedulerFactory的实例。
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             services.AddSingleton<IJobFactory, IOCJobFactory>();

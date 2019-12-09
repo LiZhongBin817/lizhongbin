@@ -75,7 +75,7 @@ namespace CDWM_MR.Controllers
                 Number = alllist.Count == 0 ? 1 : alllist[alllist.Count - 1].id + 1;
                 mr_planinfo Data = Common.Helper.JsonHelper.GetObject<mr_planinfo>(data);
                 Data.createtime = DateTime.Now;
-                Data.createpeople = "1";
+                Data.createpeople =_user.Name;
                 Data.mplannumber = Number.ToString();
                 Data.finishstatus = 0;
                 //判重
@@ -91,10 +91,10 @@ namespace CDWM_MR.Controllers
                 int Message = await mr_planinfoServices.Add(Data);
                 await v_taskinfoServices.AutoCreat(Message);//添加任务单
                 string message = Message == 0 ? "error" : "ok";
-                await mr_b_bookinfoServices.Update(c => new mr_b_bookinfo
-                {
-                    allotstatus = 0
-                }, c => c.id != 0);//将抄表册改为已分配
+                //await mr_b_bookinfoServices.Update(c => new mr_b_bookinfo
+                //{
+                //    allotstatus = 0
+                //}, c => c.id != 0);//将抄表册改为已分配
                 return new MessageModel<object>()
                 {
                     code = 0,

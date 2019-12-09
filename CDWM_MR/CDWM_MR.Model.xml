@@ -4104,11 +4104,11 @@
         <member name="M:CDWM_MR.Model.Models.v_mr_datainfo.#ctor">
             <summary>
             抄表数据展示表
-            </summary>
+            </summary>      
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.ID">
             <summary>
-            主键
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.autoaccount">
@@ -4148,7 +4148,7 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.readtype">
             <summary>
-            抄表状态(0--默认;1--实抄;2--估抄;3--异常),根据gis位置进行判断
+            抄表类型(0--默认;1--实抄;2--估抄;3--异常),根据gis位置进行判断
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.taskid">
@@ -4186,19 +4186,29 @@
             0--未抄;1--已抄回;2--已识别;3--已复审;4--已结转;5--已归档;6--其余未定义
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.readDateTime">
+            <summary>
+            重要基础数据
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.remark">
+            <summary>
+            备注
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.account">
             <summary>
-            用户号
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.username">
             <summary>
-            用户名
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.telephone">
             <summary>
-            电话号码
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.address">
@@ -4233,12 +4243,22 @@
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.mrreadername">
             <summary>
-            抄表员名字
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.mrreadernumber">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.areaname">
             <summary>
             小区名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.regionno">
+            <summary>
+            所属片区编号
             </summary>
         </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.regionname">
@@ -4266,6 +4286,11 @@
             状态0--通过;1--不通过
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.carrywatercount">
+            <summary>
+            冗余,用水量=本止-上止
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.carrystatus">
             <summary>
             状态0--未结转;1--正常;2--异常
@@ -4276,6 +4301,11 @@
             创建时间
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.createperson">
+            <summary>
+            创建人
+            </summary>
+        </member>
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.lastmonthdata">
             <summary>
             上月抄表读数
@@ -4284,16 +4314,6 @@
         <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.nowmonthdata">
             <summary>
             当前月份抄表读数
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.readDateTime">
-            <summary>
-            抄表详细时间
-            </summary>
-        </member>
-        <member name="P:CDWM_MR.Model.Models.v_mr_datainfo.remark">
-            <summary>
-            抄表数据备注
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_mr_date_reader">

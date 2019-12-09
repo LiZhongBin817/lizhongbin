@@ -1109,6 +1109,8 @@
             <param name="datainfo_HistoryServices"></param>
             <param name="userinfoServices"></param>
             <param name="b_ReaderServices"></param>
+            <param name="photoservices"></param>
+            <param name="user"></param>
         </member>
         <member name="M:CDWM_MR.Controllers.MRManageController.Show_CB_DataInfo(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
@@ -1120,7 +1122,7 @@
             <param name="address"></param>
             <param name="mrreadername"></param>
             <param name="bookno"></param>
-            <param name="rtrecheckstatus"></param>
+            <param name="recheckstatus"></param>
             <param name="page"></param>
             <param name="limit"></param>
             <returns></returns>

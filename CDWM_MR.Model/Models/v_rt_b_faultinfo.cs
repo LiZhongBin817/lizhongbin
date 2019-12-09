@@ -69,7 +69,7 @@ namespace CDWM_MR.Model.Models
         /// <summary>
         /// 上报时间,故障工单上传时间
         /// </summary>
-        public System.DateTime? reporttime { get; set; }
+        public System.DateTime reporttime { get; set; }
 
         /// <summary>
         /// gis位置信息
