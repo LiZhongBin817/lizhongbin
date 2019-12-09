@@ -92,7 +92,7 @@ namespace CDWM_MR.Tasks
                               .WithIdentity("AutoTask_carryoverhistorytigger", "task3")
                               .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(10)))
                              //.StartNow()//StartAt  Cron
-                             .WithCronSchedule("0 30 22 * * ?")
+                             .WithCronSchedule("0 40 22 * * ?")
                              .WithDescription("结转数据到历史表！")
                              .Build();
             await _scheduler.ScheduleJob(carryoverhistory,triggercarryoverhistory);
