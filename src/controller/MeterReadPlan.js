@@ -91,6 +91,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                                     else if (data.code == 0) {
                                         layer.msg("添加成功");
                                         table.reload('MeterReading');
+                                        layer.close(index);
                                     }
                                     else {
                                         layer.msg("请按正确格式输入日期：如 2019-09-09");
@@ -341,6 +342,7 @@ layui.define(['form', 'util', 'table', 'admin', 'view', 'layer', 'laydate', 'car
                                             if (data.code == 0) {
                                                 layer.msg("编辑成功");
                                                 table.reload('MaterReaderPlan', {});
+                                                layer.close(index);
                                             }
                                             else {
                                                 layer.msg("编辑失败");

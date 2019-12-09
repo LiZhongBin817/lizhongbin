@@ -27,6 +27,7 @@ layui.define(['table', 'form', 'view'], function (exports) {
         , page: true
         , limit: 10
         , toolbar: '#toolbarDemo1'
+        ,height: $(document).height() - $('#parameterdata').offset().top - 280
         , limits: [5, 10, 15]
     });
 
@@ -106,7 +107,6 @@ layui.define(['table', 'form', 'view'], function (exports) {
                         //监听提交按钮
                         form.on('submit(Edit-Submit)', function (Data) {
                             var field = Data.field;
-                            var load = layer.load(3);
                             var SendData = {
                                 "parameternumber": field.parameterNumber,
                                 "parametername": field.parameterName,
@@ -129,11 +129,9 @@ layui.define(['table', 'form', 'view'], function (exports) {
                                         table.reload('parameterdata');
                                         layer.msg("修改成功");
                                         layer.close(index);
-                                        layer.close(load);
                                     }
                                     else {
                                         layer.msg("修改失败");
-                                        layer.close(load);
                                     }
                                 }
                             });

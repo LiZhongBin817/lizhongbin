@@ -203,7 +203,6 @@ layui.define(['table', 'view', 'form'], function (exports) {
                                     "JsonData": JSON.stringify(SendData)
                                 }
                                 , success: function (obj) {
-                                    layer.close(load);
                                     if (obj.msg == "OK") {
                                         layer.msg("添加成功");
                                         layer.close(index);

@@ -255,6 +255,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                     if (RESdata.code == 0) {
                                                         layer.msg("提交成功");
                                                         table.reload('DSMShowtable');
+                                                        layer.close(index);
                                                     }
                                                     else {
                                                         layer.msg("提交失败");
@@ -328,6 +329,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                             if (resdata.code == 0) {
                                                                 layer.msg("提交成功");
                                                                 table.reload('DSMShowtable');
+                                                                layer.close(index);
                                                             } else {
                                                                 layer.msg("提交失败");
                                                             }
@@ -375,21 +377,25 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                 }
                                             }
                                             var rhtml = "";
+                                            console.log("故障图片");
+                                            console.log(resdata.data[3][1]);
                                             for (var i = 0; i < resdata.data[3].length; i++) {
+                                                
+                                                console.log(resdata.data[3][i]);
                                                 if (resdata.data[3][i].phototype == 1) {
-                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;
+                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i]}" title="表盘抄表图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--表盘抄表图片</div></div>`;
                                                 }
                                                 else if (resdata.data[3][i].phototype == 2) {
-                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--现场图片</div></div>`;
+                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i]}" title="现场图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--现场图片</div></div>`;
                                                 }
                                                 else if (resdata.data[3][i].phototype == 3) {
-                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
+                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i]}" title="故障处理后图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障处理后图片</div></div>`;
                                                 }
                                                 else if (resdata.data[3][i].phototype == 4) {
-                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="故障图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障图片</div></div>`;
+                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i]}" title="故障图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--故障图片</div></div>`;
                                                 }
                                                 else {
-                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i].url}" title="其他类型图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--其他类型图片</div></div>`;
+                                                    rhtml += `<div style="text-align:center;margin-top:20px"><img style="width:200px;height:200px" src="${resdata.data[3][i]}" title="其他类型图片"><div style="font-size:20px;color:#FF2D2D">图片${i + 1}--其他类型图片</div></div>`;
                                                 }
                                             }
                                             $("#DSMSHOWPIphotoshow").html(rhtml);
@@ -413,6 +419,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                                         if (resdate.code==0) {
                                                             layer.msg(resdate.msg);
                                                             table.reload('DSMShowtable');
+                                                            layer.close(index);
                                                         }
                                                         else {
                                                             layer.msg(resdate.msg);
@@ -442,14 +449,42 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                 });
                                 form.render();
                                 form.on('submit(Edit_submit)', function (Data) {
+                                    console.log(Data.field);
+                                    var faulttype;
+                                    if (Data.field.EditType =="表埋") {
+                                        faulttype = 6;
+                                    }
+                                    else if (Data.field.EditType == "表坏"){
+                                        faulttype = 7;
+                                    }
+                                    else if (Data.field.EditType == "井盖坏") {
+                                        faulttype = 8;
+                                    }
+                                    else if (Data.field.EditType == "漏水") {
+                                        faulttype = 10;
+                                    }
+                                    else{
+                                        faulttype = 11;
+                                    }
+                                    var faultstatus;
+                                    if (Data.field.EditStatus == "未受理") {
+                                        faultstatus = 0;
+                                    } else if (Data.field.EditStatus == "已受理") {
+                                        faultstatus = 1;
+                                    } else if (Data.field.EditStatus == "已处理") {
+                                        faultstatus = 2;
+                                    } else {
+                                        faultstatus = 3;
+                                    }
                                     var senddata = {
-                                        "readdataid": Data.EditNumber,
-                                        "faulttype": Data.EditType,
-                                        "faultcontent": Data.EditContent,
-                                        "reporttime": Data.EditReporttime,
-                                        "reportpeople": Data.EditReporter,
-                                        "faultstatus": Data.EditStatus
+                                        "faultnumber": Data.field.EditNumber,
+                                        "faulttype": faulttype,
+                                        "faultcontent": Data.field.EditContent,
+                                        "reporttime": Data.field.EditReporttime,
+                                        "reportpeople": Data.field.EditReporter,
+                                        "faultstatus": faultstatus
                                     };
+                                    console.log(JSON.stringify(senddata));
                                     admin.req({
                                         url: layui.setter.requesturl + '/api/DispatchSheet/DSEdits',
                                         type: "post",
@@ -460,6 +495,8 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                         success: function (resdata) {
                                             if (resdata.code == 0) {
                                                 layer.msg("提交成功");
+                                                table.reload('DSMShowtable');
+                                                layer.close(index);
                                             }
                                             else {
                                                 layer.msg("提交失败");
@@ -488,6 +525,7 @@ layui.define(['form', 'util', 'table', 'laydate', 'admin', 'view', 'layer', 'lay
                                 success: function (resdata) {
                                     if (resdata.code == 0) {
                                         layer.msg("删除成功");
+                                        layer.close(index);
                                     }
                                     else {
                                         layer.msg("删除失败");

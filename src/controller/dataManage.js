@@ -95,7 +95,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
                         return '<a style="text-decoration:none;">未结转 </a>';
                     }
                     else if (d.carrystatus == 1 && d.rtrecheckstatus == 0) {
-                        return '<a style="text-decoration:none;">已结转<br>' + d.carryime + '</a>';
+                        return '<a style="text-decoration:none;">已结转<br>' + d.carryime + '<br>'+d.createperson+'</a>';
 
                     }
                     else if (d.carrystatus == 2 && d.rtrecheckstatus == 0) {
@@ -136,7 +136,7 @@ layui.define(['table', 'view', 'admin', 'form', 'element', 'upload'], function (
         var event = obj.event;
 
         if (event == "Start_Carry") {
-            $.ajax({
+            admin.req({
                 url: layui.setter.requesturl +'/api/MRManage/CarryData'
                 , method: 'get'
                 , beforeSend: function () {
