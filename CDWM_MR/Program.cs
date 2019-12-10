@@ -48,7 +48,7 @@ namespace CDWM_MR
                 }
             }
             Common.Helper.LoadDllHelper.TryLoadAssembly();
-            var temp = Common.Helper.LoadDllHelper.ImgORCMethod("http://129.204.96.9:8088/images/Type_2/201911/Reader_CB001/Taskid_4/LCB0012019112917391924.jpg");
+            var temp = Common.Helper.LoadDllHelper.ImgORCMethod("C:\\Users\\34688\\Desktop\\图片\\b18.jpg");
             //QuartzManager.Init().GetAwaiter().GetResult();
             //http://129.204.96.9:8088/images/Type_2/201911/Reader_CB001/Taskid_4/LCB0012019112917391924.jpg
             // 运行 web 应用程序并阻止调用线程, 直到主机关闭。

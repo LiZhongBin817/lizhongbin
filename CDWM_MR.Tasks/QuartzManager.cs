@@ -52,6 +52,7 @@ namespace CDWM_MR.Tasks
             #region 从数据库中获取定时任务触发
             var plansheettime = await _sys_parmeter.QueryById(1);
             var carryovertime =(await _sys_parmeter.QueryById(3)).parametervalue;
+            var aotucheckedtime = (await _sys_parmeter.QueryById(16)).parametervalue;
             //string carryovertime = DateTime.Now.Minute.ToString();
             #endregion
 
@@ -114,6 +115,24 @@ namespace CDWM_MR.Tasks
                 .Build();
 
             await _scheduler.ScheduleJob(autocarryover, triggerautocarryover);
+            #endregion
+
+            #region 任务五 自动审核
+            //创建作业
+            IJobDetail autochecked = JobBuilder.Create<AutoTask_AutoChecked>()
+                .WithIdentity("AutoTask_autochecked", "task5")
+                .WithDescription("自动审核数据")
+                .Build();
+
+            //创建时间策略
+            ITrigger triggerautochecked = TriggerBuilder.Create()
+                .WithIdentity("AutoTask_autocheckedtigger", "task5")
+                .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(20)))
+                .WithCronSchedule(aotucheckedtime)
+                .WithDescription("自动审核数据")
+                .Build();
+
+            await _scheduler.ScheduleJob(autochecked, triggerautochecked);
             #endregion
         }
 
