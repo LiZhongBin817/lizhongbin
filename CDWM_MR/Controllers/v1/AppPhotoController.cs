@@ -98,8 +98,22 @@ namespace CDWM_MR.Controllers.v1
                             uploadmodel[i].billid = temp3.FirstOrDefault().id;
                         }
                     }
-                    //添加一个任务进入队列
-                   // _redis.
+                    //读取图片数据
+                    if (uploadmodel[i].phototype == 1)
+                    {
+                        rt_b_ocrlog orc = new rt_b_ocrlog();
+                        //调用图像识别方法读出读数
+                        orc.ocrdata =Convert.ToDecimal(Common.Helper.LoadDllHelper.ImgORCMethod(uploadmodel[i].photourl));//存放读出来的数据
+                        orc.ocrstatus = 1;//需修改
+                        orc.ocrtime = DateTime.Now;
+                        orc.ocrusesecond = 1;//需修改
+                        orc.photoid = uploadmodel[i].id;
+                        orc.readdataid = uploadmodel[i].readdataid;
+                        orc.createpeople = "app";//需修改
+                        orc.createtime = DateTime.Now;
+                        orc.taskperiodname = DateTime.Now.Year.ToString() + DateTime.Now.Month;
+                    }
+
                     string file = Path.Combine(uploadmodel[i].photourl, files[i].FileName);
                     if (!System.IO.Directory.Exists(uploadmodel[i].photourl))
                     {
