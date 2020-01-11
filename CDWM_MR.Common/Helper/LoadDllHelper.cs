@@ -10,7 +10,7 @@ namespace CDWM_MR.Common.Helper
 {
     public class LoadDllHelper
     {
-        [DllImport("sum.dll", EntryPoint = "sum", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("水表-试运行.dll", EntryPoint = "水表-试运行", CallingConvention = CallingConvention.Cdecl)]
         public static extern int Sum(int a, int b);
 
         [DllImport("kernel32.dll")]
@@ -26,24 +26,40 @@ namespace CDWM_MR.Common.Helper
         public static extern UIntPtr GlobalSize(IntPtr hMem);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate void dlgtStructRef(ref ArrayStruct arr);
+        private delegate void dlgtStructRef(ref LoadDllHelper.ArrayStruct arr);
 
         private static dlgtStructRef stctref;
+
+        private static IntPtr pDll;
+
+        private static IntPtr pAddressOfFunctionToCall;
+
+        public struct ArrayStruct
+        {
+            public string img_path;
+            public string temp_path;
+            public bool flag;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
+            public int[] datas;
+
+        }
 
         public static void TryLoadAssembly()
         {
             Assembly entry = Assembly.GetEntryAssembly();
-            string dir = Path.Combine(Path.GetDirectoryName(entry.Location),"sum.dll");
-            ////string path = "http://129.204.96.9:8088/images/Type_2/201911/Reader_CB001/Taskid_4/LCB0012019112917391924.jpg";
-            IntPtr pDll = LoadLibrary(dir);
-            IntPtr pAddressOfFunctionToCall = GetProcAddress(pDll, "stctarr");
+            string dir = Path.Combine(Path.GetDirectoryName(entry.Location), "new_water_end.dll");
+            pDll = LoadLibrary(dir);
+
+            pAddressOfFunctionToCall = GetProcAddress(pDll, "stctarr");
             stctref = (dlgtStructRef)Marshal.GetDelegateForFunctionPointer(pAddressOfFunctionToCall, typeof(dlgtStructRef));
 
         }
 
         public static string ImgORCMethod(string imagepath)
         {
-            var stct = new ArrayStruct();
+            var stct = new LoadDllHelper.ArrayStruct();
+            //stct.temp_path = "http://129.204.96.9:1235/modelphoto/";
+            stct.temp_path = "C:\\Users\\34688\\Desktop\\template\\template\\";
             stct.img_path = imagepath;
             stctref(ref stct);
             string rstr = string.Empty;
@@ -55,16 +71,7 @@ namespace CDWM_MR.Common.Helper
             rstr = t.ToString();
             return rstr;
         }
-
-        private struct ArrayStruct
-        {
-            public string img_path;
-            public bool flag;
-
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
-            public int[] datas;
-
-        }
+        
 
     }
 }

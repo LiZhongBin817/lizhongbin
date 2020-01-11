@@ -34,7 +34,7 @@ namespace CDWM_MR.Tasks.Job
             //{
 
             //}
-            Common.Helper.LoadDllHelper.ImgORCMethod("");
+            //Common.Helper.LoadDllHelper.ImgORCMethod("");
             throw new NotImplementedException();
         }
     }

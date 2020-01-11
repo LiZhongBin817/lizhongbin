@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 using CDWM_MR.Common.Helper;
 using CDWM_MR.IServices.Content;
@@ -85,6 +89,7 @@ namespace CDWM_MR.Controllers
                 carrystatus=c.carrystatus,
             };
             pageModel = await _T_B_Users_Datainfo_WatercarryoverServices.QueryPage(wherelambda, expression, page, limit, "");
+ 
             return new TableModel<object>
             {
                 code=0,
@@ -93,5 +98,15 @@ namespace CDWM_MR.Controllers
                 data = pageModel.data,
             };
         }
+
+        [HttpPost]
+        [Route("orcdata")]
+        public object orcdata(string path)
+        {
+            Common.Helper.LoadDllHelper.TryLoadAssembly();
+            var data=Common.Helper.LoadDllHelper.ImgORCMethod(path);
+            return data;
+        }
+       
     }
 }

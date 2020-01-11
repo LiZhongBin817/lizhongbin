@@ -103,7 +103,7 @@ namespace CDWM_MR.Controllers.v1
                     {
                         rt_b_ocrlog orc = new rt_b_ocrlog();
                         //调用图像识别方法读出读数
-                        orc.ocrdata =Convert.ToDecimal(Common.Helper.LoadDllHelper.ImgORCMethod(uploadmodel[i].photourl));//存放读出来的数据
+                       // orc.ocrdata =Convert.ToDecimal(Common.Helper.LoadDllHelper.ImgORCMethod(uploadmodel[i].photourl));//存放读出来的数据
                         orc.ocrstatus = 1;//需修改
                         orc.ocrtime = DateTime.Now;
                         orc.ocrusesecond = 1;//需修改
