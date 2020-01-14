@@ -53,6 +53,7 @@ namespace CDWM_MR.Tasks
             var plansheettime = await _sys_parmeter.QueryById(1);
             var carryovertime =(await _sys_parmeter.QueryById(3)).parametervalue;
             var aotucheckedtime = (await _sys_parmeter.QueryById(16)).parametervalue;
+            var autophototime = (await _sys_parmeter.QueryById(2)).parametervalue;//图像识别时间
             //string carryovertime = DateTime.Now.Minute.ToString();
             #endregion
 
@@ -78,7 +79,20 @@ namespace CDWM_MR.Tasks
             #endregion
 
             #region 任务二 图像识别图片
-
+            //创建作业
+            IJobDetail photo = JobBuilder.Create<AutoTask_ImageRec>()
+                .WithIdentity("AutoTask_ImageRec", "task2")
+                .WithDescription("图像识别！")
+                .Build();
+            //创建时间策略
+            ITrigger phototrigger = TriggerBuilder.Create()
+                .WithIdentity("AutoTask_ImageRectrigger", "task2")
+                .StartAt(new DateTimeOffset(DateTime.Now.AddSeconds(10)))
+                //.StartNow()//StartAt  Cron
+                .WithCronSchedule(autophototime)
+                .WithDescription("图像识别！")
+                .Build();
+            await _scheduler.ScheduleJob(photo, phototrigger);
             #endregion
 
             #region 任务三 结转数据到历史表

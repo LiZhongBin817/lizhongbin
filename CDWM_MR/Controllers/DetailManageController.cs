@@ -103,6 +103,13 @@ namespace CDWM_MR.Controllers
         [Route("orcdata")]
         public object orcdata(string path)
         {
+            string a = System.Environment.CurrentDirectory;   //当前路径
+            string filePath = a + "\\" + "wwwroot\\Test\\dll获取路径.txt";//路径
+            string dir = LoadDllHelper.Juge();
+            using (StreamWriter writer = new StreamWriter(filePath, true))
+            {
+                writer.Write(dir);
+            }
             Common.Helper.LoadDllHelper.TryLoadAssembly();
             var data=Common.Helper.LoadDllHelper.ImgORCMethod(path);
             return data;

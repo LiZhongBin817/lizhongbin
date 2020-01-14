@@ -65,7 +65,7 @@
     <Folder Include="wwwroot\APK\" />
     <Folder Include="wwwroot\WatermeterManage\" />
     <Folder Include="wwwroot\bufferphoto\" />
-    <Folder Include="wwwroot\modelphoto\" />
+    <Folder Include="wwwroot\Test\" />
   </ItemGroup>
 
   <ItemGroup>

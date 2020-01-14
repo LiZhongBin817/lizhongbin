@@ -12,13 +12,15 @@ namespace CDWM_MR.Common.Helper
     public class LoadDllHelper
     {
         [DllImport("new_water_end.dll", EntryPoint = "stctarr", CallingConvention = CallingConvention.Cdecl)]
+       //[DllImport("easy_dll.dll", EntryPoint = "stctarr", CallingConvention = CallingConvention.Cdecl)]
         public static extern void stctarr(ref ArrayStruct data);
 
-        [DllImport("kernel32.dll")]
-        public static extern IntPtr LoadLibrary(string dllToLoad);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern IntPtr LoadLibraryEx(IntPtr dllToLoad, IntPtr load, uint loadpath);
+       // public static extern IntPtr LoadLibrary(IntPtr dllToLoad);
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
+        public static extern IntPtr GetProcAddress(IntPtr hModule, IntPtr procedureName);
 
         [DllImport("kernel32.dll")]
         public static extern bool FreeLibrary(IntPtr hModule);
@@ -35,6 +37,7 @@ namespace CDWM_MR.Common.Helper
 
         private static IntPtr pAddressOfFunctionToCall;
 
+         [StructLayout(LayoutKind.Sequential)]
         public struct ArrayStruct
         {
             public string img_path;
@@ -48,8 +51,9 @@ namespace CDWM_MR.Common.Helper
         {
            Assembly entry = Assembly.GetEntryAssembly();
            string dir = Path.Combine(Path.GetDirectoryName(entry.Location), "new_water_end.dll");
-            pDll = LoadLibrary(dir);
-            pAddressOfFunctionToCall = GetProcAddress(pDll, "stctarr");
+           //string dir = Path.Combine(Path.GetDirectoryName(entry.Location), "easy_dll.dll");
+            pDll = LoadLibraryEx(Marshal.StringToHGlobalAnsi(dir), IntPtr.Zero, 0);
+            pAddressOfFunctionToCall = GetProcAddress(pDll, Marshal.StringToHGlobalAnsi("stctarr"));
             stctref = (dlgtStructRef)Marshal.GetDelegateForFunctionPointer(pAddressOfFunctionToCall, typeof(dlgtStructRef));
 
         }
@@ -62,9 +66,7 @@ namespace CDWM_MR.Common.Helper
 
         }
         public static string ImgORCMethod(string imagepath)
-        {
-            string dir =Juge();
-            LogLock.OutSql2Log("JugeLog", new string[] { dir });
+        {                
             var stct = new LoadDllHelper.ArrayStruct();
             stct.temp_path = "http://129.204.96.9:1235/modelphoto/";
             //stct.temp_path = "C:\\Users\\34688\\Desktop\\template\\template\\";
@@ -79,6 +81,7 @@ namespace CDWM_MR.Common.Helper
                 t.Append(stct.datas[i]);
             }
             rstr = t.ToString();
+            bool b = FreeLibrary(pDll);
             return rstr;
         }
         

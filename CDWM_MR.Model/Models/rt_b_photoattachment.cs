@@ -75,6 +75,14 @@ namespace CDWM_MR.Model.Models
         /// </summary>
         [SugarColumn(IsNullable = false,ColumnDescription = "拍照时间")]
         public DateTime phototime { get; set; }
+        /// <summary>
+        /// 抄表数据id
+        /// </summary>
+        public int readdataid { get; set; }
+        /// <summary>
+        /// 识别标识符
+        /// </summary>
+        public int temp { get; set; }
 
     }
 }

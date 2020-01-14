@@ -1284,6 +1284,16 @@
             拍照时间
             </summary>
         </member>
+        <member name="P:CDWM_MR.Model.Models.rt_b_photoattachment.readdataid">
+            <summary>
+            抄表数据id
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.rt_b_photoattachment.temp">
+            <summary>
+            识别标识符
+            </summary>
+        </member>
         <member name="T:CDWM_MR.Model.Models.rt_b_photoattachment_history">
             <summary>
             图片附件历史表
@@ -4364,6 +4374,111 @@
         <member name="P:CDWM_MR.Model.Models.v_mr_date_reader.metermonth">
             <summary>
             任务账期201909冗余
+            </summary>
+        </member>
+        <member name="T:CDWM_MR.Model.Models.v_ocrlog">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="M:CDWM_MR.Model.Models.v_ocrlog.#ctor">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.billid">
+            <summary>
+            业务编号如抄表:关联抄表id,故障:关联故障id,0--默认不关联
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.createpeople">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.createtime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.metercode">
+            <summary>
+            水表编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.photocode">
+            <summary>
+            照片编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.photoext">
+            <summary>
+            文件名后缀
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.photonname">
+            <summary>
+            照片名称
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.phototime">
+            <summary>
+            拍照时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.phototype">
+            <summary>
+            照片类型(0--其他类型;1--表盘抄表;2--现场照片;3--故障处理后(故障);4--故障照片)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.photourl">
+            <summary>
+            服务器存储路径
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.readercode">
+            <summary>
+            抄表员编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.remark">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.taskperiodname">
+            <summary>
+            任务账期(201909)
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.updatepeople">
+            <summary>
+            更新人
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.updatetime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.usercode">
+            <summary>
+            用户编号
+            </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.temp">
+             <summary>
+            识别标识 0---未识别 1---已识别
+             </summary>
+        </member>
+        <member name="P:CDWM_MR.Model.Models.v_ocrlog.readdataid">
+            <summary>
+            抄表数据id
             </summary>
         </member>
         <member name="T:CDWM_MR.Model.Models.v_photo_faultinfo">
