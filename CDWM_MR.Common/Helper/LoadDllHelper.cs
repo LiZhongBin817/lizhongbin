@@ -11,13 +11,13 @@ namespace CDWM_MR.Common.Helper
 {
     public class LoadDllHelper
     {
-        [DllImport("new_water_end.dll", EntryPoint = "stctarr", CallingConvention = CallingConvention.Cdecl)]
-       //[DllImport("easy_dll.dll", EntryPoint = "stctarr", CallingConvention = CallingConvention.Cdecl)]
+       [DllImport("new_water_end.dll", EntryPoint = "stctarr", CallingConvention = CallingConvention.Cdecl)]
+      // [DllImport("easy_dll.dll", EntryPoint = "stctarr", CallingConvention = CallingConvention.Cdecl)]
         public static extern void stctarr(ref ArrayStruct data);
 
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr LoadLibraryEx(IntPtr dllToLoad, IntPtr load, uint loadpath);
-       // public static extern IntPtr LoadLibrary(IntPtr dllToLoad);
+        //public static extern IntPtr LoadLibrary(IntPtr dllToLoad);
 
         [DllImport("kernel32.dll")]
         public static extern IntPtr GetProcAddress(IntPtr hModule, IntPtr procedureName);
@@ -53,6 +53,7 @@ namespace CDWM_MR.Common.Helper
            string dir = Path.Combine(Path.GetDirectoryName(entry.Location), "new_water_end.dll");
            //string dir = Path.Combine(Path.GetDirectoryName(entry.Location), "easy_dll.dll");
             pDll = LoadLibraryEx(Marshal.StringToHGlobalAnsi(dir), IntPtr.Zero, 0);
+            //pDll = LoadLibrary(Marshal.StringToHGlobalAnsi(dir));
             pAddressOfFunctionToCall = GetProcAddress(pDll, Marshal.StringToHGlobalAnsi("stctarr"));
             stctref = (dlgtStructRef)Marshal.GetDelegateForFunctionPointer(pAddressOfFunctionToCall, typeof(dlgtStructRef));
 
@@ -74,7 +75,8 @@ namespace CDWM_MR.Common.Helper
             stct.img_path = imagepath;
             stct.flag = false;
             stctref(ref stct);
-            string rstr = string.Empty;
+            //string rstr = string.Empty;
+            string rstr ="";
             var t = new StringBuilder();
             for (int i = 0; i < stct.datas.Length; i++)
             {

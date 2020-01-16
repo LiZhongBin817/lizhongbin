@@ -300,6 +300,15 @@ namespace CDWM_MR.Controllers
         {
             string ipadress = Appsettings.app(new string[] { "AppSettings", "StaticFileUrl", "Connectionip" });
             string Month = (Convert.ToInt32(taskperiodname) - 2).ToString();
+            int nowMonth = taskperiodname.Substring(4, 2).ObjToInt();
+            if (nowMonth == 1)
+            {
+                Month = DateTime.Now.AddYears(-1).Year.ToString() + DateTime.Now.AddMonths(10).Month.ToString();
+            }
+            else if(nowMonth==2)
+            {
+                Month = DateTime.Now.AddYears(-1).Year.ToString() + DateTime.Now.AddMonths(10).Month.ToString();
+            }
             List<v_recheck_recheckhistory> rt_B_Rechecks = await _Recheck_RecheckhistoryServices.Query();
             List<v_union_datainfoocrlog_datainfohistoryocrloghistory> Data = await _Union_Datainfoocrlog_DatainfohistoryocrloghistoryServices.Query();
             List<v_rt_b_photoattachment_rt_b_photoattachment_histoty> photo = await _rt_b_photoservices.Query(c=>c.phototype==1||c.phototype==2);
@@ -339,7 +348,14 @@ namespace CDWM_MR.Controllers
 
                 };
                 returnData.Add(data);
-                Month = (Convert.ToInt32(Month) + 1).ToString();
+                if (Month.Substring(4,2).ObjToInt()==12)
+                {
+                    Month = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2,'0');
+                }
+                else
+                {
+                    Month = (Convert.ToInt32(Month) + 1).ToString();
+                }
             }
             return new TableModel<object>
             {
