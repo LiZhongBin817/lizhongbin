@@ -28,7 +28,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function (exports) {
             tokenName: 'Authorization' //自动携带 token 的字段名。可设置 false 不携带。
         }
         //向后台请求的URL地址
-        ,requesturl:'http://localhost:8081'
+        ,requesturl:'http://localhost:5432'
         //所有的按钮信息
         ,localbtnname:'localbtnlist'
         //自定义响应字段
