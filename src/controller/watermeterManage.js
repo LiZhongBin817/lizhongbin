@@ -319,7 +319,7 @@ layui.define(['table', 'form', 'view', 'admin', 'laydate', 'upload'], function (
                                 var editregionhtml = '';
                                 var editareahtml = '';
                                 editregionhtml += regionlist.map(function(item,index){
-                                    var selectstr = item.regionno === res.data[0][0].regionplace?"selected":"";
+                                    var selectstr = item.regionname === res.data[0][0].regionplace?"selected":"";
                                     return `<option value='${item.regionno}' ${selectstr}>${item.regionname}</option>`;
                                 }).join('');
                                 //请求某一个具体区域下的小区
